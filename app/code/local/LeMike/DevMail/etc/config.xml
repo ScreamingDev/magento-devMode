@@ -1,0 +1,23 @@
+<?xml version="1.0" ?>
+<config>
+    <modules>
+        <lemike_devmode>
+            <version>0.1.0</version>
+        </lemike_devmode>
+    </modules>
+    <models>
+        <lemike_devmode>
+            <class>LeMike_DevMode</class>
+        </lemike_devmode>
+    </models>
+
+    <global>
+        <models>
+            <core>
+                <rewrite>
+                    <email>LeMike_DevMode_Model_Core_Email</email>
+                </rewrite>
+            </core>
+        </models>
+    </global>
+</config>
