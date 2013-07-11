@@ -14,6 +14,5 @@ class Acme_UnitTest_Test_Double_ProductTest extends Acme_UnitTest_Test_AbstractC
 
         $this->assertNotNull($product1->getId());
         $this->assertNotNull($product2->getId());
-
     }
 }

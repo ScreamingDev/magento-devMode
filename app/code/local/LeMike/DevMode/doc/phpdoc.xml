@@ -12,7 +12,7 @@
         <target>output</target>
     </transformer>
     <transformations>
-        <template name="responsive" />
+        <template name="responsive"/>
     </transformations>
     <files>
         <directory>..</directory>

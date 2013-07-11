@@ -30,6 +30,8 @@ abstract class LeMike_DevMode_Test_AbstractCase extends EcomDev_PHPUnit_Test_Cas
 {
     const FRONTEND_CLASS = '';
 
+    protected $_extensionNode = 'lemike_devmode';
+
 
     public function getFrontend()
     {
@@ -38,6 +40,7 @@ abstract class LeMike_DevMode_Test_AbstractCase extends EcomDev_PHPUnit_Test_Cas
         return new $frontend;
     }
 
+
     public function testSelf()
     {
     }
@@ -45,7 +48,7 @@ abstract class LeMike_DevMode_Test_AbstractCase extends EcomDev_PHPUnit_Test_Cas
 
     public function testBlackbox()
     {
-        $class = new ReflectionClass('Some_Class');
+        $class     = new ReflectionClass('Some_Class');
         $protected = $class->getProperty('_someProtected');
         $protected->setAccessible(true);
         $this->assertInternalType('string', $protected->getValue(new Some_Class));
