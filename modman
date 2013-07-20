@@ -1,2 +1,3 @@
-app/code/local/LeMike/DevMode app/code/local/LeMike/DevMode
-app/etc/modules/LeMike_DevMode.xml app/etc/modules/LeMike_DevMode.xml
+shell/dev                           shell/dev
+app/code/local/LeMike/DevMode       app/code/local/LeMike/DevMode
+app/etc/modules/LeMike_DevMode.xml  app/etc/modules/LeMike_DevMode.xml

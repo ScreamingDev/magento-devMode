@@ -19,5 +19,10 @@
                 </rewrite>
             </core>
         </models>
+        <helpers>
+            <lemike_devmode>
+                <class>LeMike_DevMode_Helper</class>
+            </lemike_devmode>
+        </helpers>
     </global>
 </config>
