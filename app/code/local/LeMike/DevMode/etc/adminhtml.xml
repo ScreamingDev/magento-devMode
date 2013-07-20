@@ -1,0 +1,35 @@
+<?xml version="1.0" ?>
+<config>
+    <menu>
+        <lemike_devmode translate="title" module="lemike_devmode">
+            <title>Development</title>
+            <sort_order>85</sort_order>
+            <children>
+                <about translate="title" module="lemike_devmode">
+                    <title>What is this?</title>
+                    <sort_order>9999</sort_order>
+                    <action>adminhtml/developer/about</action>
+                </about>
+            </children>
+        </lemike_devmode>
+    </menu>
+
+    <acl>
+        <resources>
+            <admin>
+                <children>
+                    <lemike_devmode translate="title" module="lemike_devmode">
+                        <title>LeMike Developer Mode</title>
+                        <sort_order>85</sort_order>
+                        <children>
+                            <about translate="title">
+                                <title>About Action</title>
+                                <sort_order>9999</sort_order>
+                            </about>
+                        </children>
+                    </lemike_devmode>
+                </children>
+            </admin>
+        </resources>
+    </acl>
+</config>

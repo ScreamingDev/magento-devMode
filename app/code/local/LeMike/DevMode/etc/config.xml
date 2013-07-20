@@ -5,14 +5,12 @@
             <version>0.0.1</version>
         </lemike_devmode>
     </modules>
-    <models>
-        <lemike_devmode>
-            <class>LeMike_DevMode</class>
-        </lemike_devmode>
-    </models>
 
     <global>
         <models>
+            <lemike_devmode>
+                <class>LeMike_DevMode</class>
+            </lemike_devmode>
             <core>
                 <rewrite>
                     <email>LeMike_DevMode_Model_Core_Email</email>
@@ -25,4 +23,36 @@
             </lemike_devmode>
         </helpers>
     </global>
+
+    <admin>
+        <routers>
+            <adminhtml>
+                <args>
+                    <modules>
+                        <lemike_devmode before="Mage_Adminhtml">LeMike_DevMode_Adminhtml</lemike_devmode>
+                    </modules>
+                </args>
+            </adminhtml>
+        </routers>
+    </admin>
+
+    <adminhtml>
+        <translate>
+            <modules>
+                <mage_adminhtml>
+                    <files>
+                        <lemike_devmode>LeMike_DevMode.csv</lemike_devmode>
+                    </files>
+                </mage_adminhtml>
+            </modules>
+        </translate>
+
+        <layout>
+            <updates>
+                <lemike_devmode>
+                    <file>LeMike_DevMode.xml</file>
+                </lemike_devmode>
+            </updates>
+        </layout>
+    </adminhtml>
 </config>
