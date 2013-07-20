@@ -26,27 +26,10 @@
  * @link       http://github.com/sourcerer-mike/mage_devMail
  * @since      $VERSION$
  */
-class LeMike_DevMail_Helper_Config extends Mage_Core_Helper_Abstract
+class LeMike_DevMode_Helper_Config extends LeMike_DevMode_Helper_Abstract
 {
     public function isMailAllowed()
     {
-        return $this->getStoreConfig('default/lemike_devmode/mail/active');
-    }
-
-
-    public function getStoreConfig($path)
-    {
-        return Mage::getStoreConfig($path, $this->getStoreId());
-    }
-
-
-    protected function _getStoreId()
-    {
-        if (null === $this->_storeId)
-        {
-            $this->_storeId = Mage::app()->getStore()->getStoreId();
-        }
-
-        return $this->_storeId;
+        return $this->_getStoreConfig('default/lemike_devmode/mail/active');
     }
 }
