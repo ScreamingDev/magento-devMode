@@ -30,9 +30,13 @@ class LeMike_DevMode_Adminhtml_DeveloperController extends Mage_Adminhtml_Contro
 {
     public function aboutAction()
     {
+        $helper = Mage::helper('lemike_devmode');
+
         $this->loadLayout()
-        ->_setActiveMenu('lemike_devmode/about')
-        ->_title($this->__('About Developer Mode'));
+        ->_setActiveMenu('lemike_devmode/about');
+
+        $this->_title($helper->__('Development'))
+        ->_title($helper->__('About'));
 
         $this->renderLayout();
     }
