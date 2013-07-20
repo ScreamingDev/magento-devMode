@@ -17,7 +17,7 @@
 
     <adminhtml_developer_catalog_index>
         <reference name="js">
-            <block type="adminhtml/template" template="lemike/devmode/catalog/products/js.phtml"
+            <block type="adminhtml/template" template="lemike/devmode/catalog/js.phtml"
                    name="lemike.devmode.catalog.product.js" as="product_js"></block>
         </reference>
         <reference name="left">
