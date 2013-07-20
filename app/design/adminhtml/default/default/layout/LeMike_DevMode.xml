@@ -7,10 +7,25 @@
                    before="-"></block>
         </reference>
     </default>
+
     <adminhtml_developer_about>
         <reference name="content">
-            <block type="adminhtml/template" name="lemike.devmode.about" as="about"
+            <block type="adminhtml/template" name="content.about" as="about"
                    template="lemike/devmode/about.phtml"/>
         </reference>
     </adminhtml_developer_about>
+
+    <adminhtml_developer_catalog_index>
+        <reference name="js">
+            <block type="adminhtml/template" template="lemike/devmode/catalog/products/js.phtml"
+                   name="lemike.devmode.catalog.product.js" as="product_js"></block>
+        </reference>
+        <reference name="left">
+            <block type="lemike_devmode/catalog_tabs" name="lemike.devmode.catalog.tabs"/>
+        </reference>
+        <reference name="content">
+            <block type="adminhtml/template" name="content.catalog" as="catalog"
+                   template="lemike/devmode/catalog/overview.phtml"/>
+        </reference>
+    </adminhtml_developer_catalog_index>
 </layout>

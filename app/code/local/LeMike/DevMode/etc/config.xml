@@ -7,9 +7,14 @@
     </modules>
 
     <global>
+        <blocks>
+            <lemike_devmode>
+                <class>LeMike_DevMode_Block</class>
+            </lemike_devmode>
+        </blocks>
         <models>
             <lemike_devmode>
-                <class>LeMike_DevMode</class>
+                <class>LeMike_DevMode_Model</class>
             </lemike_devmode>
             <core>
                 <rewrite>

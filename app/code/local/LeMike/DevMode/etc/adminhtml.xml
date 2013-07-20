@@ -5,6 +5,11 @@
             <title>Development</title>
             <sort_order>85</sort_order>
             <children>
+                <catalog translate="title" module="lemike_devmode">
+                    <title>Catalog</title>
+                    <sort_order>100</sort_order>
+                    <action>adminhtml/developer_catalog/index</action>
+                </catalog>
                 <about translate="title" module="lemike_devmode">
                     <title>What is this?</title>
                     <sort_order>9999</sort_order>
@@ -22,6 +27,10 @@
                         <title>LeMike Developer Mode</title>
                         <sort_order>85</sort_order>
                         <children>
+                            <catalog translate="title">
+                                <title>Catalog</title>
+                                <sort_order>100</sort_order>
+                            </catalog>
                             <about translate="title">
                                 <title>About Action</title>
                                 <sort_order>9999</sort_order>
