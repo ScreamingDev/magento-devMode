@@ -1,5 +1,12 @@
 <?xml version="1.0" ?>
 <layout>
+    <default>
+        <reference name="notifications">
+            <block type="adminhtml/template" name="lemike.devmode.notifications"
+                   template="lemike/devmode/notifications.phtml"
+                   before="-"></block>
+        </reference>
+    </default>
     <adminhtml_developer_about>
         <reference name="content">
             <block type="adminhtml/template" name="lemike.devmode.about" as="about"
