@@ -26,7 +26,7 @@
     <modules>
         <LeMike_DevMode>
             <active>true</active>
-            <codePool>local</codePool>
+            <codePool>community</codePool>
         </LeMike_DevMode>
     </modules>
 </config>
