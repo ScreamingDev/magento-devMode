@@ -56,4 +56,18 @@
                    template="lemike/devmode/customer/overview.phtml"/>
         </reference>
     </adminhtml_developer_customer_index>
+
+    <adminhtml_developer_core_index>
+        <reference name="js">
+            <block type="adminhtml/template" template="lemike/devmode/core/js.phtml"
+                   name="core.js" as="core_js"></block>
+        </reference>
+        <reference name="left">
+            <block type="lemike_devmode/core_tabs" name="core.tabs"/>
+        </reference>
+        <reference name="content">
+            <block type="adminhtml/template" name="content.core" as="core"
+                   template="lemike/devmode/core/overview.phtml"/>
+        </reference>
+    </adminhtml_developer_core_index>
 </layout>

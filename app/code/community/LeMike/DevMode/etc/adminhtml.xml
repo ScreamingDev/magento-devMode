@@ -10,6 +10,11 @@
                     <sort_order>100</sort_order>
                     <action>adminhtml/developer_catalog/index</action>
                 </catalog>
+                <core translate="title" module="lemike_devmode">
+                    <title>Core</title>
+                    <sort_order>210</sort_order>
+                    <action>adminhtml/developer_core/index</action>
+                </core>
                 <customer translate="title" module="lemike_devmode">
                     <title>Customer</title>
                     <sort_order>240</sort_order>
@@ -41,6 +46,10 @@
                                 <title>Catalog</title>
                                 <sort_order>100</sort_order>
                             </catalog>
+                            <core translate="title">
+                                <title>Core</title>
+                                <sort_order>210</sort_order>
+                            </core>
                             <customer translate="title">
                                 <title>Customer</title>
                                 <sort_order>240</sort_order>
