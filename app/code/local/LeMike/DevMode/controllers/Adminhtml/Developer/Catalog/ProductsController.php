@@ -31,32 +31,100 @@ class LeMike_DevMode_Adminhtml_Developer_Catalog_ProductsController extends Mage
     public function deleteAllAction()
     {
         $deleteAll = array(
-            'before'  => 0,
-            'after'   => 0,
-            'deleted' => 0,
+            'amount'    => 0,
+            'processed' => 0,
+            'errors'    => array(),
         );
 
+        $productSet          = $this->_getProductSet();
+        $deleteAll['amount'] = $productSet->count();
+
+        foreach ($productSet as $product)
+        {
+            $product = $product->load($product->getId());
+            /** @var Mage_Catalog_Model_Product $product */
+            $product->delete();
+            $deleteAll['processed']++;
+        }
+
+        $deleteAll['amount'] - $deleteAll['processed'];
+
+        $this->_responseJson($deleteAll);
+    }
+
+
+    public function sanitizeAllAction()
+    {
+        $sanitizeAll = array(
+            'amount'    => 0,
+            'processed' => 0,
+            'errors'    => array(),
+        );
+
+        $productSet            = $this->_getProductSet();
+        $sanitizeAll['amount'] = $productSet->count();
+
+        $stockTemplate = array(
+            'manage_stock' => 0,
+            'is_in_stock'  => 1,
+            'qty'          => 1
+        );
+
+        foreach ($productSet as $product)
+        {
+            /** @var Mage_Catalog_Model_Product $product */
+
+            $stockData = $product->getStockData();
+
+            if (!$stockData && $product->getId())
+            {
+                $product = $product->load($product->getId());
+                $product->setStockData($stockTemplate);
+
+                try
+                {
+                    $product->save();
+                    $sanitizeAll['processed']++;
+                } catch (Exception $e)
+                {
+                    $sanitizeAll['errors'][] = $e->getMessage();
+                }
+            }
+        }
+
+        $this->_responseJson($sanitizeAll);
+    }
+
+
+    /**
+     * .
+     *
+     * @return Mage_Catalog_Model_Resource_Product_Collection
+     */
+    protected function _getProductSet()
+    {
         // Set store defaults for Magento
-        $storeId = Mage::app()->getStore()->getId();
         Mage::app()->setCurrentStore(Mage_Core_Model_App::ADMIN_STORE_ID);
 
         /* @var $productModel Mage_Catalog_Model_Product */
         $productModel = Mage::getModel('catalog/product');
 
         /* @var $productSet Mage_Catalog_Model_Resource_Product_Collection */
-        $productSet          = $productModel->getCollection();
-        $deleteAll['before'] = $productSet->count();
+        $productSet = $productModel->getCollection();
 
-        foreach ($productSet as $product)
-        {
-            /** @var Mage_Catalog_Model_Product $product */
-            $product->delete();
-            $deleteAll['deleted']++;
-        }
+        return $productSet;
+    }
 
-        $deleteAll['after'] = $deleteAll['before'] - $deleteAll['deleted'];
 
+    /**
+     * .
+     *
+     * @param $deleteAll
+     * @return void
+     */
+    protected function _responseJson($data)
+    {
         $this->getResponse()->setHeader('Content-type', 'application/json');
-        $this->getResponse()->setBody(Zend_Json_Encoder::encode($deleteAll));
+        $this->getResponse()->setBody(Zend_Json_Encoder::encode($data));
     }
 }

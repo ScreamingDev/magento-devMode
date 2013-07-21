@@ -1,5 +1,16 @@
 <h2><?php echo $this->__('Products'); ?></h2>
 
+<h3><?php echo $this->__('Sanitize'); ?></h3>
+
+<p>
+    Sometime Magento says
+    "<?php echo Mage::helper('cataloginventory')->__('The stock item for Product is not valid.'); ?>"
+</p>
+
+<button type="button" onclick="devmode_Catalog_Products_SanitizeAll();"><span><?php echo $this->__(
+            'Sanitize all'
+        ); ?></span></button>
+
 <h3><?php echo $this->__('Delete'); ?></h3>
 <form method="post" action="">
     <button type="button" onclick="devmode_Catalog_Products_DeleteAll();"><span><?php echo $this->__(

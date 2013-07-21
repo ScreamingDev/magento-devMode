@@ -4,8 +4,18 @@
 
             new Ajax.Request("<?php echo $this->getUrl('adminhtml/developer_catalog_products/deleteAll') ?>", {
                 onSuccess: function (response) {
-                    eval("json = " + response.responseText);
-                    alert(json.deleted + " of " + json.before + " have been deleted.");
+                    alert(response.responseJSON.processed + " of " + response.responseJSON.amount + " have been deleted.");
+                }
+            });
+        }
+    }
+
+    function devmode_Catalog_Products_SanitizeAll() {
+        if (confirm('This will reset all products stock!\nAfter this operation every product is set to zro.\nThis might affect new orders.\n\nAre you sure to sanitize all product stocks?')) {
+
+            new Ajax.Request("<?php echo $this->getUrl('adminhtml/developer_catalog_products/sanitizeAll') ?>", {
+                onSuccess: function (response) {
+                    alert(response.responseJSON.processed + " of " + response.responseJSON.amount + " have been sanitized.");
                 }
             });
         }
