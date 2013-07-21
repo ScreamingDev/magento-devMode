@@ -28,8 +28,8 @@ class LeMike_DevMode_Block_Sales_Tabs extends Mage_Adminhtml_Block_Widget_Tabs
         $this->addTab(
             'main_section',
             array(
-                 'label'   => Mage::helper('lemike_devmode')->__('Products'),
-                 'title'   => Mage::helper('lemike_devmode')->__('Products'),
+                 'label' => Mage::helper('lemike_devmode')->__('Orders'),
+                 'title' => Mage::helper('lemike_devmode')->__('Orders'),
                  'content' => $ordersBlock->toHtml(),
                  'active'  => true
             )
