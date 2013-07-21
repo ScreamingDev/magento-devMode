@@ -47,8 +47,6 @@ class LeMike_DevMode_Adminhtml_Developer_Catalog_ProductsController extends Mage
             $deleteAll['processed']++;
         }
 
-        $deleteAll['amount'] - $deleteAll['processed'];
-
         $this->_responseJson($deleteAll);
     }
 
