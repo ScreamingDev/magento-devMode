@@ -1,0 +1,19 @@
+<script type="text/javascript">
+    function devmode_Customer_Customer_DeleteAll() {
+
+        var message = 'This will reset all customer!\nAfter this operation every customer is deleted.\n'
+            + 'This might affect orders and addresses.\n'
+            + '\n'
+            + 'Are you sure to delete all customer?';
+
+        if (confirm(message)) {
+
+            new Ajax.Request("<?php echo $this->getUrl('adminhtml/developer_customer_customer/deleteAll') ?>", {
+                onSuccess: function (response) {
+                    alert(response.responseJSON.processed + " of " + response.responseJSON.amount
+                        + " have been deleted.");
+                }
+            });
+        }
+    }
+</script>

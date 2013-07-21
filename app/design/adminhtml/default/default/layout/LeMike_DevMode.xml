@@ -42,4 +42,18 @@
                    template="lemike/devmode/sales/overview.phtml"/>
         </reference>
     </adminhtml_developer_sales_index>
+
+    <adminhtml_developer_customer_index>
+        <reference name="js">
+            <block type="adminhtml/template" template="lemike/devmode/customer/js.phtml"
+                   name="customer.js" as="customer_js"></block>
+        </reference>
+        <reference name="left">
+            <block type="lemike_devmode/customer_tabs" name="customer.tabs"/>
+        </reference>
+        <reference name="content">
+            <block type="adminhtml/template" name="content.customer" as="customer"
+                   template="lemike/devmode/customer/overview.phtml"/>
+        </reference>
+    </adminhtml_developer_customer_index>
 </layout>
