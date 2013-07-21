@@ -28,4 +28,18 @@
                    template="lemike/devmode/catalog/overview.phtml"/>
         </reference>
     </adminhtml_developer_catalog_index>
+
+    <adminhtml_developer_sales_index>
+        <reference name="js">
+            <block type="adminhtml/template" template="lemike/devmode/sales/js.phtml"
+                   name="lemike.devmode.sales.js" as="sales_js"></block>
+        </reference>
+        <reference name="left">
+            <block type="lemike_devmode/sales_tabs" name="lemike.devmode.sales.tabs"/>
+        </reference>
+        <reference name="content">
+            <block type="adminhtml/template" name="content.sales" as="sales"
+                   template="lemike/devmode/sales/overview.phtml"/>
+        </reference>
+    </adminhtml_developer_sales_index>
 </layout>

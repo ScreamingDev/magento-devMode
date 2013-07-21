@@ -1,0 +1,19 @@
+<script type="text/javascript">
+    function devmode_Sales_Orders_DeleteAll() {
+
+        var message = 'This will reset all orders!\nAfter this operation every order is deleted.\n'
+            + 'This might affect new orders.\n'
+            + '\n'
+            + 'Are you sure to sanitize all product stocks?';
+
+        if (confirm(message)) {
+
+            new Ajax.Request("<?php echo $this->getUrl('adminhtml/developer_sales_order/deleteAll') ?>", {
+                onSuccess: function (response) {
+                    alert(response.responseJSON.processed + " of " + response.responseJSON.amount
+                        + " have been sanitized.");
+                }
+            });
+        }
+    }
+</script>
