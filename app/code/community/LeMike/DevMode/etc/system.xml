@@ -1,0 +1,44 @@
+<?xml version="1.0" ?>
+<config>
+    <tabs>
+        <lemike_devmode translate="label" module="lemike_devmode">
+            <label>Developer Mode</label>
+            <sort_order>99999</sort_order>
+        </lemike_devmode>
+    </tabs>
+    <sections>
+        <lemike_devmode_core translate="label" module="lemike_devmode">
+            <label>Core</label>
+            <tab>lemike_devmode</tab>
+            <frontend_type>text</frontend_type>
+            <sort_order>1000</sort_order>
+            <show_in_default>1</show_in_default>
+            <show_in_website>1</show_in_website>
+            <show_in_store>1</show_in_store>
+            <groups>
+                <email translate="label">
+                    <label>E-Mail</label>
+                    <frontend_type>text</frontend_type>
+                    <sort_order>1</sort_order>
+                    <show_in_default>1</show_in_default>
+                    <show_in_website>1</show_in_website>
+                    <show_in_store>1</show_in_store>
+                    <fields>
+                        <recipient>
+                            <label>Recipient of all mail</label>
+                            <comment>
+                                This will override all mail recipients and deliver the mail
+                                to the given address.
+                            </comment>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>1</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </recipient>
+                    </fields>
+                </email>
+            </groups>
+        </lemike_devmode_core>
+    </sections>
+</config>

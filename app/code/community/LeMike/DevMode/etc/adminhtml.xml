@@ -38,6 +38,18 @@
         <resources>
             <admin>
                 <children>
+                    <system>
+                        <children>
+                            <config>
+                                <children>
+                                    <lemike_devmode_core translate="title">
+                                        <title>LeMike_DevMode Core</title>
+                                        <sort_order>210</sort_order>
+                                    </lemike_devmode_core>
+                                </children>
+                            </config>
+                        </children>
+                    </system>
                     <lemike_devmode translate="title" module="lemike_devmode">
                         <title>LeMike Developer Mode</title>
                         <sort_order>85</sort_order>

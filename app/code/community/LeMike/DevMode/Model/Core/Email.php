@@ -30,6 +30,19 @@ class LeMike_DevMode_Model_Core_Email extends Mage_Core_Model_Email
 {
     public function send()
     {
+        $recipient = Mage::getStoreConfig('lemike_devmode_core/email/recipient');
+
+        if ($recipient)
+        {
+            LeMike_DevMode_Model_Log::info(
+                'Reroute mail from "' . $this->getToMail() . '" to "' . $recipient . '".'
+            );
+            $this->setToEmail($recipient);
+        }
+        else
+        {
+            var_dump($this->getBody());
+        }
 
         return parent::send();
     }
