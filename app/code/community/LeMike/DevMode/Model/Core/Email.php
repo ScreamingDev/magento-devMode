@@ -25,25 +25,39 @@
  * @license    http://github.com/sourcerer-mike/mage_devMode/blob/master/License.md BSD 3-Clause ("BSD New")
  * @link       http://github.com/sourcerer-mike/mage_devMode
  * @since      $VERSION$
+ *
+ * @method string getToMail()
+ * @method $this setToMail(string $mail)
  */
 class LeMike_DevMode_Model_Core_Email extends Mage_Core_Model_Email
 {
+    /**
+     * Transfer mails in different ways.
+     *
+     * Mails will be:
+     *  - if lemike_devmode_core/email/recipient is empty the mail will be shown
+     *    otherwise send to lemike_devmode_core/email/recipient
+     *
+     * @return $this
+     */
     public function send()
     {
         $recipient = Mage::getStoreConfig('lemike_devmode_core/email/recipient');
 
         if ($recipient)
-        {
+        { // recipient is set: send mail to him
             LeMike_DevMode_Model_Log::info(
                 'Reroute mail from "' . $this->getToMail() . '" to "' . $recipient . '".'
             );
             $this->setToEmail($recipient);
+
+            return parent::send();
         }
         else
-        {
+        { // no receipient set: show content
             var_dump($this->getBody());
         }
 
-        return parent::send();
+        return $this;
     }
 }
