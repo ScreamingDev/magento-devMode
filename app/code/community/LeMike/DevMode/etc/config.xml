@@ -32,6 +32,8 @@
             <core>
                 <rewrite>
                     <email>LeMike_DevMode_Model_Core_Email</email>
+                    <email_template>LeMike_DevMode_Model_Core_Email_Template</email_template>
+                    <email_transport>LeMike_DevMode_Model_Core_Email_Transport</email_transport>
                 </rewrite>
             </core>
         </models>

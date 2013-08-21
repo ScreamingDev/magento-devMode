@@ -30,6 +30,12 @@ class LeMike_DevMode_Helper_Config extends LeMike_DevMode_Helper_Abstract
 {
     public function isMailAllowed()
     {
-        return $this->_getStoreConfig('default/lemike_devmode/mail/active');
+        return Mage::getStoreConfig('lemike_devmode_core/email/active');
+    }
+
+
+    public function getCoreEmailRecipient()
+    {
+        return Mage::getStoreConfig('lemike_devmode_core/email/recipient');
     }
 }
