@@ -44,7 +44,7 @@ class LeMike_DevMode_Model_Core_Email extends Mage_Core_Model_Email
     {
         $recipient = Mage::getStoreConfig('lemike_devmode_core/email/recipient');
 
-        if (Mage::helper('lemike_devmode/config')->isMailAllowed())
+        if (!Mage::helper('lemike_devmode/config')->isMailAllowed())
         { // no receipient set: show content
             die($this->getBody());
         }

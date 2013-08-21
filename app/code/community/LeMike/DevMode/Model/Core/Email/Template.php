@@ -40,7 +40,7 @@ class LeMike_DevMode_Model_Core_Email_Template extends Mage_Core_Model_Email_Tem
             $this->setToEmail($recipient);
         }
 
-        if (Mage::helper('lemike_devmode/config')->isMailAllowed())
+        if (!Mage::helper('lemike_devmode/config')->isMailAllowed())
         { // no recipient set: show content
             die($this->getProcessedTemplate($variables, true));
         }
