@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<phpdoc>
+    <title>LeMike_DevMode</title>
+    <parser>
+        <target>phpdoc</target>
+        <markers>
+            <item>TODO</item>
+            <item>FIXME</item>
+        </markers>
+        <extensions>
+            <extension>php</extension>
+            <extension>php3</extension>
+            <extension>phtml</extension>
+        </extensions>
+    </parser>
+    <transformer>
+        <target>output</target>
+        <external-class-documentation>
+            <prefix>LeMike_DevMode</prefix>
+            <uri>http://github.com/sourcerer-mike/magento-devMode/wiki/{CLASS}</uri>
+        </external-class-documentation>
+    </transformer>
+    <transformations>
+        <template name="responsive"/>
+    </transformations>
+    <files>
+        <directory>app/code/community/LeMike/DevMode</directory>
+        <directory>shell</directory>
+    </files>
+</phpdoc>
