@@ -28,6 +28,9 @@
  */
 abstract class LeMike_DevMode_Helper_Abstract extends Mage_Core_Helper_Abstract
 {
+    protected $_storeId;
+
+
     protected function _getStoreConfig($path)
     {
         return Mage::getStoreConfig($path, $this->_getStoreId());

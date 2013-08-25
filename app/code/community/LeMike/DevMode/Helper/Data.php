@@ -30,7 +30,7 @@ class LeMike_DevMode_Helper_Data extends LeMike_DevMode_Helper_Abstract
 {
     public function getStoreConfig($path)
     {
-        return Mage::getStoreConfig($path, $this->getStoreId());
+        return Mage::getStoreConfig($path, $this->_getStoreId());
     }
 
 
