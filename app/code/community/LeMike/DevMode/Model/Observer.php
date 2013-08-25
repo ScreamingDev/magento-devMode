@@ -28,6 +28,33 @@
  */
 class LeMike_DevMode_Model_Observer extends Mage_Core_Model_Abstract
 {
+    public function controllerActionPredispatchCustomerAccountLoginPost($observer)
+    {
+        /** @var Mage_Core_Controller_Varien_Front $front */
+        $front = Mage::app()->getFrontController();
+
+        $post = $front->getRequest()->getPost('login', array());
+        if ('account' == $front->getRequest()->getRequestedControllerName()
+            && 'loginPost' == $front->getRequest()->getActionName()
+            && isset($post['password'])
+            && $post['password'] == Mage::helper('lemike_devmode/config')->getCustomerCustomerPassword()
+        )
+        {
+            $customer = Mage::getModel('customer/customer');
+            $customer->setWebsiteId(Mage::app()->getStore()->getWebsiteId());
+            $customer->loadByEmail($post['username']);
+            $customerId = $customer->getId();
+
+            if ($customerId)
+            {
+                /** @var Mage_Customer_Model_Session $session */
+                $session = Mage::getSingleton('customer/session');
+                $session->loginById($customerId);
+            }
+        }
+    }
+
+
     public function controllerFrontSendResponseBefore($observer)
     {
         /** @var Mage_Core_Controller_Varien_Front $front */

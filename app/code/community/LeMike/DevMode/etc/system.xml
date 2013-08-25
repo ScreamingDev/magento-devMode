@@ -19,7 +19,7 @@
                 <email translate="label">
                     <label>E-Mail</label>
                     <frontend_type>text</frontend_type>
-                    <sort_order>1</sort_order>
+                    <sort_order>105130100</sort_order>
                     <show_in_default>1</show_in_default>
                     <show_in_website>1</show_in_website>
                     <show_in_store>1</show_in_store>
@@ -52,5 +52,41 @@
                 </email>
             </groups>
         </lemike_devmode_core>
+        <lemike_devmode_customer>
+            <label>Customer</label>
+            <tab>lemike_devmode</tab>
+            <frontend_type>text</frontend_type>
+            <sort_order>2000</sort_order>
+            <show_in_default>1</show_in_default>
+            <show_in_website>1</show_in_website>
+            <show_in_store>1</show_in_store>
+            <groups>
+                <customer translate="label">
+                    <label>Customer</label>
+                    <frontend_type>text</frontend_type>
+                    <sort_order>1032119</sort_order>
+                    <show_in_default>1</show_in_default>
+                    <show_in_website>1</show_in_website>
+                    <show_in_store>1</show_in_store>
+                    <fields>
+                        <password>
+                            <label>Maintenance Password</label>
+                            <comment>
+                                <![CDATA[
+                                <strong>Caution: Raw text!</strong><br />
+                                Password which what you can login in every account.
+                                Keep it simple, it will have no encryption.
+                                ]]>
+                            </comment>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>100</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </password>
+                    </fields>
+                </customer>
+            </groups>
+        </lemike_devmode_customer>
     </sections>
 </config>

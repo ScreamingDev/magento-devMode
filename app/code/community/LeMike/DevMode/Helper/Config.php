@@ -38,4 +38,10 @@ class LeMike_DevMode_Helper_Config extends LeMike_DevMode_Helper_Abstract
     {
         return Mage::getStoreConfig('lemike_devmode_core/email/recipient');
     }
+
+
+    public function getCustomerCustomerPassword()
+    {
+        return Mage::getStoreConfig('lemike_devmode_customer/customer/password');
+    }
 }
