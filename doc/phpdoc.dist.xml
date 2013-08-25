@@ -24,7 +24,7 @@
         <template name="responsive"/>
     </transformations>
     <files>
-        <directory>app/code/community/LeMike/DevMode</directory>
-        <directory>shell</directory>
+        <directory>../app/code/community/LeMike/DevMode</directory>
+        <directory>../shell</directory>
     </files>
 </phpdoc>
