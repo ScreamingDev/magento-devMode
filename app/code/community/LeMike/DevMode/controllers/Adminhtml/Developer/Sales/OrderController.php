@@ -36,11 +36,13 @@ class LeMike_DevMode_Adminhtml_Developer_Sales_OrderController extends Mage_Admi
             'errors'    => array(),
         );
 
+        $helper                 = Mage::helper('lemike_devmode');
+
         $orderSet               = $this->_getOrderSet();
         $deleteAll['amount']    = $orderSet->count();
-        $deleteAll['processed'] = Mage::helper('lemike_devmode')->truncateModel($orderSet);
+        $deleteAll['processed'] = $helper->truncateModel($orderSet);
 
-        $this->_responseJson($deleteAll);
+        $helper->responseJson($deleteAll);
     }
 
 
@@ -55,18 +57,5 @@ class LeMike_DevMode_Adminhtml_Developer_Sales_OrderController extends Mage_Admi
         Mage::app()->setCurrentStore(Mage_Core_Model_App::ADMIN_STORE_ID);
 
         return Mage::getModel('sales/order')->getCollection();
-    }
-
-
-    /**
-     * .
-     *
-     * @param $data
-     * @return void
-     */
-    protected function _responseJson($data)
-    {
-        $this->getResponse()->setHeader('Content-type', 'application/json');
-        $this->getResponse()->setBody(Zend_Json_Encoder::encode($data));
     }
 }

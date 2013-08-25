@@ -46,4 +46,17 @@ class LeMike_DevMode_Helper_Data extends LeMike_DevMode_Helper_Abstract
 
         return $processed;
     }
+
+
+    /**
+     * .
+     *
+     * @param array $data
+     * @return void
+     */
+    public function responseJson($data)
+    {
+        $this->getResponse()->setHeader('Content-type', 'application/json');
+        $this->getResponse()->setBody(Zend_Json_Encoder::encode($data));
+    }
 }

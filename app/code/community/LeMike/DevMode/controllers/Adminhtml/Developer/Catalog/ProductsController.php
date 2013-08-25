@@ -36,11 +36,13 @@ class LeMike_DevMode_Adminhtml_Developer_Catalog_ProductsController extends Mage
             'errors'    => array(),
         );
 
+        $helper                 = Mage::helper('lemike_devmode');
+
         $productSet             = $this->_getProductSet();
         $deleteAll['amount']    = $productSet->count();
-        $deleteAll['processed'] = Mage::helper('lemike_devmode')->truncateModel($productSet);
+        $deleteAll['processed'] = $helper->truncateModel($productSet);
 
-        $this->_responseJson($deleteAll);
+        $helper->responseJson($deleteAll);
     }
 
 
@@ -83,7 +85,7 @@ class LeMike_DevMode_Adminhtml_Developer_Catalog_ProductsController extends Mage
             }
         }
 
-        $this->_responseJson($sanitizeAll);
+        Mage::helper('lemike_devmode')->responseJson($sanitizeAll);
     }
 
 
@@ -104,18 +106,5 @@ class LeMike_DevMode_Adminhtml_Developer_Catalog_ProductsController extends Mage
         $productSet = $productModel->getCollection();
 
         return $productSet;
-    }
-
-
-    /**
-     * .
-     *
-     * @param $data
-     * @return void
-     */
-    protected function _responseJson($data)
-    {
-        $this->getResponse()->setHeader('Content-type', 'application/json');
-        $this->getResponse()->setBody(Zend_Json_Encoder::encode($data));
     }
 }
