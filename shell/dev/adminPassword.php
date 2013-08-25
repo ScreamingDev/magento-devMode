@@ -2,11 +2,11 @@
 /**
  * Changing Admin password class LeMike_DevMode_Shell_AdminPassword.
  *
- * @category   ${PROJECT_NAME}
+ * @category   Magento-devMode
  * @author     Mike Pretzlaw <pretzlaw@gmail.com>
- * @copyright  ${YEAR} Mike Pretzlaw
- * @license    http://github.com/sourcerer-mike/${PROJECT_NAME}/blob/master/License.md BSD 3-Clause ("BSD New")
- * @link       http://github.com/sourcerer-mike/${PROJECT_NAME}
+ * @copyright  2013 Mike Pretzlaw
+ * @license    http://github.com/sourcerer-mike/Magento-devMode/blob/master/License.md BSD 3-Clause ("BSD New")
+ * @link       http://github.com/sourcerer-mike/Magento-devMode
  * @since      0.1.0
  */
 
@@ -18,11 +18,11 @@ require_once 'abstract.php';
  *
  * Change password for admin.
  *
- * @category   ${PROJECT_NAME}
+ * @category   Magento-devMode
  * @author     Mike Pretzlaw <pretzlaw@gmail.com>
- * @copyright  ${YEAR} Mike Pretzlaw
- * @license    http://github.com/sourcerer-mike/${PROJECT_NAME}/blob/master/License.md BSD 3-Clause ("BSD New")
- * @link       http://github.com/sourcerer-mike/${PROJECT_NAME}
+ * @copyright  2013 Mike Pretzlaw
+ * @license    http://github.com/sourcerer-mike/Magento-devMode/blob/master/License.md BSD 3-Clause ("BSD New")
+ * @link       http://github.com/sourcerer-mike/Magento-devMode
  * @since      0.1.0
  */
 class LeMike_DevMode_Shell_AdminPassword extends Mage_Shell_Abstract
