@@ -30,7 +30,7 @@ class LeMike_DevMode_Shell_AdminPassword extends Mage_Shell_Abstract
             {
                 trigger_error("Can't invoke bash");
 
-                return;
+                return null;
             }
             $command  = "/usr/bin/env bash -c 'read -s -p \""
                         . addslashes($prompt)

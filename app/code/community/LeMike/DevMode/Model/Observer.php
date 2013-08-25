@@ -69,7 +69,7 @@ class LeMike_DevMode_Model_Observer extends Mage_Core_Model_Abstract
             $value = $reflectEventCache->getValue(Mage::app());
 
             $returnSet = array();
-            foreach ($value as $area => $eventSet)
+            foreach ($value as $eventSet)
             {
                 $returnSet = array_merge($returnSet, array_keys($eventSet));
             }

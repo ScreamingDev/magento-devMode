@@ -68,7 +68,7 @@ class LeMike_DevMode_Adminhtml_Developer_Customer_CustomerController extends Mag
     /**
      * .
      *
-     * @param $deleteAll
+     * @param $data
      * @return void
      */
     protected function _responseJson($data)

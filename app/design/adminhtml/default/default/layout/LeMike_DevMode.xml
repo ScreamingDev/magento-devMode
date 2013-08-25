@@ -4,7 +4,7 @@
         <reference name="notifications">
             <block type="adminhtml/template" name="lemike.devmode.notifications"
                    template="lemike/devmode/notifications.phtml"
-                   before="-"></block>
+                   before="-"/>
         </reference>
     </default>
 
@@ -18,7 +18,7 @@
     <adminhtml_developer_catalog_index>
         <reference name="js">
             <block type="adminhtml/template" template="lemike/devmode/catalog/js.phtml"
-                   name="lemike.devmode.catalog.product.js" as="product_js"></block>
+                   name="lemike.devmode.catalog.product.js" as="product_js"/>
         </reference>
         <reference name="left">
             <block type="lemike_devmode/catalog_tabs" name="lemike.devmode.catalog.tabs"/>
@@ -32,7 +32,7 @@
     <adminhtml_developer_sales_index>
         <reference name="js">
             <block type="adminhtml/template" template="lemike/devmode/sales/js.phtml"
-                   name="lemike.devmode.sales.js" as="sales_js"></block>
+                   name="lemike.devmode.sales.js" as="sales_js"/>
         </reference>
         <reference name="left">
             <block type="lemike_devmode/sales_tabs" name="lemike.devmode.sales.tabs"/>
@@ -46,7 +46,7 @@
     <adminhtml_developer_customer_index>
         <reference name="js">
             <block type="adminhtml/template" template="lemike/devmode/customer/js.phtml"
-                   name="customer.js" as="customer_js"></block>
+                   name="customer.js" as="customer_js"/>
         </reference>
         <reference name="left">
             <block type="lemike_devmode/customer_tabs" name="customer.tabs"/>
@@ -60,7 +60,7 @@
     <adminhtml_developer_core_index>
         <reference name="js">
             <block type="adminhtml/template" template="lemike/devmode/core/js.phtml"
-                   name="core.js" as="core_js"></block>
+                   name="core.js" as="core_js"/>
         </reference>
         <reference name="left">
             <block type="lemike_devmode/core_tabs" name="core.tabs"/>

@@ -68,7 +68,7 @@ class LeMike_DevMode_Adminhtml_Developer_Sales_OrderController extends Mage_Admi
     /**
      * .
      *
-     * @param $deleteAll
+     * @param $data
      * @return void
      */
     protected function _responseJson($data)

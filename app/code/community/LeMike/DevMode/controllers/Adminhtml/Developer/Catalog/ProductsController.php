@@ -117,7 +117,7 @@ class LeMike_DevMode_Adminhtml_Developer_Catalog_ProductsController extends Mage
     /**
      * .
      *
-     * @param $deleteAll
+     * @param $data
      * @return void
      */
     protected function _responseJson($data)
