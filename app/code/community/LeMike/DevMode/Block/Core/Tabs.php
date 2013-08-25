@@ -1,4 +1,14 @@
 <?php
+/**
+ * Contains class LeMike_DevMode_Block_Core_Tabs.
+ *
+ * @category   ${PROJECT_NAME}
+ * @author     Mike Pretzlaw <pretzlaw@gmail.com>
+ * @copyright  ${YEAR} Mike Pretzlaw
+ * @license    http://github.com/sourcerer-mike/${PROJECT_NAME}/blob/master/License.md BSD 3-Clause ("BSD New")
+ * @link       http://github.com/sourcerer-mike/${PROJECT_NAME}
+ * @since      0.1.0
+ */
 
 /**
  * LeMike_DevMode Catalog page left menu
@@ -10,6 +20,9 @@
 class LeMike_DevMode_Block_Core_Tabs extends Mage_Adminhtml_Block_Widget_Tabs
 {
 
+    /**
+     * Create new Tab.
+     */
     public function __construct()
     {
         parent::__construct();
@@ -19,6 +32,11 @@ class LeMike_DevMode_Block_Core_Tabs extends Mage_Adminhtml_Block_Widget_Tabs
     }
 
 
+    /**
+     * Changes before HTML is made.
+     *
+     * @return Mage_Core_Block_Abstract
+     */
     protected function _beforeToHtml()
     {
         /** @var Mage_Adminhtml_Block_Template $emailBlock */

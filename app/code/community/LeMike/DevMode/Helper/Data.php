@@ -13,7 +13,7 @@
  * @copyright  2013 Mike Pretzlaw
  * @license    http://github.com/sourcerer-mike/mage_devMail/blob/master/License.md BSD 3-Clause ("BSD New")
  * @link       http://github.com/sourcerer-mike/mage_devMail
- * @since      $VERSION$
+ * @since      0.1.0
  */
 
 /**
@@ -24,7 +24,7 @@
  * @copyright  2013 Mike Pretzlaw
  * @license    http://github.com/sourcerer-mike/mage_devMail/blob/master/License.md BSD 3-Clause ("BSD New")
  * @link       http://github.com/sourcerer-mike/mage_devMail
- * @since      $VERSION$
+ * @since      0.1.0
  */
 class LeMike_DevMode_Helper_Data extends LeMike_DevMode_Helper_Abstract
 {

@@ -13,11 +13,26 @@
  * @copyright  2013 Mike Pretzlaw
  * @license    http://github.com/sourcerer-mike/mage_devMail/blob/master/License.md BSD 3-Clause ("BSD New")
  * @link       http://github.com/sourcerer-mike/mage_devMail
- * @since      $VERSION$
+ * @since      0.2.0
  */
 
+/**
+ * Class LeMike_DevMode_Model_ObserverTest.
+ *
+ * @category   ${PROJECT_NAME}
+ * @author     Mike Pretzlaw <pretzlaw@gmail.com>
+ * @copyright  ${YEAR} Mike Pretzlaw
+ * @license    http://github.com/sourcerer-mike/${PROJECT_NAME}/blob/master/License.md BSD 3-Clause ("BSD New")
+ * @link       http://github.com/sourcerer-mike/${PROJECT_NAME}
+ * @since      0.2.0
+ */
 class LeMike_DevMode_Model_ObserverTest extends EcomDev_PHPUnit_Test_Case_Controller
 {
+    /**
+     * Test when the URL has an '__events' in it.
+     *
+     * @return void
+     */
     public function testEventsQuery()
     {
         /** @var EcomDev_PHPUnit_Controller_Request_Http $request */

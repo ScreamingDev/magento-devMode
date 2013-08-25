@@ -13,7 +13,7 @@
  * @copyright  2013 Mike Pretzlaw
  * @license    http://github.com/sourcerer-mike/mage_devMode/blob/master/License.md BSD 3-Clause ("BSD New")
  * @link       http://github.com/sourcerer-mike/mage_devMode
- * @since      $VERSION$
+ * @since      0.2.0
  */
 
 /**
@@ -24,7 +24,7 @@
  * @copyright  2013 Mike Pretzlaw
  * @license    http://github.com/sourcerer-mike/mage_devMode/blob/master/License.md BSD 3-Clause ("BSD New")
  * @link       http://github.com/sourcerer-mike/mage_devMode
- * @since      $VERSION$
+ * @since      0.2.0
  *
  * @method string getToMail()
  * @method $this setToMail(string $mail)

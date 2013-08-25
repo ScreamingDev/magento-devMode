@@ -1,11 +1,39 @@
 <?php
+/**
+ * Changing Admin password class LeMike_DevMode_Shell_AdminPassword.
+ *
+ * @category   ${PROJECT_NAME}
+ * @author     Mike Pretzlaw <pretzlaw@gmail.com>
+ * @copyright  ${YEAR} Mike Pretzlaw
+ * @license    http://github.com/sourcerer-mike/${PROJECT_NAME}/blob/master/License.md BSD 3-Clause ("BSD New")
+ * @link       http://github.com/sourcerer-mike/${PROJECT_NAME}
+ * @since      0.1.0
+ */
 
 const LOADING_MAGENTO = "Loading Magento ...";
 require_once 'abstract.php';
 
+/**
+ * Class LeMike_DevMode_Shell_AdminPassword.
+ *
+ * Change password for admin.
+ *
+ * @category   ${PROJECT_NAME}
+ * @author     Mike Pretzlaw <pretzlaw@gmail.com>
+ * @copyright  ${YEAR} Mike Pretzlaw
+ * @license    http://github.com/sourcerer-mike/${PROJECT_NAME}/blob/master/License.md BSD 3-Clause ("BSD New")
+ * @link       http://github.com/sourcerer-mike/${PROJECT_NAME}
+ * @since      0.1.0
+ */
 class LeMike_DevMode_Shell_AdminPassword extends Mage_Shell_Abstract
 {
 
+    /**
+     * Password prompt.
+     *
+     * @param string $prompt
+     * @return null|string
+     */
     function prompt_silent($prompt = "Enter Password: ")
     {
         if (preg_match('/^win/i', PHP_OS))
@@ -44,7 +72,7 @@ class LeMike_DevMode_Shell_AdminPassword extends Mage_Shell_Abstract
 
 
     /**
-     * Run script
+     * Change password for admin.
      *
      */
     public function run()
