@@ -43,4 +43,18 @@ class LeMike_DevMode_Helper_Data extends LeMike_DevMode_Helper_Abstract
 
         return $this->_storeId;
     }
+
+
+    public function truncateModel($model)
+    {
+        $processed = 0;
+        foreach ($model as $entry)
+        {
+            $entry = $entry->load($entry->getId());
+            $entry->delete();
+            $processed++;
+        }
+
+        return $processed;
+    }
 }

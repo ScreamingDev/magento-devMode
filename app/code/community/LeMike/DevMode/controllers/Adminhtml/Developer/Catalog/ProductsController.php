@@ -36,16 +36,9 @@ class LeMike_DevMode_Adminhtml_Developer_Catalog_ProductsController extends Mage
             'errors'    => array(),
         );
 
-        $productSet          = $this->_getProductSet();
-        $deleteAll['amount'] = $productSet->count();
-
-        foreach ($productSet as $product)
-        {
-            $product = $product->load($product->getId());
-            /** @var Mage_Catalog_Model_Product $product */
-            $product->delete();
-            $deleteAll['processed']++;
-        }
+        $productSet             = $this->_getProductSet();
+        $deleteAll['amount']    = $productSet->count();
+        $deleteAll['processed'] = Mage::helper('lemike_devmode')->truncateModel($productSet);
 
         $this->_responseJson($deleteAll);
     }

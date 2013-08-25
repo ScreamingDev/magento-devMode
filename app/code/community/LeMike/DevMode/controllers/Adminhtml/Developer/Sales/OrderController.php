@@ -36,16 +36,9 @@ class LeMike_DevMode_Adminhtml_Developer_Sales_OrderController extends Mage_Admi
             'errors'    => array(),
         );
 
-        $orderSet            = $this->_getOrderSet();
-        $deleteAll['amount'] = $orderSet->count();
-
-        foreach ($orderSet as $order)
-        {
-            /** @var Mage_Sales_Model_Order $order */
-            $order = $order->load($order->getId());
-            $order->delete();
-            $deleteAll['processed']++;
-        }
+        $orderSet               = $this->_getOrderSet();
+        $deleteAll['amount']    = $orderSet->count();
+        $deleteAll['processed'] = Mage::helper('lemike_devmode')->truncateModel($orderSet);
 
         $this->_responseJson($deleteAll);
     }
