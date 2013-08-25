@@ -34,17 +34,6 @@ class LeMike_DevMode_Helper_Data extends LeMike_DevMode_Helper_Abstract
     }
 
 
-    protected function _getStoreId()
-    {
-        if (null === $this->_storeId)
-        {
-            $this->_storeId = Mage::app()->getStore()->getStoreId();
-        }
-
-        return $this->_storeId;
-    }
-
-
     public function truncateModel($model)
     {
         $processed = 0;
