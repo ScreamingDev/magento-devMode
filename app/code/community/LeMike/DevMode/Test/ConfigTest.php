@@ -11,7 +11,7 @@
  * @package    ConfigTest.php
  * @author     Mike Pretzlaw <pretzlaw@gmail.com>
  * @copyright  2013 Mike Pretzlaw
- * @license    http://github.com/sourcerer-mike/mage_devMode/blob/master/License.md BSD 3-Clause ("BSD New")
+ * @license    http://github.com/sourcerer-mike/mage_devMode/blob/master/LICENSE.md BSD 3-Clause ("BSD New")
  * @link       http://github.com/sourcerer-mike/mage_devMode
  * @since      0.2.0
  */
@@ -22,7 +22,7 @@
  * @category   mage_devMode
  * @author     Mike Pretzlaw <pretzlaw@gmail.com>
  * @copyright  2013 Mike Pretzlaw
- * @license    http://github.com/sourcerer-mike/mage_devMode/blob/master/License.md BSD 3-Clause ("BSD New")
+ * @license    http://github.com/sourcerer-mike/mage_devMode/blob/master/LICENSE.md BSD 3-Clause ("BSD New")
  * @link       http://github.com/sourcerer-mike/mage_devMode
  * @since      0.2.0
  */
