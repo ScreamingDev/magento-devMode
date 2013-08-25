@@ -1,6 +1,7 @@
 <div class="notification-global">
     <strong><?php echo $this->helper('lemike_devmode')->__('Developer Mode is still active.') ?></strong>
     <?php echo $this->helper('lemike_devmode')->__(
-        'Remember to remove the extension LeMike_Develop before going live due to security issues!'
+        'Remember to <a href="%s">remove the extension LeMike_Develop</a> before going live due to security issues!',
+        $this->getUrl('adminhtml/extension_local')
     ) ?>
 </div>
