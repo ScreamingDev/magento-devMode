@@ -1,0 +1,3 @@
+config:
+  lemike_devmode_core/email/active: 1
+  lemike_devmode_core/email/recipient: 0

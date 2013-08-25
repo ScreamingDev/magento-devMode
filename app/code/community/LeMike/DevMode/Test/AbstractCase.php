@@ -25,6 +25,8 @@
  * @license    http://github.com/sourcerer-mike/magento-snippets/blob/master/License.md BSD 3-Clause ("BSD New")
  * @link       http://github.com/sourcerer-mike/magento-snippets
  * @since      0.1.0
+ *
+ * @loadFixture default
  */
 abstract class LeMike_DevMode_Test_AbstractCase extends EcomDev_PHPUnit_Test_Case
 {
@@ -48,5 +50,16 @@ abstract class LeMike_DevMode_Test_AbstractCase extends EcomDev_PHPUnit_Test_Cas
 
     public function testBlackbox()
     {
+    }
+
+
+    public function callMethod($object, $method, $args = array())
+    {
+        $reflect = new ReflectionObject($object);
+
+        $reflectMethod = $reflect->getMethod($method);
+        $reflectMethod->setAccessible(true);
+
+        return $reflectMethod->invokeArgs($object, $args);
     }
 }
