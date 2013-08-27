@@ -37,14 +37,6 @@
                 </rewrite>
             </core>
         </models>
-        <resources>
-            <lemike_devmode_setup>
-                <setup>
-                    <module>LeMike_DevMode</module>
-                    <class>LeMike_DevMode_Model_Resource_Setup</class>
-                </setup>
-            </lemike_devmode_setup>
-        </resources>
     </global>
 
     <frontend>
