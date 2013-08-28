@@ -36,7 +36,7 @@ So the other keys are `frontend` and `backend`.
 ## Shell Tools
 
 - Change the admin password without nagging mail
-
+- List the current rewrites
 
 ### Change admin password
 
@@ -45,3 +45,19 @@ So the other keys are `frontend` and `backend`.
 - and a new password
 
 Note: The admin have to exist.
+
+### List current rewrites
+
+```
+magento/shell$ php coreConfig_listRewrites.php
+
+ Config path                                       | New class
+---------------------------------------------------+-----------------------------------------------------
+ global/models/core/rewrite/email                  | LeMike_DevMode_Model_Core_Email
+ global/models/core/rewrite/email_template         | LeMike_DevMode_Model_Core_Email_Template
+ global/models/core/rewrite/email_transport        | LeMike_DevMode_Model_Core_Email_Transport
+ global/models/tax/rewrite/config                  | FireGento_GermanSetup_Model_Tax_Config
+ global/blocks/customer/rewrite/account_navigation | Webguys_CustomerNavigation_Block_Account_Navigation
+```
+
+Note: Duplicates / Conflicts will be marked or highlighted.
