@@ -1,4 +1,4 @@
-shell/dev                                                       shell/dev
+shell/*                                                         shell
 app/code/community/LeMike/DevMode                               app/code/community/LeMike/DevMode
 app/etc/modules/LeMike_DevMode.xml                              app/etc/modules/LeMike_DevMode.xml
 app/design/adminhtml/default/default/layout/LeMike_DevMode.xml  app/design/adminhtml/default/default/layout/LeMike_DevMode.xml
