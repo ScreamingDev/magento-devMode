@@ -1,0 +1,29 @@
+{
+    "name": "sourcerer-mike/magento-devMode",
+    "license": "BSD-3",
+    "type": "magento-module",
+    "description": "",
+    "homepage": "http://mike-pretzlaw.de",
+    "require": {
+        "php": ">=5.3.0",
+    },
+    "repositories": [
+        {
+            "type": "git",
+            "url": "git@github.com:sourcerer-mike/magento-devMode.git"
+        }
+    ],
+    "keywords": [
+        "magento",
+        "extension",
+        "module"
+    ],
+    "authors": [
+        {
+            "name": "Mike Pretzlaw",
+            "email": "info@mike-pretzlaw.de",
+            "homepage": "http://mike-pretzlaw.de",
+            "role": "Developer"
+        }
+    ]
+}
