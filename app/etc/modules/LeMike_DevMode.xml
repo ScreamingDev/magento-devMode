@@ -22,6 +22,9 @@
         <LeMike_DevMode>
             <active>true</active>
             <codePool>community</codePool>
+            <depends>
+                <Mage_Core/>
+            </depends>
         </LeMike_DevMode>
     </modules>
 </config>
