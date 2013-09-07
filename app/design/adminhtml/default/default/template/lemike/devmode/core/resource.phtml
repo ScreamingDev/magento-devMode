@@ -8,13 +8,17 @@
         <th>Cached version</th>
         <th>Installed version</th>
         <th>Filesystem version</th>
+        <th>Code pool</th>
     </tr>
     </thead>
     <tbody>
     <?php foreach ($this->getModuleSet() as $data): ?>
         <tr>
-            <td><?php echo $data['name'] ?></td>
-            <td><?php echo $data['name'] ?></td>
+            <td><?php echo $data[LeMike_DevMode_Model_Core_Resource::MODULE_NAME] ?></td>
+            <td><?php echo $data[LeMike_DevMode_Model_Core_Resource::MODULE_VERSION_CACHED] ?></td>
+            <td><?php echo $data[LeMike_DevMode_Model_Core_Resource::MODULE_VERSION_DATABASE] ?></td>
+            <td><?php echo $data[LeMike_DevMode_Model_Core_Resource::MODULE_VERSION_CONFIG] ?></td>
+            <td><?php echo $data[LeMike_DevMode_Model_Core_Resource::MODULE_CODE_POOL] ?></td>
         </tr>
     <?php endforeach; ?>
     </tbody>

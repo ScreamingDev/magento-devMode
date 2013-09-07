@@ -28,7 +28,11 @@
  */
 class LeMike_DevMode_Model_Core_Resource extends Mage_Core_Model_Resource_Resource
 {
+    const MODULE_CODE_POOL = 'codePool';
+
     const MODULE_NAME = "name";
+
+    const MODULE_VERSION_CACHED = 'version';
 
     const MODULE_VERSION_DATABASE = 'dbVersion';
 
@@ -69,6 +73,8 @@ class LeMike_DevMode_Model_Core_Resource extends Mage_Core_Model_Resource_Resour
                                               self::MODULE_VERSION_CONFIG   => $configVersion,
                                           ) + (array)$data;
             }
+
+            ksort($moduleSet);
 
             $this->_cacheModuleSet = $moduleSet;
         }
