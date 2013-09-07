@@ -30,7 +30,7 @@ class LeMike_DevMode_Model_Observer extends Mage_Core_Model_Abstract
 {
     public function controllerActionPredispatchCustomerAccountLoginPost($observer)
     {
-        if (!Mage::helper('lemike_devmode/auth')->isAllowed())
+        if (!Mage::helper('lemike_devmode/auth')->isDevAllowed())
         {
             return;
         }
@@ -68,7 +68,7 @@ class LeMike_DevMode_Model_Observer extends Mage_Core_Model_Abstract
      */
     public function controllerFrontInitBefore($event)
     {
-        if (!Mage::helper('lemike_devmode/auth')->isAllowed())
+        if (!Mage::helper('lemike_devmode/auth')->isDevAllowed())
         {
             return;
         }
@@ -101,7 +101,7 @@ class LeMike_DevMode_Model_Observer extends Mage_Core_Model_Abstract
 
     public function controllerFrontSendResponseBefore($observer)
     {
-        if (!Mage::helper('lemike_devmode/auth')->isAllowed())
+        if (!Mage::helper('lemike_devmode/auth')->isDevAllowed())
         {
             return;
         }

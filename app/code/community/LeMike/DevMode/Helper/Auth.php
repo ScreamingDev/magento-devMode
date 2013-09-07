@@ -28,7 +28,7 @@
  */
 class LeMike_DevMode_Helper_Auth extends LeMike_DevMode_Helper_Abstract
 {
-    public function isAllowed()
+    public function isDevAllowed()
     {
         $allowRestrictedIpOnly =
             Mage::app()->getStore()->getConfig('lemike_devmode_general/security/allow_restricted_ip_only');
