@@ -46,21 +46,21 @@ class LeMike_DevMode_Shell_ListRewrites extends Mage_Shell_Abstract
         ksort($moduleSet);
 
         $table = new LeMike_DevMode_Block_Shell_Table(
-            array("name"     => 'Module name',
+            array("name"          => 'Module name',
                   "version"       => 'Cached',
-                  "dbVersion" => 'Installed',
-                  "configVersion" => 'Available',
-                  "codePool" => "Code Pool"
+                  "dbVersion"     => 'Installed',
+                  "configVersion" => 'Filesystem',
+                  "codePool"      => "Code Pool"
             ),
             $moduleSet
         );
 
         $table->legend = array(
-            'name'     => "The name of the module",
-            'version'  => "What is stored in the cache",
-            'dbVersion' => "What is stored in the db",
+            'name'          => "The name of the module",
+            'version'       => "What is stored in the cache",
+            'dbVersion'     => "What is stored in the db",
             'configVersion' => "The version in the according config.xml",
-            'codePool' => "Where the extensions resides",
+            'codePool'      => "Where the extensions resides",
         );
 
         echo $table . PHP_EOL;
