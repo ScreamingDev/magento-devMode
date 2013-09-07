@@ -1,7 +1,7 @@
 <?php /** @var LeMike_DevMode_Block_Core_Resource $this */ ?>
 <h2><?php echo $this->__('Resource'); ?></h2>
 
-<table>
+<table border="1">
     <thead>
     <tr>
         <th>Name</th>
@@ -9,16 +9,29 @@
         <th>Installed version</th>
         <th>Filesystem version</th>
         <th>Code pool</th>
+        <th>Action</th>
     </tr>
     </thead>
     <tbody>
     <?php foreach ($this->getModuleSet() as $data): ?>
+        <?php
+        $moduleName = $data[LeMike_DevMode_Model_Core_Resource::MODULE_NAME];
+        $runSetup   = Mage::helper('adminhtml')->getUrl(
+            'lemike_devmode/adminhtml_developer_core/run',
+            array(LeMike_DevMode_Adminhtml_Developer_CoreController::SETUP_MODULE_NAME => $moduleName)
+        );
+        ?>
         <tr>
             <td><?php echo $data[LeMike_DevMode_Model_Core_Resource::MODULE_NAME] ?></td>
             <td><?php echo $data[LeMike_DevMode_Model_Core_Resource::MODULE_VERSION_CACHED] ?></td>
             <td><?php echo $data[LeMike_DevMode_Model_Core_Resource::MODULE_VERSION_DATABASE] ?></td>
             <td><?php echo $data[LeMike_DevMode_Model_Core_Resource::MODULE_VERSION_CONFIG] ?></td>
             <td><?php echo $data[LeMike_DevMode_Model_Core_Resource::MODULE_CODE_POOL] ?></td>
+            <td>
+                <?php if (strpos($moduleName, 'Mage_Admin') !== 0): ?>
+                    <a href="<?php echo $runSetup ?>"><?php echo $this->__('Run setup again'); ?></a>
+                <?php endif; ?>
+            </td>
         </tr>
     <?php endforeach; ?>
     </tbody>

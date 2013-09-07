@@ -34,11 +34,19 @@ class LeMike_DevMode_Model_Core_Resource extends Mage_Core_Model_Resource_Resour
 
     const MODULE_VERSION_CACHED = 'version';
 
-    const MODULE_VERSION_DATABASE = 'dbVersion';
-
     const MODULE_VERSION_CONFIG = 'configVersion';
 
+    const MODULE_VERSION_DATABASE = 'dbVersion';
+
     private $_cacheModuleSet;
+
+
+    public function clearCache()
+    {
+        $this->_cacheModuleSet = null;
+        self::$_versions       = null;
+        self::$_dataVersions   = null;
+    }
 
 
     public function getModuleInfo($moduleName)
@@ -59,9 +67,9 @@ class LeMike_DevMode_Model_Core_Resource extends Mage_Core_Model_Resource_Resour
         {
             $moduleSet = (array)Mage::getConfig()->getNode('modules')->children();
 
+            $helper = Mage::helper('lemike_devmode/core');
             foreach ($moduleSet as $moduleName => $data)
             {
-                $helper    = Mage::helper('lemike_devmode/core');
                 $resName   = $helper->getResourceName($moduleName);
                 $dbVersion = $this->getDbVersion($resName);
 
@@ -83,14 +91,22 @@ class LeMike_DevMode_Model_Core_Resource extends Mage_Core_Model_Resource_Resour
     }
 
 
-    public function clearCache()
+    public function resetVersionByModuleName($moduleName)
     {
-        $this->_cacheModuleSet = null;
-    }
+        $helper  = Mage::helper('lemike_devmode/core');
+        $resName = $helper->getResourceName($moduleName);
 
+        if ($resName == '')
+        {
+            return false;
+        }
 
-    public function reinstall($resName)
-    {
-        $this->setDbVersion($resName, null);
+        $this->setDbVersion($resName, '0.0.0');
+        $this->setDataVersion($resName, '0.0.0');
+        $this->commit();
+
+        $this->clearCache();
+
+        return ('0.0.0' == $this->getDbVersion($resName));
     }
 } 

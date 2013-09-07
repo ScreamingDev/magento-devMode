@@ -81,6 +81,13 @@
                     </modules>
                 </args>
             </adminhtml>
+            <lemike_devmode>
+                <use>admin</use>
+                <args>
+                    <module>LeMike_DevMode</module>
+                    <frontName>devmode</frontName>
+                </args>
+            </lemike_devmode>
         </routers>
     </admin>
 

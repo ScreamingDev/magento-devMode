@@ -28,6 +28,9 @@
  */
 class LeMike_DevMode_Adminhtml_Developer_CoreController extends Mage_Adminhtml_Controller_Action
 {
+    const SETUP_MODULE_NAME = 'moduleName';
+
+
     public function indexAction()
     {
         $helper = Mage::helper('lemike_devmode');
@@ -39,5 +42,63 @@ class LeMike_DevMode_Adminhtml_Developer_CoreController extends Mage_Adminhtml_C
         ->_title($helper->__('Core'));
 
         $this->renderLayout();
+    }
+
+
+    public function runAction()
+    {
+        $session = Mage::getSingleton('adminhtml/session');
+
+        $moduleName = $this->getRequest()->getParam(self::SETUP_MODULE_NAME);
+        if (strpos($moduleName, 'Mage_Admin') === 0)
+        {
+            $session->addError('Reinstall ' . $moduleName . 'is not allowed.');
+        }
+        else
+        {
+            /** @var LeMike_DevMode_Model_Core_Resource $model */
+            $model   = Mage::getModel('lemike_devmode/core_resource');
+            $success = $model->resetVersionByModuleName($moduleName);
+
+            if (!$success)
+            {
+                $session->addError($this->_getHelper()->__("Could not find $moduleName in core_resource."));
+            }
+            else
+            {
+                $session->addNotice($moduleName . ' has been set to 0.0.0 and the rest did magento');
+
+                $cacheSet = array('config', 'layout');
+                foreach ($cacheSet as $typeCode)
+                {
+                    Mage::app()->getCacheInstance()->cleanType($typeCode);
+                    Mage::dispatchEvent('adminhtml_cache_refresh_type', array('type' => $typeCode));
+                }
+
+                $last    = array_pop($cacheSet);
+                $message = implode(', ', $cacheSet);
+
+                $session->addSuccess(
+                    $this->_getHelper()->__(
+                        "%s and %s cache refreshed.",
+                        $message,
+                        $last
+                    )
+                );
+            }
+        }
+
+        $this->_redirect('adminhtml/developer_core/index');
+    }
+
+
+    /**
+     * .
+     *
+     * @return Mage_Adminhtml_Helper_Data
+     */
+    protected function _getHelper()
+    {
+        return Mage::helper('adminhtml');
     }
 }
