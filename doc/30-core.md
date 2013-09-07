@@ -37,7 +37,7 @@ Rerun setup scripts with a single click.
 Note:
 You see the name, the cached version, the installed as in the database and the available filesystem version.
 With an click on "Run setup again" the version will be set back to "0.0.0" and the config cache will be cleaned up.
-
+Reinstalling something with Mage_Admin* is forbidden because this would harm the instance.
 
 ### Rewrites
 
