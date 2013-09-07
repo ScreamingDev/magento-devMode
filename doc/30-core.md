@@ -28,6 +28,17 @@ Look up a PHP-Info in `Development > Core > PHP` if you want to know what the en
 ![Lookup phpinfo](https://f.cloud.github.com/assets/2559177/1098276/2ac26af2-171e-11e3-8b17-a3c71a55bd15.png)
 
 
+### Resource
+
+Rerun setup scripts with a single click.
+
+![2013-09-07-tooltip_003](https://f.cloud.github.com/assets/2559177/1101309/7c7a9bb2-17be-11e3-882c-c4ef8a3d37d6.png)
+
+Note:
+You see the name, the cached version, the installed as in the database and the available filesystem version.
+With an click on "Run setup again" the version will be set back to "0.0.0" and the config cache will be cleaned up.
+
+
 ### Rewrites
 
 Go to `Development > Core > Config`
