@@ -134,6 +134,8 @@ class Shell_MakeReveal
     {
         global $template, $section;
 
+        chdir(__DIR__);
+
         $this->_logMessage('Fetch reveal.js ...');
         $this->_logDepth++;
         $this->fetchReveal();
