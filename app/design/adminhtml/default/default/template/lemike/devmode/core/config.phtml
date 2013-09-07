@@ -1,0 +1,35 @@
+<?php
+/** @var LeMike_DevMode_Block_Core_Config $this */
+
+$rewritePathToClassName = $this->getModel()->getRewritePathToClassName();
+ksort($rewritePathToClassName);
+
+?>
+
+<h2><?php echo $this->__('Rewrites'); ?></h2>
+
+<table>
+    <thead>
+    <tr>
+        <th><?php echo $this->__('Internal config path'); ?></th>
+        <th><?php echo $this->__('Rewriting class'); ?></th>
+    </tr>
+    </thead>
+
+    <tbody>
+    <?php foreach ($rewritePathToClassName as $path => $classSet): ?>
+        <?php foreach ($classSet as $className): ?>
+            <tr>
+                <td><?php echo $path ?></td>
+                <td><?php echo $className ?></td>
+            </tr>
+        <?php endforeach; ?>
+    <?php endforeach; ?>
+    </tbody>
+
+    <tfoot>
+    <tr>
+        <td colspan="2"><?php echo $this->__('Keep an eye out for duplicate rewrites.'); ?></td>
+    </tr>
+    </tfoot>
+</table>
