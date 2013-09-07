@@ -7,8 +7,12 @@ An extension to help you develop beautiful Magento Stores.
 </small>
 
 
-## Menu and Notifications
+## Tools in the Menu and Notifications
 
 - On the top will persist a warning while you have the extension installed.
 - A new menu "Development" will give you access to handy solutions.
+
+
+## Configuration in the backend
+
 - `System > Config > Developer Mode` is an additional tab with helpful settings.
