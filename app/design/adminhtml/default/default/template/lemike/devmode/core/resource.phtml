@@ -1,0 +1,21 @@
+<?php /** @var LeMike_DevMode_Block_Core_Resource $this */ ?>
+<h2><?php echo $this->__('Resource'); ?></h2>
+
+<table>
+    <thead>
+    <tr>
+        <th>Name</th>
+        <th>Cached version</th>
+        <th>Installed version</th>
+        <th>Filesystem version</th>
+    </tr>
+    </thead>
+    <tbody>
+    <?php foreach ($this->getModuleSet() as $data): ?>
+        <tr>
+            <td><?php echo $data['name'] ?></td>
+            <td><?php echo $data['name'] ?></td>
+        </tr>
+    <?php endforeach; ?>
+    </tbody>
+</table>

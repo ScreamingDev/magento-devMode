@@ -77,6 +77,18 @@ class LeMike_DevMode_Block_Core_Tabs extends Mage_Adminhtml_Block_Widget_Tabs
             )
         );
 
+        /** @var Mage_Adminhtml_Block_Core_Php $phpBlock */
+        $resourceBlock = $this->getLayout()->createBlock('lemike_devmode/core_resource', 'core.resource');
+
+        $this->addTab(
+            'resource_section',
+            array(
+                 'label'   => Mage::helper('lemike_devmode')->__('Extensions'),
+                 'title'   => Mage::helper('lemike_devmode')->__('Extensions'),
+                 'content' => $resourceBlock->toHtml(),
+            )
+        );
+
         return parent::_beforeToHtml();
     }
 }
