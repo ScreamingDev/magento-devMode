@@ -75,3 +75,34 @@ magento/shell$ php coreConfig_listRewrites.php
 ```
 
 Note: Duplicates / Conflicts will be marked or highlighted.
+
+
+### Manipulate modules
+
+Take a look at the current modules is easy with `php core_modules.php`.
+You got the options:
+
+```
+  --codePool local          Get only the modules in the "local" code pool.
+                            Also works with "core" and "community".
+  --name LeMike             Get all modules beginning with "LeMike".
+```
+
+Note: Filter like `codePool` or `name` can be combined.
+
+
+Here is an example output:
+
+```
+% php core_modules.php --codePool community
+
+    Module name      | Used version | Code Pool |
+---------------------+--------------+-----------+-
+EcomDev_PHPUnit      | 0.1.0        | community |
+LeMike_DevMode       | 0.3.0        | community |
+Phoenix_Moneybookers | 1.6.0.0      | community |
+
+ Module name: The name of the module
+Used version: What is stored in the cache
+   Code Pool: Where the extensions resides
+```
