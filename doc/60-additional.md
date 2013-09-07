@@ -94,15 +94,17 @@ Note: Filter like `codePool` or `name` can be combined.
 Here is an example output:
 
 ```
-% php core_modules.php --codePool community
+    Module name      | Cached  | Installed | Available | Code Pool |
+---------------------+---------+-----------+-----------+-----------+-
+EcomDev_PHPUnit      | 0.1.0   |           | 0.1.0     | community |
+LeMike_DevMode       | 0.2.0   | 0.2.0     | 0.2.0     | community |
+Phoenix_Moneybookers | 1.6.0.0 | 1.6.0.0   | 1.6.0.0   | community |
 
-    Module name      | Used version | Code Pool |
----------------------+--------------+-----------+-
-EcomDev_PHPUnit      | 0.1.0        | community |
-LeMike_DevMode       | 0.3.0        | community |
-Phoenix_Moneybookers | 1.6.0.0      | community |
-
- Module name: The name of the module
-Used version: What is stored in the cache
-   Code Pool: Where the extensions resides
+Module name: The name of the module
+     Cached: What is stored in the cache
+  Installed: What is stored in the db
+  Available: The version in the according config.xml
+  Code Pool: Where the extensions resides
 ```
+
+

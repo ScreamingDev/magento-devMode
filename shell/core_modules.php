@@ -39,10 +39,11 @@ class LeMike_DevMode_Shell_ListRewrites extends Mage_Shell_Abstract
 
         echo "\r" . str_repeat(' ', strlen(LOADING_MAGENTO)) . "\r";
 
-        $modules = (array)Mage::getConfig()->getNode('modules')->children();
-        $modules = $this->_filterCodePool($modules);
-        $modules = $this->_filterName($modules);
-        ksort($modules);
+        $model     = Mage::getSingleton('lemike_devmode/core_resource');
+        $moduleSet = $model->getModuleSet();
+        $moduleSet = $this->_filterCodePool($moduleSet);
+        $moduleSet = $this->_filterName($moduleSet);
+        ksort($moduleSet);
 
         $table = new LeMike_DevMode_Block_Shell_Table(
             array("name"     => 'Module name',
@@ -50,26 +51,9 @@ class LeMike_DevMode_Shell_ListRewrites extends Mage_Shell_Abstract
                   "dbVersion" => 'Installed',
                   "configVersion" => 'Available',
                   "codePool" => "Code Pool"
-            )
+            ),
+            $moduleSet
         );
-
-        $resource = Mage::getResourceSingleton('core/resource');
-        $helper = Mage::helper('lemike_devmode/core');
-        foreach ($modules as $moduleName => $data)
-        {
-            $resName   = $helper->getResourceName($moduleName);
-            $dbVersion = $resource->getDbVersion($resName);
-
-            $configVersion = $helper->getAvailableVersion($moduleName);
-
-            $table->tableRowAdd(
-                array(
-                    "name"          => $moduleName,
-                    'dbVersion'     => $dbVersion,
-                    'configVersion' => $configVersion,
-                ) + ((array)$data)
-            );
-        }
 
         $table->legend = array(
             'name'     => "The name of the module",
@@ -116,7 +100,7 @@ USAGE;
         $result = array();
         foreach ($modules as $name => $data)
         {
-            if ($this->getArg('codePool') == $data->codePool)
+            if ($this->getArg('codePool') == $data['codePool'])
             {
                 $result[$name] = $data;
             }

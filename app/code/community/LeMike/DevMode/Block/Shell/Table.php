@@ -42,7 +42,11 @@ class LeMike_DevMode_Block_Shell_Table
     function __construct($captions = array(), $data = array())
     {
         $this->captionSet   = $captions;
-        $this->_tableRowSet = $data;
+
+        foreach ($data as $row)
+        {
+            $this->tableRowAdd($row);
+        }
     }
 
 
