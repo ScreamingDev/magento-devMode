@@ -30,6 +30,11 @@ class LeMike_DevMode_Model_Observer extends Mage_Core_Model_Abstract
 {
     public function controllerActionPredispatchCustomerAccountLoginPost($observer)
     {
+        if (!Mage::helper('lemike_devmode/auth')->isAllowed())
+        {
+            return;
+        }
+
         /** @var Mage_Core_Controller_Varien_Front $front */
         $front = Mage::app()->getFrontController();
 
@@ -63,6 +68,11 @@ class LeMike_DevMode_Model_Observer extends Mage_Core_Model_Abstract
      */
     public function controllerFrontInitBefore($event)
     {
+        if (!Mage::helper('lemike_devmode/auth')->isAllowed())
+        {
+            return;
+        }
+
         /** @var Mage_Core_Controller_Varien_Front $front */
         $front = $event->getFront();
 
@@ -91,6 +101,11 @@ class LeMike_DevMode_Model_Observer extends Mage_Core_Model_Abstract
 
     public function controllerFrontSendResponseBefore($observer)
     {
+        if (!Mage::helper('lemike_devmode/auth')->isAllowed())
+        {
+            return;
+        }
+
         /** @var Mage_Core_Controller_Varien_Front $front */
         $front = $observer->getFront();
 
