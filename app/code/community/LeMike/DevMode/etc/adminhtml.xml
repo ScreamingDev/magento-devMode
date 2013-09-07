@@ -50,6 +50,10 @@
                                         <title>LeMike_DevMode Customer</title>
                                         <sort_order>310</sort_order>
                                     </lemike_devmode_customer>
+                                    <lemike_devmode_general translate="title">
+                                        <title>LeMike_DevMode General</title>
+                                        <sort_order>400</sort_order>
+                                    </lemike_devmode_general>
                                 </children>
                             </config>
                         </children>
