@@ -46,24 +46,36 @@ class LeMike_DevMode_Shell_ListRewrites extends Mage_Shell_Abstract
 
         $table = new LeMike_DevMode_Block_Shell_Table(
             array("name"     => 'Module name',
-                  "version"   => 'Used',
+                  "version"       => 'Cached',
                   "dbVersion" => 'Installed',
+                  "configVersion" => 'Available',
                   "codePool" => "Code Pool"
             )
         );
 
         $resource = Mage::getResourceSingleton('core/resource');
+        $helper = Mage::helper('lemike_devmode/core');
         foreach ($modules as $moduleName => $data)
         {
-            $resName = Mage::helper('lemike_devmode/core')->getResourceName($moduleName);
-            $number  = $resource->getDbVersion($resName);
-            $table->tableRowAdd(array("name" => $moduleName, 'dbVersion' => $number) + ((array)$data));
+            $resName   = $helper->getResourceName($moduleName);
+            $dbVersion = $resource->getDbVersion($resName);
+
+            $configVersion = $helper->getAvailableVersion($moduleName);
+
+            $table->tableRowAdd(
+                array(
+                    "name"          => $moduleName,
+                    'dbVersion'     => $dbVersion,
+                    'configVersion' => $configVersion,
+                ) + ((array)$data)
+            );
         }
 
         $table->legend = array(
             'name'     => "The name of the module",
             'version'  => "What is stored in the cache",
             'dbVersion' => "What is stored in the db",
+            'configVersion' => "The version in the according config.xml",
             'codePool' => "Where the extensions resides",
         );
 

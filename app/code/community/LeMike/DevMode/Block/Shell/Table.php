@@ -76,7 +76,7 @@ class LeMike_DevMode_Block_Shell_Table
     }
 
 
-    public function makeLegend($seperator = ": ", $pad = STR_PAD_LEFT)
+    public function makeLegend($separator = ": ", $pad = STR_PAD_LEFT)
     {
         $legendWidth = 0;
         foreach ($this->captionSet as $key => $value)
@@ -85,9 +85,10 @@ class LeMike_DevMode_Block_Shell_Table
         }
 
         $out = '';
-        foreach ($this->legend as $key => $description)
+        foreach ($this->captionSet as $key => $null)
         {
-            $out .= str_pad($this->captionSet[$key], $legendWidth, ' ', $pad) . $seperator . $description . PHP_EOL;
+            $out .= str_pad($this->captionSet[$key], $legendWidth, ' ', $pad)
+                    . $separator . $this->legend[$key] . PHP_EOL;
         }
 
         return rtrim($out);

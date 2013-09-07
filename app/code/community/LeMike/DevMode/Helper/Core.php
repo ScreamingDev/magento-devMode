@@ -30,20 +30,49 @@ class LeMike_DevMode_Helper_Core extends LeMike_DevMode_Helper_Abstract
 {
     public function getResourceName($moduleName)
     {
-        $config  = Mage::app()->getConfig();
-        $xmlPath = $config->getModuleDir('etc', $moduleName) . DS . 'config.xml';
-
-        if (file_exists($xmlPath))
+        $configXML = $this->getConfigXML($moduleName);
+        if ($configXML)
         {
-            $xmlObj = new Varien_Simplexml_Config($xmlPath);
-
-            $node = $xmlObj->getNode('global/resources');
+            $node = $configXML->getNode('global/resources');
             if ($node)
             {
                 $moduleGlobalResources = $node->asArray();
                 reset($moduleGlobalResources);
 
                 return key($moduleGlobalResources);
+            }
+        }
+
+        return '';
+    }
+
+
+    public function getConfigXML($moduleName)
+    {
+        $config  = Mage::app()->getConfig();
+        $xmlPath = $config->getModuleDir('etc', $moduleName) . DS . 'config.xml';
+
+        if (file_exists($xmlPath))
+        {
+            return new Varien_Simplexml_Config($xmlPath);
+        }
+
+        return null;
+    }
+
+
+    public function getAvailableVersion($moduleName)
+    {
+        $configXML = $this->getConfigXML($moduleName);
+
+        if ($configXML)
+        {
+            $node = $configXML->getNode('modules' . DS . $moduleName);
+            if ($node)
+            {
+                $module = $node->asArray();
+
+                return $module['version'];
             }
         }
 
