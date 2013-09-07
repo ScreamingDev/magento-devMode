@@ -55,6 +55,40 @@ class LeMike_DevMode_Model_Observer extends Mage_Core_Model_Abstract
     }
 
 
+    /**
+     * Before init of anything the core can be changed.
+     *
+     * @param Varien_Event_Observer $event Information about the event.
+     * @return null
+     */
+    public function controllerFrontInitBefore($event)
+    {
+        /** @var Mage_Core_Controller_Varien_Front $front */
+        $front = $event->getFront();
+
+        $query = $front->getRequest()->getQuery();
+        if ($query)
+        { // query given: parse it
+            $store = Mage::app()->getStore(null);
+            foreach ($query as $field => $value)
+            {
+                if (0 !== strpos($field, '__') || $value === '')
+                { // wrong pattern and no value: skip
+                    continue;
+                }
+
+                $path = str_replace('__', '/', ltrim($field, '_'));
+                if (null !== $store->getConfig($path))
+                { // found some config: change it
+                    $store->setConfig($path, $value);
+                }
+            }
+        }
+
+        return null;
+    }
+
+
     public function controllerFrontSendResponseBefore($observer)
     {
         /** @var Mage_Core_Controller_Varien_Front $front */

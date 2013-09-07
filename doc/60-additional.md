@@ -6,6 +6,7 @@ via URL or Shell
 ## Mighty URL
 
 - See what events and observer has been used.
+- Change config on the fly
 
 
 ### Events and Observers
@@ -33,10 +34,22 @@ Global means that they are used in frontend and backend.
 So the other keys are `frontend` and `backend`.
 
 
+### Change the config on the fly
+
+Imagine the config `dev/translate_inline/active`.
+Enable it with `foo.html?__dev__translate_inline__active=1`
+
+![Enable translation on the fly](https://f.cloud.github.com/assets/2559177/1100839/8f28f710-178f-11e3-9066-e12f0c587e63.png)
+
+Note: A prefix is added and the slashes became the same.
+Think about a JavaScript Bookmark to enable this even faster.
+
+
 ## Shell Tools
 
 - Change the admin password without nagging mail
 - List the current rewrites
+
 
 ### Change admin password
 
@@ -45,6 +58,7 @@ So the other keys are `frontend` and `backend`.
 - and a new password
 
 Note: The admin have to exist.
+
 
 ### List current rewrites
 
