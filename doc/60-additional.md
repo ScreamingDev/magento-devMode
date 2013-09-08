@@ -49,7 +49,8 @@ Think about a JavaScript Bookmark to enable this even faster.
 
 - Change the admin password without nagging mail
 - List the current rewrites
-
+- Truncate products or categories
+- Work with modules
 
 ### Change admin password
 
@@ -77,7 +78,19 @@ magento/shell$ php coreConfig_listRewrites.php
 Note: Duplicates / Conflicts will be marked or highlighted.
 
 
-### Manipulate modules
+### Truncate products or categories
+
+Run in shell `php delete.php {what?}` and "what?" can be:
+
+- `catalog_category` to delete all categories
+- `catalog_product` to delete all products
+- `customer_customer` to delete all customers
+
+Note:
+Use `screen` and `tail -f var/log/LeMike_DevMode.log` to see what is happening.
+
+
+### Work with modules
 
 Take a look at the current modules is easy with `php core_modules.php`.
 You got the options:

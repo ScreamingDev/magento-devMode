@@ -30,32 +30,7 @@ class LeMike_DevMode_Adminhtml_Developer_Sales_OrderController extends Mage_Admi
 {
     public function deleteAllAction()
     {
-        $deleteAll = array(
-            'amount'    => 0,
-            'processed' => 0,
-            'errors'    => array(),
-        );
-
-        $helper                 = Mage::helper('lemike_devmode');
-
-        $orderSet               = $this->_getOrderSet();
-        $deleteAll['amount']    = $orderSet->count();
-        $deleteAll['processed'] = $helper->truncateModel($orderSet);
-
-        $helper->responseJson($deleteAll);
-    }
-
-
-    /**
-     * Get all orders.
-     *
-     * @return Mage_Sales_Model_Resource_Order_Collection
-     */
-    protected function _getOrderSet()
-    {
-        // Set store defaults for Magento
-        Mage::app()->setCurrentStore(Mage_Core_Model_App::ADMIN_STORE_ID);
-
-        return Mage::getModel('sales/order')->getCollection();
+        $helper = Mage::helper('lemike_devmode');
+        $helper->responseJson($helper->truncateModelByName('sales/order'));
     }
 }

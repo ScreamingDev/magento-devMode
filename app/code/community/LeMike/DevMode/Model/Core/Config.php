@@ -29,30 +29,11 @@
 class LeMike_DevMode_Model_Core_Config extends Mage_Core_Model_Abstract
 {
     /**
-     * Get the current config XML-Object.
-     *
-     * @return array
-     */
-    public function getConfigAsArray()
-    {
-        /** @var Mage_Core_Model_Config $config */
-        $config = $this->_getConfig();
-
-        $reflectObject = new ReflectionObject($config);
-        $prop          = $reflectObject->getProperty('_cacheLoadedSections');
-        $prop->setAccessible(true);
-        $array = $prop->getValue($config);
-
-        return $array;
-    }
-
-
-    /**
      * List all rewrites with their according classes.
      *
-     * @param null $childNode
+     * @param SimpleXMLElement $childNode (default: current config)
      * @param string $basePath
-     * @return array
+     * @return array [path => [overriding class, ...]]
      */
     public function getRewritePathToClassName($childNode = null, $basePath = '')
     {

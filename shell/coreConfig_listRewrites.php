@@ -29,96 +29,6 @@ require_once 'abstract.php';
 class LeMike_DevMode_Shell_ListRewrites extends Mage_Shell_Abstract
 {
     /**
-     * Search for rewrites in XML and turn into assoc array.
-     *
-     * @param SimpleXMLElement $childNode
-     * @param string $basePath
-     * @return array [path => [overriding class, ...]]
-     */
-    public function _rewritesToPath($childNode, $basePath = '')
-    {
-        $rewritesToPath = array();
-
-        foreach ($childNode as $key => $node)
-        {
-            /** @var Mage_Core_Model_Config_Element $node */
-            if ($key == 'rewrite')
-            {
-                foreach ($node as $old => $new)
-                {
-                    $tmpPath = $basePath . '/' . $key . '/' . $old;
-
-                    if (!isset($rewritesToPath[$tmpPath]))
-                    {
-                        $rewritesToPath[$tmpPath] = array();
-                    }
-
-                    $rewritesToPath[$tmpPath][] = (string)$new;
-                    $tmpPath                    = null;
-                }
-            }
-            elseif ($node->hasChildren())
-            {
-                $rewritesToPath = $rewritesToPath + $this->_rewritesToPath($node, ltrim($basePath . '/' . $key, '/'));
-            }
-        }
-
-        return $rewritesToPath;
-    }
-
-
-    /**
-     * Get the store config as array.
-     *
-     * @return array
-     */
-    public function getConfigAsArray()
-    {
-        /** @var Mage_Core_Model_Config $config */
-        $config = Mage::getConfig();
-
-        $reflectObject = new ReflectionObject($config);
-        $prop          = $reflectObject->getProperty('_cacheLoadedSections');
-        $prop->setAccessible(true);
-        $array = $prop->getValue($config);
-
-        return $array;
-    }
-
-
-    /**
-     * Get the store config as XML.
-     *
-     * @return mixed
-     */
-    public function getConfigXML()
-    {
-        /** @var Mage_Core_Model_Config $config */
-        $config = Mage::getConfig();
-
-        $reflectObject = new ReflectionObject($config);
-        $prop          = $reflectObject->getProperty('_xml');
-        $prop->setAccessible(true);
-
-        return $prop->getValue($config);
-    }
-
-
-    /**
-     * Receive rewrites as array.
-     *
-     * @return array
-     */
-    public function getPathToClassName()
-    {
-        $rewritesToPath = $this->_rewritesToPath($this->getConfigXML());
-        ksort($rewritesToPath);
-
-        return $rewritesToPath;
-    }
-
-
-    /**
      * Change password for admin.
      *
      */
@@ -128,7 +38,7 @@ class LeMike_DevMode_Shell_ListRewrites extends Mage_Shell_Abstract
 
         Mage::app();
 
-        $pathToClassName = $this->getPathToClassName();
+        $pathToClassName = Mage::getModel('lemike_devmode/core_config')->getRewritePathToClassName();
 
         $longestPath  = 0;
         $longestValue = 0;

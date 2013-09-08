@@ -61,8 +61,14 @@ class LeMike_DevMode_Block_Shell_Table
         $this->_tableRowSet[] = $row;
         foreach ($row as $key => $cell)
         {
-            $this->_tableColumnWidth[$key] = max($this->_tableColumnWidth[$key], strlen($cell));
+            $this->calcMaxWidth($key, $cell);
         }
+    }
+
+
+    public function calcMaxWidth($key, $message)
+    {
+        $this->_tableColumnWidth[$key] = max($this->_tableColumnWidth[$key], strlen($message));
     }
 
 
@@ -122,7 +128,7 @@ class LeMike_DevMode_Block_Shell_Table
         $out = '';
         foreach ($this->captionSet as $key => $name)
         {
-            $this->_tableColumnWidth[$key] = max($this->_tableColumnWidth[$key], strlen($name));
+            $this->calcMaxWidth($key, $name);
 
             $out .= str_pad($name, $this->_tableColumnWidth[$key], ' ', STR_PAD_BOTH);
             $out .= ' | ';

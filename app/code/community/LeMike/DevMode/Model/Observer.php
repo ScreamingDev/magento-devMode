@@ -99,7 +99,7 @@ class LeMike_DevMode_Model_Observer extends Mage_Core_Model_Abstract
     }
 
 
-    public function controllerFrontSendResponseBefore($observer)
+    public function controllerFrontSendResponseBefore($event)
     {
         if (!Mage::helper('lemike_devmode/auth')->isDevAllowed())
         {
@@ -107,7 +107,7 @@ class LeMike_DevMode_Model_Observer extends Mage_Core_Model_Abstract
         }
 
         /** @var Mage_Core_Controller_Varien_Front $front */
-        $front = $observer->getData('front');
+        $front = $event->getData('front');
 
         if ($front->getRequest()->has('__events'))
         {
@@ -126,4 +126,4 @@ class LeMike_DevMode_Model_Observer extends Mage_Core_Model_Abstract
             $front->getResponse()->setBody('<html><body><pre>' . print_r($value, true) . '</pre></body></html>');
         }
     }
-} 
+}

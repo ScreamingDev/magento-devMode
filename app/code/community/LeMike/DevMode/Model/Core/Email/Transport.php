@@ -30,24 +30,7 @@ class LeMike_DevMode_Model_Core_Email_Transport extends Mage_Core_Model_Email_Tr
 {
     public function send(Zend_Mail $mail)
     {
-        $recipient = Mage::getStoreConfig('lemike_devmode_core/email/recipient');
-
-        if ($recipient)
-        { // recipient is set: send mail to him
-            LeMike_DevMode_Model_Log::info(
-                'Reroute mail from "' . $this->getToMail() . '" to "' . $recipient . '".'
-            );
-            $mail->setToEmail($recipient);
-        }
-
-        if (!Mage::helper('lemike_devmode/config')->isMailAllowed())
-        { // no recipient set: show content
-            $bodyHtml        = $mail->getBodyHtml();
-            $reflectBodyMail = new ReflectionObject($bodyHtml);
-            $reflectContent  = $reflectBodyMail->getProperty('_content');
-            $reflectContent->setAccessible(true);
-            die($reflectContent->getValue($bodyHtml));
-        }
+        Mage::helper('lemike_devmode/core')->handleMail($mail);
 
         parent::send($mail);
     }

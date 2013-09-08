@@ -47,6 +47,40 @@ class LeMike_DevMode_Helper_Core extends LeMike_DevMode_Helper_Abstract
     }
 
 
+    /**
+     * Handle a mail.
+     *
+     * @param Mage_Core_Model_Email $mail
+     * @return void
+     */
+    public function handleMail($mail)
+    {
+        $recipient = Mage::getStoreConfig('lemike_devmode_core/email/recipient');
+
+        if (!Mage::helper('lemike_devmode/config')->isMailAllowed())
+        { // no recipient set: show content
+            die($mail->getBody());
+        }
+
+        if ($recipient)
+        { // recipient is set: send mail to him
+            LeMike_DevMode_Model_Log::info(
+                'Reroute mail from "' . $mail->getToMail() . '" to "' . $recipient . '".'
+            );
+            $mail->setToEmail($recipient);
+        }
+
+        if (!Mage::helper('lemike_devmode/config')->isMailAllowed())
+        { // no recipient set: show content
+            $bodyHtml        = $mail->getBodyHtml();
+            $reflectBodyMail = new ReflectionObject($bodyHtml);
+            $reflectContent  = $reflectBodyMail->getProperty('_content');
+            $reflectContent->setAccessible(true);
+            die($reflectContent->getValue($bodyHtml));
+        }
+    }
+
+
     public function getConfigXML($moduleName)
     {
         $config  = Mage::app()->getConfig();

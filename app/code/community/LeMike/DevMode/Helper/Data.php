@@ -37,17 +37,22 @@ class LeMike_DevMode_Helper_Data extends LeMike_DevMode_Helper_Abstract
     /**
      * Delete everything within a model.
      *
-     * @param Mage_Core_Model_Abstract $model
+     * @param Mage_Eav_Model_Entity_Collection_Abstract $model
      * @return int
      */
-    public function truncateModel($model)
+    public function truncateCollection($model)
     {
         $processed = 0;
         foreach ($model as $entry)
         {
-            $entry = $entry->load($entry->getData('id'));
+            /** @var Mage_Core_Model_Abstract $entry */
+            $id    = $entry->getId();
+            $entry = $entry->load($id);
             $entry->delete();
             $processed++;
+            unset($entry);
+
+            LeMike_DevMode_Model_Log::info($this->__("Deleted %s from %s", $id, $model->getResource()->getMainTable()));
         }
 
         return $processed;
@@ -65,5 +70,30 @@ class LeMike_DevMode_Helper_Data extends LeMike_DevMode_Helper_Abstract
         $response = Mage::app()->getResponse();
         $response->setHeader('Content-type', 'application/json');
         $response->setBody(Zend_Json_Encoder::encode($data));
+    }
+
+
+    /**
+     * Truncate a model by it's name.
+     *
+     * @param $name
+     * @return array
+     */
+    public function truncateModelByName($name)
+    {
+        $deleteAll = array(
+            'amount'    => 0,
+            'processed' => 0,
+            'errors'    => array(),
+        );
+
+        $model = Mage::getModel($name);
+
+        /** @var Mage_Eav_Model_Entity_Collection_Abstract $collection */
+        $collection             = $model->getCollection();
+        $deleteAll['amount']    = $collection->count();
+        $deleteAll['processed'] = Mage::helper('lemike_devmode')->truncateCollection($collection);
+
+        return $deleteAll;
     }
 }

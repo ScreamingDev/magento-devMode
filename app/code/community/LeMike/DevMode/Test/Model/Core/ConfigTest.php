@@ -40,21 +40,6 @@ class LeMike_DevMode_Test_Model_Core_ConfigTest extends EcomDev_PHPUnit_Test_Cas
 
 
     /**
-     * Tests GetConfigAsArray.
-     *
-     * @return null
-     */
-    public function testGetConfigAsArray()
-    {
-        $configAsArray = $this->getModel()->getConfigAsArray();
-
-        $this->assertInternalType('array', $configAsArray);
-
-        return null;
-    }
-
-
-    /**
      * Tests GetRewritePathToClassName.
      *
      * @return null

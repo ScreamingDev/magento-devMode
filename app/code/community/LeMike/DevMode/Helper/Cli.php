@@ -8,7 +8,7 @@
  * All rights reserved.
  *
  * @category   mage_devMail
- * @package    DeveloperController.php
+ * @package    Config.php
  * @author     Mike Pretzlaw <pretzlaw@gmail.com>
  * @copyright  2013 Mike Pretzlaw
  * @license    http://github.com/sourcerer-mike/mage_devMail/blob/master/LICENSE.md BSD 3-Clause ("BSD New")
@@ -17,7 +17,7 @@
  */
 
 /**
- * Class DeveloperController.
+ * Class Config.
  *
  * @category   mage_devMail
  * @author     Mike Pretzlaw <pretzlaw@gmail.com>
@@ -26,11 +26,18 @@
  * @link       http://github.com/sourcerer-mike/mage_devMail
  * @since      0.1.0
  */
-class LeMike_DevMode_Adminhtml_Developer_Customer_CustomerController extends Mage_Adminhtml_Controller_Action
+class LeMike_DevMode_Helper_Cli extends LeMike_DevMode_Helper_Abstract
 {
-    public function deleteAllAction()
+    public function ask($question, $answerSet = array('y', 'n'))
     {
-        $helper = Mage::helper('lemike_devmode');
-        $helper->responseJson($helper->truncateModelByName('customer/customer'));
+        $answer = uniqid();
+
+        while (!in_array($answer, $answerSet))
+        {
+            echo $question;
+            $answer = strtolower(trim(fgets(STDIN)));
+        }
+
+        return $answer;
     }
 }

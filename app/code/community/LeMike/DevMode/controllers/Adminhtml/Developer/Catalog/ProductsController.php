@@ -30,19 +30,8 @@ class LeMike_DevMode_Adminhtml_Developer_Catalog_ProductsController extends Mage
 {
     public function deleteAllAction()
     {
-        $deleteAll = array(
-            'amount'    => 0,
-            'processed' => 0,
-            'errors'    => array(),
-        );
-
-        $helper                 = Mage::helper('lemike_devmode');
-
-        $productSet             = $this->_getProductSet();
-        $deleteAll['amount']    = $productSet->count();
-        $deleteAll['processed'] = $helper->truncateModel($productSet);
-
-        $helper->responseJson($deleteAll);
+        $helper = Mage::helper('lemike_devmode');
+        $helper->responseJson($helper->truncateModelByName('catalog/product'));
     }
 
 
