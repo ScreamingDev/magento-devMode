@@ -42,9 +42,14 @@ class LeMike_DevMode_Model_Core_Email_Template extends Mage_Core_Model_Email_Tem
 
         if (!Mage::helper('lemike_devmode/config')->isMailAllowed())
         { // no recipient set: show content
-            die($this->getProcessedTemplate($variables, true));
+            Mage::helper('lemike_devmode')->disableMagentoDispatch(true);
+            echo (string)$this->getProcessedTemplate($variables, true);
+        }
+        else
+        {
+            return parent::send($email, $name, $variables);
         }
 
-        return parent::send($email, $name, $variables);
+        return true;
     }
 }

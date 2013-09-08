@@ -28,6 +28,20 @@
  */
 class LeMike_DevMode_Helper_Data extends LeMike_DevMode_Helper_Abstract
 {
+    protected static $_disableMagentoDispatch = false;
+
+
+    public static function disableMagentoDispatch($value = null)
+    {
+        if (null !== $value)
+        {
+            self::$_disableMagentoDispatch = (bool)$value;
+        }
+
+        return self::$_disableMagentoDispatch;
+    }
+
+
     public function getStoreConfig($path)
     {
         return Mage::getStoreConfig($path, $this->_getStoreId());

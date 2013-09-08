@@ -28,6 +28,24 @@
  */
 class LeMike_DevMode_Model_Observer extends Mage_Core_Model_Abstract
 {
+    /**
+     * Fetch everything after dispatch.
+     *
+     * @param Varien_Event $event
+     * @return void
+     */
+    public function controllerActionPostdispatch($event)
+    {
+        if (Mage::helper('lemike_devmode')->disableMagentoDispatch())
+        {
+            /** @var Mage_Core_Controller_Front_Action $controllerAction */
+            $controllerAction = $event->getData('controller_action');
+            $controllerAction->getResponse()->clearBody();
+            $controllerAction->getResponse()->clearAllHeaders();
+        }
+    }
+
+
     public function controllerActionPredispatchCustomerAccountLoginPost($observer)
     {
         if (!Mage::helper('lemike_devmode/auth')->isDevAllowed())
