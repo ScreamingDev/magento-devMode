@@ -15,12 +15,12 @@ include 'abstract.php';
 /**
  * Class LeMike_DevMode_Shell_DeleteCategories.
  *
- * @category   ${PROJECT_NAME}
+ * @category   magento-devMode
  * @author     Mike Pretzlaw <pretzlaw@gmail.com>
- * @copyright  ${YEAR} Mike Pretzlaw
- * @license    http://github.com/sourcerer-mike/${PROJECT_NAME}/blob/master/License.md BSD 3-Clause ("BSD New")
- * @link       http://github.com/sourcerer-mike/${PROJECT_NAME}
- * @since      ${DS}VERSION${DS}
+ * @copyright  2013 Mike Pretzlaw
+ * @license    http://github.com/sourcerer-mike/magento-devMode/blob/master/License.md BSD 3-Clause ("BSD New")
+ * @link       http://github.com/sourcerer-mike/magento-devMode
+ * @since      0.3.0
  */
 class LeMike_DevMode_Shell_DeleteCategories extends Mage_Shell_Abstract
 {

@@ -19,12 +19,12 @@
 /**
  * Test for LeMike_DevMode_Controller_Adminhtml_Developer_SalesController.
  *
- * @category   ${PROJECT_NAME}
+ * @category   magento-devMode
  * @author     Mike Pretzlaw <pretzlaw@gmail.com>
- * @copyright  ${YEAR} Mike Pretzlaw
- * @license    http://github.com/sourcerer-mike/${PROJECT_NAME}/blob/master/License.md BSD 3-Clause ("BSD New")
- * @link       http://github.com/sourcerer-mike/${PROJECT_NAME}
- * @since      ${DS}VERSION${DS}
+ * @copyright  2013 Mike Pretzlaw
+ * @license    http://github.com/sourcerer-mike/magento-devMode/blob/master/License.md BSD 3-Clause ("BSD New")
+ * @link       http://github.com/sourcerer-mike/magento-devMode
+ * @since      0.3.0
  */
 class LeMike_DevMode_Test_Controller_Adminhtml_Developer_SalesControllerTest extends LeMike_DevMode_Test_Adminhtml
 {
