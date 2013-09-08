@@ -16,8 +16,23 @@
  * @since      $VERSION$
  */
 
+/**
+ * Test for LeMike_DevMode_Controller_Adminhtml_Developer_CoreController.
+ *
+ * @category   ${PROJECT_NAME}
+ * @author     Mike Pretzlaw <pretzlaw@gmail.com>
+ * @copyright  ${YEAR} Mike Pretzlaw
+ * @license    http://github.com/sourcerer-mike/${PROJECT_NAME}/blob/master/License.md BSD 3-Clause ("BSD New")
+ * @link       http://github.com/sourcerer-mike/${PROJECT_NAME}
+ * @since      ${DS}VERSION${DS}
+ */
 class LeMike_DevMode_Test_Controller_Adminhtml_Developer_CoreControllerTest extends LeMike_DevMode_Test_Adminhtml
 {
+    /**
+     * Run index action and test for layouts.
+     *
+     * @return void
+     */
     public function testIndexAction()
     {
         // layout
@@ -32,6 +47,11 @@ class LeMike_DevMode_Test_Controller_Adminhtml_Developer_CoreControllerTest exte
     }
 
 
+    /**
+     * Call runAction and check if module has been reset.
+     *
+     * @return void
+     */
     public function testRunAction()
     {
         $this->assertPreConditions();
@@ -63,6 +83,11 @@ class LeMike_DevMode_Test_Controller_Adminhtml_Developer_CoreControllerTest exte
     }
 
 
+    /**
+     * Calling runAction to reinstall Magento shall end in error message.
+     *
+     * @return void
+     */
     public function testRunAction_DisallowMageAdmin()
     {
         $this->assertPreConditions();
@@ -81,6 +106,11 @@ class LeMike_DevMode_Test_Controller_Adminhtml_Developer_CoreControllerTest exte
     }
 
 
+    /**
+     * Calling runAction with invalid module shall end in error message.
+     *
+     * @return void
+     */
     public function testRunAction_NoModule()
     {
         $this->assertPreConditions();
@@ -99,6 +129,11 @@ class LeMike_DevMode_Test_Controller_Adminhtml_Developer_CoreControllerTest exte
     }
 
 
+    /**
+     * Calling runAction with module the not exists shall end in error message.
+     *
+     * @return void
+     */
     public function testRunAction_UnknownModule()
     {
         $this->assertPreConditions();
@@ -117,12 +152,18 @@ class LeMike_DevMode_Test_Controller_Adminhtml_Developer_CoreControllerTest exte
     }
 
 
+    /**
+     * PreConditions before every call.
+     *
+     * @return void
+     */
     protected function assertPreConditions()
     {
         /** @var Mage_Core_Model_Message_Collection $messages */
         $messages = Mage::getSingleton('adminhtml/session')->getMessages();
         $messages->clear();
 
+        // no messages in session
         $this->assertEmpty($messages->getItems());
 
         parent::assertPreConditions();

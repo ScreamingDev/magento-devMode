@@ -16,8 +16,23 @@
  * @since      $VERSION$
  */
 
+/**
+ * Test for LeMike_DevMode_Controller_Adminhtml_Developer_CustomerController.
+ *
+ * @category   ${PROJECT_NAME}
+ * @author     Mike Pretzlaw <pretzlaw@gmail.com>
+ * @copyright  ${YEAR} Mike Pretzlaw
+ * @license    http://github.com/sourcerer-mike/${PROJECT_NAME}/blob/master/License.md BSD 3-Clause ("BSD New")
+ * @link       http://github.com/sourcerer-mike/${PROJECT_NAME}
+ * @since      ${DS}VERSION${DS}
+ */
 class LeMike_DevMode_Test_Controller_Adminhtml_Developer_CustomerControllerTest extends LeMike_DevMode_Test_Adminhtml
 {
+    /**
+     * Run index action and test for layouts.
+     *
+     * @return void
+     */
     public function testIndexAction()
     {
         // layout

@@ -1,6 +1,6 @@
 <?php
 /**
- * Changing Admin password class LeMike_DevMode_Shell_AdminPassword.
+ * Contains class LeMike_DevMode_Shell_ListRewrites.
  *
  * @category   Magento-devMode
  * @author     Mike Pretzlaw <pretzlaw@gmail.com>
@@ -85,7 +85,7 @@ USAGE;
 
 
     /**
-     * .
+     * Filter an array of modules by codePool argument.
      *
      * @param $modules
      * @return array
@@ -110,6 +110,12 @@ USAGE;
     }
 
 
+    /**
+     * Filter an array of modules by name argument.
+     *
+     * @param $modules
+     * @return array
+     */
     protected function _filterName($modules)
     {
         if (!$this->getArg('name'))

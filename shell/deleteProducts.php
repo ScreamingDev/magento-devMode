@@ -1,7 +1,27 @@
 <?php
+/**
+ * Contains class LeMike_DevMode_Shell_DeleteProducts.
+ *
+ * @category   Magento-devMode
+ * @author     Mike Pretzlaw <pretzlaw@gmail.com>
+ * @copyright  2013 Mike Pretzlaw
+ * @license    http://github.com/sourcerer-mike/Magento-devMode/blob/master/LICENSE.md BSD 3-Clause ("BSD New")
+ * @link       http://github.com/sourcerer-mike/Magento-devMode
+ * @since      0.3.0
+ */
 
 include 'abstract.php';
 
+/**
+ * Shell based deletion of all products.
+ *
+ * @category   ${PROJECT_NAME}
+ * @author     Mike Pretzlaw <pretzlaw@gmail.com>
+ * @copyright  ${YEAR} Mike Pretzlaw
+ * @license    http://github.com/sourcerer-mike/${PROJECT_NAME}/blob/master/License.md BSD 3-Clause ("BSD New")
+ * @link       http://github.com/sourcerer-mike/${PROJECT_NAME}
+ * @since      ${DS}VERSION${DS}
+ */
 class LeMike_DevMode_Shell_DeleteProducts extends Mage_Shell_Abstract
 {
 
@@ -15,6 +35,11 @@ class LeMike_DevMode_Shell_DeleteProducts extends Mage_Shell_Abstract
     }
 
 
+    /**
+     * Delete all products.
+     *
+     * @return array
+     */
     public function execute()
     {
         $deleteAll = array(
@@ -41,7 +66,7 @@ class LeMike_DevMode_Shell_DeleteProducts extends Mage_Shell_Abstract
 
 
     /**
-     * .
+     * Get product collection.
      *
      * @return Mage_Catalog_Model_Resource_Product_Collection
      */

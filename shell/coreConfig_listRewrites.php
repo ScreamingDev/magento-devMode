@@ -28,6 +28,13 @@ require_once 'abstract.php';
  */
 class LeMike_DevMode_Shell_ListRewrites extends Mage_Shell_Abstract
 {
+    /**
+     * Search for rewrites in XML and turn into assoc array.
+     *
+     * @param SimpleXMLElement $childNode
+     * @param string $basePath
+     * @return array [path => [overriding class, ...]]
+     */
     public function _rewritesToPath($childNode, $basePath = '')
     {
         $rewritesToPath = array();
@@ -61,7 +68,7 @@ class LeMike_DevMode_Shell_ListRewrites extends Mage_Shell_Abstract
 
 
     /**
-     * .
+     * Get the store config as array.
      *
      * @return array
      */
@@ -79,6 +86,11 @@ class LeMike_DevMode_Shell_ListRewrites extends Mage_Shell_Abstract
     }
 
 
+    /**
+     * Get the store config as XML.
+     *
+     * @return mixed
+     */
     public function getConfigXML()
     {
         /** @var Mage_Core_Model_Config $config */
@@ -92,6 +104,11 @@ class LeMike_DevMode_Shell_ListRewrites extends Mage_Shell_Abstract
     }
 
 
+    /**
+     * Receive rewrites as array.
+     *
+     * @return array
+     */
     public function getPathToClassName()
     {
         $rewritesToPath = $this->_rewritesToPath($this->getConfigXML());
