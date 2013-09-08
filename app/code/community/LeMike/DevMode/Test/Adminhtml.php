@@ -65,7 +65,9 @@ abstract class LeMike_DevMode_Test_Adminhtml extends EcomDev_PHPUnit_Test_Case_C
      */
     public function testLoggedUserIsFakeUser()
     {
-        $this->assertEquals(Mage::getSingleton('admin/session')->getData('user')->getData('id'), self::FAKE_USER_ID);
+        /** @var Mage_Admin_Model_User $user */
+        $user = Mage::getSingleton('admin/session')->getData('user');
+        $this->assertEquals($user->getId(), self::FAKE_USER_ID);
     }
 
 
