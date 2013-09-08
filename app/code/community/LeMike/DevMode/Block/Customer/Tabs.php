@@ -40,7 +40,7 @@ class LeMike_DevMode_Block_Customer_Tabs extends Mage_Adminhtml_Block_Widget_Tab
     protected function _beforeToHtml()
     {
         /** @var Mage_Adminhtml_Block_Template $customerBlock */
-        $customerBlock = $this->getLayout()->createBlock('adminhtml/template', 'customer.customer');
+        $customerBlock = $this->getLayout()->createBlock('adminhtml/template', 'lemike.devmode.customer.customer');
         $customerBlock->setTemplate('lemike/devmode/customer/customer.phtml');
 
         $this->addTab(

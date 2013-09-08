@@ -26,7 +26,7 @@ class LeMike_DevMode_Block_Sales_Tabs extends Mage_Adminhtml_Block_Widget_Tabs
     public function __construct()
     {
         parent::__construct();
-        $this->setId('page_tabs');
+        $this->setId('sales_tabs');
         $this->setDestElementId('devmode_sales');
         $this->setTitle(Mage::helper('lemike_devmode')->__('Sales Tools'));
     }
@@ -40,7 +40,7 @@ class LeMike_DevMode_Block_Sales_Tabs extends Mage_Adminhtml_Block_Widget_Tabs
     protected function _beforeToHtml()
     {
         /** @var Mage_Adminhtml_Block_Template $ordersBlock */
-        $ordersBlock = $this->getLayout()->createBlock('adminhtml/template', 'sales.orders');
+        $ordersBlock = $this->getLayout()->createBlock('adminhtml/template', 'lemike.devmode.sales.orders');
         $ordersBlock->setTemplate('lemike/devmode/sales/orders.phtml');
 
         $this->addTab(

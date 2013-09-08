@@ -50,9 +50,13 @@ class LeMike_DevMode_Adminhtml_Developer_CoreController extends Mage_Adminhtml_C
         $session = Mage::getSingleton('adminhtml/session');
 
         $moduleName = $this->getRequest()->getParam(self::SETUP_MODULE_NAME);
-        if (strpos($moduleName, 'Mage_Admin') === 0)
+        if (!$moduleName)
         {
-            $session->addError('Reinstall ' . $moduleName . 'is not allowed.');
+            $session->addError($this->_getHelper()->__('No module provided. Please add a module name.'));
+        }
+        elseif (strpos($moduleName, 'Mage_Admin') === 0)
+        {
+            $session->addError($this->_getHelper()->__('Reinstall %s is not allowed.', $moduleName));
         }
         else
         {
@@ -62,11 +66,13 @@ class LeMike_DevMode_Adminhtml_Developer_CoreController extends Mage_Adminhtml_C
 
             if (!$success)
             {
-                $session->addError($this->_getHelper()->__("Could not find $moduleName in core_resource."));
+                $session->addError($this->_getHelper()->__("Could not find %s in core_resource.", $moduleName));
             }
             else
             {
-                $session->addNotice($moduleName . ' has been set to 0.0.0 and the rest did magento');
+                $session->addNotice(
+                    $this->_getHelper()->__('%s has been set to 0.0.0 and the rest did magento.', $moduleName)
+                );
 
                 $cacheSet = array('config', 'layout');
                 foreach ($cacheSet as $typeCode)

@@ -52,9 +52,6 @@ class LeMike_DevMode_Test_Model_Core_ConfigTest extends EcomDev_PHPUnit_Test_Cas
 
         $this->assertInternalType('array', $configAsArray);
 
-        var_dump($configAsArray);
-        exit;
-
         return null;
     }
 
@@ -67,8 +64,6 @@ class LeMike_DevMode_Test_Model_Core_ConfigTest extends EcomDev_PHPUnit_Test_Cas
     public function testGetRewritePathToClassName()
     {
         $rewritePathToClassName = $this->getModel()->getRewritePathToClassName();
-        var_dump($rewritePathToClassName);
-        exit;
 
         return null;
     }
@@ -79,6 +74,8 @@ class LeMike_DevMode_Test_Model_Core_ConfigTest extends EcomDev_PHPUnit_Test_Cas
         // let magento load / cache all config
         /** @RMP test nicht durchführbar, core/config ist immer ecom_dev -> debuggen für core/email */
         $leMike_DevMode_Model_Core_Email = Mage::getModel('core/email');
+
+        $this->assertInstanceOf('LeMike_DevMode_Model_Core_Email', $leMike_DevMode_Model_Core_Email);
 
         parent::setUp();
     }

@@ -38,6 +38,8 @@ class LeMike_DevMode_Model_Core_Resource extends Mage_Core_Model_Resource_Resour
 
     const MODULE_VERSION_DATABASE = 'dbVersion';
 
+    const RESET_VERSION = '0.0.0';
+
     private $_cacheModuleSet;
 
 
@@ -101,12 +103,18 @@ class LeMike_DevMode_Model_Core_Resource extends Mage_Core_Model_Resource_Resour
             return false;
         }
 
-        $this->setDbVersion($resName, '0.0.0');
-        $this->setDataVersion($resName, '0.0.0');
+        return $this->resetVersion($resName);
+    }
+
+
+    public function resetVersion($resName)
+    {
+        $this->setDbVersion($resName, self::RESET_VERSION);
+        $this->setDataVersion($resName, self::RESET_VERSION);
         $this->commit();
 
         $this->clearCache();
 
-        return ('0.0.0' == $this->getDbVersion($resName));
+        return (self::RESET_VERSION == $this->getDbVersion($resName));
     }
 } 

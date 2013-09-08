@@ -18,56 +18,55 @@
     <adminhtml_developer_catalog_index>
         <reference name="js">
             <block type="adminhtml/template" template="lemike/devmode/catalog/js.phtml"
-                   name="lemike.devmode.catalog.product.js" as="product_js"/>
+                   name="lemike.devmode.catalog.product.js" as="catalog_product_js"/>
         </reference>
         <reference name="left">
             <block type="lemike_devmode/catalog_tabs" name="lemike.devmode.catalog.tabs"/>
         </reference>
         <reference name="content">
-            <block type="adminhtml/template" name="content.catalog" as="catalog"
+            <block type="adminhtml/template" name="lemike.devmode.content.catalog"
                    template="lemike/devmode/catalog/overview.phtml"/>
         </reference>
     </adminhtml_developer_catalog_index>
 
-    <adminhtml_developer_sales_index>
-        <reference name="js">
-            <block type="adminhtml/template" template="lemike/devmode/sales/js.phtml"
-                   name="lemike.devmode.sales.js" as="sales_js"/>
-        </reference>
-        <reference name="left">
-            <block type="lemike_devmode/sales_tabs" name="lemike.devmode.sales.tabs"/>
-        </reference>
-        <reference name="content">
-            <block type="adminhtml/template" name="content.sales" as="sales"
-                   template="lemike/devmode/sales/overview.phtml"/>
-        </reference>
-    </adminhtml_developer_sales_index>
-
-    <adminhtml_developer_customer_index>
-        <reference name="js">
-            <block type="adminhtml/template" template="lemike/devmode/customer/js.phtml"
-                   name="customer.js" as="customer_js"/>
-        </reference>
-        <reference name="left">
-            <block type="lemike_devmode/customer_tabs" name="customer.tabs"/>
-        </reference>
-        <reference name="content">
-            <block type="adminhtml/template" name="content.customer" as="customer"
-                   template="lemike/devmode/customer/overview.phtml"/>
-        </reference>
-    </adminhtml_developer_customer_index>
-
     <adminhtml_developer_core_index>
         <reference name="js">
             <block type="adminhtml/template" template="lemike/devmode/core/js.phtml"
-                   name="core.js" as="core_js"/>
+                   name="core.js"/>
         </reference>
         <reference name="left">
             <block type="lemike_devmode/core_tabs" name="core.tabs"/>
         </reference>
         <reference name="content">
-            <block type="adminhtml/template" name="content.core" as="core"
-                   template="lemike/devmode/core/overview.phtml"/>
+            <block type="adminhtml/template" name="core.content" template="lemike/devmode/core/overview.phtml"/>
         </reference>
     </adminhtml_developer_core_index>
+
+    <adminhtml_developer_customer_index>
+        <reference name="js">
+            <block type="adminhtml/template" template="lemike/devmode/customer/js.phtml"
+                   name="lemike.devmode.customer.js"/>
+        </reference>
+        <reference name="left">
+            <block type="lemike_devmode/customer_tabs" name="lemike.devmode.customer.tabs"/>
+        </reference>
+        <reference name="content">
+            <block type="adminhtml/template" name="lemike.devmode.content.customer"
+                   template="lemike/devmode/customer/overview.phtml"/>
+        </reference>
+    </adminhtml_developer_customer_index>
+
+    <adminhtml_developer_sales_index>
+        <reference name="js">
+            <block type="adminhtml/template" template="lemike/devmode/sales/js.phtml"
+                   name="lemike.devmode.sales.js"/>
+        </reference>
+        <reference name="left">
+            <block type="lemike_devmode/sales_tabs" name="lemike.devmode.sales.tabs"/>
+        </reference>
+        <reference name="content">
+            <block type="adminhtml/template" name="lemike.devmode.content.sales"
+                   template="lemike/devmode/sales/overview.phtml"/>
+        </reference>
+    </adminhtml_developer_sales_index>
 </layout>

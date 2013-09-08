@@ -63,9 +63,5 @@ class LeMike_DevMode_Test_Model_EmailTest extends LeMike_DevMode_Test_AbstractCa
     public function testSend()
     {
         $model = $this->getFrontend();
-        $model->setBody('foo');
-
-        var_dump($model->send());
-        exit;
     }
 }

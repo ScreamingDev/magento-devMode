@@ -36,7 +36,7 @@ class LeMike_DevMode_Model_Core_Config extends Mage_Core_Model_Abstract
     public function getConfigAsArray()
     {
         /** @var Mage_Core_Model_Config $config */
-        $config = $this->_getCoreConfigModel();
+        $config = $this->_getConfig();
 
         $reflectObject = new ReflectionObject($config);
         $prop          = $reflectObject->getProperty('_cacheLoadedSections');
@@ -94,7 +94,7 @@ class LeMike_DevMode_Model_Core_Config extends Mage_Core_Model_Abstract
     public function getConfigXML()
     {
         /** @var Mage_Core_Model_Config $config */
-        $config = $this->_getCoreConfigModel();
+        $config = $this->_getConfig();
 
         $reflectObject = new ReflectionObject($config);
         $prop          = $reflectObject->getProperty('_xml');
@@ -109,8 +109,8 @@ class LeMike_DevMode_Model_Core_Config extends Mage_Core_Model_Abstract
      *
      * @return Mage_Core_Model_Config
      */
-    protected function _getCoreConfigModel()
+    protected function _getConfig()
     {
-        return Mage::getModel('core/config');
+        return Mage::app()->getConfig();
     }
 }

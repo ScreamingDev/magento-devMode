@@ -110,4 +110,12 @@
             </updates>
         </layout>
     </adminhtml>
+
+    <phpunit>
+        <suite>
+            <modules>
+                <LeMike_DevMode/>
+            </modules>
+        </suite>
+    </phpunit>
 </config>
