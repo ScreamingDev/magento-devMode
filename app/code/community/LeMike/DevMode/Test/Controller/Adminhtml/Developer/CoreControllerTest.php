@@ -43,7 +43,7 @@ class LeMike_DevMode_Test_Controller_Adminhtml_Developer_CoreControllerTest exte
             array(LeMike_DevMode_Adminhtml_Developer_CoreController::SETUP_MODULE_NAME => $moduleName)
         );
 
-        // message
+        /** @var Mage_Core_Model_Message_Collection $messages */
         $messages = Mage::getSingleton('adminhtml/session')->getMessages();
         $this->assertSame(2, $messages->count());
         $this->assertSame(1, $messages->count('notice'));

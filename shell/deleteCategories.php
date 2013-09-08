@@ -28,8 +28,8 @@ class LeMike_DevMode_Shell_DeleteCategories extends Mage_Shell_Abstract
 
         foreach ($collection as $item)
         {
-            $item = $item->load($item->getId());
             /** @var Mage_Catalog_Model_Product $item */
+            $item = $item->load($item->getId());
             $item->delete();
             $deleteAll['processed']++;
 

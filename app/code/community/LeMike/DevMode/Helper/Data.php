@@ -34,12 +34,18 @@ class LeMike_DevMode_Helper_Data extends LeMike_DevMode_Helper_Abstract
     }
 
 
+    /**
+     * Delete everything within a model.
+     *
+     * @param Mage_Core_Model_Abstract $model
+     * @return int
+     */
     public function truncateModel($model)
     {
         $processed = 0;
         foreach ($model as $entry)
         {
-            $entry = $entry->load($entry->getId());
+            $entry = $entry->load($entry->getData('id'));
             $entry->delete();
             $processed++;
         }
@@ -56,7 +62,8 @@ class LeMike_DevMode_Helper_Data extends LeMike_DevMode_Helper_Abstract
      */
     public function responseJson($data)
     {
-        $this->getResponse()->setHeader('Content-type', 'application/json');
-        $this->getResponse()->setBody(Zend_Json_Encoder::encode($data));
+        $response = Mage::app()->getResponse();
+        $response->setHeader('Content-type', 'application/json');
+        $response->setBody(Zend_Json_Encoder::encode($data));
     }
 }

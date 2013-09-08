@@ -31,7 +31,7 @@ class LeMike_DevMode_Model_Core_Config extends Mage_Core_Model_Abstract
     /**
      * Get the current config XML-Object.
      *
-     * @return void
+     * @return array
      */
     public function getConfigAsArray()
     {

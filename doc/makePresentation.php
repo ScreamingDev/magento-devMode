@@ -189,13 +189,13 @@ class Shell_MakeReveal
 
         $this->_logVerbose('Copy files ...');
         @mkdir('presentation');
-        $this->rcopy('reveal.js-master/css', './presentation/css');
-        $this->rcopy('reveal.js-master/js', './presentation/js');
-        $this->rcopy('reveal.js-master/lib', './presentation/lib');
-        $this->rcopy('reveal.js-master/plugin', './presentation/plugin');
+        $this->copy('reveal.js-master/css', './presentation/css');
+        $this->copy('reveal.js-master/js', './presentation/js');
+        $this->copy('reveal.js-master/lib', './presentation/lib');
+        $this->copy('reveal.js-master/plugin', './presentation/plugin');
 
         $this->_logVerbose('Delete obsolete files ...');
-        $this->rrmdir('reveal.js-master');
+        $this->removeDir('reveal.js-master');
     }
 
 
@@ -221,7 +221,7 @@ class Shell_MakeReveal
 
 
     // removes files and non-empty directories
-    function rrmdir($dir)
+    function removeDir($dir)
     {
         if (is_dir($dir))
         {
@@ -230,7 +230,7 @@ class Shell_MakeReveal
             {
                 if ($file != "." && $file != "..")
                 {
-                    $this->rrmdir("$dir/$file");
+                    $this->removeDir("$dir/$file");
                 }
             }
             rmdir($dir);
@@ -245,11 +245,11 @@ class Shell_MakeReveal
     }
 
 
-    public function rcopy($src, $dst)
+    public function copy($src, $dst)
     {
         if (file_exists($dst))
         {
-            $this->rrmdir($dst);
+            $this->removeDir($dst);
         }
         if (is_dir($src))
         {
@@ -259,7 +259,7 @@ class Shell_MakeReveal
             {
                 if ($file != "." && $file != "..")
                 {
-                    $this->rcopy("$src/$file", "$dst/$file");
+                    $this->copy("$src/$file", "$dst/$file");
                 }
             }
         }

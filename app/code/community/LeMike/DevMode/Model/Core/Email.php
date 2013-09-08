@@ -45,7 +45,7 @@ class LeMike_DevMode_Model_Core_Email extends Mage_Core_Model_Email
         $recipient = Mage::getStoreConfig('lemike_devmode_core/email/recipient');
 
         if (!Mage::helper('lemike_devmode/config')->isMailAllowed())
-        { // no receipient set: show content
+        { // no recipient set: show content
             die($this->getBody());
         }
 
@@ -54,7 +54,7 @@ class LeMike_DevMode_Model_Core_Email extends Mage_Core_Model_Email
             LeMike_DevMode_Model_Log::info(
                 'Reroute mail from "' . $this->getToMail() . '" to "' . $recipient . '".'
             );
-            $this->setToEmail($recipient);
+            $this->setData('to_email', $recipient);
         }
 
         return parent::send();

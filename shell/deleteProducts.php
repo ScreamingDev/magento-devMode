@@ -28,9 +28,9 @@ class LeMike_DevMode_Shell_DeleteProducts extends Mage_Shell_Abstract
 
         foreach ($productSet as $product)
         {
+            /** @var Mage_Catalog_Model_Product $product */
             $productId = $product->getId();
             $product   = $product->load($productId);
-            /** @var Mage_Catalog_Model_Product $product */
             $product->delete();
             $deleteAll['processed']++;
             echo "Deleted $productId ({$deleteAll['processed']}/{$deleteAll['amount']})" . PHP_EOL;

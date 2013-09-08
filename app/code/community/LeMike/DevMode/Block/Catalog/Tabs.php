@@ -28,7 +28,7 @@ class LeMike_DevMode_Block_Catalog_Tabs extends Mage_Adminhtml_Block_Widget_Tabs
         parent::__construct();
         $this->setId('catalog_tabs');
         $this->setDestElementId('devmode_catalog');
-        $this->setTitle(Mage::helper('lemike_devmode')->__('Catalog Tools'));
+        $this->setData('title', Mage::helper('lemike_devmode')->__('Catalog Tools'));
     }
 
 
@@ -39,6 +39,7 @@ class LeMike_DevMode_Block_Catalog_Tabs extends Mage_Adminhtml_Block_Widget_Tabs
      */
     protected function _beforeToHtml()
     {
+        /** @var LeMike_DevMode_Block_Catalog_Products $mainSection */
         $mainSection = $this->getLayout()->createBlock('lemike_devmode/catalog_products', 'catalog.products');
 
         $this->addTab(

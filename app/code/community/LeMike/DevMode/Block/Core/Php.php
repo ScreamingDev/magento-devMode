@@ -36,7 +36,7 @@ class LeMike_DevMode_Block_Core_Php extends Mage_Core_Block_Template
 
 
     /**
-     * Get only the phpinfo table.
+     * Get only the php info table.
      *
      * @return mixed
      */

@@ -67,12 +67,12 @@ class LeMike_DevMode_Adminhtml_Developer_Catalog_ProductsController extends Mage
         {
             /** @var Mage_Catalog_Model_Product $product */
 
-            $stockData = $product->getStockData();
+            $stockData = $product->getData('stock_data');
 
             if (!$stockData && $product->getId())
             {
                 $product = $product->load($product->getId());
-                $product->setStockData($stockTemplate);
+                $product->setData('stock_data', $stockTemplate);
 
                 try
                 {

@@ -58,10 +58,4 @@ class LeMike_DevMode_Test_Model_EmailTest extends LeMike_DevMode_Test_AbstractCa
     {
         $this->assertFalse((bool)Mage::helper('lemike_devmode/config')->isMailAllowed());
     }
-
-
-    public function testSend()
-    {
-        $model = $this->getFrontend();
-    }
 }

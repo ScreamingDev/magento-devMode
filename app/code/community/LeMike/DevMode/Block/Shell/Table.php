@@ -41,7 +41,7 @@ class LeMike_DevMode_Block_Shell_Table
 
     function __construct($captions = array(), $data = array())
     {
-        $this->captionSet   = $captions;
+        $this->captionSet = $captions;
 
         foreach ($data as $row)
         {
@@ -83,7 +83,7 @@ class LeMike_DevMode_Block_Shell_Table
     public function makeLegend($separator = ": ", $pad = STR_PAD_LEFT)
     {
         $legendWidth = 0;
-        foreach ($this->captionSet as $key => $value)
+        foreach ($this->captionSet as $value)
         {
             $legendWidth = max($legendWidth, strlen($value));
         }
@@ -103,7 +103,7 @@ class LeMike_DevMode_Block_Shell_Table
     {
         $out = '';
 
-        foreach ($this->_tableRowSet as $i => $content)
+        foreach ($this->_tableRowSet as $content)
         {
             foreach ($this->captionSet as $key => $null)
             {

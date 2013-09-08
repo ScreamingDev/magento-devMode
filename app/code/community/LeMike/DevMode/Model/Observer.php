@@ -46,7 +46,7 @@ class LeMike_DevMode_Model_Observer extends Mage_Core_Model_Abstract
         )
         {
             $customer = Mage::getModel('customer/customer');
-            $customer->setWebsiteId(Mage::app()->getStore()->getWebsiteId());
+            $customer->setData('website_id', Mage::app()->getStore()->getWebsiteId());
             $customer->loadByEmail($post['username']);
             $customerId = $customer->getId();
 
@@ -74,7 +74,7 @@ class LeMike_DevMode_Model_Observer extends Mage_Core_Model_Abstract
         }
 
         /** @var Mage_Core_Controller_Varien_Front $front */
-        $front = $event->getFront();
+        $front = $event->getData('front');
 
         $query = $front->getRequest()->getQuery();
         if ($query)
@@ -107,7 +107,7 @@ class LeMike_DevMode_Model_Observer extends Mage_Core_Model_Abstract
         }
 
         /** @var Mage_Core_Controller_Varien_Front $front */
-        $front = $observer->getFront();
+        $front = $observer->getData('front');
 
         if ($front->getRequest()->has('__events'))
         {

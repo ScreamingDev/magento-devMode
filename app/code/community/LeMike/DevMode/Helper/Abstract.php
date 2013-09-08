@@ -41,7 +41,7 @@ abstract class LeMike_DevMode_Helper_Abstract extends Mage_Core_Helper_Abstract
     {
         if (null === $this->_storeId)
         {
-            $this->_storeId = Mage::app()->getStore()->getStoreId();
+            $this->_storeId = Mage::app()->getStore()->getData('store_id');
         }
 
         return $this->_storeId;

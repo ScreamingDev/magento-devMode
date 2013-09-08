@@ -35,9 +35,9 @@ class LeMike_DevMode_Model_Core_Email_Template extends Mage_Core_Model_Email_Tem
         if ($recipient)
         { // recipient is set: send mail to him
             LeMike_DevMode_Model_Log::info(
-                'Reroute mail from "' . $this->getToMail() . '" to "' . $recipient . '".'
+                'Reroute mail from "' . $this->getData('to_email') . '" to "' . $recipient . '".'
             );
-            $this->setToEmail($recipient);
+            $this->setData('to_email', $recipient);
         }
 
         if (!Mage::helper('lemike_devmode/config')->isMailAllowed())

@@ -46,8 +46,6 @@ class LeMike_DevMode_Test_Model_Core_ConfigTest extends EcomDev_PHPUnit_Test_Cas
      */
     public function testGetConfigAsArray()
     {
-        $leMike_DevMode_Model_Core_Email = Mage::getModel('core/email');
-
         $configAsArray = $this->getModel()->getConfigAsArray();
 
         $this->assertInternalType('array', $configAsArray);
@@ -65,6 +63,8 @@ class LeMike_DevMode_Test_Model_Core_ConfigTest extends EcomDev_PHPUnit_Test_Cas
     {
         $rewritePathToClassName = $this->getModel()->getRewritePathToClassName();
 
+        $this->assertInternalType('array', $rewritePathToClassName);
+
         return null;
     }
 
@@ -72,7 +72,6 @@ class LeMike_DevMode_Test_Model_Core_ConfigTest extends EcomDev_PHPUnit_Test_Cas
     protected function setUp()
     {
         // let magento load / cache all config
-        /** @RMP test nicht durchführbar, core/config ist immer ecom_dev -> debuggen für core/email */
         $leMike_DevMode_Model_Core_Email = Mage::getModel('core/email');
 
         $this->assertInstanceOf('LeMike_DevMode_Model_Core_Email', $leMike_DevMode_Model_Core_Email);

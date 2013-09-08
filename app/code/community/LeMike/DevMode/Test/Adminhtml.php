@@ -56,7 +56,7 @@ abstract class LeMike_DevMode_Test_Adminhtml extends EcomDev_PHPUnit_Test_Case_C
      */
     public function testLoggedIn()
     {
-        $this->assertTrue(Mage::getSingleton('admin/session')->isLoggedIn());
+        $this->assertTrue((bool)Mage::getSingleton('admin/session')->isLoggedIn());
     }
 
 
@@ -65,7 +65,7 @@ abstract class LeMike_DevMode_Test_Adminhtml extends EcomDev_PHPUnit_Test_Case_C
      */
     public function testLoggedUserIsFakeUser()
     {
-        $this->assertEquals(Mage::getSingleton('admin/session')->getUser()->getId(), self::FAKE_USER_ID);
+        $this->assertEquals(Mage::getSingleton('admin/session')->getData('user')->getData('id'), self::FAKE_USER_ID);
     }
 
 
@@ -92,17 +92,17 @@ abstract class LeMike_DevMode_Test_Adminhtml extends EcomDev_PHPUnit_Test_Case_C
 
         $this->_registerUserMock();
         Mage::getSingleton('adminhtml/url')->turnOffSecretKey();
-        Mage::getSingleton('adminhtml/url')->setBaseUrl('http://localhost.rmp');
+        Mage::getSingleton('adminhtml/url')->setData('base_url', 'http://localhost.rmp');
 
         $session = Mage::getSingleton('admin/session');
-        $user    = $session->login('fakeuser', 'fakeuser_pass');
+        $session->login('some_fake_user', 'some_fake_user.P4ss');
     }
 
 
     /**
      * Creates a mock object for admin/user Magento Model
      *
-     * @return My_Module_Test_Controller_Adminhtml_Controller
+     * @return self
      */
     protected function _registerUserMock()
     {

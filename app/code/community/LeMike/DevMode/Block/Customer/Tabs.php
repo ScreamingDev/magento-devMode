@@ -28,7 +28,7 @@ class LeMike_DevMode_Block_Customer_Tabs extends Mage_Adminhtml_Block_Widget_Tab
         parent::__construct();
         $this->setId('page_tabs');
         $this->setDestElementId('devmode_customer');
-        $this->setTitle(Mage::helper('lemike_devmode')->__('Customer Tools'));
+        $this->setData('title', Mage::helper('lemike_devmode')->__('Customer Tools'));
     }
 
 

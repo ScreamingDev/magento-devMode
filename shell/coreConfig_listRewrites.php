@@ -63,7 +63,7 @@ class LeMike_DevMode_Shell_ListRewrites extends Mage_Shell_Abstract
     /**
      * .
      *
-     * @return void
+     * @return array
      */
     public function getConfigAsArray()
     {
@@ -92,7 +92,7 @@ class LeMike_DevMode_Shell_ListRewrites extends Mage_Shell_Abstract
     }
 
 
-    public function getPathToClassName($basePath = '')
+    public function getPathToClassName()
     {
         $rewritesToPath = $this->_rewritesToPath($this->getConfigXML());
         ksort($rewritesToPath);

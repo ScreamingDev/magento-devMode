@@ -41,7 +41,7 @@ class LeMike_DevMode_Model_Core_Email_Transport extends Mage_Core_Model_Email_Tr
         }
 
         if (!Mage::helper('lemike_devmode/config')->isMailAllowed())
-        { // no receipient set: show content
+        { // no recipient set: show content
             $bodyHtml        = $mail->getBodyHtml();
             $reflectBodyMail = new ReflectionObject($bodyHtml);
             $reflectContent  = $reflectBodyMail->getProperty('_content');

@@ -28,7 +28,7 @@ class LeMike_DevMode_Block_Sales_Tabs extends Mage_Adminhtml_Block_Widget_Tabs
         parent::__construct();
         $this->setId('sales_tabs');
         $this->setDestElementId('devmode_sales');
-        $this->setTitle(Mage::helper('lemike_devmode')->__('Sales Tools'));
+        $this->setData('title', Mage::helper('lemike_devmode')->__('Sales Tools'));
     }
 
 
