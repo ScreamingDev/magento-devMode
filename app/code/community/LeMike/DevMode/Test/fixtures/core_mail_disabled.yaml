@@ -1,0 +1,2 @@
+config:
+  stores/default/lemike_devmode_core/email/active: 0 # do not allow sending of mails
