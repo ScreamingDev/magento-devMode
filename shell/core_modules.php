@@ -24,7 +24,7 @@ require_once 'abstract.php';
  * @link       http://github.com/sourcerer-mike/Magento-devMode
  * @since      0.3.0
  */
-class LeMike_DevMode_Shell_ListRewrites extends Mage_Shell_Abstract
+class LeMike_DevMode_Shell_CoreModules extends Mage_Shell_Abstract
 {
     const LOADING_MAGENTO = "Loading Magento ...";
 
@@ -138,5 +138,5 @@ USAGE;
 
 echo LeMike_DevMode_Shell_ListRewrites::LOADING_MAGENTO;
 
-$cmd = new LeMike_DevMode_Shell_ListRewrites();
+$cmd = new LeMike_DevMode_Shell_CoreModules();
 $cmd->run();
