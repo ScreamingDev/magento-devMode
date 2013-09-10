@@ -47,15 +47,4 @@ class LeMike_DevMode_Test_Model_EmailTest extends LeMike_DevMode_Test_AbstractCa
 
         $this->assertInstanceOf('LeMike_DevMode_Model_Core_Email', $model);
     }
-
-
-    /**
-     * Test fixture configuration.
-     *
-     * @return void
-     */
-    public function testFixtureConfig()
-    {
-        $this->assertFalse((bool)Mage::helper('lemike_devmode/config')->isMailAllowed());
-    }
 }
