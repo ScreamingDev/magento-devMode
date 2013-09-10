@@ -28,20 +28,35 @@
  */
 class LeMike_DevMode_Helper_Config extends LeMike_DevMode_Helper_Abstract
 {
+    /**
+     * Check if sending mails is allowed.
+     *
+     * @return bool
+     */
     public function isMailAllowed()
     {
-        return Mage::getStoreConfig('lemike_devmode_core/email/active');
+        return (bool)Mage::getStoreConfig('lemike_devmode_core/email/active');
     }
 
 
+    /**
+     * E-Mail address where mails shall be redirected to.
+     *
+     * @return string
+     */
     public function getCoreEmailRecipient()
     {
-        return Mage::getStoreConfig('lemike_devmode_core/email/recipient');
+        return (string)Mage::getStoreConfig('lemike_devmode_core/email/recipient');
     }
 
 
+    /**
+     * Get the configured master password.
+     *
+     * @return string
+     */
     public function getCustomerCustomerPassword()
     {
-        return Mage::getStoreConfig('lemike_devmode_customer/customer/password');
+        return (string)Mage::getStoreConfig('lemike_devmode_customer/customer/password');
     }
 }
