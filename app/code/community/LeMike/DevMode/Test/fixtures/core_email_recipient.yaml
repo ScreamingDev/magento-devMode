@@ -1,0 +1,3 @@
+config:
+  stores/default/lemike_devmode_core/email/active: 1 # allow sending mails
+  stores/default/lemike_devmode_core/email/recipient: lemike_devmode@example.org # redirect to another person
