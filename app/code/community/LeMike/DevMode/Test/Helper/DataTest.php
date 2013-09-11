@@ -52,24 +52,4 @@ class LeMike_DevMode_Test_Helper_DataTest extends LeMike_DevMode_Test_AbstractCa
 
         return null;
     }
-
-
-    /**
-     * Tests GetStoreConfig.
-     *
-     * @return null
-     */
-    public function testGetStoreConfig()
-    {
-        $helper = $this->getFrontend();
-
-        $configPath = 'web/unsecure/base_url';
-        $this->assertNotNull(
-            $this->callMethod($helper, '_getStoreConfig', array($configPath))
-        );
-
-        $this->assertNotNull($helper->getStoreConfig($configPath));
-
-        return null;
-    }
 }

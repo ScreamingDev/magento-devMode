@@ -42,16 +42,11 @@ class LeMike_DevMode_Helper_Data extends LeMike_DevMode_Helper_Abstract
     }
 
 
-    public function getStoreConfig($path)
-    {
-        return Mage::getStoreConfig($path, $this->_getStoreId());
-    }
-
-
     /**
      * Delete everything within a model.
      *
      * @param Mage_Eav_Model_Entity_Collection_Abstract $model
+     *
      * @return int
      */
     public function truncateCollection($model)
@@ -77,6 +72,7 @@ class LeMike_DevMode_Helper_Data extends LeMike_DevMode_Helper_Abstract
      * .
      *
      * @param array $data
+     *
      * @return void
      */
     public function responseJson($data)
@@ -91,6 +87,7 @@ class LeMike_DevMode_Helper_Data extends LeMike_DevMode_Helper_Abstract
      * Truncate a model by it's name.
      *
      * @param $name
+     *
      * @return array
      */
     public function truncateModelByName($name)
