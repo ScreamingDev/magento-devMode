@@ -21,14 +21,6 @@
             <lemike_devmode>
                 <class>LeMike_DevMode_Model</class>
             </lemike_devmode>
-            <lemike_devmode_resource>
-                <class>LeMike_DevMode_Model_Resource</class>
-                <entities>
-                    <core_mail>
-                        <table>lemike_devmode_core_mail</table>
-                    </core_mail>
-                </entities>
-            </lemike_devmode_resource>
             <core>
                 <rewrite>
                     <email>LeMike_DevMode_Model_Core_Email</email>
@@ -52,6 +44,14 @@
 
     <frontend>
         <events>
+            <controller_action_postdispatch>
+                <observers>
+                    <lemike_devmode>
+                        <class>lemike_devmode/observer</class>
+                        <method>controllerActionPostdispatch</method>
+                    </lemike_devmode>
+                </observers>
+            </controller_action_postdispatch>
             <controller_action_predispatch_customer_account_loginPost>
                 <observers>
                     <lemike_devmode>
@@ -68,14 +68,6 @@
                     </lemike_devmode>
                 </observers>
             </controller_front_send_response_before>
-            <controller_action_postdispatch>
-                <observers>
-                    <lemike_devmode>
-                        <class>lemike_devmode/observer</class>
-                        <method>controllerActionPostdispatch</method>
-                    </lemike_devmode>
-                </observers>
-            </controller_action_postdispatch>
         </events>
     </frontend>
 
