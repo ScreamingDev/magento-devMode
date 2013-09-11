@@ -26,17 +26,12 @@
  * @link       http://github.com/sourcerer-mike/mage_devMode
  * @since      0.2.0
  */
-class LeMike_DevMode_Test_ConfigTest extends LeMike_DevMode_Test_AbstractCase
+class LeMike_DevMode_Test_ConfigTest extends EcomDev_PHPUnit_Test_Case_Config
 {
-    /**
-     * Tests RewriteCoreMail.
-     *
-     * @return null
-     */
-    public function testRewriteCoreMail()
+    public function testGlobalModelCoreRewrite()
     {
-        $this->assertInstanceOf('LeMike_DevMode_Model_Core_Email', Mage::getModel('core/email'));
-
-        return null;
+        $this->assertModelAlias('core/email', 'LeMike_DevMode_Model_Core_Email');
+        $this->assertModelAlias('core/email_template', 'LeMike_DevMode_Model_Core_Email_Template');
+        $this->assertModelAlias('core/email_transport', 'LeMike_DevMode_Model_Core_Email_Transport');
     }
 }

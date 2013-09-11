@@ -58,8 +58,24 @@ class LeMike_DevMode_Helper_Core extends LeMike_DevMode_Helper_Abstract
         $recipient = Mage::getStoreConfig('lemike_devmode_core/email/recipient');
 
         if (!Mage::helper('lemike_devmode/config')->isMailAllowed())
-        { // no recipient set: show content
-            die($mail->getBody());
+        { // no mail allowed set: show content
+            if ($mail instanceof Zend_Mail)
+            {
+                $bodyHtml        = $mail->getBodyHtml();
+                $reflectBodyMail = new ReflectionObject($bodyHtml);
+                $reflectContent  = $reflectBodyMail->getProperty('_content');
+                $reflectContent->setAccessible(true);
+                $content = $reflectContent->getValue($bodyHtml);
+            }
+            else
+            {
+                $content = $mail->getBody();
+            }
+
+            echo $content;
+            Mage::helper('lemike_devmode')->disableMagentoDispatch(true);
+
+            return false;
         }
 
         if ($recipient)
@@ -70,14 +86,7 @@ class LeMike_DevMode_Helper_Core extends LeMike_DevMode_Helper_Abstract
             $mail->setToEmail($recipient);
         }
 
-        if (!Mage::helper('lemike_devmode/config')->isMailAllowed())
-        { // no recipient set: show content
-            $bodyHtml        = $mail->getBodyHtml();
-            $reflectBodyMail = new ReflectionObject($bodyHtml);
-            $reflectContent  = $reflectBodyMail->getProperty('_content');
-            $reflectContent->setAccessible(true);
-            die($reflectContent->getValue($bodyHtml));
-        }
+        return $mail;
     }
 
 
