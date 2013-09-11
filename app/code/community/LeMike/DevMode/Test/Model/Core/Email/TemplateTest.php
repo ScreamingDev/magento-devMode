@@ -18,6 +18,15 @@
 
 class LeMike_DevMode_Test_Model_Core_Email_TemplateTest extends EcomDev_PHPUnit_Test_Case_Controller
 {
+    protected $_lastArgs = array();
+
+
+    public function fetchArgs()
+    {
+        $this->_lastArgs[] = func_get_args();
+    }
+
+
     /**
      * Test newsletter direct output.
      *
@@ -45,13 +54,10 @@ class LeMike_DevMode_Test_Model_Core_Email_TemplateTest extends EcomDev_PHPUnit_
          * }}} main condition {{{
          */
         ob_start();
-        $this->getRequest()->setMethod('POST');
-        $this->getRequest()->setPost('email', 'lemike_devmode' . uniqid() . '@example.org');
-        $this->dispatch('newsletter/subscriber/new');
-
-        $this->assertRequestRoute('newsletter/subscriber/new');
-
+        $email = 'lemike_devmode' . uniqid() . '@example.org';
+        $this->_requestNewsletterSubscriberNew($email);
         $contents = ob_get_clean();
+
         $this->assertSame($templateText, $contents);
 
         /*
@@ -60,5 +66,58 @@ class LeMike_DevMode_Test_Model_Core_Email_TemplateTest extends EcomDev_PHPUnit_
         $this->assertTrue(Mage::helper('lemike_devmode')->disableMagentoDispatch());
         $this->assertEmpty($this->getResponse()->getOutputBody());
         $this->assertEmpty($this->getResponse()->getBody());
+    }
+
+
+    /**
+     * Redirect mail to another recipient.
+     *
+     * @loadFixture core_email_recipient
+     * @return void
+     */
+    public function testRegisterNewsletter_Recipient()
+    {
+        /*
+         * }}} precondition {{{
+         */
+        $email      = 'lemike_devmode@example.org';
+        $subscriber = 'lemike_devmode' . uniqid() . '@example.org';
+
+        $this->assertEquals($email, Mage::getStoreConfig('lemike_devmode_core/email/recipient'));
+        $this->assertEquals($email, Mage::helper('lemike_devmode/config')->getCoreEmailRecipient());
+
+        $this->assertEquals('1', Mage::getStoreConfig('lemike_devmode_core/email/active'));
+        $this->assertEquals(true, Mage::helper('lemike_devmode/config')->isMailAllowed());
+
+        $coreEmailTemplateMock = $this->getModelMock('core/email_template', array('setData'));
+        $coreEmailTemplateMock->expects($this->any())->method('setData')->with($this->equalTo('template_text'))->will(
+            $this->returnCallback(array($this, 'fetchArgs'))
+        );
+        $this->replaceByMock('model', 'core/email_template', $coreEmailTemplateMock);
+
+        /*
+         * }}} main condition {{{
+         */
+        $this->_requestNewsletterSubscriberNew($subscriber);
+        /*
+         * }}} postcondition {{{
+         */
+    }
+
+
+    /**
+     * Request Mage_Newsletter_SubscriberController::send().
+     *
+     * @param string $email
+     *
+     * @return void
+     */
+    protected function _requestNewsletterSubscriberNew($email)
+    {
+        $this->getRequest()->setMethod('POST');
+        $this->getRequest()->setPost('email', $email);
+        $this->dispatch('newsletter/subscriber/new');
+
+        $this->assertRequestRoute('newsletter/subscriber/new');
     }
 }

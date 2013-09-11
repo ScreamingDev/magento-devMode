@@ -30,24 +30,11 @@ class LeMike_DevMode_Model_Core_Email_Template extends Mage_Core_Model_Email_Tem
 {
     public function send($email, $name = null, array $variables = array())
     {
-        $recipient = Mage::getStoreConfig('lemike_devmode_core/email/recipient');
 
-        if ($recipient)
-        { // recipient is set: send mail to him
-            LeMike_DevMode_Model_Log::info(
-                'Reroute mail from "' . $this->getData('to_email') . '" to "' . $recipient . '".'
-            );
-            $this->setData('to_email', $recipient);
-        }
-
-        if (!Mage::helper('lemike_devmode/config')->isMailAllowed())
-        { // no recipient set: show content
-            Mage::helper('lemike_devmode')->disableMagentoDispatch(true);
-            echo (string)$this->getProcessedTemplate($variables, true);
-        }
-        else
+        $content = (string)$this->getProcessedTemplate($variables, true);
+        if (Mage::helper('lemike_devmode/core')->handleMail($this, $content))
         {
-            return parent::send($email, $name, $variables);
+            return parent::send($this->getData('to_email'), $name, $variables);
         }
 
         return true;

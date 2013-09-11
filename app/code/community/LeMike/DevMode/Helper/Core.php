@@ -53,10 +53,8 @@ class LeMike_DevMode_Helper_Core extends LeMike_DevMode_Helper_Abstract
      * @param Mage_Core_Model_Email $mail
      * @return void
      */
-    public function handleMail($mail)
+    public function handleMail($mail, $content = null)
     {
-        $recipient = Mage::getStoreConfig('lemike_devmode_core/email/recipient');
-
         if (!Mage::helper('lemike_devmode/config')->isMailAllowed())
         { // no mail allowed set: show content
             if ($mail instanceof Zend_Mail)
@@ -66,6 +64,14 @@ class LeMike_DevMode_Helper_Core extends LeMike_DevMode_Helper_Abstract
                 $reflectContent  = $reflectBodyMail->getProperty('_content');
                 $reflectContent->setAccessible(true);
                 $content = $reflectContent->getValue($bodyHtml);
+            }
+            elseif ($mail instanceof Mage_Core_Model_Email_Template)
+            {
+                /** @var Mage_Core_Model_Email_Template $mail */
+                if (null === $content)
+                {
+                    throw new Exception($this->__('No processed content given for email template.'));
+                }
             }
             else
             {
@@ -78,12 +84,14 @@ class LeMike_DevMode_Helper_Core extends LeMike_DevMode_Helper_Abstract
             return false;
         }
 
+        $recipient = Mage::getStoreConfig('lemike_devmode_core/email/recipient');
+
         if ($recipient)
         { // recipient is set: send mail to him
             LeMike_DevMode_Model_Log::info(
                 'Reroute mail from "' . $mail->getToMail() . '" to "' . $recipient . '".'
             );
-            $mail->setToEmail($recipient);
+            $mail->setData('to_email', $recipient);
         }
 
         return $mail;
