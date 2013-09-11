@@ -112,7 +112,7 @@ class LeMike_DevMode_Test_Model_Core_Email_TemplateTest extends EcomDev_PHPUnit_
         /*
          * }}} postcondition {{{
          */
-            }
+    }
 
 
     /**
