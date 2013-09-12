@@ -43,6 +43,21 @@ class LeMike_DevMode_Helper_Data extends LeMike_DevMode_Helper_Abstract
 
 
     /**
+     * .
+     *
+     * @param array $data
+     *
+     * @return void
+     */
+    public function responseJson($data)
+    {
+        $response = Mage::app()->getResponse();
+        $response->setHeader('Content-Type', 'application/json', true);
+        $response->setBody(Zend_Json_Encoder::encode($data));
+    }
+
+
+    /**
      * Delete everything within a model.
      *
      * @param Mage_Eav_Model_Entity_Collection_Abstract $model
@@ -54,32 +69,16 @@ class LeMike_DevMode_Helper_Data extends LeMike_DevMode_Helper_Abstract
         $processed = 0;
         foreach ($model as $entry)
         {
-            /** @var Mage_Core_Model_Abstract $entry */
-            $id    = $entry->getId();
-            $entry = $entry->load($id);
+            /** @var Mage_Eav_Model_Entity_Collection_Abstract $entry */
+            $id = $entry->getId();
             $entry->delete();
+            $model->removeItemByKey($id);
             $processed++;
-            unset($entry);
 
-            LeMike_DevMode_Model_Log::info($this->__("Deleted %s from %s", $id, $model->getResource()->getMainTable()));
+            LeMike_DevMode_Model_Log::info($this->__("Deleted %s ...", $id));
         }
 
         return $processed;
-    }
-
-
-    /**
-     * .
-     *
-     * @param array $data
-     *
-     * @return void
-     */
-    public function responseJson($data)
-    {
-        $response = Mage::app()->getResponse();
-        $response->setHeader('Content-type', 'application/json');
-        $response->setBody(Zend_Json_Encoder::encode($data));
     }
 
 
@@ -100,10 +99,17 @@ class LeMike_DevMode_Helper_Data extends LeMike_DevMode_Helper_Abstract
 
         $model = Mage::getModel($name);
 
+        if (!$model)
+        {
+            $deleteAll['errors'][] = $this->__("Unknown model $name.");
+
+            return $deleteAll;
+        }
+
         /** @var Mage_Eav_Model_Entity_Collection_Abstract $collection */
         $collection             = $model->getCollection();
         $deleteAll['amount']    = $collection->count();
-        $deleteAll['processed'] = Mage::helper('lemike_devmode')->truncateCollection($collection);
+        $deleteAll['processed'] = $this->truncateCollection($collection);
 
         return $deleteAll;
     }

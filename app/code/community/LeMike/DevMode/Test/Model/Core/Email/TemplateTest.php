@@ -30,7 +30,7 @@ class LeMike_DevMode_Test_Model_Core_Email_TemplateTest extends EcomDev_PHPUnit_
     /**
      * Test newsletter direct output.
      *
-     * @loadFixture core_mail_disabled
+     * @loadFixture core_email_disabled
      * @return void
      */
     public function testRegisterNewsletter_EmailDisabled()
@@ -41,7 +41,7 @@ class LeMike_DevMode_Test_Model_Core_Email_TemplateTest extends EcomDev_PHPUnit_
         $this->assertEquals('0', Mage::getStoreConfig('lemike_devmode_core/email/active'));
         $this->assertFalse(Mage::helper('lemike_devmode/config')->isMailAllowed());
 
-        $templateText = md5(uniqid());
+        $templateText          = md5(uniqid());
         $coreEmailTemplateMock = $this->getModelMock('core/email_template', array('getTemplateText'));
         $coreEmailTemplateMock->expects($this->any())->method('getTemplateText')->will(
             $this->returnValue($templateText)
@@ -80,7 +80,7 @@ class LeMike_DevMode_Test_Model_Core_Email_TemplateTest extends EcomDev_PHPUnit_
         /*
          * }}} precondition {{{
          */
-        $redirect = 'lemike_devmode@example.org';
+        $redirect   = 'lemike_devmode@example.org';
         $subscriber = 'lemike_devmode' . uniqid() . '@example.org';
 
         $this->assertEquals($redirect, Mage::getStoreConfig('lemike_devmode_core/email/recipient'));

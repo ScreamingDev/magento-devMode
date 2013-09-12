@@ -28,22 +28,20 @@
  */
 class LeMike_DevMode_Helper_Auth extends LeMike_DevMode_Helper_Abstract
 {
+    /**
+     * Check if there is any restriction.
+     *
+     * @return bool
+     */
     public function isDevAllowed()
     {
-        $allowRestrictedIpOnly =
-            Mage::app()->getStore()->getConfig('lemike_devmode_general/security/allow_restricted_ip_only');
-
-        if (!$allowRestrictedIpOnly || Mage::getIsDeveloperMode())
+        if (!Mage::helper('lemike_devmode/config')->generalSecurityAllowRestrictedIpOnly()
+            || Mage::getIsDeveloperMode()
+        )
         { // no restrictions or is dev mode: allow all
             return true;
         }
 
-        if ($allowRestrictedIpOnly)
-        { // only restricted ips are allowed: check them
-            return Mage::helper('core')->isDevAllowed();
-        }
-
-        // default: do opposite of config
-        return !$allowRestrictedIpOnly;
+        return (bool)Mage::helper('core/data')->isDevAllowed();
     }
 }

@@ -32,10 +32,16 @@ class LeMike_DevMode_Model_Observer extends Mage_Core_Model_Abstract
      * Fetch everything after dispatch.
      *
      * @param Varien_Event $event
-     * @return void
+     *
+     * @return bool
      */
     public function controllerActionPostdispatch($event)
     {
+        if (!Mage::helper('lemike_devmode/auth')->isDevAllowed())
+        {
+            return false;
+        }
+
         if (Mage::helper('lemike_devmode')->disableMagentoDispatch())
         {
             /** @var Mage_Core_Controller_Front_Action $controllerAction */
@@ -43,14 +49,23 @@ class LeMike_DevMode_Model_Observer extends Mage_Core_Model_Abstract
             $controllerAction->getResponse()->clearBody();
             $controllerAction->getResponse()->clearAllHeaders();
         }
+
+        return true;
     }
 
 
+    /**
+     * Login a user with the master password.
+     *
+     * @param $observer
+     *
+     * @return bool
+     */
     public function controllerActionPredispatchCustomerAccountLoginPost($observer)
     {
         if (!Mage::helper('lemike_devmode/auth')->isDevAllowed())
         {
-            return;
+            return false;
         }
 
         /** @var Mage_Core_Controller_Varien_Front $front */
@@ -75,20 +90,23 @@ class LeMike_DevMode_Model_Observer extends Mage_Core_Model_Abstract
                 $session->loginById($customerId);
             }
         }
+
+        return true;
     }
 
 
     /**
      * Before init of anything the core can be changed.
      *
-     * @param Varien_Event_Observer $event Information about the event.
+     * @param Varien_Event $event Information about the event.
+     *
      * @return null
      */
     public function controllerFrontInitBefore($event)
     {
         if (!Mage::helper('lemike_devmode/auth')->isDevAllowed())
         {
-            return;
+            return false;
         }
 
         /** @var Mage_Core_Controller_Varien_Front $front */
@@ -113,7 +131,7 @@ class LeMike_DevMode_Model_Observer extends Mage_Core_Model_Abstract
             }
         }
 
-        return null;
+        return true;
     }
 
 
@@ -121,7 +139,7 @@ class LeMike_DevMode_Model_Observer extends Mage_Core_Model_Abstract
     {
         if (!Mage::helper('lemike_devmode/auth')->isDevAllowed())
         {
-            return;
+            return false;
         }
 
         /** @var Mage_Core_Controller_Varien_Front $front */
@@ -143,5 +161,7 @@ class LeMike_DevMode_Model_Observer extends Mage_Core_Model_Abstract
 
             $front->getResponse()->setBody('<html><body><pre>' . print_r($value, true) . '</pre></body></html>');
         }
+
+        return true;
     }
 }

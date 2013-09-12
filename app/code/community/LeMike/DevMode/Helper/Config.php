@@ -59,4 +59,15 @@ class LeMike_DevMode_Helper_Config extends LeMike_DevMode_Helper_Abstract
     {
         return (string)Mage::getStoreConfig('lemike_devmode_customer/customer/password');
     }
+
+
+    /**
+     * Check if only restricted IPs are allowed.
+     *
+     * @return bool
+     */
+    public function generalSecurityAllowRestrictedIpOnly()
+    {
+        return (bool)Mage::app()->getStore()->getConfig('lemike_devmode_general/security/allow_restricted_ip_only');
+    }
 }

@@ -40,16 +40,99 @@ class LeMike_DevMode_Test_Helper_DataTest extends LeMike_DevMode_Test_AbstractCa
 
 
     /**
-     * Tests GetStore.
+     * Test to response with a JSON.
      *
-     * @return null
+     * @return void
      */
-    public function testGetStore()
+    public function testResponseJson()
     {
-        $helper = $this->getFrontend();
+        $data = array('foo' => 'bar');
+        Mage::helper('lemike_devmode')->responseJson($data);
 
-        $this->assertNotNull($this->callMethod($helper, '_getStoreId'));
+        $response = Mage::app()->getResponse();
+        $header   = current($response->getHeaders());
 
-        return null;
+        $this->assertEquals('Content-Type', $header['name']);
+        $this->assertEquals('application/json', $header['value']);
+        $this->assertTrue($header['replace']);
+
+        $this->assertEquals($data, json_decode($response->getBody('default'), true));
+    }
+
+
+    /**
+     * Delete everything within a collection.
+     *
+     * @loadFixture eav_catalog_product
+     * @return void
+     */
+    public function testTruncateCollection_Products()
+    {
+        // precondition
+        /** @var Mage_Catalog_Model_Resource_Product_Collection $coll */
+        $coll         = Mage::getModel('catalog/product')->getCollection();
+        $initialCount = $coll->count();
+        $this->assertGreaterThan(0, $initialCount);
+
+        // main
+        $processed = Mage::helper('lemike_devmode')->truncateCollection($coll);
+        $this->assertEquals($initialCount, $processed);
+        $this->assertEquals(0, $coll->count());
+
+        // post
+        $this->assertEquals(0, Mage::getModel('catalog/product')->getCollection()->count());
+    }
+
+
+    /**
+     * Delete everything within the product model
+     *
+     * @loadFixture eav_catalog_product
+     * @return void
+     */
+    public function testTruncateModelByName_Products()
+    {
+        $this->_testTruncateModelByName('catalog/product');
+    }
+
+
+    /**
+     * Truncate an unknown model.
+     *
+     * @loadFixture eav_catalog_product
+     * @return void
+     */
+    public function testTruncateModelByName_Unknown()
+    {
+        // precondition
+        $modelName = uniqid() . '/' . uniqid();
+        /** @var Mage_Catalog_Model_Resource_Product_Collection $coll */
+        $this->assertFalse(Mage::getModel($modelName));
+
+        // main
+        $data = Mage::helper('lemike_devmode')->truncateModelByName($modelName);
+        $this->assertEquals(0, $data['processed']);
+        $this->assertEquals(0, $data['amount']);
+        $this->assertGreaterThan(0, count($data['errors']));
+        // post
+    }
+
+
+    protected function _testTruncateModelByName($modelName)
+    {
+        // precondition
+        /** @var Mage_Catalog_Model_Resource_Product_Collection $coll */
+        $coll         = Mage::getModel($modelName)->getCollection();
+        $initialCount = $coll->count();
+        $this->assertGreaterThan(0, $initialCount);
+
+        // main
+        $data = Mage::helper('lemike_devmode')->truncateModelByName($modelName);
+        $this->assertEquals($initialCount, $data['processed']);
+        $this->assertEquals($initialCount, $data['amount']);
+        $this->assertEquals(array(), $data['errors']);
+
+        // post
+        $this->assertEquals(0, Mage::getModel($modelName)->getCollection()->count());
     }
 }

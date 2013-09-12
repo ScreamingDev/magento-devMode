@@ -28,6 +28,11 @@
  */
 class LeMike_DevMode_Test_ConfigTest extends EcomDev_PHPUnit_Test_Case_Config
 {
+    /**
+     * Check if needed events are registered.
+     *
+     * @return void
+     */
     public function testEvents()
     {
         $observerAlias = 'lemike_devmode/observer';
@@ -74,6 +79,11 @@ class LeMike_DevMode_Test_ConfigTest extends EcomDev_PHPUnit_Test_Case_Config
     }
 
 
+    /**
+     * .
+     *
+     * @return void
+     */
     public function testGlobal()
     {
         $this->assertBlockAlias('lemike_devmode/template', 'LeMike_DevMode_Block_Template');
@@ -92,8 +102,11 @@ class LeMike_DevMode_Test_ConfigTest extends EcomDev_PHPUnit_Test_Case_Config
 
     public function testModule()
     {
+        $this->assertModuleCodePool('community');
         $this->assertModuleIsActive();
-        $this->assertModuleVersion('0.3.0');
+        $this->assertModuleVersionGreaterThan('0.2.0'); // supported
+
+        $this->assertModuleDepends('Mage_Core');
     }
 
 

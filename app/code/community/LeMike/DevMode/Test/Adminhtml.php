@@ -30,6 +30,10 @@ abstract class LeMike_DevMode_Test_Adminhtml extends EcomDev_PHPUnit_Test_Case_C
 {
     const FAKE_USER_ID = 42;
 
+    protected $_lastArgs = null;
+
+    protected $_fetchedArgs = array();
+
 
     public function setUp()
     {

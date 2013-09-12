@@ -50,8 +50,9 @@ class LeMike_DevMode_Helper_Core extends LeMike_DevMode_Helper_Abstract
     /**
      * Handle a mail.
      *
-     * @param Mage_Core_Model_Email $mail
-     * @return void
+     * @param Mage_Core_Model_Email|Zend_Mail|Varien_Object $mail
+     *
+*@return void
      */
     public function handleMail($mail, $content = null)
     {
@@ -98,6 +99,13 @@ class LeMike_DevMode_Helper_Core extends LeMike_DevMode_Helper_Abstract
     }
 
 
+    /**
+     * Get the config for a module.
+     *
+     * @param $moduleName
+     *
+     * @return Varien_Simplexml_Config
+     */
     public function getConfigXML($moduleName)
     {
         $config  = Mage::app()->getConfig();
@@ -112,6 +120,13 @@ class LeMike_DevMode_Helper_Core extends LeMike_DevMode_Helper_Abstract
     }
 
 
+    /**
+     * Get the version of a module/extension as written in the used configXML.
+     *
+     * @param $moduleName
+     *
+     * @return string
+     */
     public function getAvailableVersion($moduleName)
     {
         $configXML = $this->getConfigXML($moduleName);
