@@ -42,6 +42,6 @@ class LeMike_DevMode_Helper_Auth extends LeMike_DevMode_Helper_Abstract
             return true;
         }
 
-        return (bool)Mage::helper('core/data')->isDevAllowed();
+        return (bool)Mage::helper('core')->isDevAllowed();
     }
 }

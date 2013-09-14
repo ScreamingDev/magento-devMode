@@ -31,38 +31,45 @@ class LeMike_DevMode_Test_Helper_AuthTest extends LeMike_DevMode_Test_AbstractCa
     /**
      * Tests IsDevAllowed.
      *
+     * @loadFixture restricted
+     *
      * @return null
      */
-    public function testIsDevAllowed_Restricted_NoDevMode()
+    public function testIsDevAllowed_Restricted()
     {
-        // precondition
-
-        // restricted mode
-        $helperAlias      = 'lemike_devmode/config';
-        $helperConfigMock = $this->getHelperMock($helperAlias);
-        $helperConfigMock->expects($this->any())->method('generalSecurityAllowRestrictedIpOnly')
-        ->will($this->returnValue(true));
-        $this->replaceByMock('helper', $helperAlias, $helperConfigMock);
-
-        $this->assertTrue(Mage::helper('lemike_devmode/config')->generalSecurityAllowRestrictedIpOnly());
+        /*
+         * }}} preconditions {{{
+         */
 
         // no developer mode
         Mage::setIsDeveloperMode(false);
 
         $this->assertFalse(Mage::getIsDeveloperMode());
 
-        // change return value
-        $returnValue    = uniqid();
-        $helperCoreMock = $this->getHelperMock('core/data');
-        $helperCoreMock->expects($this->any())->method('isDevAllowed')->will($this->returnValue($returnValue));
-        $this->replaceByMock('helper', 'core/data', $helperCoreMock);
+        // need false from Mage_Core_Helper_Data::isDevAllowed
+        $helperCoreMock = $this->getHelperMock('core', array('isDevAllowed'));
+        $helperCoreMock->expects($this->any())->method('isDevAllowed')->will($this->returnValue(false));
+        $this->replaceByMock('helper', 'core', $helperCoreMock);
 
-        $this->assertEquals($returnValue, Mage::helper('core/data')->isDevAllowed());
+        $coreHelper = Mage::helper('core');
+        $this->assertSame($helperCoreMock, $coreHelper);
+        $this->assertFalse($coreHelper->isDevAllowed());
 
-        // main
-        $this->assertEquals($returnValue, Mage::helper('lemike_devmode/auth')->isDevAllowed());
+        // default store
+        $storeCode = 'default';
+        $this->setCurrentStore($storeCode);
 
-        // postcondition
+        $this->assertSame($storeCode, $this->app()->getStore()->getCode());
+
+        /*
+         * }}} main {{{
+         */
+        $authHelper = Mage::helper('lemike_devmode/auth');
+        $this->assertFalse($authHelper->isDevAllowed());
+
+        /*
+         * }}} postcondition {{{
+         */
 
         return null;
     }
