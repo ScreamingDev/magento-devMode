@@ -42,9 +42,14 @@ class LeMike_DevMode_Test_Controller_Adminhtml_Developer_Catalog_ProductsControl
         $initialCount = Mage::getModel('catalog/product')->getCollection()->count();
         $this->assertGreaterThan(0, $initialCount);
 
-        // main
+        // admin session
         $this->mockAdminUserSession();
-        $this->dispatch('adminhtml/developer_catalog_products/deleteAll');
+
+        // main
+        $route = 'adminhtml/developer_catalog_products/deleteAll';
+        $this->dispatch($route);
+
+        $this->assertRequestRoute($route);
 
         $this->assertLayoutHandleNotLoaded('adminhtml_developer_catalog_product_deleteAll');
 
@@ -56,5 +61,37 @@ class LeMike_DevMode_Test_Controller_Adminhtml_Developer_Catalog_ProductsControl
         // postcondition
         $collection = Mage::getModel('catalog/product')->getCollection();
         $this->assertEquals(0, $collection->count());
+    }
+
+
+    /**
+     * Tests SanitizeAllAction.
+     *
+     * @loadFixture eav_catalog_product
+     *
+     * @return null
+     */
+    public function testSanitizeAllAction()
+    {
+        /*
+         * }}} preconditions {{{
+         */
+
+        // admin session
+        $this->mockAdminUserSession();
+
+        /*
+         * }}} main {{{
+         */
+        $route = 'adminhtml/developer_catalog_products/sanitizeAll';
+        $this->dispatch($route);
+
+        $this->assertRequestRoute($route);
+
+        /*
+         * }}} postcondition {{{
+         */
+
+        return null;
     }
 }

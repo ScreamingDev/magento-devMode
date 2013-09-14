@@ -30,21 +30,9 @@ class LeMike_DevMode_Block_Core_Resource extends Mage_Core_Block_Template
 {
     protected $_template = 'lemike/devmode/core/resource.phtml';
 
-
-    /**
-     * Get only the php info table.
-     *
-     * @return LeMike_DevMode_Model_Core_Resource
-     */
-    public function getModel()
-    {
-        return Mage::getModel('lemike_devmode/core_resource');
-    }
-
-
     public function getModuleSet()
     {
         /** @var Mage_Core_Model_Resource_Resource $model */
-        return $this->getModel()->getModuleSet();
+        return Mage::getModel('lemike_devmode/core_resource')->getModuleSet();
     }
 }

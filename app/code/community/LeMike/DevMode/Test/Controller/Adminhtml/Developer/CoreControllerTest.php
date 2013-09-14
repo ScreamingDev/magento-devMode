@@ -37,6 +37,7 @@ class LeMike_DevMode_Test_Controller_Adminhtml_Developer_CoreControllerTest exte
     {
         // layout
         $this->dispatch('adminhtml/developer_core/index');
+
         $this->assertLayoutHandleLoaded('adminhtml_developer_core_index');
         $this->assertLayoutBlockCreated('core.js');
         $this->assertLayoutBlockCreated('core.tabs');

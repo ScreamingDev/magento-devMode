@@ -96,7 +96,6 @@ class LeMike_DevMode_Test_ConfigTest extends EcomDev_PHPUnit_Test_Case_Config
     {
         $this->assertModelAlias('core/email', 'LeMike_DevMode_Model_Core_Email');
         $this->assertModelAlias('core/email_template', 'LeMike_DevMode_Model_Core_Email_Template');
-        $this->assertModelAlias('core/email_transport', 'LeMike_DevMode_Model_Core_Email_Transport');
     }
 
 

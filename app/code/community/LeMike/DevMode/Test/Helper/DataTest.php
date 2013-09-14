@@ -64,6 +64,7 @@ class LeMike_DevMode_Test_Helper_DataTest extends LeMike_DevMode_Test_AbstractCa
      * Delete everything within a collection.
      *
      * @loadFixture eav_catalog_product
+     *
      * @return void
      */
     public function testTruncateCollection_Products()
@@ -88,6 +89,7 @@ class LeMike_DevMode_Test_Helper_DataTest extends LeMike_DevMode_Test_AbstractCa
      * Delete everything within the product model
      *
      * @loadFixture eav_catalog_product
+     *
      * @return void
      */
     public function testTruncateModelByName_Products()
@@ -100,6 +102,7 @@ class LeMike_DevMode_Test_Helper_DataTest extends LeMike_DevMode_Test_AbstractCa
      * Truncate an unknown model.
      *
      * @loadFixture eav_catalog_product
+     *
      * @return void
      */
     public function testTruncateModelByName_Unknown()

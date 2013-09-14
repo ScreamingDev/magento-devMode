@@ -58,6 +58,66 @@ class LeMike_DevMode_Test_Helper_CoreTest extends LeMike_DevMode_Test_AbstractCa
 
 
     /**
+     * Tests GetResourceName.
+     *
+     * @loadExpectation config_global_resources
+     *
+     * @return null
+     */
+    public function testGetResourceName()
+    {
+        /*
+         * }}} preconditions {{{
+         */
+        $moduleName = 'Mage_Customer';
+        $coreHelper = Mage::helper('lemike_devmode/core');
+
+        $this->assertNotNull($coreHelper);
+
+        /*
+         * }}} main {{{
+         */
+        $this->assertSame($this->expected()->getData($moduleName), $coreHelper->getResourceName($moduleName));
+
+        /*
+         * }}} postcondition {{{
+         */
+
+        return null;
+    }
+
+
+    /**
+     * Tests GetResourceName.
+     *
+     * @loadExpectation config_global_resources
+     *
+     * @return null
+     */
+    public function testGetResourceName_UnknownModule()
+    {
+        /*
+         * }}} preconditions {{{
+         */
+        $moduleName = uniqid('L') . '_' . uniqid('D');
+        $coreHelper = Mage::helper('lemike_devmode/core');
+
+        $this->assertNotNull($coreHelper);
+
+        /*
+         * }}} main {{{
+         */
+        $this->assertSame('', $coreHelper->getResourceName($moduleName));
+
+        /*
+         * }}} postcondition {{{
+         */
+
+        return null;
+    }
+
+
+    /**
      * Exception when Mage_Core_Model_Email_Template is given with no $content.
      *
      * @return null

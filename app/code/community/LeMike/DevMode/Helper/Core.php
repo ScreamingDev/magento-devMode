@@ -28,6 +28,15 @@
  */
 class LeMike_DevMode_Helper_Core extends LeMike_DevMode_Helper_Abstract
 {
+    /**
+     * Search configXML for the resource alias of a module.
+     *
+     * You find this in the `config.xml` of the extension in the XML-Path `global/resources`.
+     *
+     * @param $moduleName
+     *
+     * @return string Resource-Name of the module
+     */
     public function getResourceName($moduleName)
     {
         $configXML = $this->getConfigXML($moduleName);
@@ -39,7 +48,7 @@ class LeMike_DevMode_Helper_Core extends LeMike_DevMode_Helper_Abstract
                 $moduleGlobalResources = $node->asArray();
                 reset($moduleGlobalResources);
 
-                return key($moduleGlobalResources);
+                return (string)key($moduleGlobalResources);
             }
         }
 
@@ -52,7 +61,7 @@ class LeMike_DevMode_Helper_Core extends LeMike_DevMode_Helper_Abstract
      *
      * @param Mage_Core_Model_Email|Zend_Mail|Varien_Object $mail
      *
-*@return void
+     * @return void
      */
     public function handleMail($mail, $content = null)
     {
