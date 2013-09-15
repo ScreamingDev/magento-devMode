@@ -69,6 +69,8 @@ class LeMike_DevMode_Test_Helper_DataTest extends EcomDev_PHPUnit_Test_Case_Cont
      */
     public function testTruncateCollection_Products()
     {
+        $this->mockAdminUserSession();
+
         // precondition
         /** @var Mage_Catalog_Model_Resource_Product_Collection $coll */
         $coll         = Mage::getModel('catalog/product')->getCollection();
@@ -94,6 +96,8 @@ class LeMike_DevMode_Test_Helper_DataTest extends EcomDev_PHPUnit_Test_Case_Cont
      */
     public function testTruncateModelByName_Products()
     {
+        $this->mockAdminUserSession();
+
         $this->_testTruncateModelByName('catalog/product');
     }
 
