@@ -69,7 +69,7 @@ class LeMike_DevMode_Test_Helper_DataTest extends EcomDev_PHPUnit_Test_Case_Cont
      */
     public function testTruncateCollection_Products()
     {
-        $this->setCurrentStore('admin');
+        $this->setCurrentStore(Mage_Core_Model_App::ADMIN_STORE_ID);
 
         // precondition
         /** @var Mage_Catalog_Model_Resource_Product_Collection $coll */
@@ -96,7 +96,7 @@ class LeMike_DevMode_Test_Helper_DataTest extends EcomDev_PHPUnit_Test_Case_Cont
      */
     public function testTruncateModelByName_Products()
     {
-        $this->setCurrentStore('admin');
+        $this->setCurrentStore(Mage_Core_Model_App::ADMIN_STORE_ID);
 
         $this->_testTruncateModelByName('catalog/product');
     }
