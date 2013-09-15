@@ -51,6 +51,7 @@ Think about a JavaScript Bookmark to enable this even faster.
 - List the current rewrites
 - Truncate products or categories
 - Work with modules
+- See Magento CronJobs
 
 ### Change admin password
 
@@ -121,3 +122,19 @@ Module name: The name of the module
 ```
 
 
+### See Magento CronJobs
+
+```
+$ php coreConfig_listCron.php
+
+            Alias           |  Expression  |            Class            |      Method       |
+----------------------------+--------------+-----------------------------+-------------------+-
+core_clean_cache            | 30 2 * * *   | Mage_Core_Model_Observer    | cleanCache        |
+log_clean                   |              | Mage_Log_Model_Cron         | logClean          |
+captcha_delete_old_attempts | */30 * * * * | Mage_Captcha_Model_Observer | deleteOldAttempts |
+
+     Alias: Node in the config.xml
+Expression: When to run
+     Class: Used class
+    Method: Method to run
+```
