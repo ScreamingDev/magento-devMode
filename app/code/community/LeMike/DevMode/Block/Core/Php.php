@@ -28,11 +28,7 @@
  */
 class LeMike_DevMode_Block_Core_Php extends Mage_Core_Block_Template
 {
-    public function __construct()
-    {
-        parent::__construct();
-        $this->setTemplate('lemike/devmode/core/php.phtml');
-    }
+    protected $_template = 'lemike/devmode/core/php.phtml';
 
 
     /**
