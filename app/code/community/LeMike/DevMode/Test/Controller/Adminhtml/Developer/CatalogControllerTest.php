@@ -26,7 +26,8 @@
  * @link       http://github.com/sourcerer-mike/magento-devMode
  * @since      0.3.0
  */
-class LeMike_DevMode_Test_Controller_Adminhtml_Developer_CatalogControllerTest extends LeMike_DevMode_Test_Adminhtml
+class LeMike_DevMode_Test_Controller_Adminhtml_Developer_CatalogControllerTest extends
+    EcomDev_PHPUnit_Test_Case_Controller
 {
     /**
      * Run index action and test for layouts.
@@ -35,6 +36,8 @@ class LeMike_DevMode_Test_Controller_Adminhtml_Developer_CatalogControllerTest e
      */
     public function testIndexAction()
     {
+        $this->adminSession();
+
         // layout
         $this->dispatch('adminhtml/developer_catalog/index');
         $this->assertLayoutHandleLoaded('adminhtml_developer_catalog_index');

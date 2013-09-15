@@ -26,7 +26,8 @@
  * @link       http://github.com/sourcerer-mike/magento-devMode
  * @since      0.3.0
  */
-class LeMike_DevMode_Test_Controller_Adminhtml_Developer_CoreControllerTest extends LeMike_DevMode_Test_Adminhtml
+class LeMike_DevMode_Test_Controller_Adminhtml_Developer_CoreControllerTest extends
+    EcomDev_PHPUnit_Test_Case_Controller
 {
     /**
      * Run index action and test for layouts.
@@ -35,8 +36,12 @@ class LeMike_DevMode_Test_Controller_Adminhtml_Developer_CoreControllerTest exte
      */
     public function testIndexAction()
     {
+        $this->assertPreConditions();
+
         // layout
-        $this->dispatch('adminhtml/developer_core/index');
+        $route = 'adminhtml/developer_core/index';
+        $this->dispatch($route);
+        $this->assertRequestRoute($route);
 
         $this->assertLayoutHandleLoaded('adminhtml_developer_core_index');
         $this->assertLayoutBlockCreated('core.js');
@@ -59,10 +64,13 @@ class LeMike_DevMode_Test_Controller_Adminhtml_Developer_CoreControllerTest exte
 
         // valid module name
         $moduleName = 'Mage_Captcha';
+        $route = 'lemike_devmode/adminhtml_developer_core/run';
         $this->dispatch(
-            'lemike_devmode/adminhtml_developer_core/run',
+            $route,
             array(LeMike_DevMode_Adminhtml_Developer_CoreController::SETUP_MODULE_NAME => $moduleName)
         );
+
+        $this->assertRequestRoute($route);
 
         /** @var Mage_Core_Model_Message_Collection $messages */
         $messages = Mage::getSingleton('adminhtml/session')->getMessages();
@@ -99,6 +107,8 @@ class LeMike_DevMode_Test_Controller_Adminhtml_Developer_CoreControllerTest exte
             array(LeMike_DevMode_Adminhtml_Developer_CoreController::SETUP_MODULE_NAME => 'Mage_Admin')
         );
 
+        $this->assertRequestRoute('lemike_devmode/adminhtml_developer_core/run');
+
         $session = Mage::getSingleton('adminhtml/session');
         $this->assertSame(
             'Reinstall Mage_Admin is not allowed.',
@@ -117,10 +127,13 @@ class LeMike_DevMode_Test_Controller_Adminhtml_Developer_CoreControllerTest exte
         $this->assertPreConditions();
 
         // send no module name
+        $route = 'lemike_devmode/adminhtml_developer_core/run';
         $this->dispatch(
-            'lemike_devmode/adminhtml_developer_core/run',
+            $route,
             array(LeMike_DevMode_Adminhtml_Developer_CoreController::SETUP_MODULE_NAME => '')
         );
+
+        $this->assertRequestRoute($route);
 
         $messages = Mage::getSingleton('adminhtml/session')->getMessages();
         $this->assertSame(
@@ -140,10 +153,13 @@ class LeMike_DevMode_Test_Controller_Adminhtml_Developer_CoreControllerTest exte
         $this->assertPreConditions();
 
         // send unknown module name
+        $route = 'lemike_devmode/adminhtml_developer_core/run';
         $this->dispatch(
-            'lemike_devmode/adminhtml_developer_core/run',
+            $route,
             array(LeMike_DevMode_Adminhtml_Developer_CoreController::SETUP_MODULE_NAME => 'Som_eStrange')
         );
+
+        $this->assertRequestRoute($route);
 
         $session = Mage::getSingleton('adminhtml/session');
         $this->assertSame(
@@ -160,6 +176,8 @@ class LeMike_DevMode_Test_Controller_Adminhtml_Developer_CoreControllerTest exte
      */
     protected function assertPreConditions()
     {
+        $this->mockAdminUserSession();
+
         /** @var Mage_Core_Model_Message_Collection $messages */
         $messages = Mage::getSingleton('adminhtml/session')->getMessages();
         $messages->clear();
