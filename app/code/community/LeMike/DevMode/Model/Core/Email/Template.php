@@ -13,7 +13,7 @@
  * @copyright  2013 Mike Pretzlaw
  * @license    http://github.com/sourcerer-mike/mage_devMail/blob/master/LICENSE.md BSD 3-Clause ("BSD New")
  * @link       http://github.com/sourcerer-mike/mage_devMail
- * @since      0.2.0
+ * @since      0.1.0
  */
 
 /**
@@ -24,7 +24,7 @@
  * @copyright  2013 Mike Pretzlaw
  * @license    http://github.com/sourcerer-mike/mage_devMail/blob/master/LICENSE.md BSD 3-Clause ("BSD New")
  * @link       http://github.com/sourcerer-mike/mage_devMail
- * @since      0.2.0
+ * @since      0.1.0
  */
 class LeMike_DevMode_Model_Core_Email_Template extends Mage_Core_Model_Email_Template
 {

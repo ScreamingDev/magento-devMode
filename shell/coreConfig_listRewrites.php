@@ -7,7 +7,7 @@
  * @copyright  2013 Mike Pretzlaw
  * @license    http://github.com/sourcerer-mike/Magento-devMode/blob/master/LICENSE.md BSD 3-Clause ("BSD New")
  * @link       http://github.com/sourcerer-mike/Magento-devMode
- * @since      0.1.0
+ * @since      0.3.0
  */
 
 const LOADING_MAGENTO = "Loading Magento ...";

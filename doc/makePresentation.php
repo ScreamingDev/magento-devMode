@@ -1,4 +1,7 @@
 <?php
+/**
+ * @since 0.2.0
+ */
 
 $template = <<<HTML
 <!doctype html>
