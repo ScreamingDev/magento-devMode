@@ -1,4 +1,18 @@
-##Changelog
+## v0.3.1
+
+- Used latest development version of EcomDev_PHPUnit
+- 7885a5b Swap template definition
+- 608aac8 Additional tests on blocks
+- 1bf1cd9 Enhanced testing a lot
+- c11ba95 Multiple tests added
+- 4693f60 obsolete method Helper::getStoreConfig
+- f75e2fe #37 Test on config to redirect all mails to another recipient
+- 495dd6f #35 swapped logic of LeMike_DevMode_Model_Core_Email_Template::send to
+LeMike_DevMode_Helper_Core::handleMail
+- df84b20 #34 correct tests
+
+
+## v0.3.0
 
 ### Major changes
 
