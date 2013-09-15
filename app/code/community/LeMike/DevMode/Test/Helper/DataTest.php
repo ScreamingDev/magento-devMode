@@ -26,7 +26,7 @@
  * @link       http://github.com/sourcerer-mike/mage_devMail
  * @since      0.2.0
  */
-class LeMike_DevMode_Test_Helper_DataTest extends LeMike_DevMode_Test_AbstractCase
+class LeMike_DevMode_Test_Helper_DataTest extends EcomDev_PHPUnit_Test_Case_Controller
 {
     /**
      * .

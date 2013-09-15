@@ -36,7 +36,15 @@ class LeMike_DevMode_Test_Controller_Adminhtml_Developer_SalesControllerTest ext
      */
     public function testIndexAction()
     {
-        $this->adminSession();
+        /** @var Mage_Index_Model_Resource_Process_Collection $object */
+        $object = Mage::getSingleton('index/indexer')->getProcessesCollection();
+        $object->getSelect()->reset('from');
+
+        $this->mockAdminUserSession();
+
+        /** @var Mage_Index_Model_Resource_Process_Collection $object */
+        $object = Mage::getSingleton('index/indexer')->getProcessesCollection();
+        $object->getSelect()->reset('from');
 
         // layout
         $this->dispatch('adminhtml/developer_sales/index');

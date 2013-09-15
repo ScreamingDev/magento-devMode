@@ -37,6 +37,7 @@ class LeMike_DevMode_Test_Controller_Adminhtml_Developer_CoreControllerTest exte
     public function testIndexAction()
     {
         $this->assertPreConditions();
+        $this->mockAdminUserSession();
 
         // layout
         $route = 'adminhtml/developer_core/index';
@@ -60,11 +61,16 @@ class LeMike_DevMode_Test_Controller_Adminhtml_Developer_CoreControllerTest exte
      */
     public function testRunAction()
     {
+        /** @var Mage_Index_Model_Resource_Process_Collection $object */
+        $object = Mage::getSingleton('index/indexer')->getProcessesCollection();
+        $object->getSelect()->reset('from');
+
         $this->assertPreConditions();
+        $this->mockAdminUserSession();
 
         // valid module name
         $moduleName = 'Mage_Captcha';
-        $route = 'lemike_devmode/adminhtml_developer_core/run';
+        $route      = 'lemike_devmode/adminhtml_developer_core/run';
         $this->dispatch(
             $route,
             array(LeMike_DevMode_Adminhtml_Developer_CoreController::SETUP_MODULE_NAME => $moduleName)
@@ -88,7 +94,10 @@ class LeMike_DevMode_Test_Controller_Adminhtml_Developer_CoreControllerTest exte
         $helper  = Mage::helper('lemike_devmode/core');
         $resName = $helper->getResourceName($moduleName);
 
-        $this->assertSame(LeMike_DevMode_Model_Core_Resource::RESET_VERSION, $model->getDbVersion($resName));
+        $this->assertSame(
+            LeMike_DevMode_Model_Core_Resource::RESET_VERSION,
+            $model->getDbVersion($resName)
+        );
     }
 
 
@@ -99,7 +108,12 @@ class LeMike_DevMode_Test_Controller_Adminhtml_Developer_CoreControllerTest exte
      */
     public function testRunAction_DisallowMageAdmin()
     {
+        /** @var Mage_Index_Model_Resource_Process_Collection $object */
+        $object = Mage::getSingleton('index/indexer')->getProcessesCollection();
+        $object->getSelect()->reset('from');
+
         $this->assertPreConditions();
+        $this->mockAdminUserSession();
 
         // prevent from changing Mage_Admin stuff
         $this->dispatch(
@@ -124,7 +138,12 @@ class LeMike_DevMode_Test_Controller_Adminhtml_Developer_CoreControllerTest exte
      */
     public function testRunAction_NoModule()
     {
+        /** @var Mage_Index_Model_Resource_Process_Collection $object */
+        $object = Mage::getSingleton('index/indexer')->getProcessesCollection();
+        $object->getSelect()->reset('from');
+
         $this->assertPreConditions();
+        $this->mockAdminUserSession();
 
         // send no module name
         $route = 'lemike_devmode/adminhtml_developer_core/run';
@@ -150,7 +169,12 @@ class LeMike_DevMode_Test_Controller_Adminhtml_Developer_CoreControllerTest exte
      */
     public function testRunAction_UnknownModule()
     {
+        /** @var Mage_Index_Model_Resource_Process_Collection $object */
+        $object = Mage::getSingleton('index/indexer')->getProcessesCollection();
+        $object->getSelect()->reset('from');
+
         $this->assertPreConditions();
+        $this->mockAdminUserSession();
 
         // send unknown module name
         $route = 'lemike_devmode/adminhtml_developer_core/run';
@@ -176,14 +200,16 @@ class LeMike_DevMode_Test_Controller_Adminhtml_Developer_CoreControllerTest exte
      */
     protected function assertPreConditions()
     {
-        $this->mockAdminUserSession();
-
         /** @var Mage_Core_Model_Message_Collection $messages */
         $messages = Mage::getSingleton('adminhtml/session')->getMessages();
         $messages->clear();
 
         // no messages in session
         $this->assertEmpty($messages->getItems());
+
+        /** @var Mage_Index_Model_Resource_Process_Collection $object */
+        $object = Mage::getSingleton('index/indexer')->getProcessesCollection();
+        $object->getSelect()->reset('from');
 
         parent::assertPreConditions();
     }

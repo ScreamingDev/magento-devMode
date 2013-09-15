@@ -36,7 +36,11 @@ class LeMike_DevMode_Test_Controller_Adminhtml_DeveloperTest extends
      */
     public function testAboutAction()
     {
-        $this->adminSession();
+        /** @var Mage_Index_Model_Resource_Process_Collection $object */
+        $object = Mage::getSingleton('index/indexer')->getProcessesCollection();
+        $object->getSelect()->reset('from');
+
+        $this->mockAdminUserSession();
 
         // layout
         $route = 'adminhtml/developer/about';

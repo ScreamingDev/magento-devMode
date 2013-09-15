@@ -26,7 +26,8 @@
  * @link       http://github.com/sourcerer-mike/mage_devMail
  * @since      0.1.0
  */
-class LeMike_DevMode_Adminhtml_Developer_Catalog_ProductsController extends Mage_Adminhtml_Controller_Action
+class LeMike_DevMode_Adminhtml_Developer_Catalog_ProductsController extends
+    Mage_Adminhtml_Controller_Action
 {
     public function deleteAllAction()
     {
@@ -69,7 +70,7 @@ class LeMike_DevMode_Adminhtml_Developer_Catalog_ProductsController extends Mage
                     $sanitizeAll['processed']++;
                 } catch (Exception $e)
                 {
-                    $sanitizeAll['errors'][] = $e->getMessage();
+                    $sanitizeAll['errors'][$product->getId()] = $e->getMessage();
                 }
             }
         }

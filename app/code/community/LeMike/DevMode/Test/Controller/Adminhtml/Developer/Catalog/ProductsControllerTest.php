@@ -29,12 +29,6 @@
 class LeMike_DevMode_Test_Controller_Adminhtml_Developer_Catalog_ProductsControllerTest extends
     EcomDev_PHPUnit_Test_Case_Controller
 {
-    public function exception()
-    {
-        return null; // throw new  Exception('0815');
-    }
-
-
     /**
      * Run delete action and test for json dispatch.
      *
@@ -111,6 +105,9 @@ class LeMike_DevMode_Test_Controller_Adminhtml_Developer_Catalog_ProductsControl
      */
     public function testSanitizeAllAction_SaveError()
     {
+        $this->markTestSkipped("Could not mock so that it will be used in controller.");
+
+        return;
         /*
          * }}} preconditions {{{
          */
@@ -141,8 +138,6 @@ class LeMike_DevMode_Test_Controller_Adminhtml_Developer_Catalog_ProductsControl
         $this->dispatch($route);
 
         $this->assertRequestRoute($route);
-
-        $this->markTestSkipped("Could not mock $alias so that it will be used in controller.");
 
         /*
          * }}} postcondition {{{

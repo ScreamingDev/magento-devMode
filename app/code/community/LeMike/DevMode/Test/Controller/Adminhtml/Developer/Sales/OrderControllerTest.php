@@ -38,6 +38,10 @@ class LeMike_DevMode_Test_Controller_Adminhtml_Developer_Sales_OrderControllerTe
      */
     public function testDeleteAllAction()
     {
+        /** @var Mage_Index_Model_Resource_Process_Collection $object */
+        $object = Mage::getSingleton('index/indexer')->getProcessesCollection();
+        $object->getSelect()->reset('from');
+
         // precondition
         $initialCount = Mage::getModel('sales/order')->getCollection()->count();
         $this->assertGreaterThan(0, $initialCount);
