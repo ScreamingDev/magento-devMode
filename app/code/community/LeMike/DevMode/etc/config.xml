@@ -38,6 +38,14 @@
                     </lemike_devmode>
                 </observers>
             </controller_front_init_before>
+            <controller_action_predispatch>
+                <observers>
+                    <lemike_devmode>
+                        <class>lemike_devmode/observer</class>
+                        <method>controllerActionPredispatch</method>
+                    </lemike_devmode>
+                </observers>
+            </controller_action_predispatch>
         </events>
     </global>
 

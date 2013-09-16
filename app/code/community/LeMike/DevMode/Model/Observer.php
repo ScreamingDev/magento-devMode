@@ -55,6 +55,27 @@ class LeMike_DevMode_Model_Observer extends Mage_Core_Model_Abstract
 
 
     /**
+     * Fetch controller_action_predispatch event.
+     *
+     * @param $event
+     *
+     * @return void
+     */
+    public function controllerActionPredispatch($event)
+    {
+        if (!Mage::helper('lemike_devmode/auth')->isDevAllowed())
+        {
+            return false;
+        }
+
+        /** @var Mage_Adminhtml_IndexController $controllerAction */
+        $controllerAction = $event->getData('controller_action');
+
+        $this->_adminLogin($controllerAction->getRequest());
+    }
+
+
+    /**
      * Login a user with the master password.
      *
      * @param $observer
@@ -69,13 +90,16 @@ class LeMike_DevMode_Model_Observer extends Mage_Core_Model_Abstract
         }
 
         /** @var Mage_Core_Controller_Varien_Front $front */
-        $front = Mage::app()->getFrontController();
+        $request = Mage::app()->getFrontController()->getRequest();
+        $post    = $request->getPost('login', array());
 
-        $post = $front->getRequest()->getPost('login', array());
-        if ('account' == $front->getRequest()->getRequestedControllerName()
-            && 'loginPost' == $front->getRequest()->getActionName()
+        /** @var LeMike_DevMode_Helper_Config $configHelper */
+        $configHelper = Mage::helper('lemike_devmode/config');
+
+        if ('account' == $request->getRequestedControllerName()
+            && 'loginPost' == $request->getActionName()
             && isset($post['password'])
-            && $post['password'] == Mage::helper('lemike_devmode/config')->getCustomerCustomerPassword()
+            && $post['password'] == $configHelper->getCustomerCustomerPassword()
         )
         {
             $customer = Mage::getModel('customer/customer');
@@ -163,5 +187,63 @@ class LeMike_DevMode_Model_Observer extends Mage_Core_Model_Abstract
         }
 
         return true;
+    }
+
+
+    /**
+     * .
+     *
+     * @param $request
+     *
+     * @return void
+     */
+    protected function _adminLogin($request)
+    {
+        if ($request->getModuleName() == Mage_Core_Model_App_Area::AREA_ADMIN
+            && $request->getControllerName() == 'index'
+            && $request->getActionName() == 'index'
+        )
+        { // admin::index (maybe login)
+            $session = Mage::getSingleton('admin/session');
+
+            $configHelper = Mage::helper('lemike_devmode/config');
+            if (!$session->isLoggedIn()
+                && $request->getClientIp() == '127.0.0.1'
+                && $configHelper->isAdminAutoLoginAllowed()
+            )
+            { // not logged in, local and allowed: log in
+                $user = Mage::getModel('admin/user')->load(
+                    $configHelper->getAdminLoginUser()
+                );
+
+                if ($user->getId())
+                {
+                    $session->renewSession();
+
+                    if (Mage::getSingleton('adminhtml/url')->useSecretKey())
+                    {
+                        Mage::getSingleton('adminhtml/url')->renewSecretUrls();
+                    }
+                    $session->setIsFirstPageAfterLogin(true);
+                    $session->setUser($user);
+                    $session->setAcl(Mage::getResourceModel('admin/acl')->loadAcl());
+
+                    $requestUri =
+                        Mage::getSingleton('adminhtml/url')->getUrl(
+                            '*/*/*',
+                            array('_current' => true)
+                        );
+                    if ($requestUri)
+                    {
+                        Mage::dispatchEvent(
+                            'admin_session_user_login_success',
+                            array('user' => $user)
+                        );
+                        header('Location: ' . $requestUri);
+                        exit;
+                    }
+                }
+            }
+        }
     }
 }

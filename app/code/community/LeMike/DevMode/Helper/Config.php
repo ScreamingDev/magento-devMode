@@ -70,4 +70,28 @@ class LeMike_DevMode_Helper_Config extends LeMike_DevMode_Helper_Abstract
     {
         return (bool)Mage::app()->getStore()->getConfig('lemike_devmode_general/security/allow_restricted_ip_only');
     }
+
+
+    /**
+     * admin_auto_login.
+     *
+     * @return bool
+     */
+    public function isAdminAutoLoginAllowed()
+    {
+        return (bool)(0 == $this->getAdminLoginUser());
+    }
+
+
+    /**
+     * Get the ID for the user that shall be logged in automatically.
+     *
+     * @return int
+     */
+    public function getAdminLoginUser()
+    {
+        return (int)Mage::app()->getStore()->getConfig(
+            'lemike_devmode_general/security/admin_login_user'
+        );
+    }
 }
