@@ -30,31 +30,6 @@ class LeMike_DevMode_Test_Controller_Adminhtml_Developer_CoreControllerTest exte
     EcomDev_PHPUnit_Test_Case_Controller
 {
     /**
-     * Run index action and test for layouts.
-     *
-     * @return void
-     */
-    public function testIndexAction()
-    {
-        $this->assertPreConditions();
-        $this->mockAdminUserSession();
-
-        // layout
-        $route = 'adminhtml/developer_core/index';
-        $this->dispatch($route);
-        $this->assertRequestRoute($route);
-
-        $this->assertLayoutHandleLoaded('adminhtml_developer_core_index');
-        $this->assertLayoutBlockCreated('core.js');
-        $this->assertLayoutBlockCreated('core.tabs');
-        $this->assertLayoutBlockCreated('core.content');
-        $this->assertLayoutBlockRendered('core.config');
-        $this->assertLayoutBlockRendered('core.php');
-        $this->assertLayoutBlockRendered('core.resource');
-    }
-
-
-    /**
      * Call runAction and check if module has been reset.
      *
      * @return void
