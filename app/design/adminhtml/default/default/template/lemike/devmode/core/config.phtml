@@ -17,8 +17,8 @@ ksort($rewritePathToClassName);
     </thead>
 
     <tbody>
-    <?php foreach ($rewritePathToClassName as $path => $classSet): ?>
-        <?php foreach ($classSet as $className): ?>
+    <?php foreach ($rewritePathToClassName as $path => $set): ?>
+        <?php foreach ($set as $className): ?>
             <tr>
                 <td><?php echo $path ?></td>
                 <td><?php echo $className ?></td>
@@ -30,6 +30,55 @@ ksort($rewritePathToClassName);
     <tfoot>
     <tr>
         <td colspan="2"><?php echo $this->__('Keep an eye out for duplicate rewrites.'); ?></td>
+    </tr>
+    </tfoot>
+</table>
+
+<?php
+$cronTabs = $this->getModel()->getCrontabJobs();
+
+$data = array();
+foreach ($cronTabs as $set)
+{
+    $data[$set['alias']] = $set;
+}
+
+ksort($data);
+
+?>
+
+<h2><?php echo $this->__('Cron Jobs'); ?></h2>
+
+<table>
+    <thead>
+    <tr>
+        <th><?php echo $this->__('Alias'); ?></th>
+        <th><?php echo $this->__('Expression'); ?></th>
+        <th><?php echo $this->__('Class'); ?></th>
+        <th><?php echo $this->__('Method'); ?></th>
+    </tr>
+    </thead>
+
+    <tbody>
+    <?php foreach ($data as $set): ?>
+        <tr>
+            <td><?php echo $set['alias'] ?></td>
+            <td>
+                <pre><?php echo $set['cron_expr'] ?></pre>
+            </td>
+            <td><?php echo $set['class'] ?></td>
+            <td><?php echo $set['method'] ?></td>
+        </tr>
+    <?php endforeach; ?>
+    </tbody>
+
+    <tfoot>
+    <tr>
+        <td colspan="4">
+            <?php echo $this->__(
+                'Those cron jobs are configured by config.xml of each active module.'
+            ); ?>
+        </td>
     </tr>
     </tfoot>
 </table>
