@@ -40,26 +40,15 @@ class LeMike_DevMode_Shell_CoreConfigCron extends Mage_Shell_Abstract
 
         echo "\r" . str_repeat(' ', strlen(self::LOADING_MAGENTO)) . "\r";
 
-        $jobSet = (array)Mage::app()->getConfig()->getNode('crontab/jobs');
-
-        foreach ($jobSet as $alias => $moduleConfig)
-        {
-            /** @var Mage_Core_Model_Config_Element $moduleConfig */
-            $model        = $moduleConfig->run->model;
-            $data[$alias] = array(
-                'cron_expr' => (string)$moduleConfig->schedule->cron_expr,
-                'run'    => (string)$model,
-                'class'  => (string)get_class(Mage::getModel(strtok($model, ':'))),
-                'method' => (string)ltrim(strtok(':'), ':'),
-            );
-        }
+        $data = Mage::getModel('lemike_devmode/core_config')->getCrontabJobs();
 
         $table = new LeMike_DevMode_Block_Shell_Table(
             array("alias"     => 'Alias',
                   "cron_expr" => 'Expression',
                   "class"  => 'Class',
                   "method" => 'Method',
-            )
+            ),
+            $data
         );
 
         $table->legend = array(
@@ -69,12 +58,6 @@ class LeMike_DevMode_Shell_CoreConfigCron extends Mage_Shell_Abstract
             'class'     => "Used class",
             'method'    => "Method to run",
         );
-
-        foreach ($data as $alias => $row)
-        {
-            $row['alias'] = $alias;
-            $table->tableRowAdd($row);
-        }
 
         echo $table;
     }

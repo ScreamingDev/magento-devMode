@@ -58,6 +58,11 @@ class LeMike_DevMode_Block_Shell_Table
 
     public function tableRowAdd($row)
     {
+        if ($row instanceof Varien_Object)
+        {
+            $row = $row->getData();
+        }
+
         $this->_tableRowSet[] = $row;
         foreach ($row as $key => $cell)
         {

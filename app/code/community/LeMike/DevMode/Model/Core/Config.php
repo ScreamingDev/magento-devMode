@@ -28,11 +28,63 @@
  */
 class LeMike_DevMode_Model_Core_Config extends Mage_Core_Model_Abstract
 {
+    public function getConfigXML()
+    {
+        /** @var Mage_Core_Model_Config $config */
+        $config = $this->_getConfig();
+
+        $reflectObject = new ReflectionObject($config);
+        $prop          = $reflectObject->getProperty('_xml');
+        $prop->setAccessible(true);
+
+        return $prop->getValue($config);
+    }
+
+
+    /**
+     * All cron jobs as configured in magento.
+     *
+     * @return Varien_Object [alias => [cron_expr, run, class, method]
+     */
+    public function getCrontabJobs($alias = null)
+    {
+        $jobSet = (array)Mage::app()->getConfig()->getNode('crontab/jobs');
+
+        $varien_Data_Collection = new Varien_Data_Collection();
+        foreach ($jobSet as $node => $moduleConfig)
+        {
+            if ($alias !== null && $alias != $node)
+            {
+                continue;
+            }
+
+            /** @var Mage_Core_Model_Config_Element $moduleConfig */
+            $model = $moduleConfig->run->model;
+
+            $item = new Varien_Object();
+            $item->setData(
+                array(
+                     'alias'     => $node,
+                     'cron_expr' => (string)$moduleConfig->schedule->cron_expr,
+                     'run'       => (string)$model,
+                     'class'     => (string)get_class(Mage::getModel(strtok($model, ':'))),
+                     'method'    => (string)ltrim(strtok(':'), ':'),
+                )
+            );
+
+            $varien_Data_Collection->addItem($item);
+        }
+
+        return $varien_Data_Collection;
+    }
+
+
     /**
      * List all rewrites with their according classes.
      *
      * @param SimpleXMLElement $childNode (default: current config)
      * @param string $basePath
+     *
      * @return array [path => [overriding class, ...]]
      */
     public function getRewritePathToClassName($childNode = null, $basePath = '')
@@ -64,24 +116,14 @@ class LeMike_DevMode_Model_Core_Config extends Mage_Core_Model_Abstract
             }
             elseif ($node->hasChildren())
             {
-                $rewritesToPath += $this->getRewritePathToClassName($node, ltrim($basePath . '/' . $key, '/'));
+                $rewritesToPath += $this->getRewritePathToClassName(
+                    $node,
+                    ltrim($basePath . '/' . $key, '/')
+                );
             }
         }
 
         return $rewritesToPath;
-    }
-
-
-    public function getConfigXML()
-    {
-        /** @var Mage_Core_Model_Config $config */
-        $config = $this->_getConfig();
-
-        $reflectObject = new ReflectionObject($config);
-        $prop          = $reflectObject->getProperty('_xml');
-        $prop->setAccessible(true);
-
-        return $prop->getValue($config);
     }
 
 
