@@ -79,6 +79,43 @@ class LeMike_DevMode_Model_Core_Config extends Mage_Core_Model_Abstract
     }
 
 
+    public function getObserver($scope = array())
+    {
+        $nodeSet = (array)$scope;
+        if (empty($nodeSet))
+        {
+            $nodeSet = array(
+                'global',
+                'adminhtml',
+                'frontend',
+            );
+        }
+
+        foreach ($nodeSet as $node)
+        {
+            $globalEvents = (array)Mage::getConfig()->getNode($node . '/events');
+
+            $data = array();
+            foreach ($globalEvents as $event => $singleEvent)
+            {
+                /** @var Mage_Core_Model_Config_Element $singleEvent */
+
+                foreach ((array)$singleEvent->observers as $alias => $observer)
+                {
+                    $data[$node][$event][$alias][] = $observer;
+                }
+            }
+        }
+
+        if (is_string($scope) && isset($data[$scope]))
+        {
+            return $data[$scope];
+        }
+
+        return $data;
+    }
+
+
     /**
      * List all rewrites with their according classes.
      *
