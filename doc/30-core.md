@@ -30,18 +30,29 @@ Look up a PHP-Info in `Development > Core > PHP` if you want to know what the en
 ## Config
 
 - Take a look at the rewrites
+Go to `Development > Core > Config`
 
 
 ### Rewrites
 
-Go to `Development > Core > Config`
+Find a list of rewrites over every module.
 
 ![Rewrites in menu "Development" > "Core" > "Config"](https://f.cloud.github.com/assets/2559177/1061743/b6feb66c-11fe-11e3-9f5f-7e92a6df97be.png)
 
 
 ### Cron Jobs
 
+Crontabs that will be done by each module.
+
 ![See Crontabs in "Development" > "Core" > "Config"](https://f.cloud.github.com/assets/2559177/1148064/f9a92bf8-1eb7-11e3-9007-b2524062b08f.png)
+
+
+### See all observer
+
+Observer that will handle events across every extension.
+
+![Development > Core > Config](https://f.cloud.github.com/assets/2559177/1148893/31bed89a-1ed0-11e3-9410-6656b828d850.png)
+
 
 
 ## Extensions

@@ -82,3 +82,44 @@ ksort($data);
     </tr>
     </tfoot>
 </table>
+
+
+<h2><?php echo $this->__('Observer'); ?></h2>
+
+<table>
+    <thead>
+    <tr>
+        <th><?php echo $this->__('Scope'); ?></th>
+        <th><?php echo $this->__('Event'); ?></th>
+        <th><?php echo $this->__('Class'); ?></th>
+        <th><?php echo $this->__('Method'); ?></th>
+    </tr>
+    </thead>
+
+    <tbody>
+    <?php foreach ($this->getModel()->getObserver() as $scope => $eventSet): ?>
+        <?php foreach ($eventSet as $event => $aliasSet): ?>
+            <?php foreach ($aliasSet as $alias => $observerSet): ?>
+                <?php foreach ($observerSet as $observer): ?>
+                    <tr>
+                        <td><?php echo $scope ?></td>
+                        <td><?php echo $event ?></td>
+                        <td><?php echo get_class(Mage::getModel($observer->class)) ?></td>
+                        <td><?php echo $observer->method ?></td>
+                    </tr>
+                <?php endforeach; ?>
+            <?php endforeach; ?>
+        <?php endforeach; ?>
+    <?php endforeach; ?>
+    </tbody>
+
+    <tfoot>
+    <tr>
+        <td colspan="4">
+            <?php echo $this->__(
+                'Those observer will handle the listed events.'
+            ); ?>
+        </td>
+    </tr>
+    </tfoot>
+</table>
