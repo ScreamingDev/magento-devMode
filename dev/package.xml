@@ -1,0 +1,34 @@
+<?xml version="1.0"?>
+<package>
+    <name>LeMike_DevMode</name>
+    <version>0.4.0</version>
+    <stability>beta</stability>
+    <license uri="http://www.opensource.org/licenses/osl-3.0.php">OSL v3.0</license>
+    <channel>community</channel>
+    <extends/>
+    <summary>To help you develop fast. Plenty of tools and new possibilities.</summary>
+    <description>This extension is made from developer for developer to simplify the
+        development of new magento stores.
+
+        Be part of the open source community:
+        Fork the project or tell us what you need on GitHub
+        https://github.com/sourcerer-mike/magento-devMode
+    </description>
+    <notes>Looking forward to your feedback!</notes>
+    <authors>
+        <author>
+            <name>Mike Pretzlaw</name>
+            <user>mike-pretzlaw</user>
+            <email>pretzlaw@gmail.com</email>
+        </author>
+    </authors>
+    <date></date>
+    <time></time>
+    <contents>
+        <target name="LeMike">
+            <dir name="DevMode"></dir>
+        </target>
+    </contents>
+    <compatible/>
+    <dependencies/>
+</package>
