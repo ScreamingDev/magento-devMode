@@ -35,7 +35,88 @@ class LeMike_DevMode_Test_Model_Core_ConfigTest extends EcomDev_PHPUnit_Test_Cas
      */
     public function getModel()
     {
-        return Mage::getModel('lemike_devmode/core_config');
+        $model = Mage::getModel('lemike_devmode/core_config');
+        $this->assertInstanceOf('LeMike_DevMode_Model_Core_Config', $model);
+
+        return $model;
+    }
+
+
+    /**
+     * Tests GetCrontabJobs.
+     *
+     * @return null
+     */
+    public function testGetCrontabJobs()
+    {
+        /*
+         * }}} preconditions {{{
+         */
+        $model = $this->getModel();
+
+        /*
+         * }}} main {{{
+         */
+        $data = $model->getCrontabJobs();
+
+        $this->assertInstanceOf('Varien_Data_Collection', $data);
+        foreach ($data as $single)
+        {
+            $this->assertInstanceOf('Varien_Object', $single);
+            $this->assertNotEmpty($single->getData('alias'));
+        }
+
+        /*
+         * }}} postcondition {{{
+         */
+
+        return null;
+    }
+
+
+    /**
+     * Tests GetCrontabJobs_Single.
+     *
+     * @return null
+     */
+    public function testGetCrontabJobs_Single()
+    {
+        /*
+         * }}} preconditions {{{
+         */
+        $jobSet = (array)Mage::app()->getConfig()->getNode('crontab/jobs');
+        $model  = $this->getModel();
+
+        /*
+         * }}} main {{{
+         */
+        foreach ($jobSet as $node => $moduleConfig)
+        {
+
+            /** @var Mage_Core_Model_Config_Element $moduleConfig */
+            $theModel = $moduleConfig->run->model;
+
+            $data = array(
+                'alias'     => $node,
+                'cron_expr' => (string)$moduleConfig->schedule->cron_expr,
+                'run'       => (string)$theModel,
+                'class'     => (string)get_class(Mage::getModel(strtok($theModel, ':'))),
+                'method'    => (string)ltrim(strtok(':'), ':'),
+            );
+
+            $fetched = $model->getCrontabJobs($data['alias']);
+
+            foreach ($fetched as $single)
+            {
+                $this->assertEquals($data, $single->getData());
+            }
+        }
+
+        /*
+         * }}} postcondition {{{
+         */
+
+        return null;
     }
 
 
