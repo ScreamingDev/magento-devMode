@@ -1,0 +1,2 @@
+config:
+  stores/admin/lemike_devmode_general/security/admin_login_user: 1

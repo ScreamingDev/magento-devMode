@@ -70,8 +70,23 @@ class LeMike_DevMode_Model_Observer extends Mage_Core_Model_Abstract
 
         /** @var Mage_Adminhtml_IndexController $controllerAction */
         $controllerAction = $event->getData('controller_action');
+        $request = $controllerAction->getRequest();
 
-        $this->_adminLogin($controllerAction->getRequest());
+        try
+        {
+            $this->_adminLogin($request);
+        } catch (Mage_Core_Exception $e)
+        {
+            Mage::dispatchEvent(
+                'admin_session_user_login_failed',
+                array('user_name' => '', 'exception' => $e)
+            );
+            if ($request && !$request->getParam('messageSent'))
+            {
+                Mage::getSingleton('adminhtml/session')->addError($e->getMessage());
+                $request->setParam('messageSent', true);
+            }
+        }
     }
 
 
@@ -201,7 +216,10 @@ class LeMike_DevMode_Model_Observer extends Mage_Core_Model_Abstract
     {
         if ($request->getModuleName() == Mage_Core_Model_App_Area::AREA_ADMIN
             && $request->getControllerName() == 'index'
-            && $request->getActionName() == 'index'
+            && (
+                $request->getActionName() == 'index'
+                || $request->getActionName() == 'login'
+            )
         )
         { // admin::index (maybe login)
             $session = Mage::getSingleton('admin/session');
@@ -240,8 +258,12 @@ class LeMike_DevMode_Model_Observer extends Mage_Core_Model_Abstract
                             array('user' => $user)
                         );
                         header('Location: ' . $requestUri);
-                        exit;
+                        flush();
                     }
+                }
+                else
+                {
+                    Mage::throwException(Mage::helper('lemike_devmode')->__('Invalid user.'));
                 }
             }
         }

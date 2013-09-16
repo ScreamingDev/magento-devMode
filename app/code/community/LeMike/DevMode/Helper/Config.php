@@ -79,7 +79,7 @@ class LeMike_DevMode_Helper_Config extends LeMike_DevMode_Helper_Abstract
      */
     public function isAdminAutoLoginAllowed()
     {
-        return (bool)(0 == $this->getAdminLoginUser());
+        return (bool)(0 != $this->getAdminLoginUser());
     }
 
 
