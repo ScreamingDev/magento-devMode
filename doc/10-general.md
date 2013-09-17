@@ -1,7 +1,12 @@
-# General configuration
+# General
+
+Common configuration
 
 
 ## Security
+
+- Only allow restricted IPs
+- Auto-Login into backend
 
 
 ### Only allow restricted IPs

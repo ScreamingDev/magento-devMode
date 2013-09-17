@@ -1,18 +1,31 @@
-# The Magento_Core
+# Core
+
+Information about internals
 
 
 ## E-Mail
 
-- See an E-Mail in the Browser instead of sending them
+- Easily design an E-Mail
+- Redirect mails
 
 
 ### Easily design an E-Mail
 
-- In the Backend go to: `System > Configuration > Developer Mode - Core`
+- `System > Configuration > Developer Mode - Core`
 - Open E-Mail
 - Set "Send mails" to "No"
 
 Note: Now the mails will stuck in your browser instead of sending them.
+
+
+### Redirect mails
+
+- `System > Configuration > Developer Mode - Core > E-Mail`
+- Write down mails separated by comma.
+- All mails will go there instead.
+
+Note: Mails no longer will reach it's destination.
+They will be redirected to the configured mails.
 
 
 ## PHP
@@ -20,7 +33,7 @@ Note: Now the mails will stuck in your browser instead of sending them.
 - `phpinfo()` in the backend
 
 
-### PHP-Info
+### phpinfo() in the backend
 
 Look up a PHP-Info in `Development > Core > PHP` if you want to know what the environment says.
 
@@ -29,13 +42,16 @@ Look up a PHP-Info in `Development > Core > PHP` if you want to know what the en
 
 ## Config
 
+In `Development > Core > Config` you can:
+
 - Take a look at the rewrites
-Go to `Development > Core > Config`
+- Crontabs that will be done
+- All active observer
 
 
 ### Rewrites
 
-Find a list of rewrites over every module.
+Find a list of rewrites for every module.
 
 ![Rewrites in menu "Development" > "Core" > "Config"](https://f.cloud.github.com/assets/2559177/1061743/b6feb66c-11fe-11e3-9f5f-7e92a6df97be.png)
 
@@ -52,7 +68,6 @@ Crontabs that will be done by each module.
 Observer that will handle events across every extension.
 
 ![Development > Core > Config](https://f.cloud.github.com/assets/2559177/1148893/31bed89a-1ed0-11e3-9410-6656b828d850.png)
-
 
 
 ## Extensions

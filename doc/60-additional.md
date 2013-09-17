@@ -12,7 +12,7 @@ via URL or Shell
 ### Events and Observers
 
 - Add `?__events` to the URL (or Query)
-- The original output will be replaced with something like this:
+- The output will be something like this:
 
 ```
 Array (
@@ -36,10 +36,12 @@ So the other keys are `frontend` and `backend`.
 
 ### Change the config on the fly
 
-Imagine the config `dev/translate_inline/active`.
-Enable it with `foo.html?__dev__translate_inline__active=1`
+Turn `dev/translate_inline/active`<br />
+into `__dev__translate_inline__active=1`<br />
 
 ![Enable translation on the fly](https://f.cloud.github.com/assets/2559177/1100839/8f28f710-178f-11e3-9066-e12f0c587e63.png)
+
+E.g. `foo.html?__dev__translate_inline__active=1`
 
 Note: A prefix is added and the slashes became the same.
 Think about a JavaScript Bookmark to enable this even faster.
@@ -52,6 +54,7 @@ Think about a JavaScript Bookmark to enable this even faster.
 - Truncate products or categories
 - Work with modules
 - See Magento CronJobs
+
 
 ### Change admin password
 
@@ -108,6 +111,8 @@ Note: Filter like `codePool` or `name` can be combined.
 Here is an example output:
 
 ```
+$ php core_modules.php --codePool community
+
     Module name      | Cached  | Installed | Filesystem | Code Pool |
 ---------------------+---------+-----------+------------+-----------+-
 EcomDev_PHPUnit      | 0.1.0   |           | 0.1.0      | community |

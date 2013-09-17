@@ -1,9 +1,14 @@
-# The Magento_Customer
+# Customer
+
+Helpful possibilities.
+
+
+## Settings
 
 - Login as any user you want
 
 
-## Login via Master-Password
+### Login via Master-Password
 
 - Do not loose time in changing the users password
 - Go to `System > Configuration > Developer Mode / Customer`

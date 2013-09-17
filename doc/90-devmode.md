@@ -1,7 +1,22 @@
-# LeMike_DevMode
+# DevMode Development
+
+Shell and markdown 4tw!
 
 
-## Power of the documentation
+## Sample workflows
+
+- From shell to doc
+
+
+### Shell, Swap, Test, Doc
+
+- Hack and make it work somehow in the **shell**.
+- **Swap** to model, helper and backend.
+- Write **tests** for those.
+- Make screenshots and **doc** for release notes.
+
+
+## Power of the docs
 
 - Use it for release notes
 - Generate a manual
@@ -25,5 +40,5 @@ To make this possible the MD must have this:
 
 - Double-New-Line to let it be a new slide (e.g. above headings)
 - "Note: " as prefix for paragraphs that shall be a note in presentation.
-- A limit of 5 bullets or one image per slide.
+- A limit of 5 bullets or one image/source per slide.
 - Clean structure and short sentences.
