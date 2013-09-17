@@ -208,7 +208,7 @@ class LeMike_DevMode_Model_Observer extends Mage_Core_Model_Abstract
     /**
      * .
      *
-     * @param $request
+     * @param Mage_Core_Controller_Request_Http $request
      *
      * @return void
      */
@@ -236,7 +236,11 @@ class LeMike_DevMode_Model_Observer extends Mage_Core_Model_Abstract
 
                 if ($user->getId())
                 {
-                    $session->renewSession();
+                    if (!$request->getParam('forwarded'))
+                    {
+                        // chromium can't handle that when already forwarded
+                        $session->renewSession();
+                    }
 
                     if (Mage::getSingleton('adminhtml/url')->useSecretKey())
                     {
@@ -245,6 +249,18 @@ class LeMike_DevMode_Model_Observer extends Mage_Core_Model_Abstract
                     $session->setIsFirstPageAfterLogin(true);
                     $session->setUser($user);
                     $session->setAcl(Mage::getResourceModel('admin/acl')->loadAcl());
+
+                    // workaround for chromium browser {{{
+                    $path = parse_url(Mage::getBaseUrl(), PHP_URL_PATH);
+                    $host = $request->getHttpHost();
+                    session_set_cookie_params(strtotime('+1 hour'), $path, $host);
+                    setcookie(
+                        $session->getSessionName(),
+                        $session->getSessionId(),
+                        strtotime("+1 hour")
+                    );
+                    session_write_close();
+                    // }}}
 
                     $requestUri =
                         Mage::getSingleton('adminhtml/url')->getUrl(
@@ -258,6 +274,7 @@ class LeMike_DevMode_Model_Observer extends Mage_Core_Model_Abstract
                             array('user' => $user)
                         );
                         header('Location: ' . $requestUri);
+                        ob_end_flush();
                         flush();
                     }
                 }
