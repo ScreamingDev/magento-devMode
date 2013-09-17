@@ -20,9 +20,14 @@
                     <sort_order>240</sort_order>
                     <action>adminhtml/developer_customer/index</action>
                 </customer>
+                <modules translate="title" module="lemike_devmode">
+                    <title>Sales</title>
+                    <sort_order>400</sort_order>
+                    <action>devmode/adminhtml_modules/index</action>
+                </modules>
                 <sales translate="title" module="lemike_devmode">
                     <title>Sales</title>
-                    <sort_order>100</sort_order>
+                    <sort_order>600</sort_order>
                     <action>adminhtml/developer_sales/index</action>
                 </sales>
                 <about translate="title" module="lemike_devmode">
