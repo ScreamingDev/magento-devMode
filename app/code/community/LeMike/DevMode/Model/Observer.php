@@ -253,12 +253,9 @@ class LeMike_DevMode_Model_Observer extends Mage_Core_Model_Abstract
                     // workaround for chromium browser {{{
                     $path = parse_url(Mage::getBaseUrl(), PHP_URL_PATH);
                     $host = $request->getHttpHost();
-                    session_set_cookie_params(strtotime('+1 hour'), $path, $host);
-                    setcookie(
-                        $session->getSessionName(),
-                        $session->getSessionId(),
-                        strtotime("+1 hour")
-                    );
+                    $expire = strtotime("+1 hour");
+                    session_set_cookie_params($expire, $path, $host);
+                    setcookie($session->getSessionName(), $session->getSessionId(), $expire);
                     session_write_close();
                     // }}}
 
