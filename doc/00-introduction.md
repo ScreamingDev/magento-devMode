@@ -4,14 +4,29 @@ An extension to help you develop Magento Stores.
 
 <small>
     Created by [Mike Pretzlaw](http://mike-pretzlaw.de) / [@fxrmp](http://twitter.com/fxrmp)
+    for [code-x.de](http://code-x.de)
 </small>
 
 
-## Tools in the Menu and Notifications
+## Why LeMike_DevMode ?
 
-- On the top will persist a warning.
-- Handy solutions in the new menu "Development"
-- Additional settings in `System > Config > Developer Mode`
+- LeMike that is me.
+- DevMode is our condition.
+- Common simplified procedures.
+- Made for and tested at [code-x.de](http://code-x.de).
 
-![Notifications](https://f.cloud.github.com/assets/2559177/1148054/adda4e32-1eb7-11e3-925c-a36ff1038145.png)
 
+### What to expect
+
+- Helpful tools and settings.
+- Recurring often used workflow simplified.
+- Aim to develop faster.
+- Developers, developers, developers, ...
+
+
+### What this is not
+
+- The magic extension generator.
+- Some rod to conjure up a shop.
+- A module for live usage
+- or end-user/shop-owner toolkit.

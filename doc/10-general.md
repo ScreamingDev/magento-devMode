@@ -1,6 +1,15 @@
 # General
 
-Common configuration
+Common usage and configuration
+
+
+## Tools in the Menu and Notifications
+
+- On the top will persist a warning.
+- Handy solutions in the new menu "Development"
+- Additional settings in `System > Config > Developer Mode`
+
+![Notifications](https://f.cloud.github.com/assets/2559177/1148054/adda4e32-1eb7-11e3-925c-a36ff1038145.png)
 
 
 ## Security
