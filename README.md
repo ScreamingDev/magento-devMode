@@ -30,3 +30,14 @@ An extension to help you develop Magento Stores.
 - Some rod to conjure up a shop.
 - A module for live usage
 - or end-user/shop-owner toolkit.
+
+
+## Learn more
+
+About ...
+
+- [Usage and configuration](tree/master/doc/10-general.md)
+- [Retrieving magento internals](tree/master/doc/30-core.md)
+- [Handle customer](tree/master/doc/40-customer.md)
+- [Tricks via URL or Shell](tree/master/doc/60-additional.md)
+- [Workflow and contribution](tree/master/doc/90-devmode.md)

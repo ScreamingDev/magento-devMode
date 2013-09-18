@@ -1,6 +1,6 @@
 # Customer
 
-Helpful possibilities.
+Handle and work with
 
 
 ## Settings
