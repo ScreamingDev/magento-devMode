@@ -113,4 +113,17 @@ class LeMike_DevMode_Helper_Data extends LeMike_DevMode_Helper_Abstract
 
         return $deleteAll;
     }
+
+
+    /**
+     * Stop everything or exit.
+     *
+     * @param $code
+     *
+     * @return void
+     */
+    public function stop($code = 0)
+    {
+        exit($code);
+    }
 }
