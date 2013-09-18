@@ -12,9 +12,13 @@
             </action>
         </reference>
         <reference name="root">
-            <block type="lemike_devmode/toolbox" name="lemike.devmode.toolbox"
-                   template="lemike/devmode/toolbox.phtml"
-                   output="toHtml"/>
+            <block type="lemike_devmode/toolbox" name="lemike.devmode.toolbox" output="toHtml" />
         </reference>
     </lemike_devmode_toolbox>
+
+    <lemike_devmode_toolbox_cms>
+        <reference name="lemike.devmode.toolbox">
+                <block type="lemike_devmode/toolbox_cms" name="lemike.devmode.toolbox.cms"/>
+        </reference>
+    </lemike_devmode_toolbox_cms>
 </layout>

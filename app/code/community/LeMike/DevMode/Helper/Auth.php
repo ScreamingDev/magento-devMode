@@ -29,6 +29,51 @@
 class LeMike_DevMode_Helper_Auth extends LeMike_DevMode_Helper_Abstract
 {
     /**
+     * Generate secret key for controller and action based on form key
+     *
+     * @param string $controller Controller name
+     * @param string $action     Action name
+     *
+     * @return string
+     */
+    public function getSecretKey($controller = null, $action = null)
+    {
+        $salt    = Mage::getSingleton('core/session')->getFormKey();
+        $request = Mage::app()->getRequest();
+
+        $p = explode('/', trim($request->getOriginalPathInfo(), '/'));
+        if (!$controller)
+        {
+            $controller = !empty($p[1]) ? $p[1] : $request->getControllerName();
+        }
+        if (!$action)
+        {
+            $action = !empty($p[2]) ? $p[2] : $request->getActionName();
+        }
+
+        $secret = $controller . $action . $salt;
+
+        return Mage::helper('core')->getHash($secret);
+    }
+
+
+    /**
+     * Get url to backend.
+     *
+     * @param       $route
+     * @param array $params
+     *
+     * @return string
+     */
+    public function getToolboxUrl($route, $params = array())
+    {
+        $params[Mage_Adminhtml_Model_Url::SECRET_KEY_PARAM_NAME] = "toolbox";
+
+        return (string) Mage::getModel('adminhtml/url')->getUrl($route,$params);
+    }
+
+
+    /**
      * Check if there is any restriction.
      *
      * @return bool

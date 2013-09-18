@@ -104,19 +104,29 @@ class LeMike_DevMode_Model_Observer extends Mage_Core_Model_Abstract
         $controllerAction = $event->getData('controller_action');
         $request = $controllerAction->getRequest();
 
-        try
+        if ($request->getModuleName() == 'admin')
         {
-            $this->_adminLogin($request);
-        } catch (Mage_Core_Exception $e)
-        {
-            Mage::dispatchEvent(
-                'admin_session_user_login_failed',
-                array('user_name' => '', 'exception' => $e)
-            );
-            if ($request && !$request->getParam('messageSent'))
+            try
             {
-                Mage::getSingleton('adminhtml/session')->addError($e->getMessage());
-                $request->setParam('messageSent', true);
+                $this->_adminLogin($request);
+            } catch (Mage_Core_Exception $e)
+            {
+                Mage::dispatchEvent(
+                    'admin_session_user_login_failed',
+                    array('user_name' => '', 'exception' => $e)
+                );
+                if ($request && !$request->getParam('messageSent'))
+                {
+                    Mage::getSingleton('adminhtml/session')->addError($e->getMessage());
+                    $request->setParam('messageSent', true);
+                }
+            }
+
+            // direct url from frontend
+            $key = Mage_Adminhtml_Model_Url::SECRET_KEY_PARAM_NAME;
+            if ($request->getParam($key) == 'toolbox')
+            {
+                $request->setParam($key, Mage::helper('lemike_devmode/auth')->getSecretKey());
             }
         }
     }
