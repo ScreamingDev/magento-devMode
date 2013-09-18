@@ -5,9 +5,23 @@
 ?>
 
 <div class="lemike_devmode">
-    <div class="ld_toolbox">
-        <strong class="title">TOOLBOX</strong>
+    <div id="ld_toolbox" class="ld_toolbox">
+    <strong class="title">TOOLBOX</strong>
         <?php echo $this->getChildHtml() ?>
     </div>
 </div>
 
+<script>
+    var toolboxId = "#ld_toolbox";
+
+
+    jQuery(function () {
+
+        var toolbox = jQuery(toolboxId);
+
+        toolbox.css('position', 'absolute');
+        toolbox.offset({ top: 100, left: 10});
+        toolbox.draggable();
+    });
+
+</script>

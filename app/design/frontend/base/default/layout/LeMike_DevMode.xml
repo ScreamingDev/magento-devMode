@@ -1,10 +1,20 @@
 <?xml version="1.0" ?>
 <layout>
     <lemike_devmode_toolbox>
+        <reference name="head">
+            <action method="addItem">
+                <type>skin_js</type>
+                <name>js/jquery-1.9.1.js</name>
+            </action>
+            <action method="addItem">
+                <type>skin_js</type>
+                <name>js/jquery-ui-1.10.3.js</name>
+            </action>
+        </reference>
         <reference name="root">
             <block type="lemike_devmode/toolbox" name="lemike.devmode.toolbox"
                    template="lemike/devmode/toolbox.phtml"
-                   output="toHtml" />
+                   output="toHtml"/>
         </reference>
     </lemike_devmode_toolbox>
 </layout>
