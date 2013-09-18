@@ -89,7 +89,11 @@ class LeMike_DevMode_Helper_Core extends LeMike_DevMode_Helper_Abstract
             }
 
             echo $content;
-            Mage::helper('lemike_devmode')->disableMagentoDispatch(true);
+
+            /** @var LeMike_DevMode_Helper_Data $helper */
+            $helper = Mage::helper('lemike_devmode');
+            $helper->disableMagentoDispatch(true);
+            $helper->stop();
 
             return false;
         }
