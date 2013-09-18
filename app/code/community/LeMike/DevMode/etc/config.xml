@@ -51,6 +51,14 @@
 
     <frontend>
         <events>
+            <controller_action_layout_load_before>
+                <observers>
+                    <lemike_devmode>
+                        <class>lemike_devmode/observer</class>
+                        <method>controllerActionLayoutLoadBefore</method>
+                    </lemike_devmode>
+                </observers>
+            </controller_action_layout_load_before>
             <controller_action_postdispatch>
                 <observers>
                     <lemike_devmode>
@@ -76,6 +84,13 @@
                 </observers>
             </controller_front_send_response_before>
         </events>
+        <layout>
+            <updates>
+                <lemike_devmode>
+                    <file>LeMike_DevMode.xml</file>
+                </lemike_devmode>
+            </updates>
+        </layout>
     </frontend>
 
     <admin>

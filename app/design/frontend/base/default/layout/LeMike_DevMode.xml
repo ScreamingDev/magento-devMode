@@ -1,0 +1,10 @@
+<?xml version="1.0" ?>
+<layout>
+    <lemike_devmode_toolbox>
+        <reference name="root">
+            <block type="lemike_devmode/toolbox" name="lemike.devmode.toolbox"
+                   template="lemike/devmode/toolbox.phtml"
+                   output="toHtml" />
+        </reference>
+    </lemike_devmode_toolbox>
+</layout>

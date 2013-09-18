@@ -29,13 +29,28 @@
 class LeMike_DevMode_Helper_Config extends LeMike_DevMode_Helper_Abstract
 {
     /**
-     * Check if sending mails is allowed.
+     * Check if only restricted IPs are allowed.
      *
      * @return bool
      */
-    public function isMailAllowed()
+    public function generalSecurityAllowRestrictedIpOnly()
     {
-        return (bool)Mage::getStoreConfig('lemike_devmode_core/email/active');
+        return (bool)Mage::app()->getStore()->getConfig(
+            'lemike_devmode_general/security/allow_restricted_ip_only'
+        );
+    }
+
+
+    /**
+     * Get the ID for the user that shall be logged in automatically.
+     *
+     * @return int
+     */
+    public function getAdminLoginUser()
+    {
+        return (int)Mage::app()->getStore()->getConfig(
+            'lemike_devmode_general/security/admin_login_user'
+        );
     }
 
 
@@ -62,17 +77,6 @@ class LeMike_DevMode_Helper_Config extends LeMike_DevMode_Helper_Abstract
 
 
     /**
-     * Check if only restricted IPs are allowed.
-     *
-     * @return bool
-     */
-    public function generalSecurityAllowRestrictedIpOnly()
-    {
-        return (bool)Mage::app()->getStore()->getConfig('lemike_devmode_general/security/allow_restricted_ip_only');
-    }
-
-
-    /**
      * admin_auto_login.
      *
      * @return bool
@@ -84,14 +88,23 @@ class LeMike_DevMode_Helper_Config extends LeMike_DevMode_Helper_Abstract
 
 
     /**
-     * Get the ID for the user that shall be logged in automatically.
+     * Check if sending mails is allowed.
      *
-     * @return int
+     * @return bool
      */
-    public function getAdminLoginUser()
+    public function isMailAllowed()
     {
-        return (int)Mage::app()->getStore()->getConfig(
-            'lemike_devmode_general/security/admin_login_user'
-        );
+        return (bool)Mage::getStoreConfig('lemike_devmode_core/email/active');
+    }
+
+
+    /**
+     * Check whether the toolbox shall be shown or not.
+     *
+     * @return bool
+     */
+    public function isToolboxEnabled()
+    {
+        return true;
     }
 }

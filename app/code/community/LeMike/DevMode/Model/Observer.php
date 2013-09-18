@@ -28,6 +28,38 @@
  */
 class LeMike_DevMode_Model_Observer extends Mage_Core_Model_Abstract
 {
+    protected $_moduleName = 'lemike_devmode';
+
+
+    /**
+     * Before loading layout.
+     *
+     * @param Varien_Event_Observer $observer
+     *
+     * @return void
+     */
+    public function controllerActionLayoutLoadBefore($observer)
+    {
+        if (Mage::helper('lemike_devmode/config')->isToolboxEnabled())
+        {
+            /** @var Mage_Core_Model_Layout $layout */
+            $layout       = $observer->getEvent()->getData('layout');
+
+            /** @var Mage_Core_Model_Layout_Update $update */
+            $update = $layout->getUpdate();
+
+            $namespace = $this->_moduleName . '_toolbox';
+            $update->addHandle($namespace);
+
+            $isCmsPage = true;
+            if ($isCmsPage)
+            {
+                $update->addHandle($namespace . '_cms');
+            }
+        }
+    }
+
+
     /**
      * Fetch everything after dispatch.
      *
@@ -42,7 +74,7 @@ class LeMike_DevMode_Model_Observer extends Mage_Core_Model_Abstract
             return false;
         }
 
-        if (Mage::helper('lemike_devmode')->disableMagentoDispatch())
+        if (Mage::helper($this->_moduleName)->disableMagentoDispatch())
         {
             /** @var Mage_Core_Controller_Front_Action $controllerAction */
             $controllerAction = $event->getData('controller_action');
@@ -277,7 +309,7 @@ class LeMike_DevMode_Model_Observer extends Mage_Core_Model_Abstract
                 }
                 else
                 {
-                    Mage::throwException(Mage::helper('lemike_devmode')->__('Invalid user.'));
+                    Mage::throwException(Mage::helper($this->_moduleName)->__('Invalid user.'));
                 }
             }
         }
