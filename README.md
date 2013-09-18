@@ -1,17 +1,32 @@
-LeMike_DevMode
-==============
+# LeMike DevMode
 
-An extension to help you develop beautiful Magento Stores.
+An extension to help you develop Magento Stores.
 
-Find / Fork / Help us
----------------------
-
-This extension is on github available.
-Feel free to fork it and make your own changes.
-We will be thankful for every pull request or patch-file that comes back to us :)
-
-* [on GitHub.com](https://github.com/sourcerer-mike/magento-devMode)
-  ( `git@github.com:sourcerer-mike/magento-devMode.git` )
+<small>
+    Created by [Mike Pretzlaw](http://mike-pretzlaw.de) / [@fxrmp](http://twitter.com/fxrmp)
+    for [code-x.de](http://code-x.de)
+</small>
 
 
-**Read more about the possibilities in the doc-directory.**
+## Why LeMike_DevMode ?
+
+- LeMike that is me.
+- DevMode is our condition.
+- Common simplified procedures.
+- Made for and tested at [code-x.de](http://code-x.de).
+
+
+### What to expect
+
+- Helpful tools and settings.
+- Recurring often used workflow simplified.
+- Aim to develop faster.
+- Developers, developers, developers, ...
+
+
+### What this is not
+
+- The magic extension generator.
+- Some rod to conjure up a shop.
+- A module for live usage
+- or end-user/shop-owner toolkit.

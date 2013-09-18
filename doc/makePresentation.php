@@ -212,6 +212,14 @@ class Shell_MakeReveal
     public function generatePresentation($section, $template)
     {
         $sectionHtml = '';
+
+        // readme will be introduction
+        $introductionFile = __DIR__ . '/00-introduction.md';
+        symlink(__DIR__ . '/../README.md', $introductionFile);
+
+        // maybe put contributing at the end too
+        symlink(__DIR__ . '/../CONTRIBUTING.md', __DIR__ . '/999-contributing.md');
+
         foreach (glob('*.md') as $markdown)
         {
             $sectionHtml .= str_replace('{{{file}}}', '../' . $markdown, $section);
