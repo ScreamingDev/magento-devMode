@@ -65,9 +65,9 @@ class LeMike_DevMode_Helper_Auth extends LeMike_DevMode_Helper_Abstract
      *
      * @return string
      */
-    public function getToolboxUrl($route, $params = array())
+    public function getBackendUrl($route, $params = array())
     {
-        $params[Mage_Adminhtml_Model_Url::SECRET_KEY_PARAM_NAME] = "toolbox";
+        $params[Mage_Adminhtml_Model_Url::SECRET_KEY_PARAM_NAME] = "lemike_devmode";
 
         return (string) Mage::getModel('adminhtml/url')->getUrl($route,$params);
     }

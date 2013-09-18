@@ -29,4 +29,10 @@
 class LeMike_DevMode_Block_Toolbox extends Mage_Core_Block_Template
 {
     protected $_template = 'lemike/devmode/toolbox.phtml';
+
+
+    public function helper($name = 'lemike_devmode/toolbox')
+    {
+        return parent::helper($name);
+    }
 }

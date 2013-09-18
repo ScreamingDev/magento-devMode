@@ -26,7 +26,7 @@
  * @link       http://github.com/sourcerer-mike/mage_devmode
  * @since      $VERSION$
  */
-class LeMike_DevMode_Block_Toolbox_Cms extends Mage_Core_Block_Template
+class LeMike_DevMode_Block_Toolbox_Cms extends LeMike_DevMode_Block_Toolbox
 {
     protected $_template = 'lemike/devmode/toolbox/cms.phtml';
 
@@ -41,7 +41,7 @@ class LeMike_DevMode_Block_Toolbox_Cms extends Mage_Core_Block_Template
 
     public function getEditUrl()
     {
-        return Mage::helper('lemike_devmode/auth')->getToolboxUrl(
+        return Mage::helper('lemike_devmode/auth')->getBackendUrl(
             'adminhtml/cms_page/edit',
             array('page_id' => $this->getCurrentCmsPageId())
         );

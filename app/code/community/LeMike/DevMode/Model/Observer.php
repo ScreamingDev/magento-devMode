@@ -40,6 +40,11 @@ class LeMike_DevMode_Model_Observer extends Mage_Core_Model_Abstract
      */
     public function controllerActionLayoutLoadBefore($observer)
     {
+        if (!Mage::helper('lemike_devmode/auth')->isDevAllowed())
+        {
+            return false;
+        }
+
         if (Mage::helper('lemike_devmode/config')->isToolboxEnabled())
         {
             /** @var Mage_Core_Model_Layout $layout */
@@ -124,7 +129,7 @@ class LeMike_DevMode_Model_Observer extends Mage_Core_Model_Abstract
 
             // direct url from frontend
             $key = Mage_Adminhtml_Model_Url::SECRET_KEY_PARAM_NAME;
-            if ($request->getParam($key) == 'toolbox')
+            if ($request->getParam($key) == 'lemike_devmode')
             {
                 $request->setParam($key, Mage::helper('lemike_devmode/auth')->getSecretKey());
             }
