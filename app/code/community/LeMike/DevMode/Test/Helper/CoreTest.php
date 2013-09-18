@@ -26,8 +26,32 @@
  * @link       http://github.com/sourcerer-mike/mage_devMail
  * @since      0.3.1
  */
-class LeMike_DevMode_Test_Helper_CoreTest extends LeMike_DevMode_Test_AbstractCase
+class LeMike_DevMode_Test_Helper_CoreTest extends EcomDev_PHPUnit_Test_Case
 {
+    /**
+     * .
+     *
+     * @return void
+     */
+    public function mockHelperDataStop()
+    {
+// mock Helper_Data::stop prevent exit
+        $mock = $this->mockHelper('lemike_devmode', array('stop'));
+
+        $this->assertInstanceOf('LeMike_DevMode_Helper_Data', $mock->getMock());
+
+        // replace exit with simple true
+        $mock->expects($this->any())->method('stop')->will($this->returnValue(true));
+
+        $this->assertTrue($mock->stop());
+
+        // apply changes
+        $this->replaceByMock('helper', 'lemike_devmode', $mock);
+
+        $this->assertEquals($mock->getMock(), Mage::helper('lemike_devmode'));
+    }
+
+
     /**
      * Tests GetAvailableVersion.
      *
@@ -132,45 +156,84 @@ class LeMike_DevMode_Test_Helper_CoreTest extends LeMike_DevMode_Test_AbstractCa
 
 
     /**
-     * Test if ZendMail is handled and output when mails are not allowed.
+     * Test if VarienObject with body is handled and output when mails are not allowed..
      *
      * @loadFixture core_email_disabled
      *
-     * @return void
+     * @return null
      */
     public function testHandleMail_VarienObject()
     {
-        $assertion = 'this is some body' . uniqid();
+        /*
+         * }}} preconditions {{{
+         */
+        $assertion = 'this is some body' . uniqid(__FUNCTION__);
 
-        $zendMail = new Varien_Object();
-        $zendMail->setData('body', $assertion);
+        // config is correct
+        $this->assertFalse(Mage::helper('lemike_devmode/config')->isMailAllowed());
 
+        // create object
+        $object = new Varien_Object();
+        $object->setData('body', $assertion);
+
+        $this->assertSame($assertion, $object->getData('body'));
+
+        // mock Helper_Data::stop to prevent exit
+        $this->mockHelperDataStop();
+
+        /*
+         * }}} main {{{
+         */
         ob_start();
-        $this->assertFalse(Mage::helper('lemike_devmode/core')->handleMail($zendMail));
+        $this->assertFalse(Mage::helper('lemike_devmode/core')->handleMail($object));
         $output = ob_get_clean();
 
         $this->assertEquals($assertion, $output);
+
+        /*
+         * }}} postcondition {{{
+         */
+
+        return null;
     }
 
 
     /**
-     * Test if ZendMail is handled and output when mails are not allowed.
+     * Tests if ZendMail is handled and output when mails are not allowed..
      *
      * @loadFixture core_email_disabled
      *
-     * @return void
+     * @return null
      */
     public function testHandleMail_ZendMail()
     {
-        $assertion = 'this is some body' . uniqid();
+        /*
+         * }}} preconditions {{{
+         */
+        $assertion = ' this is some body' . uniqid(__FUNCTION__);
 
+        // create zend mail
         $zendMail = new Zend_Mail();
         $zendMail->setBodyHtml($assertion);
 
+        $this->assertEquals($zendMail->getBodyHtml(true), $assertion);
+
+        // mock Helper_Data::stop to prevent exit
+        $this->mockHelperDataStop();
+
+        /*
+         * }}} main {{{
+         */
         ob_start();
         $this->assertFalse(Mage::helper('lemike_devmode/core')->handleMail($zendMail));
         $output = ob_get_clean();
 
         $this->assertEquals($assertion, $output);
+
+        /*
+         * }}} postcondition {{{
+         */
+
+        return null;
     }
 }
