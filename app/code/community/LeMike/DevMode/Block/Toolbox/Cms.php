@@ -41,7 +41,7 @@ class LeMike_DevMode_Block_Toolbox_Cms extends LeMike_DevMode_Block_Toolbox
 
     public function getEditUrl()
     {
-        return Mage::helper('lemike_devmode/auth')->getBackendUrl(
+        return $this->getBackendUrl(
             'adminhtml/cms_page/edit',
             array('page_id' => $this->getCurrentCmsPageId())
         );

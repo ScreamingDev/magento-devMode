@@ -8,10 +8,16 @@
     <div id="ld_toolbox" class="ld_toolbox">
     <strong class="title">TOOLBOX</strong>
         <?php echo $this->getChildHtml() ?>
-        <em>General</em>
-        <ul>
-            <li>foo</li>
-        </ul>
+        <div class="section">
+            <em>General</em>
+            <ul>
+                <li>
+                    <a href="<?php echo $this->getBackendUrl() ?>">
+                        <span class="blind"><?php echo $this->__('Goto backend'); ?></span>
+                    </a>
+                </li>
+            </ul>
+        </div>
     </div>
 </div>
 
@@ -25,6 +31,7 @@
 
         toolbox.css('position', 'absolute');
         toolbox.offset({ top: 100, left: 10});
+
         toolbox.draggable();
     });
 

@@ -35,4 +35,9 @@ class LeMike_DevMode_Block_Toolbox extends Mage_Core_Block_Template
     {
         return parent::helper($name);
     }
+
+    public function getBackendUrl($route = 'adminhtml/index/index', $param = array())
+    {
+        return Mage::helper('lemike_devmode/auth')->getBackendUrl($route, $param);
+    }
 }
