@@ -56,11 +56,10 @@ class LeMike_DevMode_Model_Observer extends Mage_Core_Model_Abstract
             $namespace = $this->_moduleName . '_toolbox';
             $update->addHandle($namespace);
 
-            $isCmsPage = true;
-            if ($isCmsPage)
-            {
-                $update->addHandle($namespace . '_cms');
-            }
+            /** @var Mage_Cms_IndexController $action */
+            $action = $observer->getEvent()->getData('action');
+            $update->addHandle($namespace . '_' . $action->getRequest()->getModuleName());
+            // which will be cms, admin, ...
         }
     }
 
