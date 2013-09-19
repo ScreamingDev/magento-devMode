@@ -31,13 +31,32 @@ class LeMike_DevMode_Block_Toolbox extends Mage_Core_Block_Template
     protected $_template = 'lemike/devmode/toolbox.phtml';
 
 
-    public function helper($name = 'lemike_devmode/toolbox')
-    {
-        return parent::helper($name);
-    }
-
     public function getBackendUrl($route = 'adminhtml/index/index', $param = array())
     {
         return Mage::helper('lemike_devmode/auth')->getBackendUrl($route, $param);
+    }
+
+
+    /**
+     * Get store code, module, controller and action that has been called.
+     *
+     * @return array
+     */
+    public function getPosition()
+    {
+        $position = array(
+            'store'      => Mage::app()->getStore()->getCode(),
+            'module'     => Mage::app()->getRequest()->getModuleName(),
+            'controller' => Mage::app()->getRequest()->getControllerName(),
+            'action'     => Mage::app()->getRequest()->getActionName(),
+        );
+
+        return array_filter($position);
+    }
+
+
+    public function helper($name = 'lemike_devmode/toolbox')
+    {
+        return parent::helper($name);
     }
 }

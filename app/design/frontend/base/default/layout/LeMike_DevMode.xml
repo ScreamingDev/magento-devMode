@@ -24,7 +24,7 @@
 
     <lemike_devmode_toolbox_catalog_product>
         <reference name="lemike.devmode.toolbox">
-            <block type="lemike_devmode/toolbox_product" name="lemike.devmode.toolbox.product"/>
+            <block type="lemike_devmode/toolbox_catalog_product" name="lemike.devmode.toolbox.product"/>
         </reference>
     </lemike_devmode_toolbox_catalog_product>
 </layout>

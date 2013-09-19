@@ -26,7 +26,7 @@
  * @link       http://github.com/sourcerer-mike/mage_devmode
  * @since      $VERSION$
  */
-class LeMike_DevMode_Block_Toolbox_Product extends LeMike_DevMode_Block_Toolbox
+class LeMike_DevMode_Block_Toolbox_Catalog_Product extends LeMike_DevMode_Block_Toolbox
 {
     protected $_template = 'lemike/devmode/toolbox/product.phtml';
 
