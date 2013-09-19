@@ -60,7 +60,7 @@ class LeMike_DevMode_Model_Observer extends Mage_Core_Model_Abstract
             $action = $observer->getEvent()->getData('action');
 
             // add the module name
-            $namespace = '_' . $action->getRequest()->getModuleName();
+            $namespace .= '_' . $action->getRequest()->getModuleName();
             $update->addHandle($namespace);
 
             // add the controller name
