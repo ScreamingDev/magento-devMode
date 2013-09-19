@@ -10,6 +10,14 @@
                 <type>skin_js</type>
                 <name>js/jquery-ui-1.10.3.js</name>
             </action>
+            <block type="core/text" name="mybuyscsscode">
+                <action method="setText">
+                    <text><![CDATA[<link
+                    href="//code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css"
+                    rel="stylesheet"
+                    type="text/css" />]]></text>
+                </action>
+            </block>
         </reference>
         <reference name="root">
             <block type="lemike_devmode/toolbox" name="lemike.devmode.toolbox" output="toHtml" />

@@ -7,7 +7,6 @@
 <div class="lemike_devmode">
     <div id="ld_toolbox" class="ld_toolbox">
     <strong class="title">TOOLBOX</strong>
-        <?php echo $this->getChildHtml() ?>
         <div class="section">
             <em>General</em>
             <ul>
@@ -16,23 +15,136 @@
                         <span class="blind"><?php echo $this->__('Goto backend'); ?></span>
                     </a>
                 </li>
+                <li>
+                    <a href="#" onclick="toolboxInfo('#ld_toolbox_layouts', 'Layouts')">
+                        <span class="blind"><?php echo $this->__(
+                                'List all layout Handles'
+                            ); ?></span>
+                    </a>
+                </li>
+                <li>
+                    <?php $title = $this->__('Events and observer'); ?>
+                    <a href="#"
+                       onclick="toolboxInfoAjax('__events', '<?php echo $title; ?>')"
+                       title="<?php echo $this->__('List thrown events with their observer'); ?>">
+                        <span class="blind"><?php echo $title; ?></span>
+                    </a>
+                </li>
             </ul>
+        </div>
+        <?php echo $this->getChildHtml() ?>
+        <div class="info">
+            <em><?php echo $this->__('You are here:'); ?></em><br />
+            <?php $position = $this->getPosition(); ?>
+            <?php $name = key($position);
+            $value = array_shift($position); ?>
+            <abbr title="<?php echo $name ?>"><?php echo $value ?></abbr>
+
+            <?php foreach ($position as $name => $value): ?>
+                &gt; <abbr title="<?php echo $name ?>"><?php echo $value ?></abbr>
+            <?php endforeach; ?>
         </div>
     </div>
 </div>
 
-<script>
-    var toolboxId = "#ld_toolbox";
+<div id="ld_toolbox_layouts" class="ld_dialog">
+    <?php echo implode('<br />', $this->getLayoutHandles()); ?>
+</div>
 
+<div id="ld_dialog" class="ld_dialog">
+
+</div>
+
+<script>
+    var ld_toolboxId = "#ld_toolbox";
+
+    function urlSetParameter(url, param, value) {
+        // Using a positive lookahead (?=\=) to find the
+        // given parameter, preceded by a ? or &, and followed
+        // by a = with a value after than (using a non-greedy selector)
+        // and then followed by a & or the end of the string
+        var val = new RegExp('(\\?|\\&)' + param + '=.*?(?=(&|$))'),
+            parts = url.toString().split('#'),
+            url = parts[0],
+            hash = parts[1]
+        qstring = /\?.+$/,
+            newURL = url;
+
+        // Check if the parameter exists
+        if (val.test(url)) {
+            // if it does, replace it, using the captured group
+            // to determine & or ? at the beginning
+            newURL = url.replace(val, '$1' + param + '=' + value);
+        }
+        else if (qstring.test(url)) {
+            // otherwise, if there is a query string at all
+            // add the param to the end of it
+            newURL = url + '&' + param + '=' + value;
+        }
+        else {
+            // if there's no query string, add one
+            newURL = url + '?' + param + '=' + value;
+        }
+
+        if (hash) {
+            newURL += '#' + hash;
+        }
+
+        return newURL;
+    }
 
     jQuery(function () {
 
-        var toolbox = jQuery(toolboxId);
+        var toolbox = jQuery(ld_toolboxId);
 
         toolbox.css('position', 'absolute');
         toolbox.offset({ top: 100, left: 10});
 
         toolbox.draggable();
     });
+
+    function toolboxInfo(target, title = '') {
+        jQuery(target).dialog({
+            resizable: true,
+            draggable: true,
+            "title": title,
+            width: $(window).width() * 0.61,
+            height: $(window).height() * 0.61
+        });
+    }
+
+    var dia = jQuery('#ld_dialog');
+
+    function showDialog(content, title) {
+        dia.html(content);
+
+        dia.dialog({
+            resizable: true,
+            draggable: true,
+            "title": title,
+            width: $(window).width() * 0.61,
+            height: $(window).height() * 0.61
+        });
+
+        dia.dialog("moveToTop");
+    }
+
+    function toolboxInfoAjax(query, title = '') {
+
+        jQuery.ajax(urlSetParameter(window.location.href, query, 1), {
+            beforeSend: function (jqXHR, settings) {
+                showDialog(
+                    '<img src="http://i.stack.imgur.com/FhHRx.gif" />',
+                    'Loading ' + title + '...'
+                );
+            },
+            success: function (data, textStatus, jqXHR) {
+                showDialog(data, title);
+            },
+            error: function (jqXHR, textStatus, errorThrown) {
+                showDialog(textStatus, 'ERROR');
+            }
+        });
+    }
 
 </script>

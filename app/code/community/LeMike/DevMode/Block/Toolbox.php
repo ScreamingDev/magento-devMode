@@ -59,4 +59,10 @@ class LeMike_DevMode_Block_Toolbox extends Mage_Core_Block_Template
     {
         return parent::helper($name);
     }
+
+
+    public function getLayoutHandles()
+    {
+        return $this->getLayout()->getUpdate()->getHandles();
+    }
 }
