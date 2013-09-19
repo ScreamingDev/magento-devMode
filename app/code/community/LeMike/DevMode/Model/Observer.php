@@ -58,8 +58,18 @@ class LeMike_DevMode_Model_Observer extends Mage_Core_Model_Abstract
 
             /** @var Mage_Cms_IndexController $action */
             $action = $observer->getEvent()->getData('action');
-            $update->addHandle($namespace . '_' . $action->getRequest()->getModuleName());
-            // which will be cms, admin, ...
+
+            // add the module name
+            $namespace = '_' . $action->getRequest()->getModuleName();
+            $update->addHandle($namespace);
+
+            // add the controller name
+            $namespace .= '_' . $action->getRequest()->getControllerName();
+            $update->addHandle($namespace);
+
+            // add the action
+            $namespace .= '_' . $action->getRequest()->getActionName();
+            $update->addHandle($namespace);
         }
     }
 
