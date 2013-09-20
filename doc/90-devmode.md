@@ -33,7 +33,6 @@ You only need to revise the list and eliminate duplicates or cut of the "LeMike_
 from the class names.
 
 
-
 ## Power of the docs
 
 - Use it for release notes
