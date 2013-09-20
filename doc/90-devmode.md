@@ -16,6 +16,24 @@ Shell and markdown 4tw!
 - Make screenshots and **doc** for release notes.
 
 
+## UnitTest
+
+Will be made with EcomDev_PHPUnit for magento.
+
+
+### Naming
+
+- Test-classes are named like the tested class
+- Methods will form a sentence like a feature description
+- phpunit --testdox-text FEATURES.md  --stop-on-failure
+
+Note:
+With this setup PHPUnit will almost generate a feature list.
+You only need to revise the list and eliminate duplicates or cut of the "LeMike_DevMode_xxx_"
+from the class names.
+
+
+
 ## Power of the docs
 
 - Use it for release notes
