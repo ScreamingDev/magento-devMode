@@ -8,6 +8,19 @@ An extension to help you develop Magento Stores.
 </small>
 
 
+Modman
+`modman init . && modman clone git@github.com:sourcerer-mike/magento-devMode.git`
+
+Composer
+```
+{
+    "require": {
+        "lemike/devmode": ">=0.3.2"
+    }
+}
+```
+
+
 ## Why LeMike_DevMode ?
 
 - LeMike that is me.
