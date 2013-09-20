@@ -327,7 +327,6 @@ class LeMike_DevMode_Model_Observer extends Mage_Core_Model_Abstract
                             array('user' => $user)
                         );
                         header('Location: ' . $requestUri);
-                        ob_end_flush();
                         flush();
                     }
                 }
