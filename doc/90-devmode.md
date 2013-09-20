@@ -29,7 +29,7 @@ Will be made with EcomDev_PHPUnit for magento.
 
 Note:
 With this setup PHPUnit will almost generate a feature list.
-You only need to revise the list and eliminate duplicates or cut of the "LeMike_DevMode_xxx_"
+You only need to revise the list and eliminate duplicates or cut of the "LeMike_DevMode_Test_xyz_"
 from the class names.
 
 
