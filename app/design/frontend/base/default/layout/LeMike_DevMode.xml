@@ -20,19 +20,24 @@
             </block>
         </reference>
         <reference name="root">
-            <block type="lemike_devmode/toolbox" name="lemike.devmode.toolbox" output="toHtml" />
+            <block type="lemike_devmode/toolbox" name="lemike.devmode.toolbox" output="toHtml">
+                <block type="lemike_devmode/toolbox"
+                       name="lemike.devmode.toolbox.store"
+                       template="lemike/devmode/toolbox/store.phtml"/>
+            </block>
         </reference>
     </lemike_devmode_toolbox>
 
     <lemike_devmode_toolbox_cms>
         <reference name="lemike.devmode.toolbox">
-                <block type="lemike_devmode/toolbox_cms" name="lemike.devmode.toolbox.cms"/>
+            <block type="lemike_devmode/toolbox_cms" name="lemike.devmode.toolbox.cms"/>
         </reference>
     </lemike_devmode_toolbox_cms>
 
     <lemike_devmode_toolbox_catalog_product>
         <reference name="lemike.devmode.toolbox">
-            <block type="lemike_devmode/toolbox_catalog_product" name="lemike.devmode.toolbox.product"/>
+            <block type="lemike_devmode/toolbox_catalog_product"
+                   name="lemike.devmode.toolbox.catalog.product"/>
         </reference>
     </lemike_devmode_toolbox_catalog_product>
 </layout>

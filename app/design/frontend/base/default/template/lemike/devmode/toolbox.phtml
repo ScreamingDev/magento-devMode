@@ -2,48 +2,32 @@
 
 /** @var LeMike_DevMode_Block_Toolbox $this */
 
+$position = $this->getPosition();
+$namespace = 'lemike.devmode.toolbox';
+
 ?>
 
 <div class="lemike_devmode">
     <div id="ld_toolbox" class="ld_toolbox">
     <strong class="title">TOOLBOX</strong>
         <div class="section">
-            <em>General</em>
-            <ul>
-                <li>
-                    <a href="<?php echo $this->getBackendUrl() ?>">
-                        <span class="blind"><?php echo $this->__('Goto backend'); ?></span>
-                    </a>
-                </li>
-                <li>
-                    <a href="#" onclick="toolboxInfo('#ld_toolbox_layouts', 'Layouts')">
-                        <span class="blind"><?php echo $this->__(
-                                'List all layout Handles'
-                            ); ?></span>
-                    </a>
-                </li>
-                <li>
-                    <?php $title = $this->__('Events and observer'); ?>
-                    <a href="#"
-                       onclick="toolboxInfoAjax('__events', '<?php echo $title; ?>')"
-                       title="<?php echo $this->__('List thrown events with their observer'); ?>">
-                        <span class="blind"><?php echo $title; ?></span>
-                    </a>
-                </li>
-            </ul>
+            <?php $key = key($position); $value = array_shift($position); ?>
+                <span class="<?php echo $key ?>">
+                    <?php echo ucfirst($key) ?>: <em><?php echo $value ?></em>
+                </span>
+            <?php echo $this->getChildHtml($namespace . ".$key") ?>
         </div>
-        <?php echo $this->getChildHtml() ?>
-        <div class="info">
-            <em><?php echo $this->__('You are here:'); ?></em><br />
-            <?php $position = $this->getPosition(); ?>
-            <?php $name = key($position);
-            $value = array_shift($position); ?>
-            <abbr title="<?php echo $name ?>"><?php echo $value ?></abbr>
-
-            <?php foreach ($position as $name => $value): ?>
-                &gt; <abbr title="<?php echo $name ?>"><?php echo $value ?></abbr>
-            <?php endforeach; ?>
-        </div>
+        <? foreach ($position as $key => $value): ?>
+            <?php $namespace .= '.' . $value;
+            /** @var LeMike_DevMode_Block_Toolbox $childBlock */
+            $childBlock = $this->getChild($namespace); ?>
+            <div class="section">
+                <span class="<?php echo $key ?>">
+                    <?php echo ucfirst($key) ?>: <em><?php echo $value ?></em>
+                </span>
+                <?php echo $this->getChildHtml($namespace) ?>
+            </div>
+        <? endforeach ?>
     </div>
 </div>
 

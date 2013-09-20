@@ -91,6 +91,15 @@
                 </lemike_devmode>
             </updates>
         </layout>
+        <routers>
+            <lemike_devmode>
+                <use>standard</use>
+                <args>
+                    <module>LeMike_DevMode</module>
+                    <frontName>lemike_devmode</frontName>
+                </args>
+            </lemike_devmode>
+        </routers>
     </frontend>
 
     <admin>
@@ -103,13 +112,13 @@
                     </modules>
                 </args>
             </adminhtml>
-            <lemike_devmode>
+            <lemike_devmode_admin>
                 <use>admin</use>
                 <args>
                     <module>LeMike_DevMode</module>
                     <frontName>devmode</frontName>
                 </args>
-            </lemike_devmode>
+            </lemike_devmode_admin>
         </routers>
     </admin>
 

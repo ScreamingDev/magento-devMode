@@ -1,0 +1,28 @@
+<?php /** @var LeMike_DevMode_Block_Toolbox $this */ ?>
+<ul>
+    <li>
+        <a href="<?php echo $this->getBackendUrl() ?>">
+            <span class="blind"><?php echo $this->__('Goto backend'); ?></span>
+        </a>
+    </li>
+    <li>
+        <a href="#" onclick="toolboxInfo('#ld_toolbox_layouts', 'Layouts')">
+                        <span class="blind"><?php echo $this->__(
+                                'List all layout Handles'
+                            ); ?></span>
+        </a>
+    </li>
+    <li>
+        <a href="<?php echo $this->getUrl('lemike_devmode/toolbox/cleanCache') ?>">
+            <span class="blind"><?php echo $this->__('Clear cache'); ?></span>
+        </a>
+    </li>
+    <li>
+        <?php $title = $this->__('Events and observer'); ?>
+        <a href="#"
+           onclick="toolboxInfoAjax('__events', '<?php echo $title; ?>')"
+           title="<?php echo $this->__('List thrown events with their observer'); ?>">
+            <span class="blind"><?php echo $title; ?></span>
+        </a>
+    </li>
+</ul>
