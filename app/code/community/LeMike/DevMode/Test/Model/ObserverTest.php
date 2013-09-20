@@ -215,7 +215,7 @@ class LeMike_DevMode_Model_ObserverTest extends EcomDev_PHPUnit_Test_Case_Contro
      *
      * @return null
      */
-    public function testControllerActionPredispatch_AdminLogin()
+    public function testAutomaticallyLoginToBackendWhenWorkingLocal()
     {
         /*
          * }}} preconditions {{{
