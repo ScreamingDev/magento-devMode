@@ -111,7 +111,7 @@ class LeMike_DevMode_Test_ConfigTest extends EcomDev_PHPUnit_Test_Case_Config
 
     public function testAdmin()
     {
-        $this->assertRouteFrontName('lemike_devmode', 'devmode', EcomDev_PHPUnit_Model_App::AREA_ADMIN);
+        $this->assertRouteFrontName('lemike_devmode_admin', 'devmode', EcomDev_PHPUnit_Model_App::AREA_ADMIN);
 
         $filename = 'LeMike_DevMode.xml';
         $this->assertLayoutFileDefined('adminhtml', $filename);
