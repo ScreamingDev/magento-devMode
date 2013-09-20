@@ -35,7 +35,7 @@ class LeMike_DevMode_Test_Helper_CoreTest extends EcomDev_PHPUnit_Test_Case
      */
     public function mockHelperDataStop()
     {
-// mock Helper_Data::stop prevent exit
+        // mock Helper_Data::stop prevent exit
         $mock = $this->mockHelper('lemike_devmode', array('stop'));
 
         $this->assertInstanceOf('LeMike_DevMode_Helper_Data', $mock->getMock());

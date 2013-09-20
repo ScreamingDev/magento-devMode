@@ -27,6 +27,25 @@ class LeMike_DevMode_Test_Model_Core_Email_TemplateTest extends EcomDev_PHPUnit_
     }
 
 
+    public function mockHelperDataStop()
+    {
+        // mock Helper_Data::stop prevent exit
+        $mock = $this->mockHelper('lemike_devmode', array('stop'));
+
+        $this->assertInstanceOf('LeMike_DevMode_Helper_Data', $mock->getMock());
+
+        // replace exit with simple true
+        $mock->expects($this->any())->method('stop')->will($this->returnValue(true));
+
+        $this->assertTrue($mock->stop());
+
+        // apply changes
+        $this->replaceByMock('helper', 'lemike_devmode', $mock);
+
+        $this->assertEquals($mock->getMock(), Mage::helper('lemike_devmode'));
+    }
+
+
     /**
      * Test newsletter direct output.
      *
@@ -42,13 +61,20 @@ class LeMike_DevMode_Test_Model_Core_Email_TemplateTest extends EcomDev_PHPUnit_
         $this->assertFalse(Mage::helper('lemike_devmode/config')->isMailAllowed());
 
         $templateText          = md5(uniqid());
-        $coreEmailTemplateMock = $this->getModelMock('core/email_template', array('getTemplateText'));
+        $coreEmailTemplateMock =
+            $this->getModelMock('core/email_template', array('getTemplateText'));
         $coreEmailTemplateMock->expects($this->any())->method('getTemplateText')->will(
             $this->returnValue($templateText)
         );
         $this->replaceByMock('model', 'core/email_template', $coreEmailTemplateMock);
 
-        $this->assertEquals($templateText, Mage::getModel('core/email_template')->getTemplateText());
+        $this->assertEquals(
+            $templateText,
+            Mage::getModel('core/email_template')->getTemplateText()
+        );
+
+        // do not exit
+        $this->mockHelperDataStop();
 
         /*
          * }}} main condition {{{
@@ -84,7 +110,10 @@ class LeMike_DevMode_Test_Model_Core_Email_TemplateTest extends EcomDev_PHPUnit_
         $subscriber = 'lemike_devmode' . uniqid() . '@example.org';
 
         $this->assertEquals($redirect, Mage::getStoreConfig('lemike_devmode_core/email/recipient'));
-        $this->assertEquals($redirect, Mage::helper('lemike_devmode/config')->getCoreEmailRecipient());
+        $this->assertEquals(
+            $redirect,
+            Mage::helper('lemike_devmode/config')->getCoreEmailRecipient()
+        );
 
         $this->assertEquals('1', Mage::getStoreConfig('lemike_devmode_core/email/active'));
         $this->assertEquals(true, Mage::helper('lemike_devmode/config')->isMailAllowed());
@@ -93,6 +122,9 @@ class LeMike_DevMode_Test_Model_Core_Email_TemplateTest extends EcomDev_PHPUnit_
         $zendMailMock->expects($this->any())
         ->method('addTo')
         ->will($this->returnCallback(array($this, 'fetchArgs')));
+
+        // do not exit
+        $this->mockHelperDataStop();
 
         $coreEmailTemplateMock = $this->getModelMock('core/email_template', array('getMail'));
         $coreEmailTemplateMock
@@ -107,7 +139,10 @@ class LeMike_DevMode_Test_Model_Core_Email_TemplateTest extends EcomDev_PHPUnit_
          * }}} main condition {{{
          */
         $this->_requestNewsletterSubscriberNew($subscriber);
-        $this->assertEquals($redirect, $this->_lastArgs[0]); // mail must be found in first arg of Zend_Mail::addTo
+        $this->assertEquals(
+            $redirect,
+            $this->_lastArgs[0]
+        ); // mail must be found in first arg of Zend_Mail::addTo
 
         /*
          * }}} postcondition {{{
