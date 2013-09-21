@@ -33,7 +33,9 @@ class LeMike_DevMode_Controller_Front_Action extends Mage_Core_Controller_Front_
 
     public function checkAuth()
     {
-        if (!Mage::helper($this->_moduleName . '/auth')->isDevAllowed())
+        /** @var LeMike_DevMode_Helper_Auth $authHelper */
+        $authHelper = $this->helper('auth');
+        if (!$authHelper->isDevAllowed())
         { // not allowed here: get off this planet!
             Mage::getSingleton('core/session')->addError(
                 $this->helper()->__('You are not allowed to do this.')
@@ -43,8 +45,33 @@ class LeMike_DevMode_Controller_Front_Action extends Mage_Core_Controller_Front_
     }
 
 
-    public function helper()
+    /**
+     * .
+     *
+     * @param string $node
+     *
+     * @return LeMike_DevMode_Helper_Data
+     */
+    public function helper($node = null)
     {
-        return Mage::helper($this->_moduleName);
+        if ('' != $node)
+        {
+            $node = '/' . $node;
+        }
+
+        return Mage::helper($this->getModuleName($node));
+    }
+
+
+    /**
+     * Get the module name or a child of it.
+     *
+     * @param $node
+     *
+     * @return string
+     */
+    public function getModuleName($node = null)
+    {
+        return $this->getRequest()->getModuleName() . $node;
     }
 }
