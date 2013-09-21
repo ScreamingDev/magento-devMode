@@ -31,7 +31,6 @@ class LeMike_DevMode_ToolboxController extends LeMike_DevMode_Controller_Front_S
     public function clearCacheAction()
     {
         Mage::app()->cleanCache();
-        Mage::dispatchEvent('adminhtml_cache_flush_system');
 
         /** @var Mage_Core_Model_Message_Abstract $message */
         $message = Mage::getSingleton('core/message')->success(

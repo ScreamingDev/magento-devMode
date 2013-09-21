@@ -53,9 +53,6 @@ class LeMike_DevMode_Test_Controller_ToolboxTest extends LeMike_DevMode_Test_Abs
         // event inside Mage::app()->cleanCache()
         $this->assertEventDispatched('application_clean_cache');
 
-        // own event
-        $this->assertEventDispatched('adminhtml_cache_flush_system');
-
         // message added
         /** @var Mage_Core_Model_Message_Collection $collection */
         $collection = Mage::getSingleton('core/session')->getMessages();
