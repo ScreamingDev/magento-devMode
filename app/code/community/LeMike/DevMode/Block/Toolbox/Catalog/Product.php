@@ -28,7 +28,7 @@
  */
 class LeMike_DevMode_Block_Toolbox_Catalog_Product extends LeMike_DevMode_Block_Toolbox
 {
-    protected $_template = 'lemike/devmode/toolbox/product.phtml';
+    protected $_template = 'lemike/devmode/toolbox/catalog/product.phtml';
 
 
     public function getEditUrl()
