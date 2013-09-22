@@ -30,6 +30,10 @@ class LeMike_DevMode_Helper_Data extends LeMike_DevMode_Helper_Abstract
 {
     protected static $_disableMagentoDispatch = false;
 
+    const MODULE_ALIAS = 'lemike_devmode';
+
+    const MODULE_NAME = 'LeMike_DevMode';
+
 
     public static function disableMagentoDispatch($value = null)
     {

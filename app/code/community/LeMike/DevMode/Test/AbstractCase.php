@@ -19,12 +19,12 @@
 /**
  * Class AbstractTest.
  *
- * @category   magento-snippets
- * @author     Mike Pretzlaw <pretzlaw@gmail.com>
- * @copyright  2013 Mike Pretzlaw
- * @license    http://github.com/sourcerer-mike/magento-snippets/blob/master/LICENSE.md BSD 3-Clause ("BSD New")
- * @link       http://github.com/sourcerer-mike/magento-snippets
- * @since      0.1.0
+ * @category    magento-snippets
+ * @author      Mike Pretzlaw <pretzlaw@gmail.com>
+ * @copyright   2013 Mike Pretzlaw
+ * @license     http://github.com/sourcerer-mike/magento-snippets/blob/master/LICENSE.md BSD 3-Clause ("BSD New")
+ * @link        http://github.com/sourcerer-mike/magento-snippets
+ * @since       0.1.0
  *
  * @loadFixture default
  */
@@ -32,28 +32,8 @@ abstract class LeMike_DevMode_Test_AbstractCase extends EcomDev_PHPUnit_Test_Cas
 {
     const FRONTEND_CLASS = '';
 
-    protected $_extensionNode = 'lemike_devmode';
 
-
-    public function getFrontend()
-    {
-        $frontend = static::FRONTEND_CLASS;
-
-        return new $frontend;
-    }
-
-
-    public function testSelf()
-    {
-    }
-
-
-    public function testBlackbox()
-    {
-    }
-
-
-    public function callMethod($object, $method, $args = array())
+    public function reflectMethod($object, $method, $args = array())
     {
         $reflect = new ReflectionObject($object);
 
@@ -61,5 +41,17 @@ abstract class LeMike_DevMode_Test_AbstractCase extends EcomDev_PHPUnit_Test_Cas
         $reflectMethod->setAccessible(true);
 
         return $reflectMethod->invokeArgs($object, $args);
+    }
+
+
+    public function getModuleAlias($node = null)
+    {
+        return LeMike_DevMode_Helper_Data::MODULE_ALIAS . $node;
+    }
+
+
+    public function getModuleName($node = null)
+    {
+        return LeMike_DevMode_Helper_Data::MODULE_NAME . $node;
     }
 }
