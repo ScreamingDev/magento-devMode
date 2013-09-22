@@ -46,8 +46,14 @@ abstract class LeMike_DevMode_Test_AbstractController extends EcomDev_PHPUnit_Te
     }
 
 
+    public function getModuleAlias($node = null)
+    {
+        return LeMike_DevMode_Helper_Data::MODULE_ALIAS . $node;
+    }
+
+
     public function getModuleName($node = null)
     {
-        return $this->_moduleName . (($node) ? $node : '');
+        return LeMike_DevMode_Helper_Data::MODULE_NAME . $node;
     }
 }

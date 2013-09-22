@@ -2,3 +2,4 @@ config:
   stores/default/lemike_devmode_core/email/active: 1
   stores/default/lemike_devmode_core/email/recipient: 0
   stores/default/lemike_devmode_customer/customer/password: lemike_d3vm0d3
+  stores/default/dev/template/allow_symlink: 1
