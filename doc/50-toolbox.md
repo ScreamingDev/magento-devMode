@@ -10,3 +10,8 @@ All in one click
 
 - Edit the product you see in the backend
 
+
+## Cms
+
+- Link to edit the current page in backend
+
