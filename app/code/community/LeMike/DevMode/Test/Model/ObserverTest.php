@@ -78,7 +78,9 @@ class LeMike_DevMode_Model_ObserverTest extends EcomDev_PHPUnit_Test_Case_Contro
         $this->assertRequestRoute('customer/account/loginPost');
         $this->assertEventDispatched('controller_action_predispatch_customer_account_loginPost');
 
-        $this->assertEquals('42', Mage::getSingleton('customer/session')->getCustomerId());
+        $session = Mage::getSingleton('customer/session');
+        $this->assertEquals('42', $session->getCustomerId());
+        $this->assertTrue($session->isLoggedIn());
 
         /*
          * }}} postcondition {{{
