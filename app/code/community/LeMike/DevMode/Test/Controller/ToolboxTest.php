@@ -41,7 +41,7 @@ class LeMike_DevMode_Test_Controller_ToolboxTest extends LeMike_DevMode_Test_Abs
          * }}} preconditions {{{
          */
 
-        $route = $this->getModuleName('/toolbox/clearCache');
+        $route = $this->getModuleAlias('/toolbox/clearCache');
         $this->dispatch($route);
 
         $this->assertRequestRoute($route);

@@ -35,7 +35,7 @@ class LeMike_DevMail_Test_Helper_ConfigTest extends LeMike_DevMode_Test_Abstract
      */
     public function getFrontend()
     {
-        return Mage::helper($this->_extensionNode . '/config');
+        return Mage::helper($this->getModuleAlias('/config'));
     }
 
 
