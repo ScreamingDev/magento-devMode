@@ -16,7 +16,7 @@
  * @since      $VERSION$
  */
 
-class LeMike_DevMode_Test_Block_Toolbox_Catalog_ProductsTest extends
+class LeMike_DevMode_Test_Block_Toolbox_CmsTest extends
     LeMike_DevMode_Test_AbstractController
 {
     /**
