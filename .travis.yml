@@ -10,22 +10,21 @@ before_script:
   - MAGE_DIR=tests/magento
   # Fixing Magento hackathon installer
   - mkdir -p $MAGE_DIR
-  # Copying travis composer.json to test only module
+   # Copying travis composer.json to test only module
   - cp -f .travis/composer.json composer.json
-  # Installing dependencies
-  - composer install
+  # Installing required composer packages
+  - composer update --dev
   # Installing magento version with prepared DB dump
-  - bin/mage-ci install $MAGE_DIR $MAGE magento -c -r http://mage-ci.ecomdev.org
+  - bin/mage-ci install $MAGE_DIR $MAGE magento -c -t -r http://mage-ci.ecomdev.org
+  # Installing LeMike_DevMode module
+  - bin/mage-ci install-module tests/magento $(pwd)
   # Installing EcomDev_PHPUnit module
-  - git clone git://github.com/sourcerer-mike/EcomDev_PHPUnit.git -b dev-lemike ./phpunit/
+  - git clone git://github.com/sourcerer-mike/EcomDev_PHPUnit.git -b dev ./phpunit/
+  - bin/mage-ci install-module tests/magento "$(pwd)/phpunit/"
   # Configuring EcomDev_PHPUnit module
-  - bin/mage-ci shell $MAGE_DIR ecomdev-phpunit.php -a magento-config --db-name magento --same-db 1 --base_url http://test.magento.com/
-  # Configuring test suite
-  - bin/mage-ci shell $MAGE_DIR ecomdev-phpunit.php -a change-status --enable
-  # Fix Magento autoloader to run test
-  - bin/mage-ci shell $MAGE_DIR ecomdev-phpunit.php -a fix-autoloader
-  # Copying phpunit.xml for travis builds
-  - cp .travis/phpunit.xml $MAGE_DIR/phpunit.xml
+  - CURRENT_DIR=$(pwd)
+  - cd tests/magento/shell
+  - php ecomdev-phpunit.php -a magento-config --db-name magento --same-db 1 --base_url http://test.magento.com/
+  - cd $CURRENT_DIR
 script:
-  # output php ini info for checking the problem
-  - bin/mage-ci phpunit $MAGE_DIR --colors --coverage-text -d display_errors=1
+  - bin/mage-ci phpunit tests/magento --colors --coverage-text -d display_errors=1
