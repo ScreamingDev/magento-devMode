@@ -18,6 +18,16 @@
         "extension",
         "module"
     ],
+    "require": {
+        "magento-hackathon/magento-composer-installer": "*",
+        "phpunit/phpunit": "3.7.*"
+    },
+    "require-dev": {
+        "ecomdev/mage-ci": "master-dev"
+    },
+    "extra": {
+        "magento-root-dir": "tests/magento"
+    },
     "authors": [
         {
             "name": "Mike Pretzlaw",
