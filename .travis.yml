@@ -8,10 +8,12 @@ env:
   - MAGE=1.5.1.0
 before_script:
   - MAGE_DIR=tests/magento
+  # Fixing Magento hackathon installer
+  - mkdir -p $MAGE_DIR
   # Copying travis composer.json to test only module
   - cp -f .travis/composer.json composer.json
   # Installing dependencies
-  - composer install
+  - composer update --dev
   # Installing magento version with prepared DB dump
   - bin/mage-ci install $MAGE_DIR $MAGE magento -c -r http://mage-ci.ecomdev.org
   # Installing LeMike_DevMode module
