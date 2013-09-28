@@ -19,7 +19,7 @@ before_script:
   # Installing LeMike_DevMode module
   - bin/mage-ci install-module tests/magento $(pwd)
   # Installing EcomDev_PHPUnit module
-  - git clone git://github.com/sourcerer-mike/EcomDev_PHPUnit.git -b dev ./phpunit/
+  - git clone git://github.com/sourcerer-mike/EcomDev_PHPUnit.git -b dev-lemike ./phpunit/
   - bin/mage-ci install-module tests/magento "$(pwd)/phpunit/"
   # Configuring EcomDev_PHPUnit module
   - CURRENT_DIR=$(pwd)
