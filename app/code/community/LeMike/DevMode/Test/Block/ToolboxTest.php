@@ -36,6 +36,12 @@ class LeMike_DevMode_Test_Block_ToolboxTest extends
          * }}} preconditions {{{
          */
 
+        // config
+        $this->assertTrue(
+            true ==
+            Mage::getStoreConfigFlag(Mage_Core_Block_Template::XML_PATH_TEMPLATE_ALLOW_SYMLINK)
+        );
+
         // dispatch
         $route = 'catalog/product/view';
         $this->getRequest()->setQuery(array('id' => 1));
