@@ -27,10 +27,12 @@
  * @since      0.3.0
  */
 class LeMike_DevMode_Test_Controller_Adminhtml_Developer_CoreController_IndexTest extends
-    EcomDev_PHPUnit_Test_Case_Controller
+    LeMike_DevMode_Test_AbstractController
 {
     /**
      * Run index action and test for layouts.
+     *
+     * @registry _singleton/index/indexer
      *
      * @return void
      */
