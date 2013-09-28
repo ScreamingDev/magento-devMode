@@ -18,7 +18,10 @@ Shell and markdown 4tw!
 
 ## UnitTest
 
-Will be made with EcomDev_PHPUnit for magento.
+- Will be made with EcomDev_PHPUnit for magento
+- Run on travis-ci for:
+    - PHP 5.4 / 5.3
+    - Magento 1.7.0.2 / 1.6.2.0 / 1.5.1.0
 
 
 ### Naming
