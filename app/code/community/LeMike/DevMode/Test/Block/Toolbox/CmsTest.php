@@ -114,6 +114,7 @@ class LeMike_DevMode_Test_Block_Toolbox_CmsTest extends
          * }}} main {{{
          */
         $this->assertLayoutRendered();
+        $this->assertLayoutHandleLoaded('lemike_devmode_toolbox_cms');
         $this->assertLayoutBlockCreated('lemike.devmode.toolbox.cms');
         $this->assertLayoutBlockRendered('lemike.devmode.toolbox.cms');
         $this->assertResponseBodyContains('Controller: <em>index</em>');
