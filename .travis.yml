@@ -27,4 +27,4 @@ before_script:
   - php ecomdev-phpunit.php -a magento-config --db-name magento --same-db 1 --base_url http://test.magento.com/
   - cd $CURRENT_DIR
 script:
-  - bin/mage-ci phpunit tests/magento --colors --coverage-text -d display_errors=1 app/code/community/LeMike/DevMode/Test
+  - bin/mage-ci phpunit tests/magento/app/code/community/LeMike/DevMode/Test --colors --coverage-text -d display_errors=1
