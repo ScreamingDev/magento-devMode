@@ -7,12 +7,6 @@
     "require": {
         "php": ">=5.3.0"
     },
-    "repositories": [
-        {
-            "type": "git",
-            "url": "git@github.com:sourcerer-mike/magento-devMode.git"
-        }
-    ],
     "keywords": [
         "magento",
         "extension",
