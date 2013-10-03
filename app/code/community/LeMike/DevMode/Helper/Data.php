@@ -28,18 +28,18 @@
  */
 class LeMike_DevMode_Helper_Data extends LeMike_DevMode_Helper_Abstract
 {
-    protected static $_disableMagentoDispatch = false;
-
     const MODULE_ALIAS = 'lemike_devmode';
 
     const MODULE_NAME = 'LeMike_DevMode';
+
+    protected static $_disableMagentoDispatch = false;
 
 
     public static function disableMagentoDispatch($value = null)
     {
         if (null !== $value)
         {
-            self::$_disableMagentoDispatch = (bool)$value;
+            self::$_disableMagentoDispatch = (bool) $value;
         }
 
         return self::$_disableMagentoDispatch;
@@ -58,6 +58,19 @@ class LeMike_DevMode_Helper_Data extends LeMike_DevMode_Helper_Abstract
         $response = Mage::app()->getResponse();
         $response->setHeader('Content-Type', 'application/json', true);
         $response->setBody(Zend_Json_Encoder::encode($data));
+    }
+
+
+    /**
+     * Stop everything or exit.
+     *
+     * @param $code
+     *
+     * @return void
+     */
+    public function stop($code = 0)
+    {
+        exit($code);
     }
 
 
@@ -116,18 +129,5 @@ class LeMike_DevMode_Helper_Data extends LeMike_DevMode_Helper_Abstract
         $deleteAll['processed'] = $this->truncateCollection($collection);
 
         return $deleteAll;
-    }
-
-
-    /**
-     * Stop everything or exit.
-     *
-     * @param $code
-     *
-     * @return void
-     */
-    public function stop($code = 0)
-    {
-        exit($code);
     }
 }

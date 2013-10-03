@@ -34,4 +34,4 @@ class LeMike_DevMode_Controller_Front_SecureAction extends LeMike_DevMode_Contro
 
         return parent::preDispatch();
     }
-} 
+}

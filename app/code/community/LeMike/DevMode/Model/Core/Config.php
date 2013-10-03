@@ -48,7 +48,7 @@ class LeMike_DevMode_Model_Core_Config extends Mage_Core_Model_Abstract
      */
     public function getCrontabJobs($alias = null)
     {
-        $jobSet = (array)Mage::app()->getConfig()->getNode('crontab/jobs');
+        $jobSet = (array) Mage::app()->getConfig()->getNode('crontab/jobs');
 
         $varien_Data_Collection = new Varien_Data_Collection();
         foreach ($jobSet as $node => $moduleConfig)
@@ -65,10 +65,10 @@ class LeMike_DevMode_Model_Core_Config extends Mage_Core_Model_Abstract
             $item->setData(
                 array(
                      'alias'     => $node,
-                     'cron_expr' => (string)$moduleConfig->schedule->cron_expr,
-                     'run'       => (string)$model,
-                     'class'     => (string)get_class(Mage::getModel(strtok($model, ':'))),
-                     'method'    => (string)ltrim(strtok(':'), ':'),
+                     'cron_expr' => (string) $moduleConfig->schedule->cron_expr,
+                     'run'       => (string) $model,
+                     'class'     => (string) get_class(Mage::getModel(strtok($model, ':'))),
+                     'method'    => (string) ltrim(strtok(':'), ':'),
                 )
             );
 
@@ -81,7 +81,7 @@ class LeMike_DevMode_Model_Core_Config extends Mage_Core_Model_Abstract
 
     public function getObserver($scope = array())
     {
-        $nodeSet = (array)$scope;
+        $nodeSet = (array) $scope;
         if (empty($nodeSet))
         {
             $nodeSet = array(
@@ -93,14 +93,14 @@ class LeMike_DevMode_Model_Core_Config extends Mage_Core_Model_Abstract
 
         foreach ($nodeSet as $node)
         {
-            $globalEvents = (array)Mage::getConfig()->getNode($node . '/events');
+            $globalEvents = (array) Mage::getConfig()->getNode($node . '/events');
 
             $data = array();
             foreach ($globalEvents as $event => $singleEvent)
             {
                 /** @var Mage_Core_Model_Config_Element $singleEvent */
 
-                foreach ((array)$singleEvent->observers as $alias => $observer)
+                foreach ((array) $singleEvent->observers as $alias => $observer)
                 {
                     $data[$node][$event][$alias][] = $observer;
                 }
@@ -120,7 +120,7 @@ class LeMike_DevMode_Model_Core_Config extends Mage_Core_Model_Abstract
      * List all rewrites with their according classes.
      *
      * @param SimpleXMLElement $childNode (default: current config)
-     * @param string $basePath
+     * @param string           $basePath
      *
      * @return array [path => [overriding class, ...]]
      */
@@ -147,7 +147,7 @@ class LeMike_DevMode_Model_Core_Config extends Mage_Core_Model_Abstract
                         $rewritesToPath[$tmpPath] = array();
                     }
 
-                    $rewritesToPath[$tmpPath][] = (string)$new;
+                    $rewritesToPath[$tmpPath][] = (string) $new;
                     $tmpPath                    = null;
                 }
             }

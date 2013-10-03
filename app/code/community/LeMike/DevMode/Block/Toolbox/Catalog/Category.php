@@ -41,4 +41,4 @@ class LeMike_DevMode_Block_Toolbox_Catalog_Category extends LeMike_DevMode_Block
             )
         );
     }
-} 
+}

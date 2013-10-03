@@ -84,7 +84,7 @@ class LeMike_DevMode_Test_Model_Core_ConfigTest extends EcomDev_PHPUnit_Test_Cas
         /*
          * }}} preconditions {{{
          */
-        $jobSet = (array)Mage::app()->getConfig()->getNode('crontab/jobs');
+        $jobSet = (array) Mage::app()->getConfig()->getNode('crontab/jobs');
         $model  = $this->getModel();
 
         /*
@@ -97,11 +97,11 @@ class LeMike_DevMode_Test_Model_Core_ConfigTest extends EcomDev_PHPUnit_Test_Cas
             $theModel = $moduleConfig->run->model;
 
             $data = array(
-                'alias'     => $node,
-                'cron_expr' => (string)$moduleConfig->schedule->cron_expr,
-                'run'       => (string)$theModel,
-                'class'     => (string)get_class(Mage::getModel(strtok($theModel, ':'))),
-                'method'    => (string)ltrim(strtok(':'), ':'),
+                'alias' => $node,
+                'cron_expr' => (string) $moduleConfig->schedule->cron_expr,
+                'run' => (string) $theModel,
+                'class' => (string) get_class(Mage::getModel(strtok($theModel, ':'))),
+                'method' => (string) ltrim(strtok(':'), ':'),
             );
 
             $fetched = $model->getCrontabJobs($data['alias']);
@@ -140,7 +140,10 @@ class LeMike_DevMode_Test_Model_Core_ConfigTest extends EcomDev_PHPUnit_Test_Cas
         // let magento load / cache all config
         $leMike_DevMode_Model_Core_Email = Mage::getModel('core/email');
 
-        $this->assertInstanceOf('LeMike_DevMode_Model_Core_Email', $leMike_DevMode_Model_Core_Email);
+        $this->assertInstanceOf(
+            'LeMike_DevMode_Model_Core_Email',
+            $leMike_DevMode_Model_Core_Email
+        );
 
         parent::setUp();
     }

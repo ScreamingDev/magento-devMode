@@ -67,7 +67,7 @@ class LeMike_DevMode_Model_Core_Resource extends Mage_Core_Model_Resource_Resour
     {
         if (!$this->_cacheModuleSet)
         {
-            $moduleSet = (array)Mage::getConfig()->getNode('modules')->children();
+            $moduleSet = (array) Mage::getConfig()->getNode('modules')->children();
 
             $helper = Mage::helper('lemike_devmode/core');
             foreach ($moduleSet as $moduleName => $data)
@@ -81,7 +81,7 @@ class LeMike_DevMode_Model_Core_Resource extends Mage_Core_Model_Resource_Resour
                                               self::MODULE_NAME             => $moduleName,
                                               self::MODULE_VERSION_DATABASE => $dbVersion,
                                               self::MODULE_VERSION_CONFIG   => $configVersion,
-                                          ) + (array)$data;
+                                          ) + (array) $data;
             }
 
             ksort($moduleSet);
@@ -90,6 +90,18 @@ class LeMike_DevMode_Model_Core_Resource extends Mage_Core_Model_Resource_Resour
         }
 
         return $this->_cacheModuleSet;
+    }
+
+
+    public function resetVersion($resName)
+    {
+        $this->setDbVersion($resName, self::RESET_VERSION);
+        $this->setDataVersion($resName, self::RESET_VERSION);
+        $this->commit();
+
+        $this->clearCache();
+
+        return (self::RESET_VERSION == $this->getDbVersion($resName));
     }
 
 
@@ -105,16 +117,4 @@ class LeMike_DevMode_Model_Core_Resource extends Mage_Core_Model_Resource_Resour
 
         return $this->resetVersion($resName);
     }
-
-
-    public function resetVersion($resName)
-    {
-        $this->setDbVersion($resName, self::RESET_VERSION);
-        $this->setDataVersion($resName, self::RESET_VERSION);
-        $this->commit();
-
-        $this->clearCache();
-
-        return (self::RESET_VERSION == $this->getDbVersion($resName));
-    }
-} 
+}

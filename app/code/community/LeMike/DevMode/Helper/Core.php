@@ -29,6 +29,53 @@
 class LeMike_DevMode_Helper_Core extends LeMike_DevMode_Helper_Abstract
 {
     /**
+     * Get the version of a module/extension as written in the used configXML.
+     *
+     * @param $moduleName
+     *
+     * @return string
+     */
+    public function getAvailableVersion($moduleName)
+    {
+        $configXML = $this->getConfigXML($moduleName);
+
+        if ($configXML)
+        {
+            $node = $configXML->getNode('modules' . DS . $moduleName);
+            if ($node)
+            {
+                $module = $node->asArray();
+
+                return $module['version'];
+            }
+        }
+
+        return '';
+    }
+
+
+    /**
+     * Get the config for a module.
+     *
+     * @param $moduleName
+     *
+     * @return Varien_Simplexml_Config
+     */
+    public function getConfigXML($moduleName)
+    {
+        $config  = Mage::app()->getConfig();
+        $xmlPath = $config->getModuleDir('etc', $moduleName) . DS . 'config.xml';
+
+        if (file_exists($xmlPath))
+        {
+            return new Varien_Simplexml_Config($xmlPath);
+        }
+
+        return null;
+    }
+
+
+    /**
      * Search configXML for the resource alias of a module.
      *
      * You find this in the `config.xml` of the extension in the XML-Path `global/resources`.
@@ -48,7 +95,7 @@ class LeMike_DevMode_Helper_Core extends LeMike_DevMode_Helper_Abstract
                 $moduleGlobalResources = $node->asArray();
                 reset($moduleGlobalResources);
 
-                return (string)key($moduleGlobalResources);
+                return (string) key($moduleGlobalResources);
             }
         }
 
@@ -80,7 +127,9 @@ class LeMike_DevMode_Helper_Core extends LeMike_DevMode_Helper_Abstract
                 /** @var Mage_Core_Model_Email_Template $mail */
                 if (null === $content)
                 {
-                    throw new Exception($this->__('No processed content given for email template.'));
+                    throw new Exception(
+                        $this->__('No processed content given for email template.')
+                    );
                 }
             }
             else
@@ -109,52 +158,5 @@ class LeMike_DevMode_Helper_Core extends LeMike_DevMode_Helper_Abstract
         }
 
         return $mail;
-    }
-
-
-    /**
-     * Get the config for a module.
-     *
-     * @param $moduleName
-     *
-     * @return Varien_Simplexml_Config
-     */
-    public function getConfigXML($moduleName)
-    {
-        $config  = Mage::app()->getConfig();
-        $xmlPath = $config->getModuleDir('etc', $moduleName) . DS . 'config.xml';
-
-        if (file_exists($xmlPath))
-        {
-            return new Varien_Simplexml_Config($xmlPath);
-        }
-
-        return null;
-    }
-
-
-    /**
-     * Get the version of a module/extension as written in the used configXML.
-     *
-     * @param $moduleName
-     *
-     * @return string
-     */
-    public function getAvailableVersion($moduleName)
-    {
-        $configXML = $this->getConfigXML($moduleName);
-
-        if ($configXML)
-        {
-            $node = $configXML->getNode('modules' . DS . $moduleName);
-            if ($node)
-            {
-                $module = $node->asArray();
-
-                return $module['version'];
-            }
-        }
-
-        return '';
     }
 }

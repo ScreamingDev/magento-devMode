@@ -36,6 +36,11 @@ You only need to revise the list and eliminate duplicates or cut of the "LeMike_
 from the class names.
 
 
+## Code Quality
+
+- Static code quality with PHP_CodeSniffer (see `dev/codeSniffer.xml`)
+
+
 ## Power of the docs
 
 - Use it for release notes

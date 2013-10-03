@@ -40,4 +40,4 @@ class LeMike_DevMode_Block_Core_Config extends Mage_Core_Block_Template
     {
         return Mage::getModel('lemike_devmode/core_config');
     }
-} 
+}

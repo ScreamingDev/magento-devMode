@@ -44,4 +44,4 @@ class LeMike_DevMode_ToolboxController extends LeMike_DevMode_Controller_Front_S
 
         $this->_redirectReferer();
     }
-} 
+}

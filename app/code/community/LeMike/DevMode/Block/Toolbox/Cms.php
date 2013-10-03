@@ -31,7 +31,7 @@ class LeMike_DevMode_Block_Toolbox_Cms extends LeMike_DevMode_Block_Toolbox
     protected $_template = 'lemike/devmode/toolbox/cms.phtml';
 
 
-    function getCurrentCmsPageId()
+    public function getCurrentCmsPageId()
     {
         $pageId = Mage::getBlockSingleton('cms/page')->getPage()->getId();
 
@@ -46,4 +46,4 @@ class LeMike_DevMode_Block_Toolbox_Cms extends LeMike_DevMode_Block_Toolbox
             array('page_id' => $this->getCurrentCmsPageId())
         );
     }
-} 
+}

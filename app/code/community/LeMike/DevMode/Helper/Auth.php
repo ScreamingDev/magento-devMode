@@ -29,6 +29,22 @@
 class LeMike_DevMode_Helper_Auth extends LeMike_DevMode_Helper_Abstract
 {
     /**
+     * Get url to backend.
+     *
+     * @param       $route
+     * @param array $params
+     *
+     * @return string
+     */
+    public function getBackendUrl($route, $params = array())
+    {
+        $params[Mage_Adminhtml_Model_Url::SECRET_KEY_PARAM_NAME] = "lemike_devmode";
+
+        return (string) Mage::getModel('adminhtml/url')->getUrl($route, $params);
+    }
+
+
+    /**
      * Generate secret key for controller and action based on form key
      *
      * @param string $controller Controller name
@@ -58,22 +74,6 @@ class LeMike_DevMode_Helper_Auth extends LeMike_DevMode_Helper_Abstract
 
 
     /**
-     * Get url to backend.
-     *
-     * @param       $route
-     * @param array $params
-     *
-     * @return string
-     */
-    public function getBackendUrl($route, $params = array())
-    {
-        $params[Mage_Adminhtml_Model_Url::SECRET_KEY_PARAM_NAME] = "lemike_devmode";
-
-        return (string) Mage::getModel('adminhtml/url')->getUrl($route,$params);
-    }
-
-
-    /**
      * Check if there is any restriction.
      *
      * @return bool
@@ -87,6 +87,6 @@ class LeMike_DevMode_Helper_Auth extends LeMike_DevMode_Helper_Abstract
             return true;
         }
 
-        return (bool)Mage::helper('core')->isDevAllowed();
+        return (bool) Mage::helper('core')->isDevAllowed();
     }
 }

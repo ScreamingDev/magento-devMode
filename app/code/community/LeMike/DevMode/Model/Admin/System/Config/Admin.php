@@ -74,4 +74,4 @@ class LeMike_DevMode_Model_Admin_System_Config_Admin
 
         return $optionArray;
     }
-} 
+}

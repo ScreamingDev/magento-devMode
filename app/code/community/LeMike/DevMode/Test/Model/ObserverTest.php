@@ -29,6 +29,53 @@
 class LeMike_DevMode_Model_ObserverTest extends EcomDev_PHPUnit_Test_Case_Controller
 {
     /**
+     * Tests ControllerActionPredispatch.
+     *
+     * @loadFixture general_autoLogin
+     *
+     * @return null
+     */
+    public function testAutomaticallyLoginToBackendWhenWorkingLocal()
+    {
+        /*
+         * }}} preconditions {{{
+         */
+        $this->assertFalse(Mage::getSingleton('admin/session')->isLoggedIn());
+
+        // local
+        $ip                     = '127.0.0.1';
+        $_SERVER['REMOTE_ADDR'] = $ip;
+
+        $this->assertEquals($this->getRequest()->getClientIp(), $ip);
+
+        // mock admin/user
+        $mock = $this->getModelMock('admin/user', array('getId'));
+        $mock->expects($this->any())->method('getId')->will($this->returnValue(true));
+        $this->replaceByMock('model', 'admin/user', $mock);
+
+        $this->assertSame($mock, Mage::getModel('admin/user'));
+
+        // call login
+        $route = 'adminhtml/index/login';
+        $this->dispatch($route);
+
+        $this->assertRequestRoute($route);
+        $this->assertEventDispatched('controller_action_predispatch');
+
+        /*
+         * }}} main {{{
+         */
+        $this->assertTrue(Mage::getSingleton('admin/session')->isLoggedIn());
+
+        /*
+         * }}} postcondition {{{
+         */
+
+        return null;
+    }
+
+
+    /**
      * Tests ControllerActionPredispatchCustomerAccountLoginPost.
      *
      * @loadFixture  default
@@ -108,7 +155,7 @@ class LeMike_DevMode_Model_ObserverTest extends EcomDev_PHPUnit_Test_Case_Contro
         // Not yet logged in
         Mage::getSingleton('customer/session')->logout();
 
-        $this->assertNotEquals(42, (int)Mage::getSingleton('customer/session')->getCustomerId());
+        $this->assertNotEquals(42, (int) Mage::getSingleton('customer/session')->getCustomerId());
 
         // developer mode disabled / restricted
         Mage::setIsDeveloperMode(false);
@@ -141,7 +188,7 @@ class LeMike_DevMode_Model_ObserverTest extends EcomDev_PHPUnit_Test_Case_Contro
         $this->assertRequestRoute('customer/account/loginPost');
         $this->assertEventDispatched('controller_action_predispatch_customer_account_loginPost');
 
-        $this->assertNotEquals(42, (int)Mage::getSingleton('customer/session')->getCustomerId());
+        $this->assertNotEquals(42, (int) Mage::getSingleton('customer/session')->getCustomerId());
 
         /*
          * }}} postcondition {{{
@@ -165,7 +212,7 @@ class LeMike_DevMode_Model_ObserverTest extends EcomDev_PHPUnit_Test_Case_Contro
         // Not yet logged in
         Mage::getSingleton('customer/session')->logout();
 
-        $this->assertNotEquals(42, (int)Mage::getSingleton('customer/session')->getCustomerId());
+        $this->assertNotEquals(42, (int) Mage::getSingleton('customer/session')->getCustomerId());
 
         // developer mode
         Mage::setIsDeveloperMode(true);
@@ -200,101 +247,7 @@ class LeMike_DevMode_Model_ObserverTest extends EcomDev_PHPUnit_Test_Case_Contro
         $this->assertRequestRoute('customer/account/loginPost');
         $this->assertEventDispatched('controller_action_predispatch_customer_account_loginPost');
 
-        $this->assertNotEquals(42, (int)Mage::getSingleton('customer/session')->getCustomerId());
-
-        /*
-         * }}} postcondition {{{
-         */
-
-        return null;
-    }
-
-
-    /**
-     * Tests ControllerActionPredispatch.
-     *
-     * @loadFixture general_autoLogin
-     *
-     * @return null
-     */
-    public function testAutomaticallyLoginToBackendWhenWorkingLocal()
-    {
-        /*
-         * }}} preconditions {{{
-         */
-        $this->assertFalse(Mage::getSingleton('admin/session')->isLoggedIn());
-
-        // local
-        $ip                     = '127.0.0.1';
-        $_SERVER['REMOTE_ADDR'] = $ip;
-
-        $this->assertEquals($this->getRequest()->getClientIp(), $ip);
-
-        // mock admin/user
-        $mock = $this->getModelMock('admin/user', array('getId'));
-        $mock->expects($this->any())->method('getId')->will($this->returnValue(true));
-        $this->replaceByMock('model', 'admin/user', $mock);
-
-        $this->assertSame($mock, Mage::getModel('admin/user'));
-
-        // call login
-        $route = 'adminhtml/index/login';
-        $this->dispatch($route);
-
-        $this->assertRequestRoute($route);
-        $this->assertEventDispatched('controller_action_predispatch');
-
-        /*
-         * }}} main {{{
-         */
-        $this->assertTrue(Mage::getSingleton('admin/session')->isLoggedIn());
-
-        /*
-         * }}} postcondition {{{
-         */
-
-        return null;
-    }
-
-
-    /**
-     * Tests ControllerActionPredispatch.
-     *
-     * @loadFixture general_autoLogin
-     *
-     * @return null
-     */
-    public function testControllerActionPredispatch_AdminLogin_WrongIp()
-    {
-        /*
-         * }}} preconditions {{{
-         */
-        $this->assertFalse(Mage::getSingleton('admin/session')->isLoggedIn());
-
-        // local
-        $ip                     = '192.168.0.1';
-        $_SERVER['REMOTE_ADDR'] = $ip;
-
-        $this->assertEquals($this->getRequest()->getClientIp(), $ip);
-
-        // mock admin/user
-        $mock = $this->getModelMock('admin/user', array('getId'));
-        $mock->expects($this->any())->method('getId')->will($this->returnValue(true));
-        $this->replaceByMock('model', 'admin/user', $mock);
-
-        $this->assertSame($mock, Mage::getModel('admin/user'));
-
-        // call login
-        $route = 'adminhtml/index/login';
-        $this->dispatch($route);
-
-        $this->assertRequestRoute($route);
-        $this->assertEventDispatched('controller_action_predispatch');
-
-        /*
-         * }}} main {{{
-         */
-        $this->assertFalse(Mage::getSingleton('admin/session')->isLoggedIn());
+        $this->assertNotEquals(42, (int) Mage::getSingleton('customer/session')->getCustomerId());
 
         /*
          * }}} postcondition {{{
@@ -320,6 +273,53 @@ class LeMike_DevMode_Model_ObserverTest extends EcomDev_PHPUnit_Test_Case_Contro
 
         // local
         $ip                     = '127.0.0.1';
+        $_SERVER['REMOTE_ADDR'] = $ip;
+
+        $this->assertEquals($this->getRequest()->getClientIp(), $ip);
+
+        // mock admin/user
+        $mock = $this->getModelMock('admin/user', array('getId'));
+        $mock->expects($this->any())->method('getId')->will($this->returnValue(true));
+        $this->replaceByMock('model', 'admin/user', $mock);
+
+        $this->assertSame($mock, Mage::getModel('admin/user'));
+
+        // call login
+        $route = 'adminhtml/index/login';
+        $this->dispatch($route);
+
+        $this->assertRequestRoute($route);
+        $this->assertEventDispatched('controller_action_predispatch');
+
+        /*
+         * }}} main {{{
+         */
+        $this->assertFalse(Mage::getSingleton('admin/session')->isLoggedIn());
+
+        /*
+         * }}} postcondition {{{
+         */
+
+        return null;
+    }
+
+
+    /**
+     * Tests ControllerActionPredispatch.
+     *
+     * @loadFixture general_autoLogin
+     *
+     * @return null
+     */
+    public function testControllerActionPredispatch_AdminLogin_WrongIp()
+    {
+        /*
+         * }}} preconditions {{{
+         */
+        $this->assertFalse(Mage::getSingleton('admin/session')->isLoggedIn());
+
+        // local
+        $ip                     = '192.168.0.1';
         $_SERVER['REMOTE_ADDR'] = $ip;
 
         $this->assertEquals($this->getRequest()->getClientIp(), $ip);
@@ -393,7 +393,10 @@ class LeMike_DevMode_Model_ObserverTest extends EcomDev_PHPUnit_Test_Case_Contro
         $authHelper             = Mage::helper('lemike_devmode/auth');
         $_SERVER['REMOTE_ADDR'] = '127.0.0.1';
 
-        $this->assertEquals(1, (int)Mage::helper('lemike_devmode/config')->generalSecurityAllowRestrictedIpOnly());
+        $this->assertEquals(
+            1,
+            (int) Mage::helper('lemike_devmode/config')->generalSecurityAllowRestrictedIpOnly()
+        );
         $this->assertFalse($authHelper->isDevAllowed());
 
         /*

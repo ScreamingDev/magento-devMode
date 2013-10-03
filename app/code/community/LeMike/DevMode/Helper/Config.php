@@ -35,7 +35,7 @@ class LeMike_DevMode_Helper_Config extends LeMike_DevMode_Helper_Abstract
      */
     public function generalSecurityAllowRestrictedIpOnly()
     {
-        return (bool)Mage::app()->getStore()->getConfig(
+        return (bool) Mage::app()->getStore()->getConfig(
             'lemike_devmode_general/security/allow_restricted_ip_only'
         );
     }
@@ -48,7 +48,7 @@ class LeMike_DevMode_Helper_Config extends LeMike_DevMode_Helper_Abstract
      */
     public function getAdminLoginUser()
     {
-        return (int)Mage::app()->getStore()->getConfig(
+        return (int) Mage::app()->getStore()->getConfig(
             'lemike_devmode_general/security/admin_login_user'
         );
     }
@@ -61,7 +61,7 @@ class LeMike_DevMode_Helper_Config extends LeMike_DevMode_Helper_Abstract
      */
     public function getCoreEmailRecipient()
     {
-        return (string)Mage::getStoreConfig('lemike_devmode_core/email/recipient');
+        return (string) Mage::getStoreConfig('lemike_devmode_core/email/recipient');
     }
 
 
@@ -72,7 +72,7 @@ class LeMike_DevMode_Helper_Config extends LeMike_DevMode_Helper_Abstract
      */
     public function getCustomerCustomerPassword()
     {
-        return (string)Mage::getStoreConfig('lemike_devmode_customer/customer/password');
+        return (string) Mage::getStoreConfig('lemike_devmode_customer/customer/password');
     }
 
 
@@ -83,7 +83,7 @@ class LeMike_DevMode_Helper_Config extends LeMike_DevMode_Helper_Abstract
      */
     public function getRemoteCallUrlTemplate()
     {
-        return (string)Mage::getStoreConfig(
+        return (string) Mage::getStoreConfig(
             'lemike_devmode_general/environment/remoteCallUrlTemplate'
         );
     }
@@ -96,18 +96,7 @@ class LeMike_DevMode_Helper_Config extends LeMike_DevMode_Helper_Abstract
      */
     public function isAdminAutoLoginAllowed()
     {
-        return (bool)(0 != $this->getAdminLoginUser());
-    }
-
-
-    /**
-     * Check if sending mails is allowed.
-     *
-     * @return bool
-     */
-    public function isMailAllowed()
-    {
-        return (bool)Mage::getStoreConfig('lemike_devmode_core/email/active');
+        return (bool) (0 != $this->getAdminLoginUser());
     }
 
 
@@ -118,10 +107,22 @@ class LeMike_DevMode_Helper_Config extends LeMike_DevMode_Helper_Abstract
      */
     public function isIdeRemoteCallEnabled()
     {
-        return (bool)Mage::getStoreConfig(
+        return (bool) Mage::getStoreConfig(
             'lemike_devmode_general/environment/ideRemoteCallEnabled'
         );
     }
+
+
+    /**
+     * Check if sending mails is allowed.
+     *
+     * @return bool
+     */
+    public function isMailAllowed()
+    {
+        return (bool) Mage::getStoreConfig('lemike_devmode_core/email/active');
+    }
+
 
     /**
      * Check whether the toolbox shall be shown or not.
