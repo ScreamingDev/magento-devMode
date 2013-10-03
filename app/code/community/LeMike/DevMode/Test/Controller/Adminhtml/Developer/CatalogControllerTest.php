@@ -36,10 +36,6 @@ class LeMike_DevMode_Test_Controller_Adminhtml_Developer_CatalogControllerTest e
      */
     public function testIndexAction()
     {
-        /** @var Mage_Index_Model_Resource_Process_Collection $object */
-        $object = Mage::getSingleton('index/indexer')->getProcessesCollection();
-        $object->getSelect()->reset('from');
-
         $this->mockAdminUserSession();
 
         // layout
