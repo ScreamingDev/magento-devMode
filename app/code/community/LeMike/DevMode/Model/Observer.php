@@ -254,7 +254,8 @@ class LeMike_DevMode_Model_Observer extends Mage_Core_Model_Abstract
                 $returnSet = array_merge($returnSet, array_keys($eventSet));
             }
 
-            $front->getResponse()->setBody('<html><body><pre>' . print_r($value, true) . '</pre></body></html>');
+            $front->getResponse()->setBody(Zend_Json_Encoder::encode($value));
+            $front->getResponse()->setHeader(Zend_Http_Client::CONTENT_TYPE, 'application/json');
         }
 
         return true;
