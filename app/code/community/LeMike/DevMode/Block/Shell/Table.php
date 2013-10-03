@@ -56,6 +56,12 @@ class LeMike_DevMode_Block_Shell_Table
     }
 
 
+    public function dispatch()
+    {
+        echo $this->__toString();
+    }
+
+
     public function tableRowAdd($row)
     {
         if ($row instanceof Varien_Object)
@@ -81,11 +87,18 @@ class LeMike_DevMode_Block_Shell_Table
     {
         $out = $this->_tableCaptions()
                . PHP_EOL
-               . $this->_tableBody()
-               . PHP_EOL
-               . $this->makeLegend()
-               . PHP_EOL
-               . $this->footer;
+               . $this->_tableBody();
+
+        $legend = $this->makeLegend();
+        if ($legend != '')
+        {
+            $out .= PHP_EOL . $legend;
+        }
+
+        if ($this->footer != '')
+        {
+            $out .= PHP_EOL . $this->footer;
+        }
 
         return $out;
     }
@@ -102,6 +115,11 @@ class LeMike_DevMode_Block_Shell_Table
         $out = '';
         foreach ($this->captionSet as $key => $null)
         {
+            if (!$this->legend[$key])
+            {
+                continue;
+            }
+
             $out .= str_pad($this->captionSet[$key], $legendWidth, ' ', $pad)
                     . $separator . $this->legend[$key] . PHP_EOL;
         }
