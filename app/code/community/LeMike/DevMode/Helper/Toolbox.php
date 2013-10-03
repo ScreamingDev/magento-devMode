@@ -31,7 +31,7 @@ class LeMike_DevMode_Helper_Toolbox extends LeMike_DevMode_Helper_Abstract
     public function getIdeUrl($file, $line = 1)
     {
         $template = Mage::helper('lemike_devmode/config')->getRemoteCallUrlTemplate();
-        return sprintf($template, $file, $line);
+        return sprintf($template, urlencode($file), urlencode($line));
     }
 
     /**
