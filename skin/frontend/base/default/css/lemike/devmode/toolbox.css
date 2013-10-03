@@ -1,8 +1,11 @@
 .ld_toolbox {
-    padding: 0.5em;
     background: #def;
     border: dashed thin #f16048;
     cursor: move;
+}
+
+.ld_toolbox .content {
+    padding: 0.5em;
 }
 
 .ld_dialog ul, .ld_dialog li {
@@ -12,4 +15,21 @@
 
 .ld_dialog {
     text-align: left;
+}
+
+.ld_toolbox a {
+    text-decoration: none;
+    display: inline-block;
+    width: 100%;
+}
+
+.ld_toolbox a:hover {
+    text-decoration: underline;
+}
+
+.ld_toolbox .title {
+    background: #002b36;
+    color: #fff;
+    display: inline-block;
+    width: 100%;
 }

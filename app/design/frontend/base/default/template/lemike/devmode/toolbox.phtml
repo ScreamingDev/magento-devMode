@@ -9,38 +9,40 @@ $namespace = 'lemike.devmode.toolbox';
 
 <div class="lemike_devmode">
     <div id="ld_toolbox" class="ld_toolbox">
-    <strong class="title">TOOLBOX</strong>
-        <div class="section">
-            <?php $key = key($position); $value = array_shift($position); $route = ''; ?>
-            <a href="<?php echo $this->getEditPositionUrl($key, $value); ?>"
-               class="<?php echo $key ?>">
-                    <?php echo ucfirst($key) ?>: <em><?php echo $value ?></em>
-                </a>
-            <?php echo $this->getChildHtml($namespace . ".$key") ?>
-        </div>
-        <? foreach ($position as $key => $value): ?>
-            <?php $namespace .= '.' . $value;
-            $route .= '/' . $value;
-            $url = $this->getEditPositionUrl($key, $value);
-            /** @var LeMike_DevMode_Block_Toolbox $childBlock */
-            $childBlock = $this->getChild($namespace); ?>
+        <strong class="title">TOOLBOX</strong>
+        <div class="content">
             <div class="section">
-                <?php if (!$url): ?>
-                    <span class="<?php echo $key ?>">
-                <?php else: ?>
-                    <a href="<?php echo $this->getEditPositionUrl($key, $value); ?>"
-                       class="<?php echo $key ?>"
-                       title="<?php echo get_class($this->getAction()) ?>">
-                <?php endif; ?>
-                    <?php echo ucfirst($key) ?>: <em><?php echo $value ?></em>
-                <?php if (!$url): ?>
-                    </span>
-                <?php else: ?>
+                <?php $key = key($position); $value = array_shift($position); $route = ''; ?>
+                <a href="<?php echo $this->getEditPositionUrl($key, $value); ?>"
+                   class="<?php echo $key ?>">
+                        <?php echo ucfirst($key) ?>: <em><?php echo $value ?></em>
                     </a>
-                <?php endif; ?>
-                <?php echo $this->getChildHtml($namespace) ?>
+                <?php echo $this->getChildHtml($namespace . ".$key") ?>
             </div>
-        <? endforeach ?>
+            <? foreach ($position as $key => $value): ?>
+                <?php $namespace .= '.' . $value;
+                $route .= '/' . $value;
+                $url = $this->getEditPositionUrl($key, $value);
+                /** @var LeMike_DevMode_Block_Toolbox $childBlock */
+                $childBlock = $this->getChild($namespace); ?>
+                <div class="section">
+                    <?php if (!$url): ?>
+                        <span class="<?php echo $key ?>">
+                    <?php else: ?>
+                        <a href="<?php echo $this->getEditPositionUrl($key, $value); ?>"
+                           class="<?php echo $key ?>"
+                           title="<?php echo get_class($this->getAction()) ?>">
+                    <?php endif; ?>
+                        <?php echo ucfirst($key) ?>: <em><?php echo $value ?></em>
+                    <?php if (!$url): ?>
+                        </span>
+                    <?php else: ?>
+                        </a>
+                    <?php endif; ?>
+                    <?php echo $this->getChildHtml($namespace) ?>
+                </div>
+            <? endforeach ?>
+        </div>
     </div>
 </div>
 
@@ -53,6 +55,8 @@ $namespace = 'lemike.devmode.toolbox';
 </div>
 
 <script>
+    jQuery.noConflict();
+
     var ld_toolboxId = "#ld_toolbox";
 
     function urlSetParameter(url, param, value) {
