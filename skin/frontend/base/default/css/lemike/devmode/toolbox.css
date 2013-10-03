@@ -4,3 +4,12 @@
     border: dashed thin #f16048;
     cursor: move;
 }
+
+.ld_dialog ul, .ld_dialog li {
+    list-style: circle;
+    margin: 0.5em 0.5em 0.5em 1em;
+}
+
+.ld_dialog {
+    text-align: left;
+}

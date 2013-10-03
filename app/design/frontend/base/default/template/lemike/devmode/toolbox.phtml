@@ -126,6 +126,28 @@ $namespace = 'lemike.devmode.toolbox';
         dia.dialog("moveToTop");
     }
 
+    function jsonToList(data)
+    {
+        if (typeof data == "string")
+        {
+            return jQuery('<span/>').html(data.toString());
+        }
+        else
+        {
+            var ul = jQuery("<ul/>");
+            var span = jQuery("<span />").appendTo(ul);
+            jQuery.each(data, function (index, value) {
+                var li = jQuery("<li/>").appendTo(ul)
+                var a = jQuery("<span/>").html(index + ': ').appendTo(li);
+                jsonToList(value).appendTo(li);
+            });
+
+            return ul;
+        }
+
+        return '';
+    }
+
     function toolboxInfoAjax(query, title = '') {
 
         jQuery.ajax(urlSetParameter(window.location.href, query, 1), {
@@ -136,6 +158,10 @@ $namespace = 'lemike.devmode.toolbox';
                 );
             },
             success: function (data, textStatus, jqXHR) {
+                if (jqXHR.getResponseHeader('Content-Type') == 'application/json')
+                {
+                    data = jsonToList(data);
+                }
                 showDialog(data, title);
             },
             error: function (jqXHR, textStatus, errorThrown) {
