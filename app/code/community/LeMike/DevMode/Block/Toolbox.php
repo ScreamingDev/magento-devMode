@@ -28,12 +28,86 @@
  */
 class LeMike_DevMode_Block_Toolbox extends Mage_Core_Block_Template
 {
+    const POSITION_ACTION = 'action';
+
+    const POSITION_CONTROLLER = 'controller';
+
+    const POSITION_MODULE = 'module';
+
+    const POSITION_STORE = 'store';
+
     protected $_template = 'lemike/devmode/toolbox.phtml';
+
+
+    /**
+     * .
+     *
+     * @return string
+     */
+    public function _getControllerClassFile()
+    {
+        $classFile    = uc_words(get_class($this->getAction()), DIRECTORY_SEPARATOR) . '.php';
+        $classFileSet = explode(DS, $classFile);
+
+        $classFile = array_shift($classFileSet) . DS;
+        $classFile .= array_shift($classFileSet) . DS;
+        $classFile .= 'controllers' . DS;
+        $classFile .= implode(DS, $classFileSet);
+
+        $classFile = stream_resolve_include_path($classFile);
+
+        return $classFile;
+    }
 
 
     public function getBackendUrl($route = 'adminhtml/index/index', $param = array())
     {
         return Mage::helper('lemike_devmode/auth')->getBackendUrl($route, $param);
+    }
+
+
+    public function getEditPositionUrl($position, $value)
+    {
+        $url = null;
+
+        switch ($position)
+        {
+            case self::POSITION_STORE:
+                $id = Mage::getModel('core/store')->load($value, 'code')->getId();
+                $url = $this->getBackendUrl(
+                    'adminhtml/system_store/editStore',
+                    array('store_id' => $id)
+                );
+                break;
+            case self::POSITION_CONTROLLER:
+                $classFile = $this->_getControllerClassFile();
+
+                if ($classFile && Mage::helper('lemike_devmode/config')->isIdeRemoteCallEnabled())
+                {
+                    $url = Mage::helper('lemike_devmode/toolbox')->getIdeUrl($classFile);
+                }
+                break;
+            case self::POSITION_ACTION:
+                $classFile = $this->_getControllerClassFile();
+
+                if ($classFile && Mage::helper('lemike_devmode/config')->isIdeRemoteCallEnabled())
+                {
+                    $line = Mage::helper('lemike_devmode/toolbox')->getLineNumber(
+                        $classFile,
+                        '@' . preg_quote($value . 'Action') . '@'
+                    );
+                    $url = Mage::helper('lemike_devmode/toolbox')->getIdeUrl($classFile, $line);
+                }
+                break;
+        }
+
+        return $url;
+    }
+
+
+    public function getLayoutHandles()
+    {
+        return $this->getLayout()->getUpdate()->getHandles();
     }
 
 
@@ -45,10 +119,10 @@ class LeMike_DevMode_Block_Toolbox extends Mage_Core_Block_Template
     public function getPosition()
     {
         $position = array(
-            'store'      => Mage::app()->getStore()->getCode(),
-            'module'     => Mage::app()->getRequest()->getModuleName(),
-            'controller' => Mage::app()->getRequest()->getControllerName(),
-            'action'     => Mage::app()->getRequest()->getActionName(),
+            self::POSITION_STORE      => Mage::app()->getStore()->getCode(),
+            self::POSITION_MODULE     => Mage::app()->getRequest()->getModuleName(),
+            self::POSITION_CONTROLLER => Mage::app()->getRequest()->getControllerName(),
+            self::POSITION_ACTION     => Mage::app()->getRequest()->getActionName(),
         );
 
         return array_filter($position);
@@ -58,11 +132,5 @@ class LeMike_DevMode_Block_Toolbox extends Mage_Core_Block_Template
     public function helper($name = 'lemike_devmode/toolbox')
     {
         return parent::helper($name);
-    }
-
-
-    public function getLayoutHandles()
-    {
-        return $this->getLayout()->getUpdate()->getHandles();
     }
 }

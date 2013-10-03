@@ -77,6 +77,19 @@ class LeMike_DevMode_Helper_Config extends LeMike_DevMode_Helper_Abstract
 
 
     /**
+     * Get the URL-Template for remote calling in IDE.
+     *
+     * @return string
+     */
+    public function getRemoteCallUrlTemplate()
+    {
+        return (string)Mage::getStoreConfig(
+            'lemike_devmode_general/environment/remoteCallUrlTemplate'
+        );
+    }
+
+
+    /**
      * admin_auto_login.
      *
      * @return bool
@@ -97,6 +110,18 @@ class LeMike_DevMode_Helper_Config extends LeMike_DevMode_Helper_Abstract
         return (bool)Mage::getStoreConfig('lemike_devmode_core/email/active');
     }
 
+
+    /**
+     * Remote call in phpStorm.
+     *
+     * @return bool
+     */
+    public function isIdeRemoteCallEnabled()
+    {
+        return (bool)Mage::getStoreConfig(
+            'lemike_devmode_general/environment/ideRemoteCallEnabled'
+        );
+    }
 
     /**
      * Check whether the toolbox shall be shown or not.

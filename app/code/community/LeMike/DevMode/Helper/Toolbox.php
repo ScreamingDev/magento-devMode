@@ -28,6 +28,35 @@
  */
 class LeMike_DevMode_Helper_Toolbox extends LeMike_DevMode_Helper_Abstract
 {
+    public function getIdeUrl($file, $line = 1)
+    {
+        $template = Mage::helper('lemike_devmode/config')->getRemoteCallUrlTemplate();
+        return sprintf($template, $file, $line);
+    }
 
+    /**
+     * Get the line number of the first line in a file matching a given regex
+     * Not the nicest solution, but probably the fastest
+     *
+     * @param $file
+     * @param $regex
+     * @return bool|int
+     */
+    public function getLineNumber($file, $regex) {
+        $i = 0;
+        $lineFound = false;
+        $handle = @fopen($file, 'r');
+        if ($handle) {
+            while (($buffer = fgets($handle, 4096)) !== false) {
+                $i++;
+                if (preg_match($regex, $buffer)) {
+                    $lineFound = true;
+                    break;
+                }
+            }
+            fclose($handle);
+        }
+        return $lineFound ? $i : false;
+    }
 
 }
