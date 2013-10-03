@@ -79,24 +79,22 @@ class LeMike_DevMode_Block_Toolbox extends Mage_Core_Block_Template
                     array('store_id' => $id)
                 );
                 break;
+            case self::POSITION_ACTION:
             case self::POSITION_CONTROLLER:
                 $classFile = $this->_getControllerClassFile();
 
                 if ($classFile && Mage::helper('lemike_devmode/config')->isIdeRemoteCallEnabled())
                 {
-                    $url = Mage::helper('lemike_devmode/toolbox')->getIdeUrl($classFile);
-                }
-                break;
-            case self::POSITION_ACTION:
-                $classFile = $this->_getControllerClassFile();
-
-                if ($classFile && Mage::helper('lemike_devmode/config')->isIdeRemoteCallEnabled())
-                {
-                    $line = Mage::helper('lemike_devmode/toolbox')->getLineNumber(
+                    // find the line where the action resides, at least line 1 if not found
+                    $line = max(Mage::helper('lemike_devmode/toolbox')->getLineNumber(
                         $classFile,
-                        '@' . preg_quote($value . 'Action') . '@'
-                    );
+                        '@n\s' . preg_quote($value) . 'Action@'
+                    ), 1);
+
+                    // ajax for remote call
+                    $url = "#\" onclick=\"jQuery.ajax('" .
                     $url = Mage::helper('lemike_devmode/toolbox')->getIdeUrl($classFile, $line);
+                    $url .= "');";
                 }
                 break;
         }
@@ -105,9 +103,29 @@ class LeMike_DevMode_Block_Toolbox extends Mage_Core_Block_Template
     }
 
 
-    public function getLayoutHandles()
+    /**
+     * Receive all used layout handles.
+     *
+     * @param bool $withModule With those from the module (default: false)
+     *
+     * @return array
+     */
+    public function getLayoutHandles($withModule = false)
     {
-        return $this->getLayout()->getUpdate()->getHandles();
+        $layoutHandles = $this->getLayout()->getUpdate()->getHandles();
+
+        if (!$withModule)
+        { // do not allow custom layout handle from this module
+            foreach ($layoutHandles as $key => $handle)
+            {
+                if (strpos($handle, LeMike_DevMode_Helper_Data::MODULE_ALIAS) === 0)
+                {
+                    unset($layoutHandles[$key]);
+                }
+            }
+        }
+
+        return $layoutHandles;
     }
 
 
