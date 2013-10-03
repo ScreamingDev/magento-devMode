@@ -1,0 +1,6 @@
+.ld_toolbox {
+    padding: 0.5em;
+    background: #def;
+    border: dashed thin #f16048;
+    cursor: move;
+}

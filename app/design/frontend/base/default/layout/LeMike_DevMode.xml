@@ -10,6 +10,9 @@
                 <type>skin_js</type>
                 <name>js/jquery-ui-1.10.3.js</name>
             </action>
+            <action method="addCss">
+                <name>css/lemike/devmode/toolbox.css</name>
+            </action>
             <block type="core/text" name="mybuyscsscode">
                 <action method="setText">
                     <text><![CDATA[<link

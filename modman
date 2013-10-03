@@ -6,3 +6,4 @@ app/design/adminhtml/default/default/template/lemike/devmode    app/design/admin
 app/design/frontend/base/default/template/lemike/devmode app/design/frontend/base/default/template/lemike/devmode
 app/design/frontend/base/default/layout/LeMike_DevMode.xml app/design/frontend/base/default/layout/LeMike_DevMode.xml
 skin/frontend/base/default/js/* skin/frontend/base/default/js/
+skin/frontend/base/default/css/lemike/devmode skin/frontend/base/default/css/lemike/devmode
