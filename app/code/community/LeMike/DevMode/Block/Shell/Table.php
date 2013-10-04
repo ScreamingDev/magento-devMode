@@ -7,24 +7,24 @@
  * Copyright (c) 2013, Mike Pretzlaw
  * All rights reserved.
  *
- * @category   mage_devMail
- * @package    Table.php
- * @author     Mike Pretzlaw <pretzlaw@gmail.com>
- * @copyright  2013 Mike Pretzlaw
- * @license    http://github.com/sourcerer-mike/mage_devMail/blob/master/License.md BSD 3-Clause ("BSD New")
- * @link       http://github.com/sourcerer-mike/mage_devMail
- * @since      0.3.0
+ * @category  LeMike_DevMode
+ * @package   Table.php
+ * @author    Mike Pretzlaw <pretzlaw@gmail.com>
+ * @copyright 2013 Mike Pretzlaw
+ * @license   http://github.com/sourcerer-mike/mage_devMail/blob/master/License.md BSD 3-Clause ("BSD New")
+ * @link      http://github.com/sourcerer-mike/mage_devMail
+ * @since     0.3.0
  */
 
 /**
  * Class Table.
  *
- * @category   mage_devMail
- * @author     Mike Pretzlaw <pretzlaw@gmail.com>
- * @copyright  2013 Mike Pretzlaw
- * @license    http://github.com/sourcerer-mike/mage_devMail/blob/master/License.md BSD 3-Clause ("BSD New")
- * @link       http://github.com/sourcerer-mike/mage_devMail
- * @since      0.3.0
+ * @category  LeMike_DevMode
+ * @author    Mike Pretzlaw <pretzlaw@gmail.com>
+ * @copyright 2013 Mike Pretzlaw
+ * @license   http://github.com/sourcerer-mike/mage_devMail/blob/master/License.md BSD 3-Clause ("BSD New")
+ * @link      http://github.com/sourcerer-mike/mage_devMail
+ * @since     0.3.0
  */
 class LeMike_DevMode_Block_Shell_Table
 {
@@ -56,51 +56,15 @@ class LeMike_DevMode_Block_Shell_Table
     }
 
 
-    public function dispatch()
-    {
-        echo $this->__toString();
-    }
-
-
-    public function tableRowAdd($row)
-    {
-        if ($row instanceof Varien_Object)
-        {
-            $row = $row->getData();
-        }
-
-        $this->_tableRowSet[] = $row;
-        foreach ($row as $key => $cell)
-        {
-            $this->calcMaxWidth($key, $cell);
-        }
-    }
-
-
     public function calcMaxWidth($key, $message)
     {
         $this->_tableColumnWidth[$key] = max($this->_tableColumnWidth[$key], strlen($message));
     }
 
 
-    protected function _table()
+    public function dispatch()
     {
-        $out = $this->_tableCaptions()
-               . PHP_EOL
-               . $this->_tableBody();
-
-        $legend = $this->makeLegend();
-        if ($legend != '')
-        {
-            $out .= PHP_EOL . $legend;
-        }
-
-        if ($this->footer != '')
-        {
-            $out .= PHP_EOL . $this->footer;
-        }
-
-        return $out;
+        echo $this->__toString();
     }
 
 
@@ -125,6 +89,42 @@ class LeMike_DevMode_Block_Shell_Table
         }
 
         return rtrim($out);
+    }
+
+
+    public function tableRowAdd($row)
+    {
+        if ($row instanceof Varien_Object)
+        {
+            $row = $row->getData();
+        }
+
+        $this->_tableRowSet[] = $row;
+        foreach ($row as $key => $cell)
+        {
+            $this->calcMaxWidth($key, $cell);
+        }
+    }
+
+
+    protected function _table()
+    {
+        $out = $this->_tableCaptions()
+               . PHP_EOL
+               . $this->_tableBody();
+
+        $legend = $this->makeLegend();
+        if ($legend != '')
+        {
+            $out .= PHP_EOL . $legend;
+        }
+
+        if ($this->footer != '')
+        {
+            $out .= PHP_EOL . $this->footer;
+        }
+
+        return $out;
     }
 
 

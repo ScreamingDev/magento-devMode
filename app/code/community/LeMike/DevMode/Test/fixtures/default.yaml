@@ -1,6 +1,7 @@
 config:
   stores/default/lemike_devmode_core/email/active: 1
   stores/default/lemike_devmode_core/email/recipient: 0
-  stores/default/lemike_devmode_core/environment/ideRemoteCallEnabled: 1
+  stores/default/lemike_devmode_general/environment/ideRemoteCallEnabled: 1
+  stores/default/lemike_devmode_general/environment/remoteCallUrlTemplate: http://localhost:8091/?message=%s:%s
   stores/default/lemike_devmode_customer/customer/password: lemike_d3vm0d3
   stores/default/dev/template/allow_symlink: 1

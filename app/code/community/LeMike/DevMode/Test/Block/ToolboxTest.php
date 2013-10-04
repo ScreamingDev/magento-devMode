@@ -7,18 +7,79 @@
  * Copyright (c) 2013, Mike Pretzlaw
  * All rights reserved.
  *
- * @category   mage_devmode
- * @package    ProductsTest.php
- * @author     Mike Pretzlaw <pretzlaw@gmail.com>
- * @copyright  2013 Mike Pretzlaw
- * @license    http://github.com/sourcerer-mike/mage_devmode/blob/master/License.md BSD 3-Clause ("BSD New")
- * @link       http://github.com/sourcerer-mike/mage_devmode
- * @since      $VERSION$
+ * @category  LeMike_DevMode
+ * @package   LeMike
+ * @author    Mike Pretzlaw <pretzlaw@gmail.com>
+ * @copyright 2013 Mike Pretzlaw
+ * @license   http://github.com/sourcerer-mike/mage-devMode/blob/master/License.md BSD 3-Clause ("BSD New")
+ * @link      http://github.com/sourcerer-mike/mage-devMode
+ * @since     0.4.0
  */
 
+/**
+ * Class LeMike_DevMode_Test_Block_ToolboxTest.
+ *
+ * @category  LeMike_DevMode
+ * @package   LeMike
+ * @author    Mike Pretzlaw <pretzlaw@gmail.com>
+ * @copyright 2013 Mike Pretzlaw
+ * @license   http://github.com/sourcerer-mike/mage-devMode/blob/master/License.md BSD 3-Clause ("BSD New")
+ * @link      http://github.com/sourcerer-mike/mage-devMode
+ * @since     0.4.0
+ */
 class LeMike_DevMode_Test_Block_ToolboxTest extends
     LeMike_DevMode_Test_AbstractController
 {
+    /**
+     * Tests QuickLinkToOpenFileInYourIDE.
+     *
+     * @doNotIndexAll
+     * @loadFixture default
+     *
+     * @return null
+     */
+    public function testQuickLinkToOpenTheControllerOrActionInYourIDE()
+    {
+        /*
+         * }}} preconditions {{{
+         */
+
+        // config
+        $configHelper = Mage::helper('lemike_devmode/config');
+        $this->assertTrue($configHelper->isIdeRemoteCallEnabled());
+        $this->assertNotEmpty($configHelper->getRemoteCallUrlTemplate());
+
+        // dispatch
+        $route = 'cms/index/index';
+        $this->dispatch($route, array('_store' => 'default'));
+
+        $this->assertRequestRoute($route);
+        $this->assertLayoutHandleLoaded('lemike_devmode_toolbox');
+        $this->assertLayoutBlockRendered('lemike.devmode.toolbox');
+
+        /*
+         * }}} main {{{
+         */
+        $prefix  = preg_quote('http://localhost:8091/?message=');
+        $infix   = preg_quote(':');
+        $pattern = '@' . $prefix . '([\%\w_\-\.\s]*)' . $infix . '([\d]*)@is';
+
+        $this->assertResponseBodyRegExp($pattern);
+
+        preg_match($pattern, $this->getResponse()->getOutputBody(), $matches);
+        $path = urldecode($matches[1]);
+
+        $this->assertTrue(file_exists($path));
+        $this->assertContains('Mage/Cms/controllers/IndexController.php', $path);
+
+        /*
+         * }}} postcondition {{{
+         */
+
+        return null;
+    }
+
+
     /**
      * Tests SpecialOptionsOnEveryProductPage.
      *
