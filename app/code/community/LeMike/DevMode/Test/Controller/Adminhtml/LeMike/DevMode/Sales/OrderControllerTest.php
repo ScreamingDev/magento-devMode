@@ -26,33 +26,34 @@
  * @link       http://github.com/sourcerer-mike/magento-devMode
  * @since      0.3.1
  */
-class LeMike_DevMode_Test_Controller_Adminhtml_Developer_Sales_OrderControllerTest extends
-    EcomDev_PHPUnit_Test_Case_Controller
+class LeMike_DevMode_Test_Controller_Adminhtml_LeMike_DevMode_Menu_Sales_OrderControllerTest extends
+    LeMike_DevMode_Test_AbstractController
 {
     /**
      * Run delete action and test for json dispatch.
      *
      * @loadFixture table_sales_order
+     * @doNotIndexAll
      *
      * @return void
      */
-    public function testDeleteAllAction()
+    public function testDeleteAllOrdersFromBackend()
     {
-        /** @var Mage_Index_Model_Resource_Process_Collection $object */
-        $object = Mage::getSingleton('index/indexer')->getProcessesCollection();
-        $object->getSelect()->reset('from');
-
         // precondition
         $initialCount = Mage::getModel('sales/order')->getCollection()->count();
         $this->assertGreaterThan(0, $initialCount);
 
-        // main
         $this->mockAdminUserSession();
-        $this->dispatch('adminhtml/developer_sales_order/deleteAll');
 
-        $this->assertLayoutHandleNotLoaded('adminhtml_developer_sales_order_deleteAll');
+        $route = 'adminhtml/' . $this->getModuleName('_sales_order') . '/deleteAll';
+        $this->dispatch($route);
 
-        $data = json_decode($this->getResponse()->getBody('default'), true);
+        $this->assertRequestRoute($route);
+
+        $this->assertLayoutHandleNotLoaded($this->routeToLayoutHandle($route));
+
+        // main
+        $data = json_decode($this->getResponse()->getOutputBody(), true);
 
         $this->assertResponseBodyJson();
         $this->assertEquals($initialCount, $data['processed']);

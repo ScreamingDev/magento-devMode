@@ -19,24 +19,25 @@
 /**
  * Class DeveloperController.
  *
- * @category   mage_devMail
- * @author     Mike Pretzlaw <pretzlaw@gmail.com>
- * @copyright  2013 Mike Pretzlaw
- * @license    http://github.com/sourcerer-mike/mage_devMail/blob/master/LICENSE.md BSD 3-Clause ("BSD New")
- * @link       http://github.com/sourcerer-mike/mage_devMail
- * @since      0.1.0
+ * @category  LeMike_DevMode
+ * @author    Mike Pretzlaw <pretzlaw@gmail.com>
+ * @copyright 2013 Mike Pretzlaw
+ * @license   http://github.com/sourcerer-mike/mage_devMail/blob/master/LICENSE.md BSD 3-Clause ("BSD New")
+ * @link      http://github.com/sourcerer-mike/mage_devMail
+ * @since     0.1.0
  */
-class LeMike_DevMode_Adminhtml_Developer_CatalogController extends Mage_Adminhtml_Controller_Action
+class LeMike_DevMode_Adminhtml_LeMike_DevMode_IndexController extends
+    Mage_Adminhtml_Controller_Action
 {
-    public function indexAction()
+    public function aboutAction()
     {
         $helper = Mage::helper('lemike_devmode');
 
         $this->loadLayout()
-        ->_setActiveMenu('lemike_devmode/catalog');
+        ->_setActiveMenu('lemike_devmode/about');
 
         $this->_title($helper->__('Development'))
-        ->_title($helper->__('Catalog'));
+        ->_title($helper->__('About'));
 
         $this->renderLayout();
     }

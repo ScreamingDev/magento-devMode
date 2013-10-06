@@ -26,8 +26,8 @@
  * @link       http://github.com/sourcerer-mike/magento-devMode
  * @since      0.3.1
  */
-class LeMike_DevMode_Test_Controller_Adminhtml_DeveloperTest extends
-    EcomDev_PHPUnit_Test_Case_Controller
+class LeMike_DevMode_Test_Controller_Adminhtml_LeMike_DevMode_IndexTest extends
+    LeMike_DevMode_Test_AbstractController
 {
     /**
      * Run index action and test for layouts.
@@ -36,18 +36,14 @@ class LeMike_DevMode_Test_Controller_Adminhtml_DeveloperTest extends
      */
     public function testAboutAction()
     {
-        /** @var Mage_Index_Model_Resource_Process_Collection $object */
-        $object = Mage::getSingleton('index/indexer')->getProcessesCollection();
-        $object->getSelect()->reset('from');
-
         $this->mockAdminUserSession();
 
         // layout
-        $route = 'adminhtml/developer/about';
+        $route = 'adminhtml/' . $this->getModuleName('_index') . '/about';
         $this->dispatch($route);
         $this->assertRequestRoute($route);
 
-        $this->assertLayoutHandleLoaded('adminhtml_developer_about');
+        $this->assertLayoutHandleLoaded($this->routeToLayoutHandle($route));
 
         $this->assertLayoutBlockCreated('content.about');
         $this->assertLayoutRendered('content.about');

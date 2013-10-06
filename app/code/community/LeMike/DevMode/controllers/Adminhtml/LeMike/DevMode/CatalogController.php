@@ -26,11 +26,24 @@
  * @link       http://github.com/sourcerer-mike/mage_devMail
  * @since      0.1.0
  */
-class LeMike_DevMode_Adminhtml_Developer_Sales_OrderController extends Mage_Adminhtml_Controller_Action
+class LeMike_DevMode_Adminhtml_LeMike_DevMode_CatalogController extends
+    LeMike_DevMode_Controller_Adminhtml_Controller_Action
 {
-    public function deleteAllAction()
+    /**
+     * Menu to show possible actions on catalog.
+     *
+     * @return void
+     */
+    public function indexAction()
     {
-        $helper = Mage::helper('lemike_devmode');
-        $helper->responseJson($helper->truncateModelByName('sales/order'));
+        $helper = Mage::helper($this->getModuleAlias());
+
+        $this->loadLayout()
+        ->_setActiveMenu($this->getModuleAlias('/catalog'));
+
+        $this->_title($helper->__('Development'))
+        ->_title($helper->__('Catalog'));
+
+        $this->renderLayout();
     }
 }

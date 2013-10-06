@@ -7,48 +7,46 @@
  * Copyright (c) 2013, Mike Pretzlaw
  * All rights reserved.
  *
- * @category   mage_devMail
- * @package    LeMike_DevMode_Adminhtml_Developer_CoreControllerTest.php
- * @author     Mike Pretzlaw <pretzlaw@gmail.com>
- * @copyright  2013 Mike Pretzlaw
- * @license    http://github.com/sourcerer-mike/mage_devMail/blob/master/License.md BSD 3-Clause ("BSD New")
- * @link       http://github.com/sourcerer-mike/mage_devMail
- * @since      0.3.0
+ * @category  LeMike_DevMode
+ * @package   LeMike_DevMode_Test_Controller_Adminhtml_Developer_CoreControllerTest
+ * @author    Mike Pretzlaw <pretzlaw@gmail.com>
+ * @copyright 2013 Mike Pretzlaw
+ * @license   http://github.com/sourcerer-mike/mage_devMail/blob/master/License.md BSD 3-Clause ("BSD New")
+ * @link      http://github.com/sourcerer-mike/mage_devMail
+ * @since     0.3.0
  */
 
 /**
  * Test for LeMike_DevMode_Controller_Adminhtml_Developer_CoreController.
  *
- * @category   magento-devMode
- * @author     Mike Pretzlaw <pretzlaw@gmail.com>
- * @copyright  2013 Mike Pretzlaw
- * @license    http://github.com/sourcerer-mike/magento-devMode/blob/master/License.md BSD 3-Clause ("BSD New")
- * @link       http://github.com/sourcerer-mike/magento-devMode
- * @since      0.3.0
+ * @category  LeMike_DevMode
+ * @package   LeMike_DevMode_Test_Controller_Adminhtml_Developer
+ * @author    Mike Pretzlaw <pretzlaw@gmail.com>
+ * @copyright 2013 Mike Pretzlaw
+ * @license   http://github.com/sourcerer-mike/magento-devMode/blob/master/License.md BSD 3-Clause ("BSD New")
+ * @link      http://github.com/sourcerer-mike/magento-devMode
+ * @since     0.3.0
  */
 class LeMike_DevMode_Test_Controller_Adminhtml_Developer_CoreControllerTest extends
-    EcomDev_PHPUnit_Test_Case_Controller
+    LeMike_DevMode_Test_AbstractController
 {
     /**
      * Call runAction and check if module has been reset.
+     *
+     * @doNotIndexAll
      *
      * @return void
      */
     public function testRunAction()
     {
-        /** @var Mage_Index_Model_Resource_Process_Collection $object */
-        $object = Mage::getSingleton('index/indexer')->getProcessesCollection();
-        $object->getSelect()->reset('from');
-
-        $this->assertPreConditions();
         $this->mockAdminUserSession();
 
         // valid module name
         $moduleName = 'Mage_Captcha';
-        $route      = 'lemike_devmode/adminhtml_developer_core/run';
+        $route = 'adminhtml/' . $this->getModuleName('_core') . '/run';
         $this->dispatch(
             $route,
-            array(LeMike_DevMode_Adminhtml_Developer_CoreController::SETUP_MODULE_NAME => $moduleName)
+            array(LeMike_DevMode_Helper_Params::CORE_INDEX__SETUP_MODULE_NAME => $moduleName)
         );
 
         $this->assertRequestRoute($route);
@@ -91,12 +89,13 @@ class LeMike_DevMode_Test_Controller_Adminhtml_Developer_CoreControllerTest exte
         $this->mockAdminUserSession();
 
         // prevent from changing Mage_Admin stuff
+        $route = 'adminhtml/' . $this->getModuleName('_core') . '/run';
         $this->dispatch(
-            'lemike_devmode/adminhtml_developer_core/run',
-            array(LeMike_DevMode_Adminhtml_Developer_CoreController::SETUP_MODULE_NAME => 'Mage_Admin')
+            $route,
+            array(LeMike_DevMode_Helper_Params::CORE_INDEX__SETUP_MODULE_NAME => 'Mage_Admin')
         );
 
-        $this->assertRequestRoute('lemike_devmode/adminhtml_developer_core/run');
+        $this->assertRequestRoute($route);
 
         $session = Mage::getSingleton('adminhtml/session');
         $this->assertSame(
@@ -121,10 +120,10 @@ class LeMike_DevMode_Test_Controller_Adminhtml_Developer_CoreControllerTest exte
         $this->mockAdminUserSession();
 
         // send no module name
-        $route = 'lemike_devmode/adminhtml_developer_core/run';
+        $route = 'adminhtml/' . $this->getModuleName('_core') . '/run';
         $this->dispatch(
             $route,
-            array(LeMike_DevMode_Adminhtml_Developer_CoreController::SETUP_MODULE_NAME => '')
+            array(LeMike_DevMode_Helper_Params::CORE_INDEX__SETUP_MODULE_NAME => '')
         );
 
         $this->assertRequestRoute($route);
@@ -140,22 +139,20 @@ class LeMike_DevMode_Test_Controller_Adminhtml_Developer_CoreControllerTest exte
     /**
      * Calling runAction with module the not exists shall end in error message.
      *
+     * @doNotIndexAll
+     *
      * @return void
      */
     public function testRunAction_UnknownModule()
     {
-        /** @var Mage_Index_Model_Resource_Process_Collection $object */
-        $object = Mage::getSingleton('index/indexer')->getProcessesCollection();
-        $object->getSelect()->reset('from');
-
         $this->assertPreConditions();
         $this->mockAdminUserSession();
 
         // send unknown module name
-        $route = 'lemike_devmode/adminhtml_developer_core/run';
+        $route = 'adminhtml/' . $this->getModuleName('_core') . '/run';
         $this->dispatch(
             $route,
-            array(LeMike_DevMode_Adminhtml_Developer_CoreController::SETUP_MODULE_NAME => 'Som_eStrange')
+            array(LeMike_DevMode_Helper_Params::CORE_INDEX__SETUP_MODULE_NAME => 'Som_eStrange')
         );
 
         $this->assertRequestRoute($route);
@@ -171,6 +168,8 @@ class LeMike_DevMode_Test_Controller_Adminhtml_Developer_CoreControllerTest exte
     /**
      * PreConditions before every call.
      *
+     * @doNotIndexAll
+     *
      * @return void
      */
     protected function assertPreConditions()
@@ -182,10 +181,5 @@ class LeMike_DevMode_Test_Controller_Adminhtml_Developer_CoreControllerTest exte
         // no messages in session
         $this->assertEmpty($messages->getItems());
 
-        /** @var Mage_Index_Model_Resource_Process_Collection $object */
-        $object = Mage::getSingleton('index/indexer')->getProcessesCollection();
-        $object->getSelect()->reset('from');
-
-        parent::assertPreConditions();
     }
 }

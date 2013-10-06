@@ -8,17 +8,17 @@
                 <catalog translate="title" module="lemike_devmode">
                     <title>Catalog</title>
                     <sort_order>100</sort_order>
-                    <action>adminhtml/developer_catalog/index</action>
+                    <action>adminhtml/LeMike_DevMode_catalog/index</action>
                 </catalog>
                 <core translate="title" module="lemike_devmode">
                     <title>Core</title>
                     <sort_order>210</sort_order>
-                    <action>adminhtml/developer_core/index</action>
+                    <action>adminhtml/LeMike_DevMode_core/index</action>
                 </core>
                 <customer translate="title" module="lemike_devmode">
                     <title>Customer</title>
                     <sort_order>240</sort_order>
-                    <action>adminhtml/developer_customer/index</action>
+                    <action>adminhtml/LeMike_DevMode_customer/index</action>
                 </customer>
                 <modules translate="title" module="lemike_devmode">
                     <title>Sales</title>
@@ -28,12 +28,12 @@
                 <sales translate="title" module="lemike_devmode">
                     <title>Sales</title>
                     <sort_order>600</sort_order>
-                    <action>adminhtml/developer_sales/index</action>
+                    <action>adminhtml/LeMike_DevMode_sales/index</action>
                 </sales>
                 <about translate="title" module="lemike_devmode">
                     <title>What is this?</title>
                     <sort_order>9999</sort_order>
-                    <action>adminhtml/developer/about</action>
+                    <action>adminhtml/LeMike_DevMode_Index/about</action>
                 </about>
             </children>
         </lemike_devmode>

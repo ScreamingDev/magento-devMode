@@ -17,7 +17,7 @@
  */
 
 /**
- * Test for LeMike_DevMode_Controller_Adminhtml_Developer_CustomerController.
+ * Test for LeMike_DevMode_Controller_Adminhtml_Developer_SalesController.
  *
  * @category   magento-devMode
  * @author     Mike Pretzlaw <pretzlaw@gmail.com>
@@ -26,30 +26,31 @@
  * @link       http://github.com/sourcerer-mike/magento-devMode
  * @since      0.3.0
  */
-class LeMike_DevMode_Test_Controller_Adminhtml_Developer_CustomerControllerTest extends
-    EcomDev_PHPUnit_Test_Case_Controller
+class LeMike_DevMode_Test_Controller_Adminhtml_LeMike_DevMode_Menu_SalesControllerTest extends
+    LeMike_DevMode_Test_AbstractController
 {
     /**
      * Run index action and test for layouts.
      *
+     * @doNotIndexAll
+     *
      * @return void
      */
-    public function testIndexAction()
+    public function testWorkWithSales()
     {
-        /** @var Mage_Index_Model_Resource_Process_Collection $object */
-        $object = Mage::getSingleton('index/indexer')->getProcessesCollection();
-        $object->getSelect()->reset('from');
-
         $this->mockAdminUserSession();
 
         // layout
-        $this->dispatch('adminhtml/developer_customer/index');
-        $this->assertLayoutHandleLoaded('adminhtml_developer_customer_index');
+        $route = 'adminhtml/' . $this->getModuleName('_sales') . '/index';
 
-        $this->assertLayoutBlockCreated('lemike.devmode.customer.js');
-        $this->assertLayoutBlockCreated('lemike.devmode.customer.tabs');
-        $this->assertLayoutBlockCreated('lemike.devmode.content.customer');
+        $this->dispatch($route);
+        $this->assertLayoutHandleLoaded($this->routeToLayoutHandle($route));
+        $this->assertLayoutRendered($this->routeToLayoutHandle($route));
 
-        $this->assertLayoutBlockRendered('lemike.devmode.customer.customer');
+        $this->assertLayoutBlockCreated('lemike.devmode.sales.js');
+        $this->assertLayoutBlockCreated('lemike.devmode.sales.tabs');
+        $this->assertLayoutBlockCreated('lemike.devmode.content.sales');
+
+        $this->assertLayoutBlockRendered('lemike.devmode.sales.orders');
     }
 }

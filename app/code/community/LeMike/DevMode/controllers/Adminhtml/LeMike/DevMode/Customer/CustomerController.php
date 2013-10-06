@@ -26,11 +26,12 @@
  * @link       http://github.com/sourcerer-mike/mage_devMail
  * @since      0.1.0
  */
-class LeMike_DevMode_Adminhtml_Developer_Customer_CustomerController extends Mage_Adminhtml_Controller_Action
+class LeMike_DevMode_Adminhtml_LeMike_DevMode_Customer_CustomerController extends
+    LeMike_DevMode_Controller_Adminhtml_Controller_Action
 {
     public function deleteAllAction()
     {
-        $helper = Mage::helper('lemike_devmode');
+        $helper = Mage::helper($this->getModuleAlias());
         $helper->responseJson($helper->truncateModelByName('customer/customer'));
     }
 }

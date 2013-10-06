@@ -7,35 +7,45 @@
  * Copyright (c) 2013, Mike Pretzlaw
  * All rights reserved.
  *
- * @category   mage_devMail
- * @package    DeveloperController.php
- * @author     Mike Pretzlaw <pretzlaw@gmail.com>
- * @copyright  2013 Mike Pretzlaw
- * @license    http://github.com/sourcerer-mike/mage_devMail/blob/master/LICENSE.md BSD 3-Clause ("BSD New")
- * @link       http://github.com/sourcerer-mike/mage_devMail
- * @since      0.1.0
+ * @category  LeMike_DevMode
+ * @package   DeveloperController.php
+ * @author    Mike Pretzlaw <pretzlaw@gmail.com>
+ * @copyright 2013 Mike Pretzlaw
+ * @license   http://github.com/sourcerer-mike/mage_devMail/blob/master/LICENSE.md BSD 3-Clause ("BSD New")
+ * @link      http://github.com/sourcerer-mike/mage_devMail
+ * @since     0.1.0
  */
 
 /**
  * Class DeveloperController.
  *
- * @category   mage_devMail
- * @author     Mike Pretzlaw <pretzlaw@gmail.com>
- * @copyright  2013 Mike Pretzlaw
- * @license    http://github.com/sourcerer-mike/mage_devMail/blob/master/LICENSE.md BSD 3-Clause ("BSD New")
- * @link       http://github.com/sourcerer-mike/mage_devMail
- * @since      0.1.0
+ * @category  LeMike_DevMode
+ * @author    Mike Pretzlaw <pretzlaw@gmail.com>
+ * @copyright 2013 Mike Pretzlaw
+ * @license   http://github.com/sourcerer-mike/mage_devMail/blob/master/LICENSE.md BSD 3-Clause ("BSD New")
+ * @link      http://github.com/sourcerer-mike/mage_devMail
+ * @since     0.1.0
  */
-class LeMike_DevMode_Adminhtml_Developer_Catalog_ProductsController extends
-    Mage_Adminhtml_Controller_Action
+class LeMike_DevMode_Adminhtml_LeMike_DevMode_Catalog_ProductsController extends
+    LeMike_DevMode_Controller_Adminhtml_Controller_Action
 {
+    /**
+     * Delete all products.
+     *
+     * @return void
+     */
     public function deleteAllAction()
     {
-        $helper = Mage::helper('lemike_devmode');
+        $helper = Mage::helper($this->getModuleAlias());
         $helper->responseJson($helper->truncateModelByName('catalog/product'));
     }
 
 
+    /**
+     * Clean up the stock for every product.
+     *
+     * @return void
+     */
     public function sanitizeAllAction()
     {
         $sanitizeAll = array(
@@ -75,12 +85,12 @@ class LeMike_DevMode_Adminhtml_Developer_Catalog_ProductsController extends
             }
         }
 
-        Mage::helper('lemike_devmode')->responseJson($sanitizeAll);
+        Mage::helper($this->getModuleAlias())->responseJson($sanitizeAll);
     }
 
 
     /**
-     * .
+     * Get the product collection.
      *
      * @return Mage_Catalog_Model_Resource_Product_Collection
      */

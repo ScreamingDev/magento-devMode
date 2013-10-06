@@ -26,8 +26,8 @@
  * @link       http://github.com/sourcerer-mike/magento-devMode
  * @since      0.3.1
  */
-class LeMike_DevMode_Test_Controller_Adminhtml_Developer_Customer_CustomerControllerTest extends
-    EcomDev_PHPUnit_Test_Case_Controller
+class LeMike_DevMode_Test_Controller_Adminhtml_LeMike_DevMode_Customer_CustomerControllerTest extends
+    LeMike_DevMode_Test_AbstractController
 {
     /**
      * Run delete action and test for json dispatch.
@@ -36,7 +36,7 @@ class LeMike_DevMode_Test_Controller_Adminhtml_Developer_Customer_CustomerContro
      *
      * @return void
      */
-    public function testDeleteAllAction()
+    public function testDeleteAllCustomerFromBackend()
     {
         // precondition
         $initialCount = Mage::getModel('customer/customer')->getCollection()->count();
@@ -44,11 +44,12 @@ class LeMike_DevMode_Test_Controller_Adminhtml_Developer_Customer_CustomerContro
 
         // main
         $this->mockAdminUserSession();
-        $this->dispatch('adminhtml/developer_customer_customer/deleteAll');
+        $route = 'adminhtml/' . $this->getModuleName('_customer_customer') . '/deleteAll';
+        $this->dispatch($route);
 
-        $this->assertLayoutHandleNotLoaded('adminhtml_developer_customer_customer_deleteAll');
+        $this->assertLayoutHandleNotLoaded($this->routeToLayoutHandle($route));
 
-        $data = json_decode($this->getResponse()->getBody('default'), true);
+        $data = json_decode($this->getResponse()->getOutputBody(), true);
 
         $this->assertResponseBodyJson();
         $this->assertEquals($initialCount, $data['processed']);

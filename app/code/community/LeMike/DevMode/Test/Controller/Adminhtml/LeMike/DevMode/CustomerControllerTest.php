@@ -17,7 +17,7 @@
  */
 
 /**
- * Test for LeMike_DevMode_Controller_Adminhtml_Developer_SalesController.
+ * Test for LeMike_DevMode_Controller_Adminhtml_Developer_CustomerController.
  *
  * @category   magento-devMode
  * @author     Mike Pretzlaw <pretzlaw@gmail.com>
@@ -26,34 +26,33 @@
  * @link       http://github.com/sourcerer-mike/magento-devMode
  * @since      0.3.0
  */
-class LeMike_DevMode_Test_Controller_Adminhtml_Developer_SalesControllerTest extends
-    EcomDev_PHPUnit_Test_Case_Controller
+class LeMike_DevMode_Test_Controller_Adminhtml_LeMike_DevMode_CustomerControllerTest extends
+    LeMike_DevMode_Test_AbstractController
 {
     /**
      * Run index action and test for layouts.
+     *
+     * @doNotIndexAll
      *
      * @return void
      */
     public function testIndexAction()
     {
-        /** @var Mage_Index_Model_Resource_Process_Collection $object */
-        $object = Mage::getSingleton('index/indexer')->getProcessesCollection();
-        $object->getSelect()->reset('from');
-
         $this->mockAdminUserSession();
 
-        /** @var Mage_Index_Model_Resource_Process_Collection $object */
-        $object = Mage::getSingleton('index/indexer')->getProcessesCollection();
-        $object->getSelect()->reset('from');
-
         // layout
-        $this->dispatch('adminhtml/developer_sales/index');
-        $this->assertLayoutHandleLoaded('adminhtml_developer_sales_index');
+        $route = 'adminhtml/' . $this->getModuleName('_customer') . '/index';
+        $this->dispatch($route);
 
-        $this->assertLayoutBlockCreated('lemike.devmode.sales.js');
-        $this->assertLayoutBlockCreated('lemike.devmode.sales.tabs');
-        $this->assertLayoutBlockCreated('lemike.devmode.content.sales');
+        $this->assertRequestRoute($route);
 
-        $this->assertLayoutBlockRendered('lemike.devmode.sales.orders');
+        $this->assertLayoutHandleLoaded($this->routeToLayoutHandle($route));
+        $this->assertLayoutRendered($this->routeToLayoutHandle($route));
+
+        $this->assertLayoutBlockCreated('lemike.devmode.customer.js');
+        $this->assertLayoutBlockCreated('lemike.devmode.customer.tabs');
+        $this->assertLayoutBlockCreated('lemike.devmode.content.customer');
+
+        $this->assertLayoutBlockRendered('lemike.devmode.customer.customer');
     }
 }

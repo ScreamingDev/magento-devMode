@@ -26,7 +26,8 @@
  * @link       http://github.com/sourcerer-mike/mage_devMail
  * @since      0.1.0
  */
-class LeMike_DevMode_Adminhtml_Developer_CoreController extends Mage_Adminhtml_Controller_Action
+class LeMike_DevMode_Adminhtml_LeMike_DevMode_CoreController extends
+    LeMike_DevMode_Controller_Adminhtml_Controller_Action
 {
     const SETUP_MODULE_NAME = 'moduleName';
 
