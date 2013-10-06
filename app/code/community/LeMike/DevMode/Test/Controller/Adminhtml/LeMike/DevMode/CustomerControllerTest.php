@@ -33,6 +33,7 @@ class LeMike_DevMode_Test_Controller_Adminhtml_LeMike_DevMode_CustomerController
      * Run index action and test for layouts.
      *
      * @doNotIndexAll
+     * @loadFixture default_admin
      *
      * @return void
      */
@@ -49,10 +50,20 @@ class LeMike_DevMode_Test_Controller_Adminhtml_LeMike_DevMode_CustomerController
         $this->assertLayoutHandleLoaded($this->routeToLayoutHandle($route));
         $this->assertLayoutRendered($this->routeToLayoutHandle($route));
 
-        $this->assertLayoutBlockCreated('lemike.devmode.customer.js');
         $this->assertLayoutBlockCreated('lemike.devmode.customer.tabs');
+        $this->assertLayoutBlockRendered('lemike.devmode.customer.tabs');
+        $this->assertResponseBodyContains(Mage::helper('lemike_devmode')->__('Customer Tools'));
+
+        $this->assertLayoutBlockCreated('lemike.devmode.customer.js');
+        $this->assertLayoutBlockRendered('lemike.devmode.customer.js');
+        $this->assertResponseBodyContains('function devmode_Customer_Customer_DeleteAll');
+
         $this->assertLayoutBlockCreated('lemike.devmode.content.customer');
+        $this->assertLayoutBlockRendered('lemike.devmode.content.customer');
+        $this->assertResponseBodyContains('<div id="devmode_customer">');
 
         $this->assertLayoutBlockRendered('lemike.devmode.customer.customer');
+        $this->assertLayoutBlockRendered('lemike.devmode.customer.customer');
+        $this->assertResponseBodyContains('onclick="devmode_Customer_Customer_DeleteAll();"');
     }
 }

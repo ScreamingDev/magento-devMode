@@ -1,0 +1,4 @@
+config:
+  lemike_devmode_core/email/active: 1
+  lemike_devmode_core/email/recipient: 0
+  dev/template/allow_symlink: 1
