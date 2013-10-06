@@ -26,8 +26,63 @@
  * @link       http://github.com/sourcerer-mike/mage_devMode
  * @since      0.1.0
  */
-class LeMike_DevMode_Test_ConfigTest extends EcomDev_PHPUnit_Test_Case_Config
+class LeMike_DevMode_Test_ConfigTest extends LeMike_DevMode_Test_AbstractConfig
 {
+    public function getAdminhtmlMenus()
+    {
+        $adminhtmlMenus = array();
+
+        $abstractMenuToAction = array(
+            'catalog'  => $this->getModuleName('_catalog') . '/index',
+            'core'     => $this->getModuleName('_core') . '/index',
+            'customer' => $this->getModuleName('_customer') . '/index',
+            'sales'    => $this->getModuleName('_sales') . '/index',
+            'about'    => $this->getModuleName('_index') . '/about',
+        );
+
+        foreach ($abstractMenuToAction as $menu => $action)
+        {
+            $adminhtmlMenus[] = array(
+                $this->getModuleAlias('/children/') . $menu,
+                'adminhtml/' . $action
+            );
+        }
+
+        return $adminhtmlMenus;
+    }
+
+
+    public function testAdmin()
+    {
+        $this->assertRouteModule(
+             'adminhtml',
+             'LeMike_DevMode_Adminhtml',
+             EcomDev_PHPUnit_Model_App::AREA_ADMIN
+        );
+
+        $filename = 'LeMike_DevMode.xml';
+        $this->assertLayoutFileDefined('adminhtml', $filename);
+        $this->assertLayoutFileExistsInTheme('adminhtml', $filename, 'default');
+    }
+
+
+    /**
+     * .
+     *
+     * @param $node
+     *
+     * @dataProvider getAdminhtmlMenus
+     *
+     * @return void
+     */
+    public function testAdminhtmlMenus($node, $action)
+    {
+        $this->assertAdminhtmlMenu($node);
+        $this->assertAdminhtmlMenuAction($node, $action);
+        $this->assertAdminhtmlMenuHasRouter($node);
+    }
+
+
     /**
      * Check if needed events are registered.
      *
@@ -43,37 +98,37 @@ class LeMike_DevMode_Test_ConfigTest extends EcomDev_PHPUnit_Test_Case_Config
          */
         $method = 'controllerFrontInitBefore';
         $this->assertEventObserverDefined(
-            'global',
-            'controller_front_init_before',
-            $observerAlias,
-            $method
+             'global',
+             'controller_front_init_before',
+             $observerAlias,
+             $method
         );
         $this->assertTrue(method_exists($observer, $method));
 
         $method = 'controllerActionPostdispatch';
         $this->assertEventObserverDefined(
-            'frontend',
-            'controller_action_postdispatch',
-            $observerAlias,
-            $method
+             'frontend',
+             'controller_action_postdispatch',
+             $observerAlias,
+             $method
         );
         $this->assertTrue(method_exists($observer, $method));
 
         $method = 'controllerActionPredispatchCustomerAccountLoginPost';
         $this->assertEventObserverDefined(
-            'frontend',
-            'controller_action_predispatch_customer_account_loginPost',
-            $observerAlias,
-            $method
+             'frontend',
+             'controller_action_predispatch_customer_account_loginPost',
+             $observerAlias,
+             $method
         );
         $this->assertTrue(method_exists($observer, $method));
 
         $method = 'controllerFrontSendResponseBefore';
         $this->assertEventObserverDefined(
-            'frontend',
-            'controller_front_send_response_before',
-            $observerAlias,
-            $method
+             'frontend',
+             'controller_front_send_response_before',
+             $observerAlias,
+             $method
         );
         $this->assertTrue(method_exists($observer, $method));
     }
@@ -106,15 +161,5 @@ class LeMike_DevMode_Test_ConfigTest extends EcomDev_PHPUnit_Test_Case_Config
         $this->assertModuleVersionGreaterThan('0.2.0'); // supported
 
         $this->assertModuleDepends('Mage_Core');
-    }
-
-
-    public function testAdmin()
-    {
-        $this->assertRouteFrontName('lemike_devmode_admin', 'devmode', EcomDev_PHPUnit_Model_App::AREA_ADMIN);
-
-        $filename = 'LeMike_DevMode.xml';
-        $this->assertLayoutFileDefined('adminhtml', $filename);
-        $this->assertLayoutFileExistsInTheme('adminhtml', $filename, 'default');
     }
 }

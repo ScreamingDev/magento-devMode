@@ -15,7 +15,7 @@
         </reference>
     </adminhtml_lemike_devmode_index_about>
 
-    <adminhtml_developer_catalog_index>
+    <adminhtml_lemike_devmode_catalog_index>
         <reference name="js">
             <block type="adminhtml/template" template="lemike/devmode/catalog/js.phtml"
                    name="lemike.devmode.catalog.product.js" as="catalog_product_js"/>
@@ -27,9 +27,9 @@
             <block type="adminhtml/template" name="lemike.devmode.content.catalog"
                    template="lemike/devmode/catalog/overview.phtml"/>
         </reference>
-    </adminhtml_developer_catalog_index>
+    </adminhtml_lemike_devmode_catalog_index>
 
-    <adminhtml_developer_core_index>
+    <adminhtml_lemike_devmode_core_index>
         <reference name="js">
             <block type="adminhtml/template" template="lemike/devmode/core/js.phtml"
                    name="core.js"/>
@@ -40,7 +40,7 @@
         <reference name="content">
             <block type="adminhtml/template" name="core.content" template="lemike/devmode/core/overview.phtml"/>
         </reference>
-    </adminhtml_developer_core_index>
+    </adminhtml_lemike_devmode_core_index>
 
     <adminhtml_lemike_devmode_customer_index>
         <reference name="js">

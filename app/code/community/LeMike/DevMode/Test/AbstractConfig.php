@@ -28,24 +28,8 @@
  *
  * @loadFixture default
  */
-abstract class LeMike_DevMode_Test_AbstractController extends EcomDev_PHPUnit_Test_Case_Controller
+abstract class LeMike_DevMode_Test_AbstractConfig extends EcomDev_PHPUnit_Test_Case_Config
 {
-    const FRONTEND_CLASS = '';
-
-    protected $_moduleName = 'lemike_devmode';
-
-
-    public function reflectMethod($object, $method, $args = array())
-    {
-        $reflect = new ReflectionObject($object);
-
-        $reflectMethod = $reflect->getMethod($method);
-        $reflectMethod->setAccessible(true);
-
-        return $reflectMethod->invokeArgs($object, $args);
-    }
-
-
     public function getModuleAlias($node = null)
     {
         return LeMike_DevMode_Helper_Data::MODULE_ALIAS . $node;
@@ -55,11 +39,5 @@ abstract class LeMike_DevMode_Test_AbstractController extends EcomDev_PHPUnit_Te
     public function getModuleName($node = null)
     {
         return LeMike_DevMode_Helper_Data::MODULE_NAME . $node;
-    }
-
-
-    public function routeToLayoutHandle($route)
-    {
-        return strtolower(str_replace('/', '_', $route));
     }
 }

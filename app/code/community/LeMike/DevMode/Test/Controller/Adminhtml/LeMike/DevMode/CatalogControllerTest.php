@@ -17,7 +17,7 @@
  */
 
 /**
- * Test for LeMike_DevMode_Controller_Adminhtml_Developer_CoreController.
+ * Class to test LeMike_DevMode_Adminhtml_Developer_CatalogController.
  *
  * @category   magento-devMode
  * @author     Mike Pretzlaw <pretzlaw@gmail.com>
@@ -26,32 +26,28 @@
  * @link       http://github.com/sourcerer-mike/magento-devMode
  * @since      0.3.0
  */
-class LeMike_DevMode_Test_Controller_Adminhtml_Developer_CoreController_IndexTest extends
+class LeMike_DevMode_Test_Controller_Adminhtml_LeMike_DevMode_CatalogControllerTest extends
     LeMike_DevMode_Test_AbstractController
 {
     /**
      * Run index action and test for layouts.
      *
-     * @registry _singleton/index/indexer
-     *
      * @return void
      */
-    public function testIndexAction()
+    public function testAdditionalCapabilitiesForTheCatalog()
     {
         $this->mockAdminUserSession();
 
         // layout
-        $route = 'adminhtml/developer_core/index';
+        $route = 'adminhtml/' . $this->getModuleName('_catalog') . '/index';
         $this->dispatch($route);
 
-        $this->assertRequestRoute($route);
-        $this->assertLayoutHandleLoaded('adminhtml_developer_core_index');
+        $this->assertLayoutHandleLoaded($this->routeToLayoutHandle($route));
 
-        $this->assertLayoutBlockCreated('core.js');
-        $this->assertLayoutBlockCreated('core.tabs');
-        $this->assertLayoutBlockCreated('core.content');
-        $this->assertLayoutBlockRendered('core.config');
-        $this->assertLayoutBlockRendered('core.php');
-        $this->assertLayoutBlockRendered('core.resource');
+        $this->assertLayoutBlockCreated('lemike.devmode.content.catalog');
+        $this->assertLayoutBlockCreated('lemike.devmode.catalog.product.js');
+        $this->assertLayoutBlockCreated('lemike.devmode.catalog.tabs');
+
+        $this->assertLayoutBlockRendered('catalog.products');
     }
 }

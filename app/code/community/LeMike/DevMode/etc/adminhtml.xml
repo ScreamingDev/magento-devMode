@@ -20,11 +20,6 @@
                     <sort_order>240</sort_order>
                     <action>adminhtml/LeMike_DevMode_customer/index</action>
                 </customer>
-                <modules translate="title" module="lemike_devmode">
-                    <title>Sales</title>
-                    <sort_order>400</sort_order>
-                    <action>devmode/adminhtml_modules/index</action>
-                </modules>
                 <sales translate="title" module="lemike_devmode">
                     <title>Sales</title>
                     <sort_order>600</sort_order>
@@ -33,7 +28,7 @@
                 <about translate="title" module="lemike_devmode">
                     <title>What is this?</title>
                     <sort_order>9999</sort_order>
-                    <action>adminhtml/LeMike_DevMode_Index/about</action>
+                    <action>adminhtml/LeMike_DevMode_index/about</action>
                 </about>
             </children>
         </lemike_devmode>

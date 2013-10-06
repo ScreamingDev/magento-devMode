@@ -36,7 +36,7 @@ class LeMike_DevMode_Test_Controller_Adminhtml_LeMike_DevMode_CustomerController
      *
      * @return void
      */
-    public function testIndexAction()
+    public function testAdditionalCapabilitiesToMaintainCustomer()
     {
         $this->mockAdminUserSession();
 
