@@ -32,6 +32,27 @@ abstract class LeMike_DevMode_Test_AbstractCase extends EcomDev_PHPUnit_Test_Cas
 {
     const FRONTEND_CLASS = '';
 
+    protected $_lastArgs = array();
+
+
+    protected function setUp()
+    {
+        $this->_lastArgs = array();
+        parent::setUp();
+    }
+
+
+    public function setLastArgs()
+    {
+        $this->_lastArgs = func_get_args();
+    }
+
+
+    public function getLastArgs()
+    {
+        return $this->_lastArgs;
+    }
+
 
     public function reflectMethod($object, $method, $args = array())
     {

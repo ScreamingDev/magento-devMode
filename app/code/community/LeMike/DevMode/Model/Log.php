@@ -29,6 +29,10 @@
  */
 class LeMike_DevMode_Model_Log
 {
+    const PREFIX_ERROR = "ERROR! ";
+
+    const PREFIX_WARNING = "Warning: ";
+
     /**
      * Name of the extension.
      *
@@ -36,7 +40,7 @@ class LeMike_DevMode_Model_Log
      *
      * @var string
      */
-    protected static $_prefix = 'LeMike_DevMode';
+    protected static $_prefix = LeMike_DevMode_Helper_Data::MODULE_NAME;
 
     /**
      * Decide when to print the error message (true) or not (false)
@@ -50,14 +54,14 @@ class LeMike_DevMode_Model_Log
      *
      * @param string $message
      */
-    public static function debug($message = "~~~")
+    public static function debug($message)
     {
         if (!is_scalar($message))
         {
             $message = serialize($message);
         }
 
-        self::_logAdapter($message, Zend_Log::DEBUG);
+        static::_logAdapter($message, Zend_Log::DEBUG);
     }
 
 
@@ -68,8 +72,8 @@ class LeMike_DevMode_Model_Log
      */
     public static function error($message)
     {
-        $message = "ERROR! " . $message;
-        self::_logAdapter($message, Zend_Log::ERR);
+        $message = static::PREFIX_ERROR . $message;
+        static::_logAdapter($message, Zend_Log::ERR);
     }
 
 
@@ -80,13 +84,13 @@ class LeMike_DevMode_Model_Log
      */
     public static function info($message)
     {
-        self::_logAdapter($message, Zend_Log::INFO);
+        static::_logAdapter($message, Zend_Log::INFO);
     }
 
 
     public static function setPrint($bool = true)
     {
-        self::$_print = $bool;
+        static::$_print = $bool;
     }
 
 
@@ -97,8 +101,8 @@ class LeMike_DevMode_Model_Log
      */
     public static function warning($message)
     {
-        $message = "Warning: " . $message;
-        self::_logAdapter($message, Zend_Log::WARN);
+        $message = self::PREFIX_WARNING . $message;
+        static::_logAdapter($message, Zend_Log::WARN);
     }
 
 
@@ -106,13 +110,13 @@ class LeMike_DevMode_Model_Log
     {
         if (!$file)
         {
-            $file = self::$_prefix . '.log';
+            $file = static::$_prefix . '.log';
         }
 
-        $message = self::$_prefix . ": " . $message;
+        $message = static::$_prefix . ": " . $message;
         if (self::$_print)
         {
-            echo "\n" . $message . "\n";
+            echo $message;
         }
         Mage::log($message, $level, $file, $forceLog);
     }

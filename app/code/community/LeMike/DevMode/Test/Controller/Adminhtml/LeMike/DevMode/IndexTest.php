@@ -32,6 +32,8 @@ class LeMike_DevMode_Test_Controller_Adminhtml_LeMike_DevMode_IndexTest extends
     /**
      * Run index action and test for layouts.
      *
+     * @doNotIndexAll
+     *
      * @return void
      */
     public function testAboutAction()

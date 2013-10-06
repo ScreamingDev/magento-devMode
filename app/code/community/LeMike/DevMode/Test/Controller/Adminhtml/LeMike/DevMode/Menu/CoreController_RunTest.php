@@ -108,6 +108,8 @@ class LeMike_DevMode_Test_Controller_Adminhtml_Developer_CoreControllerTest exte
     /**
      * Calling runAction with invalid module shall end in error message.
      *
+     * @doNotIndexAll
+     *
      * @return void
      */
     public function testRunAction_NoModule()
@@ -167,8 +169,6 @@ class LeMike_DevMode_Test_Controller_Adminhtml_Developer_CoreControllerTest exte
 
     /**
      * PreConditions before every call.
-     *
-     * @doNotIndexAll
      *
      * @return void
      */

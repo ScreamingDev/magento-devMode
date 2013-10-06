@@ -32,6 +32,8 @@ class LeMike_DevMode_Test_Controller_Adminhtml_LeMike_DevMode_CoreControllerTest
     /**
      * Run index action and test for layouts.
      *
+     * @doNotIndexAll
+     *
      * @registry _singleton/index/indexer
      *
      * @return void

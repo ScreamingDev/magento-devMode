@@ -32,6 +32,8 @@ class LeMike_DevMode_Test_Controller_Adminhtml_LeMike_DevMode_CatalogControllerT
     /**
      * Run index action and test for layouts.
      *
+     * @doNotIndexAll
+     *
      * @return void
      */
     public function testAdditionalCapabilitiesForTheCatalog()

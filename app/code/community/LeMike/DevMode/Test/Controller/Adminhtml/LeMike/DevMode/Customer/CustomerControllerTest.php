@@ -32,6 +32,7 @@ class LeMike_DevMode_Test_Controller_Adminhtml_LeMike_DevMode_Customer_CustomerC
     /**
      * Run delete action and test for json dispatch.
      *
+     * @doNotIndexAll
      * @loadFixture table_customer
      *
      * @return void
