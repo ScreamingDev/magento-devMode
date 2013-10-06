@@ -61,7 +61,7 @@ class LeMike_DevMode_Test_Helper_CoreTest extends EcomDev_PHPUnit_Test_Case
     {
         $version = Mage::helper('lemike_devmode/core')->getAvailableVersion('LeMike_DevMode');
         $this->assertNotEmpty($version);
-        $this->assertEquals('0.3.0', $version);
+        $this->assertEquals('0.4.0', $version);
 
         return null;
     }
