@@ -60,15 +60,31 @@ class LeMike_DevMode_Block_Toolbox extends Mage_Core_Block_Template
     }
 
 
+    /**
+     * Get the backend url to a route with secret key.
+     *
+     * @param string $route Route to serve.
+     * @param array  $param Additional params.
+     *
+     * @return string
+     */
     public function getBackendUrl($route = 'adminhtml/index/index', $param = array())
     {
-        return Mage::helper('lemike_devmode/auth')->getBackendUrl($route, $param);
+        return (string) Mage::helper('lemike_devmode/auth')->getBackendUrl($route, $param);
     }
 
 
+    /**
+     * URL to edit within the current scope.
+     *
+     * @param string $position See self::POSITION_*
+     * @param $value The value as present in the request.
+     *
+     * @return string
+     */
     public function getEditPositionUrl($position, $value)
     {
-        $url = null;
+        $url = '';
 
         switch ($position)
         {

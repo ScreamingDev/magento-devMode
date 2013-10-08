@@ -2,25 +2,35 @@
 <layout>
     <lemike_devmode_toolbox>
         <reference name="head">
-            <action method="addItem">
-                <type>skin_js</type>
-                <name>js/jquery-1.9.1.js</name>
+            <action method="addJs">
+                <script>prototype/window.js</script>
             </action>
             <action method="addItem">
                 <type>skin_js</type>
-                <name>js/jquery-ui-1.10.3.js</name>
+                <name>js/lemike/devmode/toolbox.js</name>
+            </action>
+            <action method="addItem">
+                <type>js</type>
+                <name>scriptaculous/effects.js</name>
+            </action>
+            <action method="addItem">
+                <type>js</type>
+                <name>scriptaculous/dragdrop.js</name>
             </action>
             <action method="addCss">
                 <name>css/lemike/devmode/toolbox.css</name>
             </action>
-            <block type="core/text" name="mybuyscsscode">
-                <action method="setText">
-                    <text><![CDATA[<link
-                    href="//code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css"
-                    rel="stylesheet"
-                    type="text/css" />]]></text>
-                </action>
-            </block>
+            <action method="addItem">
+                <type>js_css</type>
+                <name>prototype/windows/themes/default.css</name>
+            </action>
+            <action method="addItem">
+                <type>js_css</type>
+                <name>prototype/windows/themes/alert.css</name>
+            </action>
+            <action method="addCss">
+                <name>lib/prototype/windows/themes/magento.css</name>
+            </action>
         </reference>
         <reference name="root">
             <block type="lemike_devmode/toolbox" name="lemike.devmode.toolbox" output="toHtml">

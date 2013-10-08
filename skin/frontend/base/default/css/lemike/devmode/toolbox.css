@@ -2,6 +2,9 @@
     background: #def;
     border: dashed thin #f16048;
     cursor: move;
+    position: absolute;
+    left: 10px;
+    top: 100px;
 }
 
 .ld_toolbox .content {

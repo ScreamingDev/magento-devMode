@@ -6,7 +6,7 @@
         </a>
     </li>
     <li>
-        <a href="#" onclick="toolboxInfo('#ld_toolbox_layouts', 'Layouts')">
+        <a href="#" onclick="lemikeDevmode_alert('ld_toolbox_layouts', 'Layouts')">
                         <span class="blind"><?php echo $this->__(
                                 'List all layout Handles'
                             ); ?></span>
@@ -20,7 +20,7 @@
     <li>
         <?php $title = $this->__('Events and observer'); ?>
         <a href="#"
-           onclick="toolboxInfoAjax('__events', '<?php echo $title; ?>')"
+           onclick="lemikeDevmode_showEvents()"
            title="<?php echo $this->__('List thrown events with their observer'); ?>">
             <span class="blind"><?php echo $title; ?></span>
         </a>

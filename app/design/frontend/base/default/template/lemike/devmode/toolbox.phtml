@@ -7,41 +7,43 @@ $namespace = 'lemike.devmode.toolbox';
 
 ?>
 
-<div class="lemike_devmode">
-    <div id="ld_toolbox" class="ld_toolbox">
-        <strong class="title">TOOLBOX</strong>
-        <div class="content">
-            <div class="section">
-                <?php $key = key($position); $value = array_shift($position); $route = ''; ?>
-                <a href="<?php echo $this->getEditPositionUrl($key, $value); ?>"
-                   class="<?php echo $key ?>">
-                        <?php echo ucfirst($key) ?>: <em><?php echo $value ?></em>
-                    </a>
-                <?php echo $this->getChildHtml($namespace . ".$key") ?>
-            </div>
-            <? foreach ($position as $key => $value): ?>
-                <?php $namespace .= '.' . $value;
-                $route .= '/' . $value;
-                $url = $this->getEditPositionUrl($key, $value);
-                /** @var LeMike_DevMode_Block_Toolbox $childBlock */
-                $childBlock = $this->getChild($namespace); ?>
+<div class="lemike">
+    <div class="lemike_devmode">
+        <div id="ld_toolbox" class="ld_toolbox" draggable="true">
+            <strong class="title">TOOLBOX</strong>
+            <div class="content">
                 <div class="section">
-                    <?php if (!$url): ?>
-                        <span class="<?php echo $key ?>">
-                    <?php else: ?>
-                        <a href="<?php echo $this->getEditPositionUrl($key, $value); ?>"
-                           class="<?php echo $key ?>"
-                           title="<?php echo get_class($this->getAction()) ?>">
-                    <?php endif; ?>
-                        <?php echo ucfirst($key) ?>: <em><?php echo $value ?></em>
-                    <?php if (!$url): ?>
-                        </span>
-                    <?php else: ?>
+                    <?php $key = key($position); $value = array_shift($position); $route = ''; ?>
+                    <a href="<?php echo $this->getEditPositionUrl($key, $value); ?>"
+                       class="<?php echo $key ?>">
+                            <?php echo ucfirst($key) ?>: <em><?php echo $value ?></em>
                         </a>
-                    <?php endif; ?>
-                    <?php echo $this->getChildHtml($namespace) ?>
+                    <?php echo $this->getChildHtml($namespace . ".$key") ?>
                 </div>
-            <? endforeach ?>
+                <? foreach ($position as $key => $value): ?>
+                    <?php $namespace .= '.' . $value;
+                    $route .= '/' . $value;
+                    $url = $this->getEditPositionUrl($key, $value);
+                    /** @var LeMike_DevMode_Block_Toolbox $childBlock */
+                    $childBlock = $this->getChild($namespace); ?>
+                    <div class="section">
+                        <?php if (!$url): ?>
+                            <span class="<?php echo $key ?>">
+                        <?php else: ?>
+                            <a href="<?php echo $this->getEditPositionUrl($key, $value); ?>"
+                               class="<?php echo $key ?>"
+                               title="<?php echo get_class($this->getAction()) ?>">
+                        <?php endif; ?>
+                            <?php echo ucfirst($key) ?>: <em><?php echo $value ?></em>
+                        <?php if (!$url): ?>
+                            </span>
+                        <?php else: ?>
+                            </a>
+                        <?php endif; ?>
+                        <?php echo $this->getChildHtml($namespace) ?>
+                    </div>
+                <? endforeach ?>
+            </div>
         </div>
     </div>
 </div>
@@ -53,125 +55,3 @@ $namespace = 'lemike.devmode.toolbox';
 <div id="ld_dialog" class="ld_dialog">
 
 </div>
-
-<script>
-    jQuery.noConflict();
-
-    var ld_toolboxId = "#ld_toolbox";
-
-    function urlSetParameter(url, param, value) {
-        // Using a positive lookahead (?=\=) to find the
-        // given parameter, preceded by a ? or &, and followed
-        // by a = with a value after than (using a non-greedy selector)
-        // and then followed by a & or the end of the string
-        var val = new RegExp('(\\?|\\&)' + param + '=.*?(?=(&|$))'),
-            parts = url.toString().split('#'),
-            url = parts[0],
-            hash = parts[1]
-        qstring = /\?.+$/,
-            newURL = url;
-
-        // Check if the parameter exists
-        if (val.test(url)) {
-            // if it does, replace it, using the captured group
-            // to determine & or ? at the beginning
-            newURL = url.replace(val, '$1' + param + '=' + value);
-        }
-        else if (qstring.test(url)) {
-            // otherwise, if there is a query string at all
-            // add the param to the end of it
-            newURL = url + '&' + param + '=' + value;
-        }
-        else {
-            // if there's no query string, add one
-            newURL = url + '?' + param + '=' + value;
-        }
-
-        if (hash) {
-            newURL += '#' + hash;
-        }
-
-        return newURL;
-    }
-
-    jQuery(function () {
-
-        var toolbox = jQuery(ld_toolboxId);
-
-        toolbox.css('position', 'absolute');
-        toolbox.offset({ top: 100, left: 10});
-
-        toolbox.draggable();
-    });
-
-    function toolboxInfo(target, title = '') {
-        jQuery(target).dialog({
-            resizable: true,
-            draggable: true,
-            "title": title,
-            width: $(window).width() * 0.61,
-            height: $(window).height() * 0.61
-        });
-    }
-
-    var dia = jQuery('#ld_dialog');
-
-    function showDialog(content, title) {
-        dia.html(content);
-
-        dia.dialog({
-            resizable: true,
-            draggable: true,
-            "title": title,
-            width: $(window).width() * 0.61,
-            height: $(window).height() * 0.61
-        });
-
-        dia.dialog("moveToTop");
-    }
-
-    function jsonToList(data)
-    {
-        if (typeof data == "string")
-        {
-            return jQuery('<span/>').html(data.toString());
-        }
-        else
-        {
-            var ul = jQuery("<ul/>");
-            var span = jQuery("<span />").appendTo(ul);
-            jQuery.each(data, function (index, value) {
-                var li = jQuery("<li/>").appendTo(ul)
-                var a = jQuery("<span/>").html(index + ': ').appendTo(li);
-                jsonToList(value).appendTo(li);
-            });
-
-            return ul;
-        }
-
-        return '';
-    }
-
-    function toolboxInfoAjax(query, title = '') {
-
-        jQuery.ajax(urlSetParameter(window.location.href, query, 1), {
-            beforeSend: function (jqXHR, settings) {
-                showDialog(
-                    '<img src="http://i.stack.imgur.com/FhHRx.gif" />',
-                    'Loading ' + title + '...'
-                );
-            },
-            success: function (data, textStatus, jqXHR) {
-                if (jqXHR.getResponseHeader('Content-Type') == 'application/json')
-                {
-                    data = jsonToList(data);
-                }
-                showDialog(data, title);
-            },
-            error: function (jqXHR, textStatus, errorThrown) {
-                showDialog(textStatus, 'ERROR');
-            }
-        });
-    }
-
-</script>
