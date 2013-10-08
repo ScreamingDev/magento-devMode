@@ -136,6 +136,8 @@ class LeMike_DevMode_Test_Block_ToolboxTest extends
      * @registry    current_product
      * @registry    product
      *
+     * @testdox Enable and disable translation with a single click
+     *
      * @return null
      */
     public function testToolboxWithHelpfulShortcuts()
@@ -156,6 +158,11 @@ class LeMike_DevMode_Test_Block_ToolboxTest extends
         $this->assertLayoutBlockCreated('lemike.devmode.toolbox');
         $this->assertLayoutBlockRendered('lemike.devmode.toolbox');
         $this->assertResponseBodyContains('id="ld_toolbox"');
+
+        // enable / disable translation
+        /** @var LeMike_DevMode_Helper_Config $helper */
+        $helper = Mage::helper($this->getModuleAlias('/config'));
+        $this->assertResponseBodyContains($helper->nodeToUrl('dev/translate_inline/active') . '=');
 
         /*
          * }}} postcondition {{{
