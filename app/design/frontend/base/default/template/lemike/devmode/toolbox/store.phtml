@@ -18,11 +18,22 @@
         </a>
     </li>
     <li>
-        <?php $title = $this->__('Events and observer'); ?>
         <a href="#"
            onclick="lemikeDevmode_showEvents()"
            title="<?php echo $this->__('List thrown events with their observer'); ?>">
-            <span class="blind"><?php echo $title; ?></span>
+            <span class="blind"><?php echo $this->__('Events and observer'); ?></span>
+        </a>
+    </li>
+    <li>
+        <a href="?<?php echo $this->getConfigSwitchQuery('dev/translate_inline/active'); ?>"
+           title="<?php echo $this->__('List thrown events with their observer'); ?>">
+            <span class="blind">
+                <?php if (Mage::app()->getStore()->getConfig('dev/translate_inline/active')): ?>
+                    <?php echo $this->__('Exit translation'); ?>
+                <?php else: ?>
+                    <?php echo $this->__('Change translation'); ?>
+                <?php endif; ?>
+            </span>
         </a>
     </li>
 </ul>

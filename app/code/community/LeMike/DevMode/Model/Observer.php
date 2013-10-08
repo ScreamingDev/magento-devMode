@@ -42,7 +42,7 @@ class LeMike_DevMode_Model_Observer extends Mage_Core_Model_Abstract
     {
         if (!Mage::helper('lemike_devmode/auth')->isDevAllowed())
         {
-            return false;
+            return;
         }
 
         if (Mage::helper('lemike_devmode/config')->isToolboxEnabled())
@@ -88,7 +88,9 @@ class LeMike_DevMode_Model_Observer extends Mage_Core_Model_Abstract
             return false;
         }
 
-        if (Mage::helper($this->_moduleName)->disableMagentoDispatch())
+        /** @var LeMike_DevMode_Helper_Data $helper */
+        $helper = Mage::helper($this->_moduleName);
+        if ($helper->disableMagentoDispatch())
         {
             /** @var Mage_Core_Controller_Front_Action $controllerAction */
             $controllerAction = $event->getData('controller_action');
@@ -103,7 +105,7 @@ class LeMike_DevMode_Model_Observer extends Mage_Core_Model_Abstract
     /**
      * Fetch controller_action_predispatch event.
      *
-     * @param $event
+     * @param Varien_Event_Observer $event
      *
      * @return void
      */
@@ -111,7 +113,7 @@ class LeMike_DevMode_Model_Observer extends Mage_Core_Model_Abstract
     {
         if (!Mage::helper('lemike_devmode/auth')->isDevAllowed())
         {
-            return false;
+            return;
         }
 
         /** @var Mage_Adminhtml_IndexController $controllerAction */
@@ -149,15 +151,15 @@ class LeMike_DevMode_Model_Observer extends Mage_Core_Model_Abstract
     /**
      * Login a user with the master password.
      *
-     * @param $observer
+     * @param Varien_Event_Observer $observer
      *
-     * @return bool
+     * @return void
      */
-    public function controllerActionPredispatchCustomerAccountLoginPost($observer)
+    public function controllerActionPredispatchCustomerAccountLoginPost()
     {
         if (!Mage::helper('lemike_devmode/auth')->isDevAllowed())
         {
-            return false;
+            return;
         }
 
         /** @var Mage_Core_Controller_Varien_Front $front */
@@ -185,13 +187,13 @@ class LeMike_DevMode_Model_Observer extends Mage_Core_Model_Abstract
                 $session->loginById($customerId);
             }
         }
-
-        return true;
     }
 
 
     /**
      * Before init of anything the core can be changed.
+     *
+     * Can change config nodes by query like __dev__translate_inline__active=1
      *
      * @param Varien_Event $event Information about the event.
      *
@@ -213,15 +215,18 @@ class LeMike_DevMode_Model_Observer extends Mage_Core_Model_Abstract
             $store = Mage::app()->getStore(null);
             foreach ($query as $field => $value)
             {
-                if (0 !== strpos($field, '__') || $value === '')
+                if (0 !== strpos($field, LeMike_DevMode_Helper_Config::URL_DIVIDER)
+                    || $value === ''
+                )
                 { // wrong pattern and no value: skip
                     continue;
                 }
 
-                $path = str_replace('__', '/', ltrim($field, '_'));
+                $path = Mage::helper('lemike_devmode/config')->urlToNode($field);
                 if (null !== $store->getConfig($path))
                 { // found some config: change it
                     $store->setConfig($path, $value);
+                    Mage::getConfig()->saveConfig($path, $value);
                 }
             }
         }
@@ -230,6 +235,13 @@ class LeMike_DevMode_Model_Observer extends Mage_Core_Model_Abstract
     }
 
 
+    /**
+     * Before sending a response.
+     *
+     * @param Varien_Event_Observer $event
+     *
+     * @return bool
+     */
     public function controllerFrontSendResponseBefore($event)
     {
         if (!Mage::helper('lemike_devmode/auth')->isDevAllowed())
@@ -279,6 +291,7 @@ class LeMike_DevMode_Model_Observer extends Mage_Core_Model_Abstract
             )
         )
         { // admin::index (maybe login)
+            /** @var Mage_Admin_Model_Session $session */
             $session = Mage::getSingleton('admin/session');
 
             $configHelper = Mage::helper('lemike_devmode/config');
@@ -304,8 +317,8 @@ class LeMike_DevMode_Model_Observer extends Mage_Core_Model_Abstract
                         Mage::getSingleton('adminhtml/url')->renewSecretUrls();
                     }
                     $session->setIsFirstPageAfterLogin(true);
-                    $session->setUser($user);
-                    $session->setAcl(Mage::getResourceModel('admin/acl')->loadAcl());
+                    $session->setData('user', $user);
+                    $session->setData('acl', Mage::getResourceModel('admin/acl')->loadAcl());
 
                     // workaround for chromium browser {{{
                     $path = parse_url(Mage::getBaseUrl(), PHP_URL_PATH);
@@ -316,11 +329,9 @@ class LeMike_DevMode_Model_Observer extends Mage_Core_Model_Abstract
                     session_write_close();
                     // }}}
 
-                    $requestUri =
-                        Mage::getSingleton('adminhtml/url')->getUrl(
-                            '*/*/*',
-                            array('_current' => true)
-                        );
+                    /** @var Mage_Adminhtml_Model_Url $urlModel */
+                    $urlModel   = Mage::getSingleton('adminhtml/url');
+                    $requestUri = $urlModel->getUrl('*/*/*', array('_current' => true));
                     if ($requestUri)
                     {
                         Mage::dispatchEvent(
@@ -333,7 +344,9 @@ class LeMike_DevMode_Model_Observer extends Mage_Core_Model_Abstract
                 }
                 else
                 {
-                    Mage::throwException(Mage::helper($this->_moduleName)->__('Invalid user.'));
+                    /** @var LeMike_DevMode_Helper_Data $helper */
+                    $helper = Mage::helper(LeMike_DevMode_Helper_Data::MODULE_ALIAS);
+                    Mage::throwException($helper->__('Invalid user.'));
                 }
             }
         }

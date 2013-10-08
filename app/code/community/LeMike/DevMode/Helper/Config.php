@@ -28,6 +28,20 @@
  */
 class LeMike_DevMode_Helper_Config extends LeMike_DevMode_Helper_Abstract
 {
+    const URL_DIVIDER = '__';
+
+
+    public function urlToNode($queryKey)
+    {
+        return str_replace(static::URL_DIVIDER, '/', ltrim($queryKey, '_'));
+    }
+
+
+    public function nodeToUrl($node)
+    {
+        return static::URL_DIVIDER . str_replace('/', static::URL_DIVIDER, $node);
+    }
+
     /**
      * Check if only restricted IPs are allowed.
      *

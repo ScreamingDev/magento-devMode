@@ -75,10 +75,30 @@ class LeMike_DevMode_Block_Toolbox extends Mage_Core_Block_Template
 
 
     /**
+     * Add a node to the current URL but with inverse value.
+     *
+     * @param string $nodePath XML-Path to config.
+     *
+     * @return string A full URI.
+     */
+    public function getConfigSwitchQuery($nodePath)
+    {
+        $currentValue = Mage::app()->getStore()->getConfig($nodePath);
+        $request      = clone $this->getRequest();
+        $request->setQuery(
+                Mage::helper('lemike_devmode/config')->nodeToUrl($nodePath),
+                !$currentValue
+        );
+
+        return http_build_query($request->getQuery());
+    }
+
+
+    /**
      * URL to edit within the current scope.
      *
      * @param string $position See self::POSITION_*
-     * @param $value The value as present in the request.
+     * @param string $value    The value as present in the request.
      *
      * @return string
      */
