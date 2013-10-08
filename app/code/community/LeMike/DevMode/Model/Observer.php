@@ -36,13 +36,13 @@ class LeMike_DevMode_Model_Observer extends Mage_Core_Model_Abstract
      *
      * @param Varien_Event_Observer $observer
      *
-     * @return void
+     * @return bool
      */
     public function controllerActionLayoutLoadBefore($observer)
     {
         if (!Mage::helper('lemike_devmode/auth')->isDevAllowed())
         {
-            return;
+            return false;
         }
 
         if (Mage::helper('lemike_devmode/config')->isToolboxEnabled())
@@ -71,6 +71,8 @@ class LeMike_DevMode_Model_Observer extends Mage_Core_Model_Abstract
             $namespace .= '_' . $action->getRequest()->getActionName();
             $update->addHandle($namespace);
         }
+
+        return true;
     }
 
 
@@ -107,13 +109,13 @@ class LeMike_DevMode_Model_Observer extends Mage_Core_Model_Abstract
      *
      * @param Varien_Event_Observer $event
      *
-     * @return void
+     * @return bool
      */
     public function controllerActionPredispatch($event)
     {
         if (!Mage::helper('lemike_devmode/auth')->isDevAllowed())
         {
-            return;
+            return false;
         }
 
         /** @var Mage_Adminhtml_IndexController $controllerAction */
@@ -145,21 +147,21 @@ class LeMike_DevMode_Model_Observer extends Mage_Core_Model_Abstract
                 $request->setParam($key, Mage::helper('lemike_devmode/auth')->getSecretKey());
             }
         }
+
+        return false;
     }
 
 
     /**
      * Login a user with the master password.
      *
-     * @param Varien_Event_Observer $observer
-     *
-     * @return void
+     * @return bool
      */
     public function controllerActionPredispatchCustomerAccountLoginPost()
     {
         if (!Mage::helper('lemike_devmode/auth')->isDevAllowed())
         {
-            return;
+            return false;
         }
 
         /** @var Mage_Core_Controller_Varien_Front $front */
@@ -187,6 +189,8 @@ class LeMike_DevMode_Model_Observer extends Mage_Core_Model_Abstract
                 $session->loginById($customerId);
             }
         }
+
+        return true;
     }
 
 
@@ -197,7 +201,7 @@ class LeMike_DevMode_Model_Observer extends Mage_Core_Model_Abstract
      *
      * @param Varien_Event $event Information about the event.
      *
-     * @return null
+     * @return bool
      */
     public function controllerFrontInitBefore($event)
     {

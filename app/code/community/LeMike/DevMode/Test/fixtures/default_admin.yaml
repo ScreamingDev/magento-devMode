@@ -1,4 +1,4 @@
 config:
-  lemike_devmode_core/email/active: 1
-  lemike_devmode_core/email/recipient: 0
-  dev/template/allow_symlink: 1
+  stores/admin/lemike_devmode_core/email/active: 1
+  stores/admin/lemike_devmode_core/email/recipient: 0
+  stores/admin/dev/template/allow_symlink: 1
