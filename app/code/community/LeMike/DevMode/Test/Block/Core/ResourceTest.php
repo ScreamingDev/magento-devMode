@@ -50,8 +50,8 @@ class LeMike_DevMode_Test_Block_Core_ResourceTest extends EcomDev_PHPUnit_Test_C
 
         $data = $block->getModuleSet();
 
-        $this->assertInternalType('array', $data);
-        $this->assertInternalType('array', $data['LeMike_DevMode']);
+        $this->assertInstanceOf('Varien_Data_Collection', $data);
+        $this->assertInstanceOf('Varien_Object', $data['LeMike_DevMode']);
 
         /*
          * }}} postcondition {{{

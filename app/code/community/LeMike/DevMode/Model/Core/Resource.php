@@ -63,28 +63,37 @@ class LeMike_DevMode_Model_Core_Resource extends Mage_Core_Model_Resource_Resour
     }
 
 
+    /**
+     * Get all modules.
+     *
+     * @return Varien_Data_Collection
+     */
     public function getModuleSet()
     {
         if (!$this->_cacheModuleSet)
         {
-            $moduleSet = (array) Mage::getConfig()->getNode('modules')->children();
+            $moduleSet = new Varien_Data_Collection();
+
+            $moduleConfig = (array) Mage::getConfig()->getNode('modules')->children();
 
             $helper = Mage::helper('lemike_devmode/core');
-            foreach ($moduleSet as $moduleName => $data)
+            foreach ($moduleConfig as $moduleName => $data)
             {
                 $resName   = $helper->getResourceName($moduleName);
                 $dbVersion = $this->getDbVersion($resName);
 
                 $configVersion = $helper->getAvailableVersion($moduleName);
 
-                $moduleSet[$moduleName] = array(
-                                              self::MODULE_NAME             => $moduleName,
-                                              self::MODULE_VERSION_DATABASE => $dbVersion,
-                                              self::MODULE_VERSION_CONFIG   => $configVersion,
-                                          ) + (array) $data;
-            }
+                $data = array(
+                            self::MODULE_NAME             => $moduleName,
+                            self::MODULE_VERSION_DATABASE => $dbVersion,
+                            self::MODULE_VERSION_CONFIG   => $configVersion,
+                        ) + (array) $data;
 
-            ksort($moduleSet);
+                $moduleData = new Varien_Object();
+                $moduleData->setData($data);
+                $moduleSet->addItem($moduleData);
+            }
 
             $this->_cacheModuleSet = $moduleSet;
         }

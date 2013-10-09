@@ -30,6 +30,12 @@ class LeMike_DevMode_Block_Core_Resource extends Mage_Core_Block_Template
 {
     protected $_template = 'lemike/devmode/core/resource.phtml';
 
+
+    /**
+     * Get information about each module.
+     *
+     * @return Varien_Data_Collection
+     */
     public function getModuleSet()
     {
         /** @var Mage_Core_Model_Resource_Resource $model */
