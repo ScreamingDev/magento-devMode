@@ -35,6 +35,7 @@ class LeMike_DevMode_Test_Controller_Adminhtml_LeMike_DevMode_CoreControllerTest
      * @doNotIndexAll
      *
      * @registry _singleton/index/indexer
+     * @loadFixture default_admin
      *
      * @return void
      */
@@ -49,11 +50,40 @@ class LeMike_DevMode_Test_Controller_Adminhtml_LeMike_DevMode_CoreControllerTest
         $this->assertRequestRoute($route);
         $this->assertLayoutHandleLoaded($this->routeToLayoutHandle($route));
 
-        $this->assertLayoutBlockCreated('core.js');
-        $this->assertLayoutBlockCreated('core.tabs');
-        $this->assertLayoutBlockCreated('core.content');
-        $this->assertLayoutBlockRendered('core.config');
-        $this->assertLayoutBlockRendered('core.php');
-        $this->assertLayoutBlockRendered('core.resource');
+        foreach ($this->getBlockToHtmlData() as $block => $lines)
+        {
+            $this->assertLayoutBlockRendered($block);
+
+            if (!empty($lines))
+            {
+                foreach ($lines as $content)
+                {
+                    $this->assertResponseBodyContains($content);
+                }
+            }
+        }
+    }
+
+
+    public function getBlockToHtmlData()
+    {
+        return array(
+            'core.js' => '',
+            'core.tabs' => '',
+            'core.content' => array(
+                '<div id="devmode_core">',
+            ),
+            'core.config' => array(
+                '<h2>Rewrites</h2>',
+                '<h2>Cron Jobs</h2>',
+                '<h2>Observer</h2>',
+            ),
+            'core.php' => array(
+                '<h2>PHP</h2>',
+            ),
+            'core.resource' => array(
+                '<h2>Resource</h2>',
+            ),
+        );
     }
 }
