@@ -104,7 +104,7 @@ ksort($data);
                     <tr>
                         <td><?php echo $scope ?></td>
                         <td><?php echo $event ?></td>
-                        <td><?php echo get_class(Mage::getModel($observer->class)) ?></td>
+                        <td><?php echo get_class(Mage::getModel((string) $observer->class)) ?></td>
                         <td><?php echo $observer->method ?></td>
                     </tr>
                 <?php endforeach; ?>
