@@ -22,8 +22,8 @@ function lemikeDevmode_urlSetParameter(url, param, value) {
     var val = new RegExp('(\\?|\\&)' + param + '=.*?(?=(&|$))'),
         parts = url.toString().split('#'),
         url = parts[0],
-        hash = parts[1]
-    qstring = /\?.+$/,
+        hash = parts[1],
+        queryString = /\?.+$/,
         newURL = url;
 
     // Check if the parameter exists
@@ -32,7 +32,7 @@ function lemikeDevmode_urlSetParameter(url, param, value) {
         // to determine & or ? at the beginning
         newURL = url.replace(val, '$1' + param + '=' + value);
     }
-    else if (qstring.test(url)) {
+    else if (queryString.test(url)) {
         // otherwise, if there is a query string at all
         // add the param to the end of it
         newURL = url + '&' + param + '=' + value;

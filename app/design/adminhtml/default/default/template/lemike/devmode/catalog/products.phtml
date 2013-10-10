@@ -1,3 +1,25 @@
+<?php
+/**
+ * Adminhtml Products Tab.
+ *
+ * PHP version 5
+ *
+ * Copyright (c) 2013, Mike Pretzlaw
+ * All rights reserved.
+ *
+ * @category  LeMike_DevMode
+ * @package   Template
+ * @author    Mike Pretzlaw <pretzlaw@gmail.com>
+ * @copyright 2013 Mike Pretzlaw
+ * @license   http://github.com/sourcerer-mike/mage_devMail/blob/master/LICENSE.md BSD 3-Clause ("BSD New")
+ * @link      http://github.com/sourcerer-mike/mage_devMail
+ * @since     0.4.0
+ *
+ * @var LeMike_DevMode_Block_Catalog_Products $this Block for handling products.
+ */
+
+?>
+
 <h2><?php echo $this->__('Products'); ?></h2>
 
 <h3><?php echo $this->__('Sanitize'); ?></h3>
@@ -7,9 +29,11 @@
     "<?php echo Mage::helper('cataloginventory')->__('The stock item for Product is not valid.'); ?>"
 </p>
 
-<button type="button" onclick="devmode_Catalog_Products_SanitizeAll();"><span><?php echo $this->__(
-            'Sanitize all'
-        ); ?></span></button>
+<button type="button" onclick="devmode_Catalog_Products_SanitizeAll();">
+    <span>
+        <?php echo $this->__('Sanitize all'); ?>
+    </span>
+</button>
 
 <h3><?php echo $this->__('Delete'); ?></h3>
 <form method="post" action="">

@@ -33,13 +33,14 @@ class LeMike_DevMode_ToolboxController extends LeMike_DevMode_Controller_Front_S
         Mage::app()->cleanCache();
 
         /** @var Mage_Core_Model_Message_Abstract $message */
+        $code    = $this->helper('toolbox')->__('Successfully cleaned cache.');
         $message = Mage::getSingleton('core/message')->success(
-            $this->helper()->__('Successfully cleaned cache.'),
+            $code,
             __CLASS__,
             __FUNCTION__
         );
         Mage::getSingleton('core/session')->addMessage(
-            $message->setIdentifier($this->getModuleName('/toolbox/clearCache'))
+            $message->setIdentifier($this->getModuleAlias('/toolbox/clearCache'))
         );
 
         $this->_redirectReferer();

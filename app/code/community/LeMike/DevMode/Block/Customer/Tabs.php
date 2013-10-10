@@ -2,20 +2,27 @@
 /**
  * Class LeMike_DevMode_Block_Customer_Tabs.
  *
- * @category   Magento-devMode
- * @author     Mike Pretzlaw <pretzlaw@gmail.com>
- * @copyright  2013 Mike Pretzlaw
- * @license    http://github.com/sourcerer-mike/Magento-devMode/blob/master/LICENSE.md BSD 3-Clause ("BSD New")
- * @link       http://github.com/sourcerer-mike/Magento-devMode
- * @since      0.1.0
+ * PHP version 5
+ *
+ * @category  LeMike_DevMode_Block_Customer
+ * @package   LeMike_DevMode
+ * @author    Mike Pretzlaw <pretzlaw@gmail.com>
+ * @copyright 2013 Mike Pretzlaw
+ * @license   http://github.com/sourcerer-mike/Magento-devMode/blob/master/LICENSE.md BSD 3-Clause ("BSD New")
+ * @link      http://github.com/sourcerer-mike/Magento-devMode
+ * @since     0.1.0
  */
 
 /**
- * LeMike_DevMode Catalog page left menu
+ * LeMike_DevMode Catalog page left menu.
  *
- * @category   LeMike_DevMode
- * @package    LeMike_DevMode_Block_Sales
- * @author     Mike Pretzlaw <pretzlaw@gmail.com>
+ * @category  LeMike_DevMode_Block_Customer
+ * @package   LeMike_DevMode
+ * @author    Mike Pretzlaw <pretzlaw@gmail.com>
+ * @copyright 2013 Mike Pretzlaw
+ * @license   http://github.com/sourcerer-mike/Magento-devMode/blob/master/LICENSE.md BSD 3-Clause ("BSD New")
+ * @link      http://github.com/sourcerer-mike/Magento-devMode
+ * @since     0.1.0
  */
 class LeMike_DevMode_Block_Customer_Tabs extends Mage_Adminhtml_Block_Widget_Tabs
 {

@@ -1,11 +1,13 @@
 <?php /** @var LeMike_DevMode_Block_Notification $this */ ?>
 <div class="notification-global">
     <strong><?php echo $this->helper('lemike_devmode')->__('Developer Mode is still active.') ?></strong>
-    <?php echo $this->helper('lemike_devmode')->__(
-        'Remember to <a href="%s">remove the extension LeMike_Develop</a> before going live due to <a href="%s">security issues</a>!',
-        $this->getUrl('adminhtml/extension_local'),
-        $this->getUrl('adminhtml/developer/about')
-    ) ?>
+    <?php echo $this->helper('lemike_devmode')
+                    ->__(
+                        'Remember to <a href="%s">remove the extension LeMike_Develop</a>'
+                        . 'before going live due to <a href="%s">security issues</a>!',
+                        $this->getUrl('adminhtml/extension_local'),
+                        $this->getUrl('adminhtml/developer/about')
+                    ); ?>
 </div>
 
 <?php $isHandlingMail = (!Mage::helper('lemike_devmode/config')->isMailAllowed()
@@ -13,20 +15,20 @@
 
 <?php if ($this->isWrongCoreModelEmail() && $isHandlingMail): ?>
     <div class="notification-global">
-        <?php echo $this->_helper()->__('LeMike_DevMode') ?>:
-        <?php echo $this->_helper()->__('Mage_Core_Model_Email has been rewritten.') ?>
+        <?php echo $this->helper()->__('LeMike_DevMode') ?>:
+        <?php echo $this->helper()->__('Mage_Core_Model_Email has been rewritten.') ?>
         <strong>
-            <?php echo $this->_helper()->__('Can not stop mail from sending.') ?>
+            <?php echo $this->helper()->__('Can not stop mail from sending.') ?>
         </strong>
     </div>
 <?php endif; ?>
 
 <?php if ($this->isWrongCoreModelEmailTemplate() && $isHandlingMail): ?>
     <div class="notification-global">
-        <?php echo $this->_helper()->__('LeMike_DevMode') ?>:
-        <?php echo $this->_helper()->__('Mage_Core_Model_Email_Template has been rewritten.') ?>
+        <?php echo $this->helper()->__('LeMike_DevMode') ?>:
+        <?php echo $this->helper()->__('Mage_Core_Model_Email_Template has been rewritten.') ?>
         <strong>
-            <?php echo $this->_helper()->__('Can not stop mail from sending.') ?>
+            <?php echo $this->helper()->__('Can not stop mail from sending.') ?>
         </strong>
     </div>
 <?php endif; ?>

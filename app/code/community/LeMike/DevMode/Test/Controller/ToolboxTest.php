@@ -41,6 +41,10 @@ class LeMike_DevMode_Test_Controller_ToolboxTest extends LeMike_DevMode_Test_Abs
          * }}} preconditions {{{
          */
 
+        $this->assertFalse(
+             (bool) $this->app()->getStore()->getConfig('dev/translate_inline/active')
+        );
+
         $route = $this->getModuleAlias('/toolbox/clearCache');
         $this->dispatch($route);
 
@@ -59,6 +63,7 @@ class LeMike_DevMode_Test_Controller_ToolboxTest extends LeMike_DevMode_Test_Abs
         /** @var Mage_Core_Model_Message_Abstract $message */
         $message = $collection->getMessageByIdentifier($route);
 
+        $this->assertNotNull($message);
         $this->assertSame(Mage_Core_Model_Message::SUCCESS, $message->getType());
         $this->assertSame('Successfully cleaned cache.', $message->getCode());
 

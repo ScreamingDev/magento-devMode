@@ -38,6 +38,8 @@ class LeMike_DevMode_Block_Shell_Table
 
     protected $_tableRowSet = array();
 
+    public $legend = array();
+
 
     public function __construct($captions = array(), $data = array())
     {

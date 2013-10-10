@@ -157,6 +157,7 @@ class LeMike_DevMode_Test_Model_ObserverTest extends LeMike_DevMode_Test_Abstrac
          * }}} postcondition {{{
          */
         $store->setConfig($configNode, $previousValue);
+        Mage::getConfig()->saveConfig($configNode, $previousValue);
 
         $this->assertEquals($previousValue, $store->getConfig($configNode));
 

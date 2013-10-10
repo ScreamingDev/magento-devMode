@@ -3,7 +3,7 @@
 Shell and markdown 4tw!
 
 
-## Sample workflows
+## Sample workflow
 
 - From shell to doc
 
@@ -13,7 +13,7 @@ Shell and markdown 4tw!
 - Hack and make it work somehow in the **shell**.
 - **Swap** to model, helper and backend.
 - Write **tests** for those.
-- Make screenshots and **doc** for release notes.
+- Make some screen shots and **doc** for release notes.
 
 
 ## UnitTest

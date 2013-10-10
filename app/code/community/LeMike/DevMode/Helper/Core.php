@@ -106,9 +106,12 @@ class LeMike_DevMode_Helper_Core extends LeMike_DevMode_Helper_Abstract
     /**
      * Handle a mail.
      *
-     * @param Mage_Core_Model_Email|Zend_Mail|Varien_Object $mail
+     * @param Mage_Core_Model_Email|Zend_Mail|Varien_Object $mail    Some mail object.
      *
-     * @return void
+     * @param null|string                                   $content Body of the mail.
+     *
+     * @throws Exception When no processed content is given for email template.
+     * @return boolean|Mage_Core_Model_Email|Zend_Mail
      */
     public function handleMail($mail, $content = null)
     {

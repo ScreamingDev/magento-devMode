@@ -1,0 +1,9 @@
+eav:
+  catalog_category:
+    - entity_id: 21
+      parent_id: 2
+      path: 1/2/21
+      name: Common
+      level: 2
+      children_count: 0
+      is_active: 1

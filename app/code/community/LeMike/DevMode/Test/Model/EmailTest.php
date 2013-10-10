@@ -30,21 +30,34 @@
  */
 class LeMike_DevMode_Test_Model_EmailTest extends LeMike_DevMode_Test_AbstractCase
 {
-    /**
-     * .
-     *
-     * @return LeMike_DevMode_Model_Core_Email|Mage_Core_Model_Email
-     */
-    public function getFrontend()
+    public function testRewrite()
     {
-        return Mage::getModel('core/email');
+        $model = Mage::getModel('core/email');
+
+        $this->assertInstanceOf('LeMike_DevMode_Model_Core_Email', $model);
     }
 
 
-    public function testRewrite()
+    /**
+     * Tests Send.
+     *
+     * @return null
+     */
+    public function testSend()
     {
-        $model = $this->getFrontend();
+        /*
+         * }}} preconditions {{{
+         */
+        $mock = $this->getMock('Mage_Core_Model_Email');
 
-        $this->assertInstanceOf('LeMike_DevMode_Model_Core_Email', $model);
+        /*
+         * }}} main {{{
+         */
+
+        /*
+         * }}} postcondition {{{
+         */
+
+        return null;
     }
 }

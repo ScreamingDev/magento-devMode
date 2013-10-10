@@ -26,7 +26,6 @@
  * @link        http://github.com/sourcerer-mike/magento-snippets
  * @since       0.1.0
  *
- * @loadFixture default
  */
 abstract class LeMike_DevMode_Test_AbstractController extends EcomDev_PHPUnit_Test_Case_Controller
 {

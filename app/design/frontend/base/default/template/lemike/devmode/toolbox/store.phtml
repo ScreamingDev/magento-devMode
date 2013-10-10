@@ -1,4 +1,24 @@
-<?php /** @var LeMike_DevMode_Block_Toolbox $this */ ?>
+<?php
+/**
+ * Contains class.
+ *
+ * PHP version 5
+ *
+ * Copyright (c) ${YEAR}, Mike Pretzlaw
+ * All rights reserved.
+ *
+ * @category  LeMike_DevMode
+ * @package   Template
+ * @author    Mike Pretzlaw <pretzlaw@gmail.com>
+ * @copyright 2013 Mike Pretzlaw
+ * @license   http://github.com/sourcerer-mike/${PROJECT_NAME}/blob/master/License.md BSD 3-Clause ("BSD New")
+ * @link      http://github.com/sourcerer-mike/${PROJECT_NAME}
+ * @since     ${DS}VERSION${DS}
+ *
+ * @var LeMike_DevMode_Block_Toolbox $this
+ */
+
+?>
 <ul>
     <li>
         <a href="<?php echo $this->getBackendUrl() ?>">
@@ -7,9 +27,9 @@
     </li>
     <li>
         <a href="#" onclick="lemikeDevmode_alert('ld_toolbox_layouts', 'Layouts')">
-                        <span class="blind"><?php echo $this->__(
-                                'List all layout Handles'
-                            ); ?></span>
+            <span class="blind">
+                <?php echo $this->__('List all layout Handles'); ?>
+            </span>
         </a>
     </li>
     <li>
@@ -21,7 +41,9 @@
         <a href="#"
            onclick="lemikeDevmode_showEvents()"
            title="<?php echo $this->__('List thrown events with their observer'); ?>">
-            <span class="blind"><?php echo $this->__('Events and observer'); ?></span>
+            <span class="blind">
+                <?php echo $this->__('Events and observer'); ?>
+            </span>
         </a>
     </li>
     <li>

@@ -52,7 +52,7 @@ class LeMike_DevMode_Model_Log
     /**
      * Send a debug message to the log
      *
-     * @param string $message
+     * @param mixed $message
      */
     public static function debug($message)
     {

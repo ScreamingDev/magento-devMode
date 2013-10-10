@@ -59,7 +59,7 @@ class LeMike_DevMode_Controller_Front_Action extends Mage_Core_Controller_Front_
             $node = '/' . $node;
         }
 
-        return Mage::helper($this->getModuleName($node));
+        return Mage::helper($this->getModuleAlias($node));
     }
 
 
@@ -72,6 +72,12 @@ class LeMike_DevMode_Controller_Front_Action extends Mage_Core_Controller_Front_
      */
     public function getModuleName($node = null)
     {
-        return $this->getRequest()->getModuleName() . $node;
+        return LeMike_DevMode_Helper_Data::MODULE_NAME . $node;
+    }
+
+
+    public function getModuleAlias($node = null)
+    {
+        return LeMike_DevMode_Helper_Data::MODULE_ALIAS . $node;
     }
 }

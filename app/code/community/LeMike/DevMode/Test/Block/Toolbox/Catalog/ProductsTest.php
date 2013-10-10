@@ -116,7 +116,6 @@ class LeMike_DevMode_Test_Block_Toolbox_Catalog_ProductsTest extends
          */
         $this->assertLayoutRendered();
         $this->assertLayoutBlockCreated('lemike.devmode.toolbox.catalog.product');
-        echo $this->app()->getStore()->getCode();
         $this->assertLayoutBlockRendered('lemike.devmode.toolbox.catalog.product');
         $this->assertResponseBodyContains('Controller: <em>product</em>');
 

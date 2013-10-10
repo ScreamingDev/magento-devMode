@@ -48,10 +48,15 @@ class LeMike_DevMode_Test_Block_Core_ResourceTest extends EcomDev_PHPUnit_Test_C
          * }}} main {{{
          */
 
+        // is Varien_Data_Collection
         $data = $block->getModuleSet();
 
         $this->assertInstanceOf('Varien_Data_Collection', $data);
-        $this->assertInstanceOf('Varien_Object', $data['LeMike_DevMode']);
+
+        // contains Varien_Object
+        $devmode = $data->getFirstItem();
+
+        $this->assertInstanceOf('Varien_Object', $devmode);
 
         /*
          * }}} postcondition {{{

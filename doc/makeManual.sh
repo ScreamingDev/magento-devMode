@@ -10,7 +10,7 @@ else
     echo "Need pdftk installed but didn't found it."
     while true; do
         read -p "Do you wish to install this program? [y/n] " yn
-        case $yn in
+        case ${yn} in
             [Yy]* ) sudo apt-get install pdftk; break;;
             [Nn]* ) echo "Then please merge the created PDF somehow."; exit;;
             * ) echo "Please answer yes or no.";;
@@ -20,5 +20,5 @@ fi
 
 echo "Remove obsolete PDF."
 for FILE in `ls *.md`; do
-    rm `basename -s .md $FILE`.pdf;
+    rm `basename -s .md ${FILE}`.pdf;
 done;

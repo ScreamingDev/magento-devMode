@@ -37,14 +37,14 @@ LeMike_DevMode_Helper_Core::handleMail
   - Mock the Mail-Template so that it only outputs a unique string (in the usual way with $foo->getMock() etc.)
   - Dispatch newsletter/subscriber/new with the post ['email' => 'lemike_devmode']
   - Test against / Assert the previous defined unique string
-  - check if magento output is supressed by testing helper and current response body
+  - check if magento output is suppressed by testing helper and current response body
 
 
-### Bugfix
+### Bug fix
 
 - fix in makePresentation
-- bugfix due to resource changes in setup script
-- Hotfix for missing Setup Model - Model not needed.
+- bug fix due to resource changes in setup script
+- Hot fix for missing Setup Model - Model not needed.
 - Magento Config Model has not always data, used Mage::app()->getConfig() for collecting rewrites
 - Removed dump and exits
 - Test on Adminhtml controller with certain bug-fixes (catalog, core, customer and sales)

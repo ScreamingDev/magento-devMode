@@ -34,13 +34,10 @@ class LeMike_DevMode_Test_Model_LogTest extends LeMike_DevMode_Test_AbstractCase
     /**
      * Tests DebugMessages.
      *
-     * @covers LeMike_DevMode_Model_Log::debug
-     *
      * @return null
      */
     public function testDebugMessages()
     {
-        return;
         /*
          * }}} preconditions {{{
          */
@@ -223,27 +220,22 @@ class LeMike_DevMode_Test_Model_LogTest extends LeMike_DevMode_Test_AbstractCase
      */
     protected function _getLogMock()
     {
-        if (!$this->_logMock)
-        {
-            // choose callback to use for mock
-            $callback = array($this, 'setLastArgs');
+        // choose callback to use for mock
+        $callback = array($this, 'setLastArgs');
 
-            $this->assertTrue(is_callable($callback));
+        $this->assertTrue(is_callable($callback));
 
-            // mock log
-            $method = '_logAdapter';
-            $class  = 'LeMike_DevMode_Model_Log';
-            /** @var LeMike_DevMode_Model_Log $mockLog */
-            $mockLog = $this->getMockClass($class, array($method));
-            $mockLog::staticExpects($this->any())
-                    ->method($method)
-                    ->will($this->returnCallback($callback));
+        // mock log
+        $method = '_logAdapter';
+        $class  = 'LeMike_DevMode_Model_Log';
+        /** @var LeMike_DevMode_Model_Log $mockLog */
+        $mockLog = $this->getMockClass($class, array($method));
+        $mockLog::staticExpects($this->any())
+                ->method($method)
+                ->will($this->returnCallback($callback));
 
-            $this->assertTrue(in_array($class, class_parents($mockLog)));
+        $this->assertTrue(in_array($class, class_parents($mockLog)));
 
-            $this->_logMock = $mockLog;
-        }
-
-        return $this->_logMock;
+        return $mockLog;
     }
 }

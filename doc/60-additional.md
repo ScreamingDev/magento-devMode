@@ -59,7 +59,7 @@ Think about a JavaScript Bookmark to enable this even faster.
 ### Change admin password
 
 - Run `shell/adminPassword.php`
-- You can promt the username of the admin
+- You can prompt the username of the admin
 - and a new password
 
 Note: The admin have to exist.

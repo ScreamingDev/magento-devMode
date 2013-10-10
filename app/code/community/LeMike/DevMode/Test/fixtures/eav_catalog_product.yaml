@@ -4,7 +4,7 @@ eav:
       type_id: simple
       sku: ps4
       website_ids:
-        - base
+        - 1
       price: 12.99
       status: 1 # Enabled
       visibility: 4 # Catalog & Search
@@ -13,7 +13,7 @@ eav:
       type_id: simple
       sku: raspberry
       website_ids:
-        - base
+        - 1
       price: 13.95
       status: 0 # Enabled
       visibility: 4 # Catalog & Search
@@ -22,7 +22,7 @@ eav:
       type_id: simple
       sku: code-x_heart_card
       website_ids:
-        - base
+        - 1
       price: 0.00
       status: 1 # Enabled
       visibility: 4 # Catalog & Search

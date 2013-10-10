@@ -2,12 +2,15 @@
 /**
  * Changing Admin password class LeMike_DevMode_Shell_AdminPassword.
  *
- * @category   Magento-devMode
- * @author     Mike Pretzlaw <pretzlaw@gmail.com>
- * @copyright  2013 Mike Pretzlaw
- * @license    http://github.com/sourcerer-mike/Magento-devMode/blob/master/LICENSE.md BSD 3-Clause ("BSD New")
- * @link       http://github.com/sourcerer-mike/Magento-devMode
- * @since      0.3.0
+ * PHP version 5
+ *
+ * @category  Magento-devMode
+ * @package   Shell
+ * @author    Mike Pretzlaw <pretzlaw@gmail.com>
+ * @copyright 2013 Mike Pretzlaw
+ * @license   http://github.com/sourcerer-mike/Magento-devMode/blob/master/LICENSE.md BSD 3-Clause ("BSD New")
+ * @link      http://github.com/sourcerer-mike/Magento-devMode
+ * @since     0.3.0
  */
 
 const LOADING_MAGENTO = "Loading Magento ...";
@@ -18,12 +21,13 @@ require_once 'abstract.php';
  *
  * Change password for admin.
  *
- * @category   Magento-devMode
- * @author     Mike Pretzlaw <pretzlaw@gmail.com>
- * @copyright  2013 Mike Pretzlaw
- * @license    http://github.com/sourcerer-mike/Magento-devMode/blob/master/LICENSE.md BSD 3-Clause ("BSD New")
- * @link       http://github.com/sourcerer-mike/Magento-devMode
- * @since      0.3.0
+ * @category  Magento-devMode
+ * @package   Shell
+ * @author    Mike Pretzlaw <pretzlaw@gmail.com>
+ * @copyright 2013 Mike Pretzlaw
+ * @license   http://github.com/sourcerer-mike/Magento-devMode/blob/master/LICENSE.md BSD 3-Clause ("BSD New")
+ * @link      http://github.com/sourcerer-mike/Magento-devMode
+ * @since     0.3.0
  */
 class LeMike_DevMode_Shell_AdminPassword extends Mage_Shell_Abstract
 {
@@ -85,15 +89,17 @@ class LeMike_DevMode_Shell_AdminPassword extends Mage_Shell_Abstract
         $username = trim($inputContent);
         $password = $this->prompt_silent();
 
-        $loadByUsername = Mage::getModel('admin/user')->loadByUsername($username);
+        /** @var Mage_Admin_Model_User $adminUser */
+        $adminUser = Mage::getModel('admin/user');
+        $adminUser = $adminUser->loadByUsername($username);
 
-        if (!$loadByUsername->getId())
+        if (!$adminUser->getId())
         {
             echo "Could not find $username" . PHP_EOL;
             exit(1);
         }
 
-        $loadByUsername->setPassword($password)->save();
+        $adminUser->setPassword($password)->save();
     }
 }
 

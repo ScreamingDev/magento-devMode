@@ -34,6 +34,8 @@ class LeMike_DevMode_Test_Controller_Adminhtml_LeMike_DevMode_CatalogControllerT
      *
      * @doNotIndexAll
      *
+     * @loadFixture default_admin
+     *
      * @return void
      */
     public function testAdditionalCapabilitiesForTheCatalog()
@@ -44,12 +46,42 @@ class LeMike_DevMode_Test_Controller_Adminhtml_LeMike_DevMode_CatalogControllerT
         $route = 'adminhtml/' . $this->getModuleName('_catalog') . '/index';
         $this->dispatch($route);
 
+        $this->assertRequestRoute($route);
         $this->assertLayoutHandleLoaded($this->routeToLayoutHandle($route));
 
-        $this->assertLayoutBlockCreated('lemike.devmode.content.catalog');
-        $this->assertLayoutBlockCreated('lemike.devmode.catalog.product.js');
-        $this->assertLayoutBlockCreated('lemike.devmode.catalog.tabs');
+        foreach ($this->getBlockToHtmlData() as $block => $lines)
+        {
+            $this->assertLayoutBlockRendered($block);
 
-        $this->assertLayoutBlockRendered('catalog.products');
+            if (!empty($lines))
+            {
+                foreach ($lines as $content)
+                {
+                    $this->assertResponseBodyContains($content);
+                }
+            }
+        }
+    }
+
+    public function getBlockToHtmlData()
+    {
+        return array(
+            'catalog.products' => array(
+                '<h2>Products</h2>',
+                '<h3>Sanitize</h3>',
+                'onclick="devmode_Catalog_Products_SanitizeAll();"',
+                '<h3>Delete</h3>',
+                'onclick="devmode_Catalog_Products_DeleteAll();"',
+            ),
+            'lemike.devmode.content.catalog' => array(
+            ),
+            'lemike.devmode.catalog.product.js' => array(
+                'function devmode_Catalog_Products_SanitizeAll()',
+                'function devmode_Catalog_Products_DeleteAll()',
+            ),
+            'lemike.devmode.catalog.tabs' => array(
+                '<div id="devmode_catalog">',
+            ),
+        );
     }
 }
