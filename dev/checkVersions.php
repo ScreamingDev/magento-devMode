@@ -40,15 +40,15 @@ foreach ($tagSet as $version)
 }
 
 // iterate files
-foreach (new RecursiveIteratorIterator(new RecursiveDirectoryIterator('..'))
-         as
-         $fileInfo)
+$recursiveIteratorIterator = new RecursiveIteratorIterator(new RecursiveDirectoryIterator('..'));
+foreach ($recursiveIteratorIterator as $fileInfo)
 {
     /** @var SplFileInfo $fileInfo */
     if ($fileInfo->getExtension() != 'php')
     {
         continue;
     }
+
 
     $fileName = substr($fileInfo->getPathname(), 3);
 

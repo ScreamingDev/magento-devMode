@@ -2,7 +2,10 @@
 /**
  * Delete all categories.
  *
- * @category  Magento-devMode
+ * PHP version 5
+ *
+ * @category  LeMike_DevMode_Shell
+ * @package   LeMike_DevMode
  * @author    Mike Pretzlaw <pretzlaw@gmail.com>
  * @copyright 2013 Mike Pretzlaw
  * @license   http://github.com/sourcerer-mike/Magento-devMode/blob/master/LICENSE.md BSD 3-Clause ("BSD New")
@@ -10,24 +13,26 @@
  * @since     0.3.0
  */
 
-include 'abstract.php';
+require_once 'abstract.php';
 
 /**
  * Class LeMike_DevMode_Shell_DeleteCategories.
  *
- * @category   magento-devMode
- * @author     Mike Pretzlaw <pretzlaw@gmail.com>
- * @copyright  2013 Mike Pretzlaw
- * @license    http://github.com/sourcerer-mike/magento-devMode/blob/master/License.md BSD 3-Clause ("BSD New")
- * @link       http://github.com/sourcerer-mike/magento-devMode
- * @since      0.3.0
+ * @category  LeMike_DevMode_Shell
+ * @package   LeMike_DevMode
+ * @author    Mike Pretzlaw <pretzlaw@gmail.com>
+ * @copyright 2013 Mike Pretzlaw
+ * @license   http://github.com/sourcerer-mike/magento-devMode/blob/master/License.md BSD 3-Clause ("BSD New")
+ * @link      http://github.com/sourcerer-mike/magento-devMode
+ * @since     0.3.0
  */
 class LeMike_DevMode_Shell_DeleteCategories extends Mage_Shell_Abstract
 {
 
     /**
-     * Run script
+     * Run script.
      *
+     * @return void
      */
     public function run()
     {
@@ -67,6 +72,11 @@ class LeMike_DevMode_Shell_DeleteCategories extends Mage_Shell_Abstract
     }
 
 
+    /**
+     * Show help how to use this.
+     *
+     * @return string
+     */
     public function usageHelp()
     {
         return parent::usageHelp() . PHP_EOL . <<<HELP

@@ -7,15 +7,26 @@
  * Copyright (c) 2013, Mike Pretzlaw
  * All rights reserved.
  *
- * @category   mage_devmode
- * @package    ProductsTest.php
- * @author     Mike Pretzlaw <pretzlaw@gmail.com>
- * @copyright  2013 Mike Pretzlaw
- * @license    http://github.com/sourcerer-mike/mage_devmode/blob/master/License.md BSD 3-Clause ("BSD New")
- * @link       http://github.com/sourcerer-mike/mage_devmode
- * @since      $VERSION$
+ * @category  LeMike_DevMode
+ * @package   Test
+ * @author    Mike Pretzlaw <pretzlaw@gmail.com>
+ * @copyright 2013 Mike Pretzlaw
+ * @license   http://github.com/sourcerer-mike/mage_devmode/blob/master/License.md BSD 3-Clause ("BSD New")
+ * @link      http://github.com/sourcerer-mike/mage_devmode
+ * @since     $VERSION$
  */
 
+/**
+ * Class LeMike_DevMode_Test_Block_Toolbox_Catalog_ProductsTest.
+ *
+ * @category  LeMike\DevMode\Test\Block\Toolbox\Catalog
+ * @package   LeMike_DevMode
+ * @author    Mike Pretzlaw <pretzlaw@gmail.com>
+ * @copyright ${YEAR} Mike Pretzlaw
+ * @license   http://github.com/sourcerer-mike/${PROJECT_NAME}/blob/master/License.md BSD 3-Clause ("BSD New")
+ * @link      http://github.com/sourcerer-mike/${PROJECT_NAME}
+ * @since     ${DS}VERSION${DS}
+ */
 class LeMike_DevMode_Test_Block_Toolbox_Catalog_ProductsTest extends
     LeMike_DevMode_Test_AbstractController
 {

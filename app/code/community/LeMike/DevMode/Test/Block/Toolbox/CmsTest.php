@@ -7,15 +7,26 @@
  * Copyright (c) 2013, Mike Pretzlaw
  * All rights reserved.
  *
- * @category   mage_devmode
- * @package    ProductsTest.php
- * @author     Mike Pretzlaw <pretzlaw@gmail.com>
- * @copyright  2013 Mike Pretzlaw
- * @license    http://github.com/sourcerer-mike/mage_devmode/blob/master/License.md BSD 3-Clause ("BSD New")
- * @link       http://github.com/sourcerer-mike/mage_devmode
- * @since      $VERSION$
+ * @category  LeMike_DevMode_Test_Block_Toolbox
+ * @package   LeMike_DevMode
+ * @author    Mike Pretzlaw <pretzlaw@gmail.com>
+ * @copyright 2013 Mike Pretzlaw
+ * @license   http://github.com/sourcerer-mike/mage_devmode/blob/master/License.md BSD 3-Clause ("BSD New")
+ * @link      http://github.com/sourcerer-mike/mage_devmode
+ * @since     0.4.0
  */
 
+/**
+ * Class LeMike_DevMode_Test_Block_Toolbox_CmsTest.
+ *
+ * @category  LeMike_DevMode
+ * @package   LeMike_DevMode
+ * @author    Mike Pretzlaw <pretzlaw@gmail.com>
+ * @copyright 2013 Mike Pretzlaw
+ * @license   http://github.com/sourcerer-mike/${PROJECT_NAME}/blob/master/License.md BSD 3-Clause ("BSD New")
+ * @link      http://github.com/sourcerer-mike/${PROJECT_NAME}
+ * @since     0.4.0
+ */
 class LeMike_DevMode_Test_Block_Toolbox_CmsTest extends
     LeMike_DevMode_Test_AbstractController
 {
@@ -31,6 +42,7 @@ class LeMike_DevMode_Test_Block_Toolbox_CmsTest extends
          */
 
         // mock page id
+        /** @var Mage_Cms_Model_Page $page */
         $page = Mage::getModel('cms/page')->getCollection()->getFirstItem();
         $blockAlias = $this->getModuleAlias('/toolbox_cms');
         $mock = $this->mockBlock($blockAlias, array('getCurrentCmsPageId'));
@@ -39,6 +51,7 @@ class LeMike_DevMode_Test_Block_Toolbox_CmsTest extends
         );
         $this->replaceByMock('block', $blockAlias, $mock);
 
+        /** @var LeMike_DevMode_Block_Toolbox_Cms $theBlock */
         $theBlock = $this->getBlock($blockAlias);
         $this->assertEquals($mock->getMockClass(), get_class($theBlock));
         $this->assertEquals($page->getId(), $theBlock->getCurrentCmsPageId());

@@ -7,29 +7,56 @@
  * Copyright (c) 2013, Mike Pretzlaw
  * All rights reserved.
  *
- * @category   mage_devMail
- * @package    TemplateTest.php
- * @author     Mike Pretzlaw <pretzlaw@gmail.com>
- * @copyright  2013 Mike Pretzlaw
- * @license    http://github.com/sourcerer-mike/mage_devMail/blob/master/License.md BSD 3-Clause ("BSD New")
- * @link       http://github.com/sourcerer-mike/mage_devMail
- * @since      0.3.0
+ * @category  LeMike_DevMode_Test_Model_Core_Email
+ * @package   LeMike_DevMode
+ * @author    Mike Pretzlaw <pretzlaw@gmail.com>
+ * @copyright 2013 Mike Pretzlaw
+ * @license   http://github.com/sourcerer-mike/mage_devMail/blob/master/License.md BSD 3-Clause ("BSD New")
+ * @link      http://github.com/sourcerer-mike/mage_devMail
+ * @since     0.3.0
  */
 
-class LeMike_DevMode_Test_Model_Core_Email_TemplateTest extends EcomDev_PHPUnit_Test_Case_Controller
+/**
+ * Class LeMike_DevMode_Test_Model_Core_Email_TemplateTest.
+ *
+ * @category  LeMike_DevMode_Test_Model_Core_Email
+ * @package   LeMike_DevMode
+ * @author    Mike Pretzlaw <pretzlaw@gmail.com>
+ * @copyright 2013 Mike Pretzlaw
+ * @license   http://github.com/sourcerer-mike/${PROJECT_NAME}/blob/master/License.md BSD 3-Clause ("BSD New")
+ * @link      http://github.com/sourcerer-mike/${PROJECT_NAME}
+ * @since     0.3.0
+ */
+class LeMike_DevMode_Test_Model_Core_Email_TemplateTest extends
+    EcomDev_PHPUnit_Test_Case_Controller
 {
+    /**
+     * @var array May contain the last used arguments on a mocked method.
+     */
     protected $_lastArgs = array();
 
 
+    /**
+     * Fetch the args on a mocked method.
+     *
+     * @return void
+     */
     public function fetchArgs()
     {
         $this->_lastArgs = func_get_args();
     }
 
 
+    /**
+     * Prevent from running an "exit".
+     *
+     * This will mock Helper_Data::stop to prevent from exit
+     *
+     * @return void
+     */
     public function mockHelperDataStop()
     {
-        // mock Helper_Data::stop prevent exit
+        /** @var PHPUnit_Framework_MockObject_MockBuilder $mock */
         $mock = $this->mockHelper('lemike_devmode', array('stop'));
 
         $this->assertInstanceOf('LeMike_DevMode_Helper_Data', $mock->getMock());
@@ -37,7 +64,7 @@ class LeMike_DevMode_Test_Model_Core_Email_TemplateTest extends EcomDev_PHPUnit_
         // replace exit with simple true
         $mock->expects($this->any())->method('stop')->will($this->returnValue(true));
 
-        $this->assertTrue($mock->stop());
+        $this->assertTrue((bool) $mock->stop());
 
         // apply changes
         $this->replaceByMock('helper', 'lemike_devmode', $mock);
@@ -58,7 +85,8 @@ class LeMike_DevMode_Test_Model_Core_Email_TemplateTest extends EcomDev_PHPUnit_
          * }}} precondition {{{
          */
         $this->assertEquals('0', Mage::getStoreConfig('lemike_devmode_core/email/active'));
-        $this->assertFalse(Mage::helper('lemike_devmode/config')->isMailAllowed());
+        $helperConfig = Mage::helper('lemike_devmode/config');
+        $this->assertFalse($helperConfig->isMailAllowed());
 
         $templateText          = md5(uniqid());
         $coreEmailTemplateMock =
@@ -89,7 +117,8 @@ class LeMike_DevMode_Test_Model_Core_Email_TemplateTest extends EcomDev_PHPUnit_
         /*
          * }}} postcondition {{{
          */
-        $this->assertTrue(Mage::helper('lemike_devmode')->disableMagentoDispatch());
+        $helper = Mage::helper('lemike_devmode');
+        $this->assertTrue($helper->disableMagentoDispatch());
         $this->assertEmpty($this->getResponse()->getOutputBody());
         $this->assertEmpty($this->getResponse()->getBody());
     }
@@ -153,7 +182,7 @@ class LeMike_DevMode_Test_Model_Core_Email_TemplateTest extends EcomDev_PHPUnit_
     /**
      * Request Mage_Newsletter_SubscriberController::send().
      *
-     * @param string $email
+     * @param string $email An email address.
      *
      * @return void
      */
