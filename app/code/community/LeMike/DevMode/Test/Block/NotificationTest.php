@@ -7,24 +7,25 @@
  * Copyright (c) 2013, Mike Pretzlaw
  * All rights reserved.
  *
- * @category   mage_devMail
- * @package    NotificationTest.php
- * @author     Mike Pretzlaw <pretzlaw@gmail.com>
- * @copyright  2013 Mike Pretzlaw
- * @license    http://github.com/sourcerer-mike/mage_devMail/blob/master/License.md BSD 3-Clause ("BSD New")
- * @link       http://github.com/sourcerer-mike/mage_devMail
- * @since      0.4.0
+ * @category  LeMike_DevMode
+ * @package   LeMike\DevMode\Test\Block
+ * @author    Mike Pretzlaw <pretzlaw@gmail.com>
+ * @copyright 2013 Mike Pretzlaw
+ * @license   http://github.com/sourcerer-mike/mage_devmode/blob/master/License.md BSD 3-Clause ("BSD New")
+ * @link      http://github.com/sourcerer-mike/mage_devmode LeMike_DevMode on GitHub
+ * @since     0.4.0
  */
 
 /**
  * Class LeMike_DevMode_Test_Block_NotificationTest.
  *
- * @category   ${PROJECT_NAME}
- * @author     Mike Pretzlaw <pretzlaw@gmail.com>
- * @copyright  ${YEAR} Mike Pretzlaw
- * @license    http://github.com/sourcerer-mike/${PROJECT_NAME}/blob/master/License.md BSD 3-Clause ("BSD New")
- * @link       http://github.com/sourcerer-mike/${PROJECT_NAME}
- * @since      0.4.0
+ * @category  LeMike_DevMode
+ * @package   LeMike\DevMode\Test\Block
+ * @author    Mike Pretzlaw <pretzlaw@gmail.com>
+ * @copyright 2013 Mike Pretzlaw
+ * @license   http://github.com/sourcerer-mike/mage_devmode/blob/master/License.md BSD 3-Clause ("BSD New")
+ * @link      http://github.com/sourcerer-mike/mage_devmode LeMike_DevMode on GitHub
+ * @since     0.4.0
  */
 class LeMike_DevMode_Test_Block_NotificationTest extends EcomDev_PHPUnit_Test_Case
 {
@@ -51,7 +52,9 @@ class LeMike_DevMode_Test_Block_NotificationTest extends EcomDev_PHPUnit_Test_Ca
         /*
          * }}} main {{{
          */
-        $this->assertTrue($this->getBlock('lemike_devmode/notification')->isWrongCoreModelEmail());
+        /** @var LeMike_DevMode_Block_Notification $notificationBlock */
+        $notificationBlock = $this->getBlock('lemike_devmode/notification');
+        $this->assertTrue($notificationBlock->isWrongCoreModelEmail());
 
         /*
          * }}} postcondition {{{

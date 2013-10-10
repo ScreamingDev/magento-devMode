@@ -2,11 +2,12 @@
 /**
  * Contains class LeMike_DevMode_Shell_ListRewrites.
  *
- * @category  Magento-devMode
+ * @category  LeMike_DevMode
+ * @package   LeMike\DevMode\Shell
  * @author    Mike Pretzlaw <pretzlaw@gmail.com>
  * @copyright 2013 Mike Pretzlaw
- * @license   http://github.com/sourcerer-mike/Magento-devMode/blob/master/LICENSE.md BSD 3-Clause ("BSD New")
- * @link      http://github.com/sourcerer-mike/Magento-devMode
+ * @license   http://github.com/sourcerer-mike/mage_devmode/blob/master/License.md BSD 3-Clause ("BSD New")
+ * @link      http://github.com/sourcerer-mike/mage_devmode LeMike_DevMode on GitHub
  * @since     0.3.0
  */
 
@@ -17,12 +18,13 @@ require_once 'abstract.php';
  *
  * Change password for admin.
  *
- * @category   Magento-devMode
- * @author     Mike Pretzlaw <pretzlaw@gmail.com>
- * @copyright  2013 Mike Pretzlaw
- * @license    http://github.com/sourcerer-mike/Magento-devMode/blob/master/LICENSE.md BSD 3-Clause ("BSD New")
- * @link       http://github.com/sourcerer-mike/Magento-devMode
- * @since      0.3.0
+ * @category  LeMike_DevMode
+ * @package   LeMike\DevMode\Shell
+ * @author    Mike Pretzlaw <pretzlaw@gmail.com>
+ * @copyright 2013 Mike Pretzlaw
+ * @license   http://github.com/sourcerer-mike/mage_devmode/blob/master/License.md BSD 3-Clause ("BSD New")
+ * @link      http://github.com/sourcerer-mike/mage_devmode LeMike_DevMode on GitHub
+ * @since     0.3.0
  */
 class LeMike_DevMode_Shell_CoreModules extends Mage_Shell_Abstract
 {
@@ -136,7 +138,7 @@ USAGE;
     }
 }
 
-echo LeMike_DevMode_Shell_ListRewrites::LOADING_MAGENTO;
+echo LeMike_DevMode_Shell_CoreModules::LOADING_MAGENTO;
 
 $cmd = new LeMike_DevMode_Shell_CoreModules();
 $cmd->run();

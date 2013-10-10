@@ -7,24 +7,25 @@
  * Copyright (c) 2013, Mike Pretzlaw
  * All rights reserved.
  *
- * @category   magento-snippets
- * @package    AbstractTest.php
- * @author     Mike Pretzlaw <pretzlaw@gmail.com>
- * @copyright  2013 Mike Pretzlaw
- * @license    http://github.com/sourcerer-mike/magento-snippets/blob/master/LICENSE.md BSD 3-Clause ("BSD New")
- * @link       http://github.com/sourcerer-mike/magento-snippets
- * @since      0.1.0
+ * @category  LeMike_DevMode
+ * @package   LeMike\DevMode\Test
+ * @author    Mike Pretzlaw <pretzlaw@gmail.com>
+ * @copyright 2013 Mike Pretzlaw
+ * @license   http://github.com/sourcerer-mike/mage_devmode/blob/master/License.md BSD 3-Clause ("BSD New")
+ * @link      http://github.com/sourcerer-mike/mage_devmode LeMike_DevMode on GitHub
+ * @since     0.4.0
  */
 
 /**
  * Class AbstractTest.
  *
- * @category    magento-snippets
- * @author      Mike Pretzlaw <pretzlaw@gmail.com>
- * @copyright   2013 Mike Pretzlaw
- * @license     http://github.com/sourcerer-mike/magento-snippets/blob/master/LICENSE.md BSD 3-Clause ("BSD New")
- * @link        http://github.com/sourcerer-mike/magento-snippets
- * @since       0.1.0
+ * @category  LeMike_DevMode
+ * @package   LeMike\DevMode\Test
+ * @author    Mike Pretzlaw <pretzlaw@gmail.com>
+ * @copyright 2013 Mike Pretzlaw
+ * @license   http://github.com/sourcerer-mike/mage_devmode/blob/master/License.md BSD 3-Clause ("BSD New")
+ * @link      http://github.com/sourcerer-mike/mage_devmode LeMike_DevMode on GitHub
+ * @since     0.4.0
  *
  */
 abstract class LeMike_DevMode_Test_AbstractController extends EcomDev_PHPUnit_Test_Case_Controller

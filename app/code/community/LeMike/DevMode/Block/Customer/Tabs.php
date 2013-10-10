@@ -4,24 +4,24 @@
  *
  * PHP version 5
  *
- * @category  LeMike_DevMode_Block_Customer
- * @package   LeMike_DevMode
+ * @category  LeMike_DevMode
+ * @package   LeMike\DevMode\Block\Customer
  * @author    Mike Pretzlaw <pretzlaw@gmail.com>
  * @copyright 2013 Mike Pretzlaw
- * @license   http://github.com/sourcerer-mike/Magento-devMode/blob/master/LICENSE.md BSD 3-Clause ("BSD New")
- * @link      http://github.com/sourcerer-mike/Magento-devMode
+ * @license   http://github.com/sourcerer-mike/mage_devmode/blob/master/License.md BSD 3-Clause ("BSD New")
+ * @link      http://github.com/sourcerer-mike/mage_devmode LeMike_DevMode on GitHub
  * @since     0.1.0
  */
 
 /**
  * LeMike_DevMode Catalog page left menu.
  *
- * @category  LeMike_DevMode_Block_Customer
- * @package   LeMike_DevMode
+ * @category  LeMike_DevMode
+ * @package   LeMike\DevMode\Block\Customer
  * @author    Mike Pretzlaw <pretzlaw@gmail.com>
  * @copyright 2013 Mike Pretzlaw
- * @license   http://github.com/sourcerer-mike/Magento-devMode/blob/master/LICENSE.md BSD 3-Clause ("BSD New")
- * @link      http://github.com/sourcerer-mike/Magento-devMode
+ * @license   http://github.com/sourcerer-mike/mage_devmode/blob/master/License.md BSD 3-Clause ("BSD New")
+ * @link      http://github.com/sourcerer-mike/mage_devmode LeMike_DevMode on GitHub
  * @since     0.1.0
  */
 class LeMike_DevMode_Block_Customer_Tabs extends Mage_Adminhtml_Block_Widget_Tabs

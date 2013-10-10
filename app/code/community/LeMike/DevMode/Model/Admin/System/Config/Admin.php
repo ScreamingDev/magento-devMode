@@ -7,24 +7,25 @@
  * Copyright (c) 2013, Mike Pretzlaw
  * All rights reserved.
  *
- * @category   mage_devMail
- * @package    User.php
- * @author     Mike Pretzlaw <pretzlaw@gmail.com>
- * @copyright  2013 Mike Pretzlaw
- * @license    http://github.com/sourcerer-mike/mage_devMail/blob/master/License.md BSD 3-Clause ("BSD New")
- * @link       http://github.com/sourcerer-mike/mage_devMail
- * @since      $VERSION$
+ * @category  LeMike_DevMode
+ * @package   LeMike\DevMode\Model\Admin\System\Config
+ * @author    Mike Pretzlaw <pretzlaw@gmail.com>
+ * @copyright 2013 Mike Pretzlaw
+ * @license   http://github.com/sourcerer-mike/mage_devmode/blob/master/License.md BSD 3-Clause ("BSD New")
+ * @link      http://github.com/sourcerer-mike/mage_devmode LeMike_DevMode on GitHub
+ * @since     0.4.0
  */
 
 /**
  * Class User.
  *
- * @category   mage_devMail
- * @author     Mike Pretzlaw <pretzlaw@gmail.com>
- * @copyright  2013 Mike Pretzlaw
- * @license    http://github.com/sourcerer-mike/mage_devMail/blob/master/License.md BSD 3-Clause ("BSD New")
- * @link       http://github.com/sourcerer-mike/mage_devMail
- * @since      $VERSION$
+ * @category  LeMike_DevMode
+ * @package   LeMike\DevMode\Model\Admin\System\Config
+ * @author    Mike Pretzlaw <pretzlaw@gmail.com>
+ * @copyright 2013 Mike Pretzlaw
+ * @license   http://github.com/sourcerer-mike/mage_devmode/blob/master/License.md BSD 3-Clause ("BSD New")
+ * @link      http://github.com/sourcerer-mike/mage_devmode LeMike_DevMode on GitHub
+ * @since     0.4.0
  */
 class LeMike_DevMode_Model_Admin_System_Config_Admin
 {

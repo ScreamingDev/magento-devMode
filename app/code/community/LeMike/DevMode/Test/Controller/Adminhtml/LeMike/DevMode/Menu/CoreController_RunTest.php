@@ -8,24 +8,24 @@
  * All rights reserved.
  *
  * @category  LeMike_DevMode
- * @package   LeMike_DevMode_Test_Controller_Adminhtml_Developer_CoreControllerTest
+ * @package   LeMike\DevMode\Test\Controller\Adminhtml\LeMike\DevMode\Menu
  * @author    Mike Pretzlaw <pretzlaw@gmail.com>
  * @copyright 2013 Mike Pretzlaw
- * @license   http://github.com/sourcerer-mike/mage_devMail/blob/master/License.md BSD 3-Clause ("BSD New")
- * @link      http://github.com/sourcerer-mike/mage_devMail
- * @since     0.3.0
+ * @license   http://github.com/sourcerer-mike/mage_devmode/blob/master/License.md BSD 3-Clause ("BSD New")
+ * @link      http://github.com/sourcerer-mike/mage_devmode LeMike_DevMode on GitHub
+ * @since     0.4.0
  */
 
 /**
  * Test for LeMike_DevMode_Controller_Adminhtml_Developer_CoreController.
  *
  * @category  LeMike_DevMode
- * @package   LeMike_DevMode_Test_Controller_Adminhtml_Developer
+ * @package   LeMike\DevMode\Test\Controller\Adminhtml\LeMike\DevMode\Menu
  * @author    Mike Pretzlaw <pretzlaw@gmail.com>
  * @copyright 2013 Mike Pretzlaw
- * @license   http://github.com/sourcerer-mike/magento-devMode/blob/master/License.md BSD 3-Clause ("BSD New")
- * @link      http://github.com/sourcerer-mike/magento-devMode
- * @since     0.3.0
+ * @license   http://github.com/sourcerer-mike/mage_devmode/blob/master/License.md BSD 3-Clause ("BSD New")
+ * @link      http://github.com/sourcerer-mike/mage_devmode LeMike_DevMode on GitHub
+ * @since     0.4.0
  */
 class LeMike_DevMode_Test_Controller_Adminhtml_Developer_CoreControllerTest extends
     LeMike_DevMode_Test_AbstractController

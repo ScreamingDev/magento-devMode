@@ -7,13 +7,13 @@
  * Copyright (c) 2013, Mike Pretzlaw
  * All rights reserved.
  *
- * @category   mage_devmode
- * @package    ProductsTest.php
- * @author     Mike Pretzlaw <pretzlaw@gmail.com>
- * @copyright  2013 Mike Pretzlaw
- * @license    http://github.com/sourcerer-mike/mage_devmode/blob/master/License.md BSD 3-Clause ("BSD New")
- * @link       http://github.com/sourcerer-mike/mage_devmode
- * @since      $VERSION$
+ * @category  LeMike_DevMode
+ * @package   LeMike\DevMode\Test\Block\Toolbox\Catalog
+ * @author    Mike Pretzlaw <pretzlaw@gmail.com>
+ * @copyright 2013 Mike Pretzlaw
+ * @license   http://github.com/sourcerer-mike/mage_devmode/blob/master/License.md BSD 3-Clause ("BSD New")
+ * @link      http://github.com/sourcerer-mike/mage_devmode LeMike_DevMode on GitHub
+ * @since     0.4.0
  */
 
 /**
@@ -21,12 +21,13 @@
  *
  * @loadSharedFixture
  *
- * @category          ${PROJECT_NAME}
- * @author            Mike Pretzlaw <pretzlaw@gmail.com>
- * @copyright         ${YEAR} Mike Pretzlaw
- * @license           http://github.com/sourcerer-mike/${PROJECT_NAME}/blob/master/License.md BSD 3-Clause ("BSD New")
- * @link              http://github.com/sourcerer-mike/${PROJECT_NAME}
- * @since             ${DS}VERSION${DS}
+ * @category  LeMike_DevMode
+ * @package   LeMike\DevMode\Test\Block\Toolbox\Catalog
+ * @author    Mike Pretzlaw <pretzlaw@gmail.com>
+ * @copyright 2013 Mike Pretzlaw
+ * @license   http://github.com/sourcerer-mike/mage_devmode/blob/master/License.md BSD 3-Clause ("BSD New")
+ * @link      http://github.com/sourcerer-mike/mage_devmode LeMike_DevMode on GitHub
+ * @since     0.4.0
  */
 class LeMike_DevMode_Test_Block_Toolbox_Catalog_CategoryTest extends
     LeMike_DevMode_Test_AbstractController
@@ -47,8 +48,6 @@ class LeMike_DevMode_Test_Block_Toolbox_Catalog_CategoryTest extends
 
         // no category set
         $this->assertNull(Mage::registry('current_category'));
-
-        return;
 
         // get block
         /** @var LeMike_DevMode_Block_Toolbox_Catalog_Category $block */

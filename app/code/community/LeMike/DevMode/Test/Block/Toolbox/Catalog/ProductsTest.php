@@ -8,24 +8,24 @@
  * All rights reserved.
  *
  * @category  LeMike_DevMode
- * @package   Test
+ * @package   LeMike\DevMode\Test\Block\Toolbox\Catalog
  * @author    Mike Pretzlaw <pretzlaw@gmail.com>
  * @copyright 2013 Mike Pretzlaw
  * @license   http://github.com/sourcerer-mike/mage_devmode/blob/master/License.md BSD 3-Clause ("BSD New")
- * @link      http://github.com/sourcerer-mike/mage_devmode
- * @since     $VERSION$
+ * @link      http://github.com/sourcerer-mike/mage_devmode LeMike_DevMode on GitHub
+ * @since     0.4.0
  */
 
 /**
  * Class LeMike_DevMode_Test_Block_Toolbox_Catalog_ProductsTest.
  *
- * @category  LeMike\DevMode\Test\Block\Toolbox\Catalog
- * @package   LeMike_DevMode
+ * @category  LeMike_DevMode
+ * @package   LeMike\DevMode\Test\Block\Toolbox\Catalog
  * @author    Mike Pretzlaw <pretzlaw@gmail.com>
- * @copyright ${YEAR} Mike Pretzlaw
- * @license   http://github.com/sourcerer-mike/${PROJECT_NAME}/blob/master/License.md BSD 3-Clause ("BSD New")
- * @link      http://github.com/sourcerer-mike/${PROJECT_NAME}
- * @since     ${DS}VERSION${DS}
+ * @copyright 2013 Mike Pretzlaw
+ * @license   http://github.com/sourcerer-mike/mage_devmode/blob/master/License.md BSD 3-Clause ("BSD New")
+ * @link      http://github.com/sourcerer-mike/mage_devmode LeMike_DevMode on GitHub
+ * @since     0.4.0
  */
 class LeMike_DevMode_Test_Block_Toolbox_Catalog_ProductsTest extends
     LeMike_DevMode_Test_AbstractController

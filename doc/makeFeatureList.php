@@ -1,6 +1,6 @@
 <?php
 /**
- * @since 0.2.0
+ * @since     0.4.0
  */
 
 class Shell_MakeReveal

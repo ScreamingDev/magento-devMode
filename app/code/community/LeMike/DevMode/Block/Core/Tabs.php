@@ -2,20 +2,21 @@
 /**
  * Contains class LeMike_DevMode_Block_Core_Tabs.
  *
- * @category  Magento-devMode
+ * @category  LeMike_DevMode
+ * @package   LeMike\DevMode\Block\Core
  * @author    Mike Pretzlaw <pretzlaw@gmail.com>
  * @copyright 2013 Mike Pretzlaw
- * @license   http://github.com/sourcerer-mike/Magento-devMode/blob/master/LICENSE.md BSD 3-Clause ("BSD New")
- * @link      http://github.com/sourcerer-mike/Magento-devMode
+ * @license   http://github.com/sourcerer-mike/mage_devmode/blob/master/License.md BSD 3-Clause ("BSD New")
+ * @link      http://github.com/sourcerer-mike/mage_devmode LeMike_DevMode on GitHub
  * @since     0.1.0
  */
 
 /**
  * LeMike_DevMode Catalog page left menu
  *
- * @category   LeMike_DevMode
- * @package    LeMike_DevMode_Block_Sales
- * @author     Mike Pretzlaw <pretzlaw@gmail.com>
+ * @category  LeMike_DevMode
+ * @package   LeMike\DevMode\Block\Core
+ * @author    Mike Pretzlaw <pretzlaw@gmail.com>
  */
 class LeMike_DevMode_Block_Core_Tabs extends Mage_Adminhtml_Block_Widget_Tabs
 {

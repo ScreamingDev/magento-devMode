@@ -4,12 +4,12 @@
  *
  * PHP version 5
  *
- * @category  LeMike_DevMode_Shell
- * @package   LeMike_DevMode
+ * @category  LeMike_DevMode
+ * @package   LeMike\DevMode\Shell
  * @author    Mike Pretzlaw <pretzlaw@gmail.com>
  * @copyright 2013 Mike Pretzlaw
- * @license   http://github.com/sourcerer-mike/Magento-devMode/blob/master/LICENSE.md BSD 3-Clause ("BSD New")
- * @link      http://github.com/sourcerer-mike/Magento-devMode
+ * @license   http://github.com/sourcerer-mike/mage_devmode/blob/master/License.md BSD 3-Clause ("BSD New")
+ * @link      http://github.com/sourcerer-mike/mage_devmode LeMike_DevMode on GitHub
  * @since     0.3.0
  */
 
@@ -18,12 +18,12 @@ require_once 'abstract.php';
 /**
  * Class LeMike_DevMode_Shell_DeleteCategories.
  *
- * @category  LeMike_DevMode_Shell
- * @package   LeMike_DevMode
+ * @category  LeMike_DevMode
+ * @package   LeMike\DevMode\Shell
  * @author    Mike Pretzlaw <pretzlaw@gmail.com>
  * @copyright 2013 Mike Pretzlaw
- * @license   http://github.com/sourcerer-mike/magento-devMode/blob/master/License.md BSD 3-Clause ("BSD New")
- * @link      http://github.com/sourcerer-mike/magento-devMode
+ * @license   http://github.com/sourcerer-mike/mage_devmode/blob/master/License.md BSD 3-Clause ("BSD New")
+ * @link      http://github.com/sourcerer-mike/mage_devmode LeMike_DevMode on GitHub
  * @since     0.3.0
  */
 class LeMike_DevMode_Shell_DeleteCategories extends Mage_Shell_Abstract

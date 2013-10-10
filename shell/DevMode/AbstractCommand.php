@@ -9,21 +9,21 @@
  * Copyright (c) 2013, Mike Pretzlaw
  * All rights reserved.
  *
- * @category Pat\Environment\System\Cli
- * @package  Pat
- * @author   Mike Pretzlaw <pretzlaw@gmail.com>
- * @license  http://github.com/sourcerer-mike/php-application-toolkit/blob/master/License.md BSD 3-Clause ("BSD New")
- * @link     http://github.com/sourcerer-mike/php-application-toolkit
+ * @category  LeMike_DevMode
+ * @package   LeMike\DevMode\Shell\DevMode
+ * @author    Mike Pretzlaw <pretzlaw@gmail.com>
+ * @license   http://github.com/sourcerer-mike/mage_devmode/blob/master/License.md BSD 3-Clause ("BSD New")
+ * @link      http://github.com/sourcerer-mike/mage_devmode LeMike_DevMode on GitHub
  */
 
 /**
  * Parser for Parameters.
  *
- * @category Pat\Environment\System\Cli
- * @package  Pat
- * @author   Mike Pretzlaw <pretzlaw@gmail.com>
- * @license  http://github.com/sourcerer-mike/php-application-toolkit/blob/master/License.md BSD 3-Clause ("BSD New")
- * @link     http://github.com/sourcerer-mike/php-application-toolkit
+ * @category  LeMike_DevMode
+ * @package   LeMike\DevMode\Shell\DevMode
+ * @author    Mike Pretzlaw <pretzlaw@gmail.com>
+ * @license   http://github.com/sourcerer-mike/mage_devmode/blob/master/License.md BSD 3-Clause ("BSD New")
+ * @link      http://github.com/sourcerer-mike/mage_devmode LeMike_DevMode on GitHub
  */
 class LeMike_DevMode_Parameter
 {
@@ -492,7 +492,7 @@ abstract class AbstractCommand
         $docComment = preg_replace('@[\n\r]?\s*\*\s@', "\n", $docComment);
         $docComment = trim($docComment);
 
-        echo $docComment;
+        return $docComment;
     }
 }
 

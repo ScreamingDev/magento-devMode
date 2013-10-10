@@ -8,11 +8,11 @@
  * All rights reserved.
  *
  * @category  LeMike_DevMode
- * @package   LeMike
+ * @package   LeMike\DevMode\Test\Block
  * @author    Mike Pretzlaw <pretzlaw@gmail.com>
  * @copyright 2013 Mike Pretzlaw
- * @license   http://github.com/sourcerer-mike/mage-devMode/blob/master/License.md BSD 3-Clause ("BSD New")
- * @link      http://github.com/sourcerer-mike/mage-devMode
+ * @license   http://github.com/sourcerer-mike/mage_devmode/blob/master/License.md BSD 3-Clause ("BSD New")
+ * @link      http://github.com/sourcerer-mike/mage_devmode LeMike_DevMode on GitHub
  * @since     0.4.0
  */
 
@@ -20,11 +20,11 @@
  * Class LeMike_DevMode_Test_Block_ToolboxTest.
  *
  * @category  LeMike_DevMode
- * @package   LeMike
+ * @package   LeMike\DevMode\Test\Block
  * @author    Mike Pretzlaw <pretzlaw@gmail.com>
  * @copyright 2013 Mike Pretzlaw
- * @license   http://github.com/sourcerer-mike/mage-devMode/blob/master/License.md BSD 3-Clause ("BSD New")
- * @link      http://github.com/sourcerer-mike/mage-devMode
+ * @license   http://github.com/sourcerer-mike/mage_devmode/blob/master/License.md BSD 3-Clause ("BSD New")
+ * @link      http://github.com/sourcerer-mike/mage_devmode LeMike_DevMode on GitHub
  * @since     0.4.0
  */
 class LeMike_DevMode_Test_Block_ToolboxTest extends
