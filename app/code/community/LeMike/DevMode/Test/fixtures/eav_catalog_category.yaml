@@ -7,3 +7,6 @@ eav:
       level: 2
       children_count: 0
       is_active: 1
+      /stores:
+        - 0
+        - 1

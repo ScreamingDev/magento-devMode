@@ -68,7 +68,8 @@ class LeMike_DevMode_Test_Block_Toolbox_StoreTest extends
         $this->assertLayoutRendered();
         $this->assertLayoutBlockCreated('lemike.devmode.toolbox.store');
         $this->assertLayoutBlockRendered('lemike.devmode.toolbox.store');
-        $this->assertResponseBodyContains('<span class="blind">List all layout Handles</span>');
+        $this->assertResponseBodyContains("lemikeDevmode_alert('ld_toolbox_layouts', 'Layouts')");
+        $this->assertResponseBodyContains("List all layout Handles");
         $this->assertResponseBodyContains($url);
 
         /*
@@ -117,7 +118,7 @@ class LeMike_DevMode_Test_Block_Toolbox_StoreTest extends
         $this->assertLayoutRendered();
         $this->assertLayoutBlockCreated('lemike.devmode.toolbox.store');
         $this->assertLayoutBlockRendered('lemike.devmode.toolbox.store');
-        $this->assertResponseBodyContains('<span class="blind">Events and observer</span>');
+        $this->assertResponseBodyContains('Events and observer');
         $this->assertResponseBodyContains($url);
 
         /*

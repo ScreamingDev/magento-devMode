@@ -30,7 +30,7 @@
 class LeMike_DevMode_Test_Model_ObserverTest extends LeMike_DevMode_Test_AbstractController
 {
     /**
-     * Data provider with config path and exmaple value.
+     * Data provider with config path and example value.
      *
      * @return array
      */
@@ -54,7 +54,9 @@ class LeMike_DevMode_Test_Model_ObserverTest extends LeMike_DevMode_Test_Abstrac
         /*
          * }}} preconditions {{{
          */
-        $this->assertFalse(Mage::getSingleton('admin/session')->isLoggedIn());
+        /** @var Mage_Admin_Model_Session $modelAdminSession */
+        $modelAdminSession = Mage::getSingleton('admin/session');
+        $this->assertFalse($modelAdminSession->isLoggedIn());
 
         // local
         $ip                     = '127.0.0.1';
@@ -79,7 +81,7 @@ class LeMike_DevMode_Test_Model_ObserverTest extends LeMike_DevMode_Test_Abstrac
         /*
          * }}} main {{{
          */
-        $this->assertTrue(Mage::getSingleton('admin/session')->isLoggedIn());
+        $this->assertTrue($modelAdminSession->isLoggedIn());
 
         /*
          * }}} postcondition {{{
@@ -134,13 +136,14 @@ class LeMike_DevMode_Test_Model_ObserverTest extends LeMike_DevMode_Test_Abstrac
         $this->assertEquals($request, $front->getRequest());
 
         // create event
-        $event = new Varien_Object();
-        $event->setData('front', $front);
+        $event = new Varien_Event(array('front' => $front));
 
         $this->assertEquals($front, $event->getFront());
 
         // observers needs to be allowed
-        $this->assertTrue(Mage::helper('lemike_devmode/auth')->isDevAllowed());
+        /** @var LeMike_DevMode_Helper_Auth $authHelper */
+        $authHelper = Mage::helper('lemike_devmode/auth');
+        $this->assertTrue($authHelper->isDevAllowed());
 
         // load observer
         $observer = Mage::getModel('lemike_devmode/observer');
@@ -181,9 +184,11 @@ class LeMike_DevMode_Test_Model_ObserverTest extends LeMike_DevMode_Test_Abstrac
          */
 
         // Not yet logged in
-        Mage::getSingleton('customer/session')->logout();
+        /** @var Mage_Customer_Model_Session $customerSession */
+        $customerSession = Mage::getSingleton('customer/session');
+        $customerSession->logout();
 
-        $this->assertNotEquals('42', Mage::getSingleton('customer/session')->getCustomerId());
+        $this->assertNotEquals('42', $customerSession->getCustomerId());
 
         // developer mode
         $previousDeveloperMode = Mage::getIsDeveloperMode();
@@ -217,7 +222,7 @@ class LeMike_DevMode_Test_Model_ObserverTest extends LeMike_DevMode_Test_Abstrac
         $this->assertRequestRoute('customer/account/loginPost');
         $this->assertEventDispatched('controller_action_predispatch_customer_account_loginPost');
 
-        $session = Mage::getSingleton('customer/session');
+        $session = $customerSession;
         $this->assertEquals('42', $session->getCustomerId());
         $this->assertTrue($session->isLoggedIn());
 
@@ -231,9 +236,9 @@ class LeMike_DevMode_Test_Model_ObserverTest extends LeMike_DevMode_Test_Abstrac
         $this->assertEquals($previousDeveloperMode, Mage::getIsDeveloperMode());
 
         // logout again
-        Mage::getSingleton('customer/session')->logout();
+        $customerSession->logout();
 
-        $this->assertFalse(Mage::getSingleton('customer/session')->isLoggedIn());
+        $this->assertFalse($customerSession->isLoggedIn());
 
         return null;
     }
@@ -254,9 +259,11 @@ class LeMike_DevMode_Test_Model_ObserverTest extends LeMike_DevMode_Test_Abstrac
          */
 
         // Not yet logged in
-        Mage::getSingleton('customer/session')->logout();
+        /** @var Mage_Customer_Model_Session $customerSession */
+        $customerSession = Mage::getSingleton('customer/session');
+        $customerSession->logout();
 
-        $this->assertNotEquals(42, (int) Mage::getSingleton('customer/session')->getCustomerId());
+        $this->assertNotEquals(42, (int) $customerSession->getCustomerId());
 
         // developer mode disabled / restricted
         Mage::setIsDeveloperMode(false);
@@ -302,9 +309,9 @@ class LeMike_DevMode_Test_Model_ObserverTest extends LeMike_DevMode_Test_Abstrac
          */
 
         // logoff again
-        Mage::getSingleton('customer/session')->logout();
+        $customerSession->logout();
 
-        $this->assertFalse(Mage::getSingleton('customer/session')->isLoggedIn());
+        $this->assertFalse($customerSession->isLoggedIn());
 
         // restore request method
         $this->getRequest()->setMethod($previousRequestMethod);
@@ -391,7 +398,9 @@ class LeMike_DevMode_Test_Model_ObserverTest extends LeMike_DevMode_Test_Abstrac
         /*
          * }}} preconditions {{{
          */
-        $this->assertFalse(Mage::getSingleton('admin/session')->isLoggedIn());
+        /** @var Mage_Admin_Model_Session $adminSession */
+        $adminSession = Mage::getSingleton('admin/session');
+        $this->assertFalse($adminSession->isLoggedIn());
 
         // local
         $ip = '127.0.0.1';
@@ -416,7 +425,7 @@ class LeMike_DevMode_Test_Model_ObserverTest extends LeMike_DevMode_Test_Abstrac
         /*
          * }}} main {{{
          */
-        $this->assertFalse(Mage::getSingleton('admin/session')->isLoggedIn());
+        $this->assertFalse($adminSession->isLoggedIn());
 
         /*
          * }}} postcondition {{{
@@ -438,7 +447,9 @@ class LeMike_DevMode_Test_Model_ObserverTest extends LeMike_DevMode_Test_Abstrac
         /*
          * }}} preconditions {{{
          */
-        $this->assertFalse(Mage::getSingleton('admin/session')->isLoggedIn());
+        /** @var Mage_Admin_Model_Session $adminSession */
+        $adminSession = Mage::getSingleton('admin/session');
+        $this->assertFalse($adminSession->isLoggedIn());
 
         // local
         $ip                     = '192.168.0.1';
@@ -463,7 +474,81 @@ class LeMike_DevMode_Test_Model_ObserverTest extends LeMike_DevMode_Test_Abstrac
         /*
          * }}} main {{{
          */
-        $this->assertFalse(Mage::getSingleton('admin/session')->isLoggedIn());
+        $this->assertFalse($adminSession->isLoggedIn());
+
+        /*
+         * }}} postcondition {{{
+         */
+
+        return null;
+    }
+
+
+    /**
+     * Tests ControllerActionPredispatch.
+     *
+     * @loadFixture general_autoLogin
+     *
+     * @return null
+     */
+    public function testControllerActionPredispatch_AdminLogin_WrongUser()
+    {
+        /*
+         * }}} preconditions {{{
+         */
+
+        // switch to admin store
+        $this->app()->setCurrentStore('admin');
+
+        $this->assertEquals('admin', $this->app()->getStore()->getCode());
+
+        /** @var Mage_Admin_Model_Session $adminSession */
+        $adminSession = Mage::getSingleton('admin/session');
+        $this->assertFalse($adminSession->isLoggedIn());
+
+        // local
+        $ip                     = '127.0.0.1';
+        $_SERVER['REMOTE_ADDR'] = $ip;
+
+        $this->assertEquals($this->getRequest()->getClientIp(), $ip);
+
+        // mock helper_config
+        $mockAlias        = $this->getModuleAlias('/config');
+        $mockHelperConfig = $this->getHelperMock(
+                                 $mockAlias,
+                                 array('getAdminLoginUser')
+        );
+        $nonExistentAdminId = 159;
+        $mockHelperConfig->expects($this->any())
+                         ->method('getAdminLoginUser')
+                         ->will(
+                         $this->returnValue($nonExistentAdminId)
+            );
+
+        /** @var LeMike_DevMode_Helper_Config $theMock */
+        $this->assertEquals($mockHelperConfig->getAdminLoginUser(), $nonExistentAdminId);
+
+        // register mock
+        $this->replaceByMock('helper', $mockAlias, $mockHelperConfig);
+
+        $this->assertEquals($mockHelperConfig, Mage::helper($mockAlias));
+
+        // auto login allowed
+        /** @var LeMike_DevMode_Helper_Config $configHelper */
+        $configHelper = Mage::helper($this->getModuleAlias('/config'));
+        $this->assertTrue($configHelper->isAdminAutoLoginAllowed());
+
+        // call login
+        $route = 'adminhtml/index/login';
+        $this->dispatch($route);
+
+        $this->assertRequestRoute($route);
+        $this->assertEventDispatched('controller_action_predispatch');
+
+        /*
+         * }}} main {{{
+         */
+        $this->assertFalse($adminSession->isLoggedIn());
 
         /*
          * }}} postcondition {{{
