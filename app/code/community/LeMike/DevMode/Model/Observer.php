@@ -243,7 +243,7 @@ class LeMike_DevMode_Model_Observer extends Mage_Core_Model_Abstract
     /**
      * Before sending a response.
      *
-     * @param Varien_Event_Observer $event
+     * @param Varien_Event $event
      *
      * @return bool
      */
@@ -309,49 +309,49 @@ class LeMike_DevMode_Model_Observer extends Mage_Core_Model_Abstract
                     $configHelper->getAdminLoginUser()
                 );
 
-                if ($user->getId())
-                {
-                    if (!$request->getParam('forwarded'))
-                    {
-                        // chromium can't handle that when already forwarded
-                        $session->renewSession();
-                    }
-
-                    if (Mage::getSingleton('adminhtml/url')->useSecretKey())
-                    {
-                        Mage::getSingleton('adminhtml/url')->renewSecretUrls();
-                    }
-                    $session->setIsFirstPageAfterLogin(true);
-                    $session->setData('user', $user);
-                    $session->setData('acl', Mage::getResourceModel('admin/acl')->loadAcl());
-
-                    // workaround for chromium browser {{{
-                    $path = parse_url(Mage::getBaseUrl(), PHP_URL_PATH);
-                    $host = $request->getHttpHost();
-                    $expire = strtotime("+1 hour");
-                    session_set_cookie_params($expire, $path, $host);
-                    setcookie($session->getSessionName(), $session->getSessionId(), $expire);
-                    session_write_close();
-                    // }}}
-
-                    /** @var Mage_Adminhtml_Model_Url $urlModel */
-                    $urlModel   = Mage::getSingleton('adminhtml/url');
-                    $requestUri = $urlModel->getUrl('*/*/*', array('_current' => true));
-                    if ($requestUri)
-                    {
-                        Mage::dispatchEvent(
-                            'admin_session_user_login_success',
-                            array('user' => $user)
-                        );
-                        header('Location: ' . $requestUri);
-                        flush();
-                    }
-                }
-                else
-                {
+                if (!$user->getId())
+                { // no user found: that's wrong
                     /** @var LeMike_DevMode_Helper_Data $helper */
                     $helper = Mage::helper(LeMike_DevMode_Helper_Data::MODULE_ALIAS);
-                    Mage::throwException($helper->__('Invalid user.'));
+                    Mage::throwException($helper->__('Invalid user to login into ACP.'));
+
+                    return;
+                }
+
+                if (!$request->getParam('forwarded'))
+                {
+                    // chromium can't handle that when already forwarded
+                    $session->renewSession();
+                }
+
+                if (Mage::getSingleton('adminhtml/url')->useSecretKey())
+                {
+                    Mage::getSingleton('adminhtml/url')->renewSecretUrls();
+                }
+                $session->setIsFirstPageAfterLogin(true);
+                $session->setData('user', $user);
+                $session->setData('acl', Mage::getResourceModel('admin/acl')->loadAcl());
+
+                // workaround for chromium browser {{{
+                $path = parse_url(Mage::getBaseUrl(), PHP_URL_PATH);
+                $host = $request->getHttpHost();
+                $expire = strtotime("+1 hour");
+                session_set_cookie_params($expire, $path, $host);
+                setcookie($session->getSessionName(), $session->getSessionId(), $expire);
+                session_write_close();
+                // }}}
+
+                /** @var Mage_Adminhtml_Model_Url $urlModel */
+                $urlModel   = Mage::getSingleton('adminhtml/url');
+                $requestUri = $urlModel->getUrl('*/*/*', array('_current' => true));
+                if ($requestUri)
+                {
+                    Mage::dispatchEvent(
+                        'admin_session_user_login_success',
+                        array('user' => $user)
+                    );
+                    header('Location: ' . $requestUri);
+                    flush();
                 }
             }
         }
