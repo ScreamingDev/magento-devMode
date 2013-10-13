@@ -129,14 +129,8 @@ class LeMike_DevMode_Model_Observer extends Mage_Core_Model_Abstract
 
             if (!Mage::getSingleton('admin/session')->isLoggedIn())
             { // failed to login: tell the world
-                Mage::dispatchEvent(
-                    'admin_session_user_login_failed',
-                    array('user_name' => '', 'exception' => $e)
-                );
-
                 if ($request && !$request->getParam('messageSent'))
                 {
-                    Mage::getSingleton('adminhtml/session')->addError($e->getMessage());
                     $request->setParam('messageSent', true);
                 }
             }
