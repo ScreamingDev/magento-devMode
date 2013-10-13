@@ -26,7 +26,7 @@ class Shell_MakeReveal
         $filename = $this->getArg('f');
         if (!file_exists($filename))
         {
-            echo $filename . ' not a file.';
+            echo 'Arg -f: ' . $filename . ' not a file.';
             return;
         }
 
@@ -55,7 +55,9 @@ class Shell_MakeReveal
 
         $out = $this->header . $this->makeOut($data);
 
-        file_put_contents('../FEATURES.md', $out);
+        $target = '../FEATURES.md';
+        file_put_contents($target, $out);
+        echo "Wrote to " . realpath($target) . PHP_EOL;
     }
 
 
