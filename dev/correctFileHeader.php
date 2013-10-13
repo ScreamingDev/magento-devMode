@@ -79,6 +79,31 @@ foreach ($tagSet as $version)
 // iterate files
 $recursiveIteratorIterator = new RecursiveIteratorIterator(new RecursiveDirectoryIterator('..'));
 
+/**
+ * .
+ *
+ * @param $fileDocPos
+ * @param $contents
+ * @param $tags
+ *
+ * @return array
+ */
+function _handleFromPos($contents, $opener, $tags)
+{
+    $fileDocPos = strpos($contents, $opener);
+    if ($fileDocPos !== false)
+    {
+        $fileDocPos += strpos($opener, '/**');
+        $fileDocPosEnd = strpos($contents, "*/\n") - $fileDocPos + 2;
+        $fileDoc       = substr($contents, $fileDocPos, $fileDocPosEnd);
+        $newFileDoc    = _assertPackage($fileDoc);
+        $newFileDoc    = _handleDocComment($newFileDoc, $tags);
+        $contents      = str_replace($fileDoc, $newFileDoc, $contents);
+    }
+
+    return $contents;
+}
+
 foreach ($recursiveIteratorIterator as $fileInfo)
 {
     /** @var SplFileInfo $fileInfo */
@@ -129,27 +154,8 @@ foreach ($recursiveIteratorIterator as $fileInfo)
         'since'     => substr($versionToFile[$fileName], 1),
     );
 
-    $fileDocPos = strpos($contents, "php\n/**");
-    if ($fileDocPos !== false)
-    {
-        $fileDocPos += 4;
-        $fileDocPosEnd = strpos($contents, "*/\n") - $fileDocPos + 2;
-        $fileDoc       = substr($contents, $fileDocPos, $fileDocPosEnd);
-        $newFileDoc    = _assertPackage($fileDoc);
-        $newFileDoc    = _handleDocComment($newFileDoc, $tags);
-        $contents      = str_replace($fileDoc, $newFileDoc, $contents);
-    }
-
-    $classDocPos = strpos($contents, "\n/**\n", max($fileDocPos, $fileDocPosEnd));
-    if ($classDocPos !== false)
-    {
-        $classDocPos += 1;
-        $classDocPosEnd = strpos($contents, "*/\n", $classDocPos) - $classDocPos + 2;
-        $classDoc       = substr($contents, $classDocPos, $classDocPosEnd);
-        $newClassDoc    = _assertPackage($classDoc);
-        $newClassDoc    = _handleDocComment($newClassDoc, $tags);
-        $contents       = str_replace($classDoc, $newClassDoc, $contents);
-    }
+    $contents = _handleFromPos($contents, "php\n/**", $tags);
+    $contents = _handleFromPos($contents, "\n\n/**\n", $tags);
 
     file_put_contents($fileInfo->getPathname(), $contents);
 }

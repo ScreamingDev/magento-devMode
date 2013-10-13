@@ -65,6 +65,21 @@ abstract class LeMike_DevMode_Test_AbstractCase extends EcomDev_PHPUnit_Test_Cas
         return $reflectMethod->invokeArgs($object, $args);
     }
 
+    public function reflectProperty($object, $name, $newValue = null)
+    {
+        $reflect = new ReflectionObject($object);
+
+        $reflectProperty = $reflect->getProperty($name);
+        $reflectProperty->setAccessible(true);
+
+        if ($newValue === null)
+        {
+            return $reflectProperty->getValue($object);
+        }
+
+        $reflectProperty->setValue($object, $newValue);
+    }
+
 
     public function getModuleAlias($node = null)
     {

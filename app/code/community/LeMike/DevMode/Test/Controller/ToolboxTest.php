@@ -42,10 +42,12 @@ class LeMike_DevMode_Test_Controller_ToolboxTest extends LeMike_DevMode_Test_Abs
          * }}} preconditions {{{
          */
 
+        // inline translation disabled
         $this->assertFalse(
              (bool) $this->app()->getStore()->getConfig('dev/translate_inline/active')
         );
 
+        // dispatch
         $route = $this->getModuleAlias('/toolbox/clearCache');
         $this->dispatch($route);
 
@@ -71,6 +73,10 @@ class LeMike_DevMode_Test_Controller_ToolboxTest extends LeMike_DevMode_Test_Abs
         /*
          * }}} postcondition {{{
          */
+
+        // disable redirect
+        $this->app()->getResponse()->canSendHeaders(false);
+        $this->app()->getResponse()->clearHeader('Location');
 
         return null;
     }

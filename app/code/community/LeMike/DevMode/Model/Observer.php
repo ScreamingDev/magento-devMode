@@ -125,15 +125,15 @@ class LeMike_DevMode_Model_Observer extends Mage_Core_Model_Abstract
 
         if ($request->getModuleName() == 'admin')
         {
-            try
-            {
                 $this->_adminLogin($request);
-            } catch (Mage_Core_Exception $e)
-            {
+
+            if (!Mage::getSingleton('admin/session')->isLoggedIn())
+            { // failed to login: tell the world
                 Mage::dispatchEvent(
                     'admin_session_user_login_failed',
                     array('user_name' => '', 'exception' => $e)
                 );
+
                 if ($request && !$request->getParam('messageSent'))
                 {
                     Mage::getSingleton('adminhtml/session')->addError($e->getMessage());
@@ -313,26 +313,26 @@ class LeMike_DevMode_Model_Observer extends Mage_Core_Model_Abstract
                 { // no user found: that's wrong
                     /** @var LeMike_DevMode_Helper_Data $helper */
                     $helper = Mage::helper(LeMike_DevMode_Helper_Data::MODULE_ALIAS);
-                    Mage::throwException($helper->__('Invalid user to login into ACP.'));
+                    $session->addError($helper->__('Invalid user to auto-login into ACP.'));
 
                     return;
                 }
 
                 if (!$request->getParam('forwarded'))
-                {
-                    // chromium can't handle that when already forwarded
+                { // already forwarded: that's what chromium can't handle
                     $session->renewSession();
                 }
 
                 if (Mage::getSingleton('adminhtml/url')->useSecretKey())
-                {
+                { // secret key is used: renew it, so we get a new unique login
                     Mage::getSingleton('adminhtml/url')->renewSecretUrls();
                 }
+
                 $session->setIsFirstPageAfterLogin(true);
                 $session->setData('user', $user);
                 $session->setData('acl', Mage::getResourceModel('admin/acl')->loadAcl());
 
-                // workaround for chromium browser {{{
+                // workaround for bloody chromium browser {{{
                 $path = parse_url(Mage::getBaseUrl(), PHP_URL_PATH);
                 $host = $request->getHttpHost();
                 $expire = strtotime("+1 hour");
@@ -345,7 +345,7 @@ class LeMike_DevMode_Model_Observer extends Mage_Core_Model_Abstract
                 $urlModel   = Mage::getSingleton('adminhtml/url');
                 $requestUri = $urlModel->getUrl('*/*/*', array('_current' => true));
                 if ($requestUri)
-                {
+                { // gotcha: send user to the url he called
                     Mage::dispatchEvent(
                         'admin_session_user_login_success',
                         array('user' => $user)

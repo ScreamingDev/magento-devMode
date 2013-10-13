@@ -43,21 +43,45 @@ class LeMike_DevMode_Test_Helper_DataTest extends LeMike_DevMode_Test_AbstractCa
     /**
      * Test to response with a JSON.
      *
-     * @return void
+     * @return null
      */
-    public function testResponseJson()
+    public function testResponseArrayAsJson()
     {
+        /*
+         * }}} preconditions {{{
+         */
+
+        // no errors on already send headers
+        $this->app()->getResponse()->headersSentThrowsException = false;
+
+        // dispatch array
         $data = array('foo' => 'bar');
         Mage::helper('lemike_devmode')->responseJson($data);
 
-        $response = Mage::app()->getResponse();
-        $header   = current($response->getHeaders());
+        /*
+         * }}} main {{{
+         */
 
+        // assert body
+        $response = Mage::app()->getResponse();
+        $this->assertEquals($data, json_decode($response->getBody('default'), true));
+
+        // assert header
+        $header = current($response->getHeaders());
         $this->assertEquals('Content-Type', $header['name']);
         $this->assertEquals('application/json', $header['value']);
         $this->assertTrue($header['replace']);
 
-        $this->assertEquals($data, json_decode($response->getBody('default'), true));
+        /*
+         * }}} postcondition {{{
+         */
+
+        // clean up response
+        $this->app()->getResponse()->reset();
+
+        $this->assertEmpty($this->reflectProperty($this->app()->getResponse(), '_sentHeaders'));
+
+        return null;
     }
 
 

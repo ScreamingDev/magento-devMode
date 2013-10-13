@@ -480,8 +480,7 @@ abstract class AbstractCommand
     {
         $method = ltrim(substr($method, strpos($method, '::')), ':');
 
-        $methodReflection = new ReflectionMethod(get_class($this), $method);
-        $docComment = $methodReflection->getDocComment();
+        $docComment = $this->_getDocCommentByMethod($method);
         $firstDot = strpos($docComment, '.')+1;
         $endNode = strpos($docComment, '* @');
         if (!$endNode)
@@ -491,6 +490,22 @@ abstract class AbstractCommand
         $docComment = substr($docComment, $firstDot, $endNode-$firstDot);
         $docComment = preg_replace('@[\n\r]?\s*\*\s@', "\n", $docComment);
         $docComment = trim($docComment);
+
+        return $docComment;
+    }
+
+
+    /**
+     * .
+     *
+     * @param $method
+     *
+     * @return string
+     */
+    protected function _getDocCommentByMethod($method)
+    {
+        $methodReflection = new ReflectionMethod(get_class($this), $method);
+        $docComment       = $methodReflection->getDocComment();
 
         return $docComment;
     }
@@ -638,8 +653,7 @@ abstract class DelegateCommand extends AbstractCommand
             {
                 echo "    " . $action;
 
-                $methodReflection = new ReflectionMethod(get_class($this), $method);
-                $docComment       = $methodReflection->getDocComment();
+                $docComment       = $this->_getDocCommentByMethod($method);
                 $docComment       = ltrim($docComment, "/*\n\r ");
                 $docComment       = substr($docComment, 0, strpos($docComment, "\n"));
                 if ($docComment)
