@@ -36,3 +36,8 @@
     display: inline-block;
     width: 100%;
 }
+
+.ld_dialog {
+    display: none;
+    visibility: hidden;
+}
