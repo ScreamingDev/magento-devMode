@@ -9,7 +9,12 @@ An extension to help you develop Magento Stores.
 
 
 Modman
-`modman init . && modman clone git@github.com:sourcerer-mike/magento-devMode.git`
+
+```
+modman init .
+modman clone https://github.com/sourcerer-mike/magento-devMode.git
+```
+
 
 Composer
 ```
