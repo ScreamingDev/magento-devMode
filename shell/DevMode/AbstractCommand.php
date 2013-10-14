@@ -219,9 +219,11 @@ class LeMike_DevMode_Parameter
      *
      * @param null|string $name Name which option to get (default: null - get all as array).
      *
+     * @param null        $default
+     *
      * @return mixed
      */
-    public function getOption($name = null)
+    public function getOption($name = null, $default = null)
     {
         if (null === $name)
         { // no specific: return all
@@ -233,8 +235,8 @@ class LeMike_DevMode_Parameter
             return $this->_parameter[static::OPTIONS][$name];
         }
 
-        // not found: null
-        return null;
+        // not found: show default (which is null by default) ... default
+        return $default;
     }
 
 
@@ -530,6 +532,10 @@ abstract class DelegateCommand extends AbstractCommand
     public function delegate()
     {
         $arguments = $this->getParameter()->getArguments();
+        if (empty($arguments))
+        {
+            $arguments = $this->getParameter()->getCommands();
+        }
 
         $theArgument = array_shift($arguments);
 
@@ -557,6 +563,7 @@ abstract class DelegateCommand extends AbstractCommand
             }
 
             $this->getParameter()->unsetArgument($theArgument);
+            $this->getParameter()->unsetCommand($theArgument);
 
             /** @var DelegateCommand $instance */
             $instance = new $className($this->getParameter());
@@ -570,18 +577,33 @@ abstract class DelegateCommand extends AbstractCommand
         $current = current($this->getParameter()->getArguments());
         if (!$current)
         {
+            $current = current($this->getParameter()->getCommands());
+        }
+
+        if (!$current)
+        {
             $current = 'index';
         }
         $action = $current . 'Action';
 
         if (method_exists($this, $action))
         {
-            echo DevMode_Load_Magento::LOADING_MAGENTO;
-            $loader = new DevMode_Load_Magento();
-            $loader->run();
+//            $loader = new DevMode_Load_Magento();
+//            $loader->run();
 
             $this->getParameter()->unsetArgument($current);
-            $this->$action();
+            $this->getParameter()->unsetCommand($current);
+
+            if ($this->getParameter()->hasOption('help')
+                || current($this->getParameter()->getArguments()) == 'help'
+            )
+            {
+                echo $this->getMethodHelp($action);
+            }
+            else
+            {
+                $this->$action();
+            }
         }
         else
         {
@@ -589,6 +611,35 @@ abstract class DelegateCommand extends AbstractCommand
         }
 
         echo PHP_EOL;
+    }
+
+
+    public function getMethodHelp($actionName)
+    {
+        $reflectObject = new ReflectionObject($this);
+
+        $method = $reflectObject->getMethod($actionName);
+
+        if (!$method)
+        {
+            return 'Unknown method "' . $actionName . '"!';
+        }
+
+        $docComment = $method->getDocComment();
+
+        $docComment = preg_replace('/[^\.]*\.[\*\s]*/is', '', $docComment, 1);
+        $docComment = preg_replace('/\n[\s]*\*\s/is', "\n", $docComment);
+        $docComment = preg_replace('/\*\s@[\w].*/is', "\n", $docComment, 1);
+        $docComment = preg_replace('/\n[\s]*\*\s(\w)(.*)/s', "\n\n\$1\$2", $docComment, 1);
+        $docComment = trim($docComment);
+
+
+        if (substr($docComment, 0, 1) == '@')
+        { // doc tag at beginning: this has no detailed help
+            return "Sorry! No help available.";
+        }
+
+        return $docComment;
     }
 
 
@@ -600,7 +651,7 @@ abstract class DelegateCommand extends AbstractCommand
     public function getSubModules()
     {
         $thisClassName = get_class($this);
-        $baseFolder = __DIR__ . DIRECTORY_SEPARATOR . '..' . DIRECTORY_SEPARATOR;
+        $baseFolder    = __DIR__ . DIRECTORY_SEPARATOR . '..' . DIRECTORY_SEPARATOR;
         $baseFolder .= str_replace('_', '/', $thisClassName) . DIRECTORY_SEPARATOR;
 
         $modules = array();
@@ -611,12 +662,13 @@ abstract class DelegateCommand extends AbstractCommand
                 continue;
             }
 
-            $subModuleName = basename($classFile, '.php');
+            $subModuleName      = basename($classFile, '.php');
             $subModuleClassName = $thisClassName . '_' . $subModuleName;
 
             require_once $classFile;
-            $reflectClass = new ReflectionClass($subModuleClassName);
-            $docComment = $this->_filterDocCommentHeader($reflectClass->getDocComment());
+            $reflectClass            = new ReflectionClass($subModuleClassName);
+            $docComment              =
+                $this->_filterDocCommentHeader($reflectClass->getDocComment());
             $modules[$subModuleName] = $docComment;
         }
 

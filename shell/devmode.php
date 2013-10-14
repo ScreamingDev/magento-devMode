@@ -33,20 +33,17 @@ require_once 'abstract.php';
  */
 class DevMode extends DelegateCommand
 {
-    /**
-     * Run this command.
-     *
-     * @return mixed
-     */
     public function execute()
     {
-        // TODO: Implement execute() method.
+        parent::execute();
     }
 }
 
 class DevMode_Load_Magento extends Mage_Shell_Abstract
 {
     const LOADING_MAGENTO = 'Loading Magento ...';
+
+
     /**
      * Run script
      *
