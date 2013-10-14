@@ -416,7 +416,7 @@ class LeMike_DevMode_Parameter
 abstract class AbstractCommand
 {
 
-    /** @var \Pat\Environment\System\Cli\LeMike_DevMode_Parameter LeMike_DevMode_Parameter to a specific command */
+    /** @var LeMike_DevMode_Parameter to a specific command */
     protected $_parameter;
 
 
@@ -426,6 +426,8 @@ abstract class AbstractCommand
      * This class is especially designed for use with CLI.
      *
      * @param array $parameter Arguments for this command.
+     *
+     * @throws Exception
      */
     public function __construct($parameter = array())
     {
@@ -522,6 +524,7 @@ abstract class DelegateCommand extends AbstractCommand
     /**
      * Run this command.
      *
+     * @throws Exception
      * @return mixed
      */
     public function delegate()
@@ -555,6 +558,7 @@ abstract class DelegateCommand extends AbstractCommand
 
             $this->getParameter()->unsetArgument($theArgument);
 
+            /** @var DelegateCommand $instance */
             $instance = new $className($this->getParameter());
             $instance->delegate();
         }
@@ -591,8 +595,6 @@ abstract class DelegateCommand extends AbstractCommand
     /**
      * .
      *
-     * @param $className
-     *
      * @return array
      */
     public function getSubModules()
@@ -604,6 +606,11 @@ abstract class DelegateCommand extends AbstractCommand
         $modules = array();
         foreach (glob($baseFolder . '*.php') as $classFile)
         {
+            if (strpos($classFile, '/Abstract') !== false)
+            { // abstract file: skip this one
+                continue;
+            }
+
             $subModuleName = basename($classFile, '.php');
             $subModuleClassName = $thisClassName . '_' . $subModuleName;
 
