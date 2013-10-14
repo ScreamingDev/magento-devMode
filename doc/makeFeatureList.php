@@ -57,7 +57,7 @@ class Shell_MakeReveal
 
         $target = '../FEATURES.md';
         file_put_contents($target, $out);
-        echo "Wrote to " . realpath($target) . PHP_EOL;
+        echo "Wrote to " . realpath($target) . PHP_EOL  ;
     }
 
 
@@ -134,7 +134,7 @@ class Shell_MakeReveal
     }
 
 
-    private function _logVerbose($string)
+    protected function _logVerbose($string)
     {
         $this->_logMessage($string);
     }
