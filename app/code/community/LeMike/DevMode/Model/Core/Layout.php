@@ -138,6 +138,48 @@ class LeMike_DevMode_Model_Core_Layout
     }
 
 
+    /**
+     * Associative array.
+     *
+     * @deprecated 0.5.0 ::toAssocArray will become ::toArray
+     *
+     * @return array
+     */
+    public function toAssocArray()
+    {
+        $fileSet = $this->toArray();
+
+        $list = array();
+        foreach ($fileSet as $file)
+        {
+            foreach ($file as $layoutDefinition)
+            {
+                $filePath = str_replace(
+                    Mage::getBaseDir(),
+                    '',
+                    $layoutDefinition['@attributes']['name']
+                );
+                $filePath = ltrim($filePath, DS);
+                unset($layoutDefinition['@attributes']);
+
+                foreach ($layoutDefinition as $layoutHandle => $entry)
+                {
+                    $list[$layoutHandle][$filePath] = $entry;
+                }
+            }
+        }
+
+        return $list;
+    }
+
+
+    /**
+     * Layout as array from XML.
+     *
+     * @deprecated 0.5.0 ::toAssocArray will become ::toArray
+     *
+     * @return mixed
+     */
     public function toArray()
     {
         return json_decode(json_encode($this->getLayoutXml()), true);

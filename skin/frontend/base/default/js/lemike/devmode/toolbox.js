@@ -58,21 +58,24 @@ document.observe("dom:loaded", function () {
 });
 
 function lemikeDevmode_alert(target, title) {
-    showDialog($(target).innerHTML, title);
+    showDialog(target, title);
 }
 
+var contentWin = null;
 function showDialog(content, title) {
-    Dialog.alert(
-        content,
-        {
-            width: document.viewport.getDimensions().width * 0.66,
-            height: document.viewport.getDimensions().height * 0.66,
-            okLabel: "close",
-            ok: function (win) {
-                return true;
-            }
-        }
-    );
+    contentWin = new Window({
+        className: 'magento',
+        title: title,
+        maximizable: false,
+        resizable: false,
+        width: document.viewport.getDimensions().width * 0.66,
+        height: document.viewport.getDimensions().height * 0.66
+    });
+
+    // contentWin.setContent(content, false, false);
+    contentWin.getContent().innerHTML = $(content).innerHTML;
+    contentWin.setZIndex(9999);
+    contentWin.showCenter(true);
 }
 
 function lemikeDevmode_makeWindow(url) {
@@ -83,13 +86,14 @@ function lemikeDevmode_makeWindow(url) {
             width: document.viewport.getDimensions().width * 0.66,
             height: document.viewport.getDimensions().height * 0.66,
             minimizable: true,
-            maximizable: true,
-            showEffectOptions: {duration: 0.4},
-            hideEffectOptions: {duration: 0.4}}
+            maximizable: true
+        }
     );
 
     win.setZIndex(9999);
     win.showCenter(true);
+
+    return win;
 }
 function lemikeDevmode_showEvents() {
     lemikeDevmode_makeWindow(

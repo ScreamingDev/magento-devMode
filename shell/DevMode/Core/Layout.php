@@ -101,27 +101,6 @@ class DevMode_Core_Layout extends DelegateCommand
                       $theme
         );
 
-        $fileSet = $layout->toArray();
-
-        $list = array();
-        foreach ($fileSet as $file)
-        {
-            foreach ($file as $layoutDefinition)
-            {
-                $filePath = str_replace(
-                    Mage::getBaseDir(),
-                    '',
-                    $layoutDefinition['@attributes']['name']
-                );
-                unset($file['@attributes']);
-
-                foreach ($layoutDefinition as $layoutHandle => $entry)
-                {
-                    $list[$layoutHandle][$filePath] = $entry;
-                }
-            }
-        }
-
-        return $list;
+        return $layout->toAssocArray();
     }
 }
