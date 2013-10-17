@@ -2,7 +2,7 @@
 <config>
     <modules>
         <LeMike_DevMode>
-            <version>0.3.0</version>
+            <version>0.3.3</version>
         </LeMike_DevMode>
     </modules>
 
@@ -38,6 +38,14 @@
                     </lemike_devmode>
                 </observers>
             </controller_front_init_before>
+            <controller_front_send_response_before>
+                <observers>
+                    <lemike_devmode>
+                        <class>lemike_devmode/observer</class>
+                        <method>controllerFrontSendResponseBefore</method>
+                    </lemike_devmode>
+                </observers>
+            </controller_front_send_response_before>
         </events>
     </global>
 
@@ -59,15 +67,23 @@
                     </lemike_devmode>
                 </observers>
             </controller_action_predispatch_customer_account_loginPost>
-            <controller_front_send_response_before>
-                <observers>
-                    <lemike_devmode>
-                        <class>lemike_devmode/observer</class>
-                        <method>controllerFrontSendResponseBefore</method>
-                    </lemike_devmode>
-                </observers>
-            </controller_front_send_response_before>
         </events>
+        <layout>
+            <updates>
+                <lemike_devmode>
+                    <file>LeMike_DevMode.xml</file>
+                </lemike_devmode>
+            </updates>
+        </layout>
+        <routers>
+            <lemike_devmode>
+                <use>standard</use>
+                <args>
+                    <module>LeMike_DevMode</module>
+                    <frontName>lemike_devmode</frontName>
+                </args>
+            </lemike_devmode>
+        </routers>
     </frontend>
 
     <admin>
@@ -76,7 +92,7 @@
                 <use>admin</use>
                 <args>
                     <modules>
-                        <lemike_devmode before="Mage_Adminhtml">LeMike_DevMode_Adminhtml</lemike_devmode>
+                        <lemike_devmode>LeMike_DevMode_Adminhtml</lemike_devmode>
                     </modules>
                 </args>
             </adminhtml>
