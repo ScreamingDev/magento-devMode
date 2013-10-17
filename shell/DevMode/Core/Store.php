@@ -77,6 +77,9 @@ class DevMode_Core_Store extends DelegateCommand
      */
     public function listAction()
     {
+        $load = new DevMode_Load_Magento();
+        $load->run();
+
         /** @var Mage_Core_Model_Store $modelStore */
         $modelStore = Mage::getModel('core/store');
 
