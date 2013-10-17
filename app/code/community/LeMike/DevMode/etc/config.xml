@@ -46,6 +46,14 @@
                     </lemike_devmode>
                 </observers>
             </controller_action_predispatch>
+            <controller_front_send_response_before>
+                <observers>
+                    <lemike_devmode>
+                        <class>lemike_devmode/observer</class>
+                        <method>controllerFrontSendResponseBefore</method>
+                    </lemike_devmode>
+                </observers>
+            </controller_front_send_response_before>
         </events>
     </global>
 
@@ -75,14 +83,6 @@
                     </lemike_devmode>
                 </observers>
             </controller_action_predispatch_customer_account_loginPost>
-            <controller_front_send_response_before>
-                <observers>
-                    <lemike_devmode>
-                        <class>lemike_devmode/observer</class>
-                        <method>controllerFrontSendResponseBefore</method>
-                    </lemike_devmode>
-                </observers>
-            </controller_front_send_response_before>
         </events>
         <layout>
             <updates>
