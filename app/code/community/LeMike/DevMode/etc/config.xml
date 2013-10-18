@@ -68,22 +68,6 @@
                 </observers>
             </controller_action_predispatch_customer_account_loginPost>
         </events>
-        <layout>
-            <updates>
-                <lemike_devmode>
-                    <file>LeMike_DevMode.xml</file>
-                </lemike_devmode>
-            </updates>
-        </layout>
-        <routers>
-            <lemike_devmode>
-                <use>standard</use>
-                <args>
-                    <module>LeMike_DevMode</module>
-                    <frontName>lemike_devmode</frontName>
-                </args>
-            </lemike_devmode>
-        </routers>
     </frontend>
 
     <admin>
