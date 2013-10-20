@@ -36,22 +36,21 @@ abstract class LeMike_DevMode_Test_AbstractCase extends EcomDev_PHPUnit_Test_Cas
     protected $_lastArgs = array();
 
 
-    protected function setUp()
-    {
-        $this->_lastArgs = array();
-        parent::setUp();
-    }
-
-
-    public function setLastArgs()
-    {
-        $this->_lastArgs = func_get_args();
-    }
-
-
     public function getLastArgs()
     {
         return $this->_lastArgs;
+    }
+
+
+    public function getModuleAlias($node = null)
+    {
+        return LeMike_DevMode_Helper_Data::MODULE_ALIAS . $node;
+    }
+
+
+    public function getModuleName($node = null)
+    {
+        return LeMike_DevMode_Helper_Data::MODULE_NAME . $node;
     }
 
 
@@ -65,6 +64,16 @@ abstract class LeMike_DevMode_Test_AbstractCase extends EcomDev_PHPUnit_Test_Cas
         return $reflectMethod->invokeArgs($object, $args);
     }
 
+
+    /**
+     * Get or set the value of a property.
+     *
+     * @param StdClass $object
+     * @param string   $name
+     * @param null     $newValue
+     *
+     * @return mixed
+     */
     public function reflectProperty($object, $name, $newValue = null)
     {
         $reflect = new ReflectionObject($object);
@@ -78,17 +87,20 @@ abstract class LeMike_DevMode_Test_AbstractCase extends EcomDev_PHPUnit_Test_Cas
         }
 
         $reflectProperty->setValue($object, $newValue);
+
+        return null;
     }
 
 
-    public function getModuleAlias($node = null)
+    public function setLastArgs()
     {
-        return LeMike_DevMode_Helper_Data::MODULE_ALIAS . $node;
+        $this->_lastArgs = func_get_args();
     }
 
 
-    public function getModuleName($node = null)
+    protected function setUp()
     {
-        return LeMike_DevMode_Helper_Data::MODULE_NAME . $node;
+        $this->_lastArgs = array();
+        parent::setUp();
     }
 }

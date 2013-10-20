@@ -45,6 +45,8 @@ class LeMike_DevMode_Model_Core_Config extends Mage_Core_Model_Abstract
     /**
      * All cron jobs as configured in magento.
      *
+     * @param null|string $alias Get only for a specific alias /
+     *
      * @return Varien_Object [alias => [cron_expr, run, class, method]
      */
     public function getCrontabJobs($alias = null)
@@ -92,11 +94,11 @@ class LeMike_DevMode_Model_Core_Config extends Mage_Core_Model_Abstract
             );
         }
 
+        $data = array();
         foreach ($nodeSet as $node)
         {
             $globalEvents = (array) Mage::getConfig()->getNode($node . '/events');
 
-            $data = array();
             foreach ($globalEvents as $event => $singleEvent)
             {
                 /** @var Mage_Core_Model_Config_Element $singleEvent */

@@ -15,10 +15,13 @@
     <tbody>
     <?php foreach ($this->getModuleSet() as $data): ?>
         <?php
+        /** @var Varien_Object $data */
         $moduleName = $data->getData(LeMike_DevMode_Model_Core_Resource::MODULE_NAME);
         $databaseVersion = $data->getData(
                                 LeMike_DevMode_Model_Core_Resource::MODULE_VERSION_DATABASE
         );
+
+        /** @var string $runSetup */
         $runSetup   = Mage::helper('adminhtml')->getUrl(
             'lemike_devmode/adminhtml_developer_core/run',
             array(LeMike_DevMode_Helper_Params::CORE_INDEX__SETUP_MODULE_NAME => $moduleName)
