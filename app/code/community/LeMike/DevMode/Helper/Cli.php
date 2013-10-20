@@ -29,15 +29,21 @@
  */
 class LeMike_DevMode_Helper_Cli extends LeMike_DevMode_Helper_Abstract
 {
+    /**
+     * Prompt for user input.
+     *
+     * @param string $question  Prompt to show.
+     * @param array  $answerSet Possible limited answers (clear if anything is possible).
+     *
+     * @return string
+     */
     public function ask($question, $answerSet = array('y', 'n'))
     {
-        $answer = uniqid();
-
-        while (!in_array($answer, $answerSet))
+        do
         {
             echo $question;
             $answer = strtolower(trim(fgets(STDIN)));
-        }
+        } while (!in_array($answer, $answerSet) && !empty($answerSet));
 
         return $answer;
     }

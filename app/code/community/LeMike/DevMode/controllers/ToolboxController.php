@@ -29,18 +29,31 @@
  */
 class LeMike_DevMode_ToolboxController extends LeMike_DevMode_Controller_Front_SecureAction
 {
+    /**
+     * Clean up the cache.
+     *
+     * @return void
+     */
     public function clearCacheAction()
     {
         Mage::app()->cleanCache();
 
         /** @var Mage_Core_Model_Message_Abstract $message */
         $code    = $this->helper('toolbox')->__('Successfully cleaned cache.');
-        $message = Mage::getSingleton('core/message')->success(
+
+        /** @var Mage_Core_Model_Message $coreMessage */
+        $coreMessage = Mage::getSingleton('core/message');
+
+        $message = $coreMessage->success(
             $code,
             __CLASS__,
             __FUNCTION__
         );
-        Mage::getSingleton('core/session')->addMessage(
+
+        /** @var Mage_Core_Model_Session $coreSession */
+        $coreSession = Mage::getSingleton('core/session');
+
+        $coreSession->addMessage(
             $message->setIdentifier($this->getModuleAlias('/toolbox/clearCache'))
         );
 

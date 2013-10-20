@@ -29,9 +29,15 @@
  */
 class LeMike_DevMode_Block_Toolbox_Catalog_Product extends LeMike_DevMode_Block_Toolbox
 {
+    /** @var string Default template file for this block. */
     protected $_template = 'lemike/devmode/toolbox/catalog/product.phtml';
 
 
+    /**
+     * Generate a url to the backend product editor.
+     *
+     * @return string
+     */
     public function getEditUrl()
     {
         return $this->getBackendUrl(

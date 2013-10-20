@@ -29,25 +29,35 @@
  */
 class LeMike_DevMode_Controller_Front_Action extends Mage_Core_Controller_Front_Action
 {
-    protected $_moduleName = 'lemike_devmode';
-
-
+    /**
+     * Test if the client is authorized to do this.
+     *
+     * Will redirect to previous page if not allowed.
+     *
+     * @return void
+     */
     public function checkAuth()
     {
         /** @var LeMike_DevMode_Helper_Auth $authHelper */
         $authHelper = $this->helper('auth');
         if (!$authHelper->isDevAllowed())
         { // not allowed here: get off this planet!
-            Mage::getSingleton('core/session')->addError(
+            /** @var Mage_Core_Model_Session $coreSession */
+            $coreSession = Mage::getSingleton('core/session');
+
+            $coreSession->addError(
                 $this->helper()->__('You are not allowed to do this.')
             );
+
             $this->_redirectReferer();
         }
     }
 
 
     /**
-     * .
+     * Get some helper.
+     *
+     * At least the one of the module.
      *
      * @param string $node
      *
@@ -67,18 +77,25 @@ class LeMike_DevMode_Controller_Front_Action extends Mage_Core_Controller_Front_
     /**
      * Get the module name or a child of it.
      *
-     * @param $node
+     * @param string $suffix Suffix to add.
      *
-     * @return string
+     * @return string Like Company_ModuleName.
      */
-    public function getModuleName($node = null)
+    public function getModuleName($suffix = null)
     {
-        return LeMike_DevMode_Helper_Data::MODULE_NAME . $node;
+        return LeMike_DevMode_Helper_Data::MODULE_NAME . $suffix;
     }
 
 
-    public function getModuleAlias($node = null)
+    /**
+     * Get the alias (with a suffix).
+     *
+     * @param null $suffix
+     *
+     * @return string Like company_moduleName.
+     */
+    public function getModuleAlias($suffix = null)
     {
-        return LeMike_DevMode_Helper_Data::MODULE_ALIAS . $node;
+        return LeMike_DevMode_Helper_Data::MODULE_ALIAS . $suffix;
     }
 }

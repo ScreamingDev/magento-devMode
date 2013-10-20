@@ -88,6 +88,13 @@ class LeMike_DevMode_Model_Log
     }
 
 
+    /**
+     * Switch if log shall be output directly or not.
+     *
+     * @param bool $bool
+     *
+     * @return void
+     */
     public static function setPrint($bool = true)
     {
         static::$_print = $bool;
@@ -106,6 +113,16 @@ class LeMike_DevMode_Model_Log
     }
 
 
+    /**
+     * Forward information to the adapter.
+     *
+     * @param string $message  The message to log.
+     * @param null   $level    Level of influence (Zend_Log constants).
+     * @param null   $file     The file to write to.
+     * @param bool   $forceLog Force to log it (needed sometimes).
+     *
+     * @return void
+     */
     protected static function _logAdapter($message, $level = null, $file = null, $forceLog = false)
     {
         if (!$file)

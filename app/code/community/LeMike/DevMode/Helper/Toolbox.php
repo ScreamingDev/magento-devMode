@@ -29,9 +29,20 @@
  */
 class LeMike_DevMode_Helper_Toolbox extends LeMike_DevMode_Helper_Abstract
 {
+    /**
+     * Receive the URI to activate a file in the local IDE.
+     *
+     * @param string $file The file to open.
+     * @param int    $line Line the IDE shall jump to (if possible).
+     *
+     * @return string
+     */
     public function getIdeUrl($file, $line = 1)
     {
-        $template = Mage::helper('lemike_devmode/config')->getRemoteCallUrlTemplate();
+        /** @var LeMike_DevMode_Helper_Config $helperConfig */
+        $helperConfig = Mage::helper('lemike_devmode/config');
+
+        $template = $helperConfig->getRemoteCallUrlTemplate();
         return sprintf($template, urlencode($file), urlencode($line));
     }
 

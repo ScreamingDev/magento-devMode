@@ -29,9 +29,15 @@
  */
 class LeMike_DevMode_Block_Toolbox_Catalog_Category extends LeMike_DevMode_Block_Toolbox
 {
+    /** @var string Default template file for this block. */
     protected $_template = 'lemike/devmode/toolbox/catalog/category.phtml';
 
 
+    /**
+     * Generate an edit url that lead to the backend category editor.
+     *
+     * @return string
+     */
     public function getEditUrl()
     {
         return $this->getBackendUrl(

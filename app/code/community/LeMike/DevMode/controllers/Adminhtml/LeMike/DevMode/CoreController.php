@@ -33,6 +33,11 @@ class LeMike_DevMode_Adminhtml_LeMike_DevMode_CoreController extends
     const SETUP_MODULE_NAME = 'moduleName';
 
 
+    /**
+     * List all tabs to work with the Magento core.
+     *
+     * @return void
+     */
     public function indexAction()
     {
         $helper = Mage::helper('lemike_devmode');
@@ -47,8 +52,16 @@ class LeMike_DevMode_Adminhtml_LeMike_DevMode_CoreController extends
     }
 
 
+    /**
+     * Reset a module.
+     *
+     * Magento will reinstall if afterwards.
+     *
+     * @return void
+     */
     public function runAction()
     {
+        /** @var Mage_Adminhtml_Model_Session $session */
         $session = Mage::getSingleton('adminhtml/session');
 
         $moduleName = $this->getRequest()->getParam(self::SETUP_MODULE_NAME);
@@ -101,7 +114,7 @@ class LeMike_DevMode_Adminhtml_LeMike_DevMode_CoreController extends
 
 
     /**
-     * .
+     * Get the adminhtml helper.
      *
      * @return Mage_Adminhtml_Helper_Data
      */

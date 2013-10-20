@@ -27,7 +27,7 @@
  * @link      http://github.com/sourcerer-mike/mage_devmode LeMike_DevMode on GitHub
  * @since     0.4.0
  */
-class LeMike_DevMode_Block_Toolbox extends Mage_Core_Block_Template
+class LeMike_DevMode_Block_Toolbox extends LeMike_DevMode_Block_Template
 {
     const POSITION_ACTION = 'action';
 
@@ -37,11 +37,12 @@ class LeMike_DevMode_Block_Toolbox extends Mage_Core_Block_Template
 
     const POSITION_STORE = 'store';
 
+    /** @var string Default template for this block. */
     protected $_template = 'lemike/devmode/toolbox.phtml';
 
 
     /**
-     * .
+     * Get the controller class file path to the current action.
      *
      * @return string
      */
@@ -71,7 +72,10 @@ class LeMike_DevMode_Block_Toolbox extends Mage_Core_Block_Template
      */
     public function getBackendUrl($route = 'adminhtml/index/index', $param = array())
     {
-        return (string) Mage::helper('lemike_devmode/auth')->getBackendUrl($route, $param);
+        /** @var LeMike_DevMode_Helper_Auth $helperAuth */
+        $helperAuth = Mage::helper('lemike_devmode/auth');
+
+        return (string) $helperAuth->getBackendUrl($route, $param);
     }
 
 
@@ -86,8 +90,12 @@ class LeMike_DevMode_Block_Toolbox extends Mage_Core_Block_Template
     {
         $currentValue = Mage::app()->getStore()->getConfig($nodePath);
         $request      = clone $this->getRequest();
+
+        /** @var LeMike_DevMode_Helper_Config $helperConfig */
+        $helperConfig = Mage::helper('lemike_devmode/config');
+
         $request->setQuery(
-                Mage::helper('lemike_devmode/config')->nodeToUrl($nodePath),
+                $helperConfig->nodeToUrl($nodePath),
                 !$currentValue
         );
 
@@ -118,20 +126,29 @@ class LeMike_DevMode_Block_Toolbox extends Mage_Core_Block_Template
                 break;
             case self::POSITION_ACTION:
             case self::POSITION_CONTROLLER:
+
                 $classFile = $this->_getControllerClassFile();
 
-                if ($classFile && Mage::helper('lemike_devmode/config')->isIdeRemoteCallEnabled())
+                /** @var LeMike_DevMode_Helper_Config $helperConfig */
+                $helperConfig = Mage::helper('lemike_devmode/config');
+
+                if ($classFile && $helperConfig->isIdeRemoteCallEnabled())
                 {
                     // find the line where the action resides, at least line 1 if not found
-                    $line = max(Mage::helper('lemike_devmode/toolbox')->getLineNumber(
-                        $classFile,
-                        '@n\s' . preg_quote($value) . 'Action@'
-                    ), 1);
 
-                    // ajax for remote call
-                    $url = "#\" onclick=\"jQuery.ajax('" .
-                    $url = Mage::helper('lemike_devmode/toolbox')->getIdeUrl($classFile, $line);
-                    $url .= "');";
+                    /** @var LeMike_DevMode_Helper_Toolbox $helperToolbox */
+                    $helperToolbox = Mage::helper('lemike_devmode/toolbox');
+
+                    $line = max(
+                        $helperToolbox->getLineNumber(
+                            $classFile,
+                            '@n\s' . preg_quote($value) . 'Action@'
+                        ), 1);
+
+                        // ajax for remote call
+                        $url = "#\" onclick=\"jQuery.ajax('" .
+                        $url = $helperToolbox->getIdeUrl($classFile, $line);
+                        $url .= "');";
                 }
                 break;
         }
@@ -184,6 +201,16 @@ class LeMike_DevMode_Block_Toolbox extends Mage_Core_Block_Template
     }
 
 
+    /**
+     * Get the default toolbox helper or some other.
+     *
+     * By default this will return the LeMike_DevMode_Helper_Toolbox.
+     * If any other is wanted then give it's alias.
+     *
+     * @param string $name Alias for the helper.
+     *
+     * @return \Mage_Core_Helper_Abstract
+     */
     public function helper($name = 'lemike_devmode/toolbox')
     {
         return parent::helper($name);

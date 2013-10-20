@@ -31,12 +31,26 @@
  */
 abstract class LeMike_DevMode_Test_AbstractConfig extends EcomDev_PHPUnit_Test_Case_Config
 {
+    /**
+     * Get the alias (with some suffix).
+     *
+     * @param string $node Suffix to add.
+     *
+     * @return string Like company_moduleName.
+     */
     public function getModuleAlias($node = null)
     {
         return LeMike_DevMode_Helper_Data::MODULE_ALIAS . $node;
     }
 
 
+    /**
+     * Get the name (with some suffix).
+     *
+     * @param string $node Suffix to add.
+     *
+     * @return string Like Company_ModuleName.
+     */
     public function getModuleName($node = null)
     {
         return LeMike_DevMode_Helper_Data::MODULE_NAME . $node;

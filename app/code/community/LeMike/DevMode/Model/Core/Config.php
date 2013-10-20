@@ -29,6 +29,18 @@
  */
 class LeMike_DevMode_Model_Core_Config extends Mage_Core_Model_Abstract
 {
+    const SCOPE_GLOBAL = 'global';
+
+    const SCOPE_ADMINHTML = 'adminhtml';
+
+    const SCOPE_FRONTEND = 'frontend';
+
+
+    /**
+     * Get the configuration as XML.
+     *
+     * @return mixed
+     */
     public function getConfigXML()
     {
         /** @var Mage_Core_Model_Config $config */
@@ -82,15 +94,22 @@ class LeMike_DevMode_Model_Core_Config extends Mage_Core_Model_Abstract
     }
 
 
+    /**
+     * Receive a list of all observer.
+     *
+     * @param array $scope For a specific scope (e.g. ['global']).
+     *
+     * @return array [{SCOPE}][{EVENT}][{MODULE_ALIAS}] => [{observer}, ...]
+     */
     public function getObserver($scope = array())
     {
         $nodeSet = (array) $scope;
         if (empty($nodeSet))
         {
             $nodeSet = array(
-                'global',
-                'adminhtml',
-                'frontend',
+                self::SCOPE_GLOBAL,
+                self::SCOPE_ADMINHTML,
+                self::SCOPE_FRONTEND,
             );
         }
 
@@ -168,7 +187,7 @@ class LeMike_DevMode_Model_Core_Config extends Mage_Core_Model_Abstract
 
 
     /**
-     * .
+     * Get the magento configuration object.
      *
      * @return Mage_Core_Model_Config
      */

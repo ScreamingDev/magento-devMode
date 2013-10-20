@@ -29,6 +29,7 @@
  */
 class LeMike_DevMode_Block_Core_Resource extends Mage_Core_Block_Template
 {
+    /** @var string Default template for this block. */
     protected $_template = 'lemike/devmode/core/resource.phtml';
 
 
@@ -39,7 +40,9 @@ class LeMike_DevMode_Block_Core_Resource extends Mage_Core_Block_Template
      */
     public function getModuleSet()
     {
-        /** @var Mage_Core_Model_Resource_Resource $model */
-        return Mage::getModel('lemike_devmode/core_resource')->getModuleSet();
+        /** @var LeMike_DevMode_Model_Core_Resource $coreResource */
+        $coreResource = Mage::getModel('lemike_devmode/core_resource');
+
+        return $coreResource->getModuleSet();
     }
 }

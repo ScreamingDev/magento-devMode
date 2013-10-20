@@ -21,7 +21,7 @@ $helperConfig = Mage::helper('lemike_devmode/config');
 <?php $isHandlingMail = (!$helperConfig->isMailAllowed()
                          || $helperConfig->getCoreEmailRecipient()); ?>
 
-<?php if ($this->isWrongCoreModelEmail() && $isHandlingMail): ?>
+<?php if ($isHandlingMail && !$this->isCorrectCoreModelEmail()): ?>
     <div class="notification-global">
         <?php echo $helper->__('LeMike_DevMode') ?>:
         <?php echo $helper->__('Mage_Core_Model_Email has been rewritten.') ?>
@@ -31,7 +31,7 @@ $helperConfig = Mage::helper('lemike_devmode/config');
     </div>
 <?php endif; ?>
 
-<?php if ($this->isWrongCoreModelEmailTemplate() && $isHandlingMail): ?>
+<?php if ($isHandlingMail && !$this->isCorrectCoreModelEmailTemplate()): ?>
     <div class="notification-global">
         <?php echo $helper->__('LeMike_DevMode') ?>:
         <?php echo $helper->__('Mage_Core_Model_Email_Template has been rewritten.') ?>

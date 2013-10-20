@@ -29,11 +29,12 @@
  */
 class LeMike_DevMode_Block_Core_Config extends Mage_Core_Block_Template
 {
+    /** @var string Default template for this block. */
     protected $_template = 'lemike/devmode/core/config.phtml';
 
 
     /**
-     * .
+     * Get the configuration model from this module.
      *
      * @return LeMike_DevMode_Model_Core_Config
      */

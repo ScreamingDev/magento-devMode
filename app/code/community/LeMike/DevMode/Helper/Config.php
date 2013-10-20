@@ -32,12 +32,30 @@ class LeMike_DevMode_Helper_Config extends LeMike_DevMode_Helper_Abstract
     const URL_DIVIDER = '__';
 
 
+    /**
+     * Transform an url to a node.
+     *
+     * This will turn '__dev__foo__bar' into 'dev/foo/bar'.
+     *
+     * @param $queryKey
+     *
+     * @return mixed
+     */
     public function urlToNode($queryKey)
     {
         return str_replace(static::URL_DIVIDER, '/', ltrim($queryKey, '_'));
     }
 
 
+    /**
+     * Transform node into url query key.
+     *
+     * This will turn 'dev/foo/bar' into '__dev__foo__bar'.
+     *
+     * @param $node
+     *
+     * @return string
+     */
     public function nodeToUrl($node)
     {
         return static::URL_DIVIDER . str_replace('/', static::URL_DIVIDER, $node);

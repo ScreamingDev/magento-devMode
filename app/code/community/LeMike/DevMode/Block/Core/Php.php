@@ -29,6 +29,7 @@
  */
 class LeMike_DevMode_Block_Core_Php extends Mage_Core_Block_Template
 {
+    /** @var string Default template file for this block. */
     protected $_template = 'lemike/devmode/core/php.phtml';
 
 
