@@ -43,7 +43,9 @@ class LeMike_DevMode_Shell_DeleteCategories extends Mage_Shell_Abstract
             return;
         }
 
+        /** @var LeMike_DevMode_Helper_Data $helper */
         $helper = Mage::helper('lemike_devmode');
+        /** @var LeMike_DevMode_Helper_Cli $cli */
         $cli    = Mage::helper('lemike_devmode/cli');
         $answer = $cli->ask($cli->__("Delete %s? [y/n] ", implode(' & ', array_keys($this->_args))));
 

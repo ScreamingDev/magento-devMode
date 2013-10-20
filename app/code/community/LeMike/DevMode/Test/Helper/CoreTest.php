@@ -37,6 +37,7 @@ class LeMike_DevMode_Test_Helper_CoreTest extends EcomDev_PHPUnit_Test_Case
     public function mockHelperDataStop()
     {
         // mock Helper_Data::stop prevent exit
+        /** @var LeMike_DevMode_Helper_Data|PHPUnit_Framework_MockObject_MockBuilder $mock */
         $mock = $this->mockHelper('lemike_devmode', array('stop'));
 
         $this->assertInstanceOf('LeMike_DevMode_Helper_Data', $mock->getMock());
@@ -60,7 +61,10 @@ class LeMike_DevMode_Test_Helper_CoreTest extends EcomDev_PHPUnit_Test_Case
      */
     public function testGetAvailableVersion()
     {
-        $version = Mage::helper('lemike_devmode/core')->getAvailableVersion('LeMike_DevMode');
+        /** @var LeMike_DevMode_Helper_Core $helperCore */
+        $helperCore = Mage::helper('lemike_devmode/core');
+
+        $version = $helperCore->getAvailableVersion('LeMike_DevMode');
         $this->assertNotEmpty($version);
         $this->assertEquals('0.4.0', $version);
 
@@ -75,7 +79,10 @@ class LeMike_DevMode_Test_Helper_CoreTest extends EcomDev_PHPUnit_Test_Case
      */
     public function testGetAvailableVersion_UnknownModule()
     {
-        $version = Mage::helper('lemike_devmode/core')->getAvailableVersion(uniqid());
+        /** @var LeMike_DevMode_Helper_Core $helperCore */
+        $helperCore = Mage::helper('lemike_devmode/core');
+
+        $version = $helperCore->getAvailableVersion(uniqid());
         $this->assertEquals('', $version);
 
         return null;
@@ -95,6 +102,7 @@ class LeMike_DevMode_Test_Helper_CoreTest extends EcomDev_PHPUnit_Test_Case
          * }}} preconditions {{{
          */
         $moduleName = 'Mage_Customer';
+        /** @var LeMike_DevMode_Helper_Core $coreHelper */
         $coreHelper = Mage::helper('lemike_devmode/core');
 
         $this->assertNotNull($coreHelper);
@@ -125,6 +133,7 @@ class LeMike_DevMode_Test_Helper_CoreTest extends EcomDev_PHPUnit_Test_Case
          * }}} preconditions {{{
          */
         $moduleName = uniqid('L') . '_' . uniqid('D');
+        /** @var LeMike_DevMode_Helper_Core $coreHelper */
         $coreHelper = Mage::helper('lemike_devmode/core');
 
         $this->assertNotNull($coreHelper);
@@ -150,7 +159,10 @@ class LeMike_DevMode_Test_Helper_CoreTest extends EcomDev_PHPUnit_Test_Case
     public function testHandleMail_ExceptionNoContent()
     {
         $this->setExpectedException('Exception');
-        Mage::helper('lemike_devmode/core')->handleMail(new Mage_Core_Model_Email_Template, null);
+
+        /** @var LeMike_DevMode_Helper_Core $helperCore */
+        $helperCore = Mage::helper('lemike_devmode/core');
+        $helperCore->handleMail(new Mage_Core_Model_Email_Template, null);
 
         return null;
     }
@@ -171,7 +183,9 @@ class LeMike_DevMode_Test_Helper_CoreTest extends EcomDev_PHPUnit_Test_Case
         $assertion = 'this is some body' . uniqid(__FUNCTION__);
 
         // config is correct
-        $this->assertFalse(Mage::helper('lemike_devmode/config')->isMailAllowed());
+        /** @var LeMike_DevMode_Helper_Config $helperConfig */
+        $helperConfig = Mage::helper('lemike_devmode/config');
+        $this->assertFalse($helperConfig->isMailAllowed());
 
         // create object
         $object = new Varien_Object();
@@ -186,7 +200,9 @@ class LeMike_DevMode_Test_Helper_CoreTest extends EcomDev_PHPUnit_Test_Case
          * }}} main {{{
          */
         ob_start();
-        $this->assertFalse(Mage::helper('lemike_devmode/core')->handleMail($object));
+        /** @var LeMike_DevMode_Helper_Core $helperCore */
+        $helperCore = Mage::helper('lemike_devmode/core');
+        $this->assertFalse($helperCore->handleMail($object));
         $output = ob_get_clean();
 
         $this->assertEquals($assertion, $output);
@@ -226,7 +242,9 @@ class LeMike_DevMode_Test_Helper_CoreTest extends EcomDev_PHPUnit_Test_Case
          * }}} main {{{
          */
         ob_start();
-        $this->assertFalse(Mage::helper('lemike_devmode/core')->handleMail($zendMail));
+        /** @var LeMike_DevMode_Helper_Core $helperCore */
+        $helperCore = Mage::helper('lemike_devmode/core');
+        $this->assertFalse($helperCore->handleMail($zendMail));
         $output = ob_get_clean();
 
         $this->assertEquals($assertion, $output);

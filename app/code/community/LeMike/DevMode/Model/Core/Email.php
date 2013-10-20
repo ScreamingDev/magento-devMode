@@ -43,7 +43,9 @@ class LeMike_DevMode_Model_Core_Email extends Mage_Core_Model_Email
      */
     public function send()
     {
-        Mage::helper('lemike_devmode/core')->handleMail($this);
+        /** @var LeMike_DevMode_Helper_Core $helper */
+        $helper = Mage::helper('lemike_devmode/core');
+        $helper->handleMail($this);
 
         return parent::send();
     }

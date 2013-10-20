@@ -40,7 +40,10 @@ class LeMike_DevMode_Shell_ListRewrites extends Mage_Shell_Abstract
 
         Mage::app();
 
-        $pathToClassName = Mage::getModel('lemike_devmode/core_config')->getRewritePathToClassName();
+        /** @var LeMike_DevMode_Model_Core_Config $coreConfig */
+        $coreConfig      = Mage::getModel('lemike_devmode/core_config');
+
+        $pathToClassName = $coreConfig->getRewritePathToClassName();
 
         $longestPath  = 0;
         $longestValue = 0;

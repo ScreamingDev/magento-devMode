@@ -42,7 +42,10 @@ class LeMike_DevMode_Shell_CoreConfigObserver extends Mage_Shell_Abstract
 
         echo "\r" . str_repeat(' ', strlen(self::LOADING_MAGENTO)) . "\r";
 
-        $data = Mage::getModel('lemike_devmode/core_config')->getObserver();
+        /** @var LeMike_DevMode_Model_Core_Config $modelCoreConfig */
+        $modelCoreConfig = Mage::getModel('lemike_devmode/core_config');
+
+        $data = $modelCoreConfig->getObserver();
 
         $table = new LeMike_DevMode_Block_Shell_Table(
             array(

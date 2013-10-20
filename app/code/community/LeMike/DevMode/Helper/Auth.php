@@ -41,7 +41,10 @@ class LeMike_DevMode_Helper_Auth extends LeMike_DevMode_Helper_Abstract
     {
         $params[Mage_Adminhtml_Model_Url::SECRET_KEY_PARAM_NAME] = "lemike_devmode";
 
-        return (string) Mage::getModel('adminhtml/url')->getUrl($route, $params);
+        /** @var Mage_Adminhtml_Model_Url $adminhtmlUrl */
+        $adminhtmlUrl = Mage::getModel('adminhtml/url');
+
+        return (string) $adminhtmlUrl->getUrl($route, $params);
     }
 
 
@@ -55,7 +58,10 @@ class LeMike_DevMode_Helper_Auth extends LeMike_DevMode_Helper_Abstract
      */
     public function getSecretKey($controller = null, $action = null)
     {
-        $salt    = Mage::getSingleton('core/session')->getFormKey();
+        /** @var Mage_Core_Model_Session $coreSession */
+        $coreSession = Mage::getSingleton('core/session');
+
+        $salt    = $coreSession->getFormKey();
         $request = Mage::app()->getRequest();
 
         $p = explode('/', trim($request->getOriginalPathInfo(), '/'));
@@ -70,7 +76,10 @@ class LeMike_DevMode_Helper_Auth extends LeMike_DevMode_Helper_Abstract
 
         $secret = $controller . $action . $salt;
 
-        return Mage::helper('core')->getHash($secret);
+        /** @var Mage_Core_Helper_Data $helper */
+        $helper = Mage::helper('core');
+
+        return $helper->getHash($secret);
     }
 
 
@@ -81,13 +90,19 @@ class LeMike_DevMode_Helper_Auth extends LeMike_DevMode_Helper_Abstract
      */
     public function isDevAllowed()
     {
-        if (!Mage::helper('lemike_devmode/config')->generalSecurityAllowRestrictedIpOnly()
+        /** @var LeMike_DevMode_Helper_Config $helperConfig */
+        $helperConfig = Mage::helper('lemike_devmode/config');
+
+        if (!$helperConfig->generalSecurityAllowRestrictedIpOnly()
             || Mage::getIsDeveloperMode()
         )
         { // no restrictions or is dev mode: allow all
             return true;
         }
 
-        return (bool) Mage::helper('core')->isDevAllowed();
+        /** @var Mage_Core_Helper_Data $helperCore */
+        $helperCore = Mage::helper('core');
+
+        return (bool) $helperCore->isDevAllowed();
     }
 }
