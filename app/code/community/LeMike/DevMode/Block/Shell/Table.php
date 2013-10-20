@@ -42,7 +42,7 @@ class LeMike_DevMode_Block_Shell_Table
     public $legend = array();
 
 
-    public function __construct($captions = array(), $data = array())
+    public function __construct($captions = array(), $data = array(), $legend = array())
     {
         $this->captionSet = $captions;
 
@@ -50,6 +50,8 @@ class LeMike_DevMode_Block_Shell_Table
         {
             $this->tableRowAdd($row);
         }
+
+        $this->legend = $legend;
     }
 
 

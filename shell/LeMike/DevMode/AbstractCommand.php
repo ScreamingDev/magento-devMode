@@ -517,9 +517,31 @@ abstract class AbstractCommand
 
 abstract class DelegateCommand extends AbstractCommand
 {
+    public static $_mageLoaded = false;
+
+
     public function __invoke()
     {
         $this->delegate();
+    }
+
+
+    public function _filterMatch($string, $filter = '.*')
+    {
+        $filter = str_replace('@', '\@', $filter);
+
+        return preg_match('@' . $filter . '@is', $string);
+    }
+
+
+    public function _loadMagento()
+    {
+        if (!self::$_mageLoaded)
+        {
+            $load = new DevMode_Load_Magento();
+            $load->run();
+            self::$_mageLoaded = true;
+        }
     }
 
 
@@ -574,6 +596,8 @@ abstract class DelegateCommand extends AbstractCommand
 
     public function execute()
     {
+        echo  PHP_EOL;
+
         $current = current($this->getParameter()->getArguments());
         if (!$current)
         {
@@ -616,6 +640,11 @@ abstract class DelegateCommand extends AbstractCommand
 
     public function getMethodHelp($actionName)
     {
+        if (false !== ($colon = strpos($actionName, '::')))
+        { // it's class::method: split
+            $actionName = substr($actionName, $colon+2);
+        }
+
         $reflectObject = new ReflectionObject($this);
 
         $method = $reflectObject->getMethod($actionName);
