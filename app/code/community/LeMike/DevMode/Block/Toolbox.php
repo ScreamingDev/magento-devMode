@@ -95,8 +95,8 @@ class LeMike_DevMode_Block_Toolbox extends LeMike_DevMode_Block_Template
         $helperConfig = Mage::helper('lemike_devmode/config');
 
         $request->setQuery(
-                $helperConfig->nodeToUrl($nodePath),
-                !$currentValue
+            $helperConfig->nodeToUrl($nodePath),
+            !$currentValue
         );
 
         return http_build_query($request->getQuery());
@@ -143,12 +143,14 @@ class LeMike_DevMode_Block_Toolbox extends LeMike_DevMode_Block_Template
                         $helperToolbox->getLineNumber(
                             $classFile,
                             '@n\s' . preg_quote($value) . 'Action@'
-                        ), 1);
+                        ),
+                        1
+                    );
 
-                        // ajax for remote call
-                        $url = "#\" onclick=\"jQuery.ajax('" .
-                        $url = $helperToolbox->getIdeUrl($classFile, $line);
-                        $url .= "');";
+                    // ajax for remote call
+                    $url = "#\" onclick=\"jQuery.ajax('" .
+                    $url = $helperToolbox->getIdeUrl($classFile, $line);
+                    $url .= "');";
                 }
                 break;
         }

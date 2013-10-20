@@ -232,7 +232,7 @@ class Shell_MakeReveal
 
 
     // removes files and non-empty directories
-    function removeDir($dir)
+    public function removeDir($dir)
     {
         if (is_dir($dir))
         {

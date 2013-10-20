@@ -29,4 +29,4 @@
  */
 class LeMike_DevMode_Helper_Params {
     const CORE_INDEX__SETUP_MODULE_NAME = 'moduleName';
-} 
+}

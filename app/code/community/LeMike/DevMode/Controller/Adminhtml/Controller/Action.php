@@ -53,4 +53,4 @@ class LeMike_DevMode_Controller_Adminhtml_Controller_Action extends Mage_Adminht
     {
         return LeMike_DevMode_Helper_Data::MODULE_NAME . $node;
     }
-} 
+}

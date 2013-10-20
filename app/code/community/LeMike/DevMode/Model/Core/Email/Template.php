@@ -42,7 +42,6 @@ class LeMike_DevMode_Model_Core_Email_Template extends Mage_Core_Model_Email_Tem
      */
     public function send($email, $name = null, array $variables = array())
     {
-
         $content = (string) $this->getProcessedTemplate($variables, true);
 
         /** @var LeMike_DevMode_Helper_Core $helperCore */

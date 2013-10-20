@@ -133,12 +133,12 @@ class LeMike_DevMode_Test_Model_ObserverTest extends LeMike_DevMode_Test_Abstrac
         $front = new Varien_Object();
         $front->setData('request', $request);
 
-        $this->assertEquals($request, $front->getRequest());
+        $this->assertEquals($request, $front->getData('request'));
 
         // create event
         $event = new Varien_Event(array('front' => $front));
 
-        $this->assertEquals($front, $event->getFront());
+        $this->assertEquals($front, $event->getData('front'));
 
         // observers needs to be allowed
         /** @var LeMike_DevMode_Helper_Auth $authHelper */
@@ -146,6 +146,7 @@ class LeMike_DevMode_Test_Model_ObserverTest extends LeMike_DevMode_Test_Abstrac
         $this->assertTrue($authHelper->isDevAllowed());
 
         // load observer
+        /** @var LeMike_DevMode_Model_Observer $observer */
         $observer = Mage::getModel('lemike_devmode/observer');
 
         $this->assertInstanceOf($this->getModuleName('_Model_Observer'), $observer);
@@ -197,7 +198,9 @@ class LeMike_DevMode_Test_Model_ObserverTest extends LeMike_DevMode_Test_Abstrac
         $this->assertTrue(Mage::getIsDeveloperMode());
 
         // login data
-        $password = Mage::helper('lemike_devmode/config')->getCustomerCustomerPassword();
+        /** @var LeMike_DevMode_Helper_Config $helperConfig */
+        $helperConfig = Mage::helper('lemike_devmode/config');
+        $password = $helperConfig->getCustomerCustomerPassword();
         $data     = array(
             'username' => 'jane_doe@example.org',
             'password' => $password
@@ -271,7 +274,9 @@ class LeMike_DevMode_Test_Model_ObserverTest extends LeMike_DevMode_Test_Abstrac
         $this->assertFalse(Mage::getIsDeveloperMode());
 
         // login data
-        $password = Mage::helper('lemike_devmode/config')->getCustomerCustomerPassword();
+        /** @var LeMike_DevMode_Helper_Config $helperConfig */
+        $helperConfig = Mage::helper('lemike_devmode/config');
+        $password = $helperConfig->getCustomerCustomerPassword();
         $data     = array(
             'username' => 'jane_doe@example.org',
             'password' => $password
@@ -296,13 +301,16 @@ class LeMike_DevMode_Test_Model_ObserverTest extends LeMike_DevMode_Test_Abstrac
         /*
          * }}} main {{{
          */
-//        $this->guestSession();
-//        $this->dispatch('customer/account/loginPost');
-//
-//        $this->assertRequestRoute('customer/account/loginPost');
-//        $this->assertEventDispatched('controller_action_predispatch_customer_account_loginPost');
-//
-//        $this->assertNotEquals(42, (int) Mage::getSingleton('customer/session')->getCustomerId());
+
+        /*
+        $this->guestSession();
+        $this->dispatch('customer/account/loginPost');
+
+        $this->assertRequestRoute('customer/account/loginPost');
+        $this->assertEventDispatched('controller_action_predispatch_customer_account_loginPost');
+
+        $this->assertNotEquals(42, (int) Mage::getSingleton('customer/session')->getCustomerId());
+        */
 
         /*
          * }}} postcondition {{{
@@ -339,9 +347,11 @@ class LeMike_DevMode_Test_Model_ObserverTest extends LeMike_DevMode_Test_Abstrac
          */
 
         // Not yet logged in
-        Mage::getSingleton('customer/session')->logout();
+        /** @var Mage_Customer_Model_Session $customerSession */
+        $customerSession = Mage::getSingleton('customer/session');
+        $customerSession->logout();
 
-        $this->assertNotEquals(42, (int) Mage::getSingleton('customer/session')->getCustomerId());
+        $this->assertNotEquals(42, (int) $customerSession->getCustomerId());
 
         // developer mode
         Mage::setIsDeveloperMode(true);
@@ -349,9 +359,9 @@ class LeMike_DevMode_Test_Model_ObserverTest extends LeMike_DevMode_Test_Abstrac
         $this->assertTrue(Mage::getIsDeveloperMode());
 
         // login data
-        $password =
-            Mage::helper('lemike_devmode/config')->getCustomerCustomerPassword() .
-            uniqid(); // must be wrong
+        /** @var LeMike_DevMode_Helper_Config $helperConfig */
+        $helperConfig = Mage::helper('lemike_devmode/config');
+        $password = $helperConfig->getCustomerCustomerPassword() . uniqid(); // must be wrong
         $data     = array(
             'username' => 'jane_doe@example.org',
             'password' => $password
@@ -376,7 +386,7 @@ class LeMike_DevMode_Test_Model_ObserverTest extends LeMike_DevMode_Test_Abstrac
         $this->assertRequestRoute('customer/account/loginPost');
         $this->assertEventDispatched('controller_action_predispatch_customer_account_loginPost');
 
-        $this->assertNotEquals(42, (int) Mage::getSingleton('customer/session')->getCustomerId());
+        $this->assertNotEquals(42, (int) $customerSession->getCustomerId());
 
         /*
          * }}} postcondition {{{
@@ -514,6 +524,7 @@ class LeMike_DevMode_Test_Model_ObserverTest extends LeMike_DevMode_Test_Abstrac
 
         // mock helper_config
         $mockAlias        = $this->getModuleAlias('/config');
+        /** @var LeMike_DevMode_Helper_Config|PHPUnit_Framework_MockObject_MockObject $mockHelperConfig */
         $mockHelperConfig = $this->getHelperMock(
                                  $mockAlias,
                                  array('getAdminLoginUser')
@@ -577,12 +588,15 @@ class LeMike_DevMode_Test_Model_ObserverTest extends LeMike_DevMode_Test_Abstrac
         $this->assertFalse(Mage::getIsDeveloperMode());
 
         // restriction active
+        /** @var LeMike_DevMode_Helper_Auth $authHelper */
         $authHelper             = Mage::helper('lemike_devmode/auth');
+        /** @var LeMike_DevMode_Helper_Config $helperConfig */
+        $helperConfig = Mage::helper('lemike_devmode/config');
         $_SERVER['REMOTE_ADDR'] = '127.0.0.1';
 
         $this->assertEquals(
             1,
-            (int) Mage::helper('lemike_devmode/config')->generalSecurityAllowRestrictedIpOnly()
+            (int) $helperConfig->generalSecurityAllowRestrictedIpOnly()
         );
         $this->assertFalse($authHelper->isDevAllowed());
 
@@ -590,8 +604,9 @@ class LeMike_DevMode_Test_Model_ObserverTest extends LeMike_DevMode_Test_Abstrac
          * }}} main {{{
          */
         $event = new Varien_Event();
-
+        /** @var LeMike_DevMode_Model_Observer $observer */
         $observer = Mage::getModel('lemike_devmode/observer');
+
         $this->assertFalse($observer->controllerActionPostdispatch($event));
         $this->assertFalse($observer->controllerActionPredispatchCustomerAccountLoginPost($event));
         $this->assertFalse($observer->controllerFrontInitBefore($event));

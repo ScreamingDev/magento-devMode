@@ -574,7 +574,7 @@ abstract class DelegateCommand extends AbstractCommand
         }
         else
         {
-            require_once $fileName;
+            include_once $fileName;
 
             $className = get_class($this)
                          . '_' . $classSegment;
@@ -612,9 +612,6 @@ abstract class DelegateCommand extends AbstractCommand
 
         if (method_exists($this, $action))
         {
-//            $loader = new DevMode_Load_Magento();
-//            $loader->run();
-
             $this->getParameter()->unsetArgument($current);
             $this->getParameter()->unsetCommand($current);
 
@@ -662,7 +659,6 @@ abstract class DelegateCommand extends AbstractCommand
         $docComment = preg_replace('/\n[\s]*\*\s(\w)(.*)/s', "\n\n\$1\$2", $docComment, 1);
         $docComment = trim($docComment);
 
-
         if (substr($docComment, 0, 1) == '@')
         { // doc tag at beginning: this has no detailed help
             return "Sorry! No help available.";
@@ -694,7 +690,7 @@ abstract class DelegateCommand extends AbstractCommand
             $subModuleName      = basename($classFile, '.php');
             $subModuleClassName = $thisClassName . '_' . $subModuleName;
 
-            require_once $classFile;
+            include_once $classFile;
             $reflectClass            = new ReflectionClass($subModuleClassName);
             $docComment              =
                 $this->_filterDocCommentHeader($reflectClass->getDocComment());
@@ -716,8 +712,11 @@ abstract class DelegateCommand extends AbstractCommand
         $className = get_class($this);
         $methodSet = get_class_methods($className);
         echo
-            str_replace('devmode ', 'php devmode.php ', strtolower(str_replace('_', ' ', $className))) . " {module|action}" .
-            PHP_EOL;
+            str_replace(
+                'devmode ',
+                'php devmode.php ',
+                strtolower(str_replace('_', ' ', $className))
+            ) . " {module|action}" . PHP_EOL;
         echo PHP_EOL;
 
         $moduleSet = $this->getSubModules();
