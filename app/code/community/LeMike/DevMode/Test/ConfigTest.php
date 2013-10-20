@@ -68,9 +68,11 @@ class LeMike_DevMode_Test_ConfigTest extends LeMike_DevMode_Test_AbstractConfig
 
 
     /**
-     * .
+     * Check every adminhtml menu.
      *
-     * @param $node
+     * @param string $node
+     *
+     * @param string $action
      *
      * @dataProvider getAdminhtmlMenus
      *
@@ -126,7 +128,7 @@ class LeMike_DevMode_Test_ConfigTest extends LeMike_DevMode_Test_AbstractConfig
 
         $method = 'controllerFrontSendResponseBefore';
         $this->assertEventObserverDefined(
-             'frontend',
+             'global',
              'controller_front_send_response_before',
              $observerAlias,
              $method
