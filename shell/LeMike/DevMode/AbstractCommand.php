@@ -480,6 +480,15 @@ abstract class AbstractCommand
     }
 
 
+    /**
+     * Parse how to use a method.
+     *
+     * Will take the doc-comments and turn them into raw text without stars etc.
+     *
+     * @param $method Method name within the current object.
+     *
+     * @return string The documentation.
+     */
     public function getUsage($method)
     {
         $method = ltrim(substr($method, strpos($method, '::')), ':');
@@ -500,7 +509,7 @@ abstract class AbstractCommand
 
 
     /**
-     * .
+     * Get doc-comment in the current object for a method.
      *
      * @param $method
      *
@@ -515,17 +524,42 @@ abstract class AbstractCommand
     }
 }
 
+/**
+ * Class DelegateCommand.
+ *
+ * @category  LeMike_Devmode
+ * @package   LeMike_Devmode\Shell
+ * @author    Mike Pretzlaw <pretzlaw@gmail.com>
+ * @copyright 2013 Mike Pretzlaw
+ * @license   http://github.com/sourcerer-mike/${PROJECT_NAME}/blob/master/License.md BSD 3-Clause ("BSD New")
+ * @link      http://github.com/sourcerer-mike/${PROJECT_NAME}
+ * @since     0.4.0
+ */
 abstract class DelegateCommand extends AbstractCommand
 {
+    /** @var bool Whether mage is loaded (true) or not (default: false). */
     public static $_mageLoaded = false;
 
 
+    /**
+     * Delegate this command.
+     *
+     * @return void
+     */
     public function __invoke()
     {
         $this->delegate();
     }
 
 
+    /**
+     * Match a string against a filter.
+     *
+     * @param        $string
+     * @param string $filter
+     *
+     * @return int
+     */
     public function _filterMatch($string, $filter = '.*')
     {
         $filter = str_replace('@', '\@', $filter);
@@ -534,6 +568,11 @@ abstract class DelegateCommand extends AbstractCommand
     }
 
 
+    /**
+     * Load Magento.
+     *
+     * @return void
+     */
     public function _loadMagento()
     {
         if (!self::$_mageLoaded)
@@ -594,6 +633,13 @@ abstract class DelegateCommand extends AbstractCommand
     }
 
 
+    /**
+     * Run this command.
+     *
+     * Searches the action and calls it.
+     *
+     * @return mixed|void
+     */
     public function execute()
     {
         echo  PHP_EOL;
@@ -635,6 +681,13 @@ abstract class DelegateCommand extends AbstractCommand
     }
 
 
+    /**
+     * Show help for a method.
+     *
+     * @param $actionName
+     *
+     * @return string
+     */
     public function getMethodHelp($actionName)
     {
         if (false !== ($colon = strpos($actionName, '::')))
@@ -669,9 +722,11 @@ abstract class DelegateCommand extends AbstractCommand
 
 
     /**
-     * .
+     * Get all sub-commands.
      *
-     * @return array
+     * Parses the directory for other classes and returns them.
+     *
+     * @return array [MODULE_NAME => SHORT_DOCUMENTATION]
      */
     public function getSubModules()
     {
@@ -754,6 +809,13 @@ abstract class DelegateCommand extends AbstractCommand
     }
 
 
+    /**
+     * Get the short header of a doc-comment.
+     *
+     * @param string $docComment Complete doc-comment of a class.
+     *
+     * @return string Only the header / first sentence.
+     */
     protected function _filterDocCommentHeader($docComment)
     {
         $_header = ltrim($docComment, "/*\n\r ");

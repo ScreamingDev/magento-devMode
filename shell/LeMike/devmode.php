@@ -33,12 +33,19 @@ require_once 'abstract.php';
  */
 class DevMode extends DelegateCommand
 {
-    public function execute()
-    {
-        parent::execute();
-    }
 }
 
+/**
+ * Load Magento.
+ *
+ * @category  LeMike_DevMode
+ * @package   LeMike\DevMode\Shell
+ * @author    Mike Pretzlaw <pretzlaw@gmail.com>
+ * @copyright 2013 Mike Pretzlaw
+ * @license   http://github.com/sourcerer-mike/${PROJECT_NAME}/blob/master/License.md BSD 3-Clause ("BSD New")
+ * @link      http://github.com/sourcerer-mike/${PROJECT_NAME}
+ * @since     0.4.0
+ */
 class DevMode_Load_Magento extends Mage_Shell_Abstract
 {
     const LOADING_MAGENTO = 'Loading Magento ...';

@@ -66,6 +66,11 @@ class LeMike_DevMode_Test_Controller_Adminhtml_LeMike_DevMode_CoreControllerTest
     }
 
 
+    /**
+     * Data provider for asserted blocks and their HTML.
+     *
+     * @return array [alias => [html, ...]]
+     */
     public function getBlockToHtmlData()
     {
         return array(

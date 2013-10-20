@@ -32,9 +32,18 @@ abstract class LeMike_DevMode_Test_AbstractController extends EcomDev_PHPUnit_Te
 {
     const FRONTEND_CLASS = '';
 
-    protected $_moduleName = 'lemike_devmode';
 
-
+    /**
+     * Invoke a method with the given args.
+     *
+     * Can call even protected or private methods.
+     *
+     * @param       $object
+     * @param       $method
+     * @param array $args
+     *
+     * @return mixed
+     */
     public function reflectMethod($object, $method, $args = array())
     {
         $reflect = new ReflectionObject($object);
@@ -45,18 +54,41 @@ abstract class LeMike_DevMode_Test_AbstractController extends EcomDev_PHPUnit_Te
         return $reflectMethod->invokeArgs($object, $args);
     }
 
+    /**
+     * Get the alias (with some suffix).
+     *
+     * @param null $node Suffix to add.
+     *
+     * @return string Like company_moduleName.
+     */
     public function getModuleAlias($node = null)
     {
         return LeMike_DevMode_Helper_Data::MODULE_ALIAS . $node;
     }
 
 
+    /**
+     * Get the name (with some suffix).
+     *
+     * @param string $node Suffix to add.
+     *
+     * @return string Like Company_ModuleName.
+     */
     public function getModuleName($node = null)
     {
         return LeMike_DevMode_Helper_Data::MODULE_NAME . $node;
     }
 
 
+    /**
+     * Transform a route into a layout handle.
+     *
+     * Turns "some/route" into "some_route".
+     *
+     * @param string $route The route (e.g. "cms/index/index").
+     *
+     * @return string A layout handle (e.g. "cms_index_index").
+     */
     public function routeToLayoutHandle($route)
     {
         return strtolower(str_replace('/', '_', $route));
