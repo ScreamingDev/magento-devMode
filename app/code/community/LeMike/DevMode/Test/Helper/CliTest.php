@@ -37,8 +37,13 @@ class LeMike_DevMode_Test_Helper_CliTest extends LeMike_DevMode_Test_AbstractCas
         }
         else
         {
+            /** @noinspection PhpUndefinedFunctionInspection */
             $this->assertTrue(override_function('fgets', '$handle,$length', 'return y'));
-            $a = Mage::helper('lemike_devmode/cli')->ask('who?');
+
+            /** @var LeMike_DevMode_Helper_Cli $helperCli */
+            $helperCli = Mage::helper('lemike_devmode/cli');
+
+            $a = $helperCli->ask('who?');
             $this->assertEquals('y', $a);
         }
     }

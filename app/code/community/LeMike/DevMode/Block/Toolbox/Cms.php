@@ -29,9 +29,15 @@
  */
 class LeMike_DevMode_Block_Toolbox_Cms extends LeMike_DevMode_Block_Toolbox
 {
+    /** @var string Default template file for this block. */
     protected $_template = 'lemike/devmode/toolbox/cms.phtml';
 
 
+    /**
+     * Retrieve the ID of the current viewing page.
+     *
+     * @return mixed
+     */
     public function getCurrentCmsPageId()
     {
         $pageId = Mage::getBlockSingleton('cms/page')->getPage()->getId();
@@ -40,6 +46,11 @@ class LeMike_DevMode_Block_Toolbox_Cms extends LeMike_DevMode_Block_Toolbox
     }
 
 
+    /**
+     * Generate backend URI to edit the current cms-page.
+     *
+     * @return string
+     */
     public function getEditUrl()
     {
         return $this->getBackendUrl(

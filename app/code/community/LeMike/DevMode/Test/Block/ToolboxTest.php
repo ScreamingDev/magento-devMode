@@ -45,6 +45,7 @@ class LeMike_DevMode_Test_Block_ToolboxTest extends
          */
 
         // config
+        /** @var LeMike_DevMode_Helper_Config $configHelper */
         $configHelper = Mage::helper('lemike_devmode/config');
         $this->assertTrue($configHelper->isIdeRemoteCallEnabled());
         $this->assertNotEmpty($configHelper->getRemoteCallUrlTemplate());

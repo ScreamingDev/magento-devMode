@@ -41,6 +41,7 @@ class LeMike_DevMode_Shell_CoreModules extends Mage_Shell_Abstract
 
         echo "\r" . str_repeat(' ', strlen(LOADING_MAGENTO)) . "\r";
 
+        /** @var LeMike_DevMode_Model_Core_Resource $model */
         $model     = Mage::getSingleton('lemike_devmode/core_resource');
         $moduleSet = $model->getModuleSet();
         $moduleSet = $this->_filterCodePool($moduleSet);

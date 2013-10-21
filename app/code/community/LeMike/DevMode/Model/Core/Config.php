@@ -29,6 +29,18 @@
  */
 class LeMike_DevMode_Model_Core_Config extends Mage_Core_Model_Abstract
 {
+    const SCOPE_GLOBAL = 'global';
+
+    const SCOPE_ADMINHTML = 'adminhtml';
+
+    const SCOPE_FRONTEND = 'frontend';
+
+
+    /**
+     * Get the configuration as XML.
+     *
+     * @return mixed
+     */
     public function getConfigXML()
     {
         /** @var Mage_Core_Model_Config $config */
@@ -44,6 +56,8 @@ class LeMike_DevMode_Model_Core_Config extends Mage_Core_Model_Abstract
 
     /**
      * All cron jobs as configured in magento.
+     *
+     * @param null|string $alias Get only for a specific alias /
      *
      * @return Varien_Object [alias => [cron_expr, run, class, method]
      */
@@ -80,23 +94,30 @@ class LeMike_DevMode_Model_Core_Config extends Mage_Core_Model_Abstract
     }
 
 
+    /**
+     * Receive a list of all observer.
+     *
+     * @param array $scope For a specific scope (e.g. ['global']).
+     *
+     * @return array [{SCOPE}][{EVENT}][{MODULE_ALIAS}] => [{observer}, ...]
+     */
     public function getObserver($scope = array())
     {
         $nodeSet = (array) $scope;
         if (empty($nodeSet))
         {
             $nodeSet = array(
-                'global',
-                'adminhtml',
-                'frontend',
+                self::SCOPE_GLOBAL,
+                self::SCOPE_ADMINHTML,
+                self::SCOPE_FRONTEND,
             );
         }
 
+        $data = array();
         foreach ($nodeSet as $node)
         {
             $globalEvents = (array) Mage::getConfig()->getNode($node . '/events');
 
-            $data = array();
             foreach ($globalEvents as $event => $singleEvent)
             {
                 /** @var Mage_Core_Model_Config_Element $singleEvent */
@@ -166,7 +187,7 @@ class LeMike_DevMode_Model_Core_Config extends Mage_Core_Model_Abstract
 
 
     /**
-     * .
+     * Get the magento configuration object.
      *
      * @return Mage_Core_Model_Config
      */

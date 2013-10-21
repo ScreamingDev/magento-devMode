@@ -35,7 +35,7 @@
     <!-- Lines can be 85 chars long, but not more than 120 -->
     <rule ref="Generic.Files.LineLength">
         <properties>
-            <property name="lineLimit" value="85"/>
+            <property name="lineLimit" value="120"/>
             <property name="absoluteLineLimit" value="120"/>
         </properties>
     </rule>
@@ -91,6 +91,9 @@
  Argument lists MAY be split across multiple lines, where each subsequent line is indented once. When doing so, the first item in the list MUST be on the next line, and there MUST be only one argument per line. -->
     <rule ref="Generic.Functions.FunctionCallArgumentSpacing"/>
     <rule ref="PSR2.Methods.FunctionCallSignature.SpaceAfterCloseBracket">
+        <severity>0</severity>
+    </rule>
+    <rule ref="PSR2.Methods.FunctionCallSignature.Indent">
         <severity>0</severity>
     </rule>
 

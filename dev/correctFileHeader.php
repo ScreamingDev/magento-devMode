@@ -82,8 +82,8 @@ $recursiveIteratorIterator = new RecursiveIteratorIterator(new RecursiveDirector
 /**
  * .
  *
- * @param $fileDocPos
- * @param $contents
+ * @param string $contents
+ * @param $opener
  * @param $tags
  *
  * @return array

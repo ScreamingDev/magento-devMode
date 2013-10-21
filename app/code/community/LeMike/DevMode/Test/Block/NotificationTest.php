@@ -34,7 +34,7 @@ class LeMike_DevMode_Test_Block_NotificationTest extends EcomDev_PHPUnit_Test_Ca
      *
      * @return null
      */
-    public function testIsWrongCoreModelEmail()
+    public function testNotificationWhenSomethingIsWrongWithEmailModel()
     {
         /*
          * }}} preconditions {{{
@@ -54,7 +54,7 @@ class LeMike_DevMode_Test_Block_NotificationTest extends EcomDev_PHPUnit_Test_Ca
          */
         /** @var LeMike_DevMode_Block_Notification $notificationBlock */
         $notificationBlock = $this->getBlock('lemike_devmode/notification');
-        $this->assertTrue($notificationBlock->isWrongCoreModelEmail());
+        $this->assertFalse($notificationBlock->isCorrectCoreModelEmail());
 
         /*
          * }}} postcondition {{{
@@ -69,7 +69,7 @@ class LeMike_DevMode_Test_Block_NotificationTest extends EcomDev_PHPUnit_Test_Ca
      *
      * @return null
      */
-    public function testIsWrongCoreModelEmail_Valid()
+    public function testIsCorrectCoreModelEmail_Valid()
     {
         /*
          * }}} preconditions {{{
@@ -87,7 +87,13 @@ class LeMike_DevMode_Test_Block_NotificationTest extends EcomDev_PHPUnit_Test_Ca
         /*
          * }}} main {{{
          */
-        $this->assertFalse($this->getBlock('lemike_devmode/notification')->isWrongCoreModelEmail());
+
+        /** @var LeMike_DevMode_Block_Notification $notificationBlock */
+        $notificationBlock = $this->getBlock('lemike_devmode/notification');
+
+        $this->assertTrue(
+             $notificationBlock->isCorrectCoreModelEmail()
+        );
 
         /*
          * }}} postcondition {{{
@@ -102,7 +108,7 @@ class LeMike_DevMode_Test_Block_NotificationTest extends EcomDev_PHPUnit_Test_Ca
      *
      * @return null
      */
-    public function testIsWrongCoreModelEmailTemplate()
+    public function testIsCorrectCoreModelEmailTemplate()
     {
         /*
          * }}} preconditions {{{
@@ -122,8 +128,11 @@ class LeMike_DevMode_Test_Block_NotificationTest extends EcomDev_PHPUnit_Test_Ca
         /*
          * }}} main {{{
          */
-        $this->assertTrue(
-            $this->getBlock('lemike_devmode/notification')->isWrongCoreModelEmailTemplate()
+        /** @var LeMike_DevMode_Block_Notification $notificationBlock */
+        $notificationBlock = $this->getBlock('lemike_devmode/notification');
+
+        $this->assertFalse(
+            $notificationBlock->isCorrectCoreModelEmailTemplate()
         );
 
         /*
@@ -139,7 +148,7 @@ class LeMike_DevMode_Test_Block_NotificationTest extends EcomDev_PHPUnit_Test_Ca
      *
      * @return null
      */
-    public function testIsWrongCoreModelEmailTemplate_Valid()
+    public function testIsCorrectCoreModelEmailTemplate_Valid()
     {
         /*
          * }}} preconditions {{{
@@ -159,8 +168,11 @@ class LeMike_DevMode_Test_Block_NotificationTest extends EcomDev_PHPUnit_Test_Ca
         /*
          * }}} main {{{
          */
-        $this->assertFalse(
-            $this->getBlock('lemike_devmode/notification')->isWrongCoreModelEmailTemplate()
+        /** @var LeMike_DevMode_Block_Notification $notificationBlock */
+        $notificationBlock = $this->getBlock('lemike_devmode/notification');
+
+        $this->assertTrue(
+            $notificationBlock->isCorrectCoreModelEmailTemplate()
         );
 
         /*

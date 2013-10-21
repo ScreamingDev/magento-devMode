@@ -28,7 +28,7 @@ UnitTest using LeMike_DevMode
 
 <aside class="notes">
     Testing software can be done module by module which is known as UnitTest.
-    This devides the whole application in tiny simple parts that only has to pass a few tests for being a complete
+    This divides the whole application in tiny simple parts that only has to pass a few tests for being a complete
     valid extension.
 </aside>
 
@@ -39,7 +39,7 @@ UnitTest using LeMike_DevMode
 
 <aside class="notes">
     The developer can test his algorithms in the blackbox which means that he looks what happens inside the code
-    if some prequesites change.
+    if some perquisites change.
     In addition to that the whitebox test only validates the user-input and method-output to serve several common
     usages.
     At last the limiting conditions have to be tested and the correct behaviour on bypassing these limits have to be
@@ -47,13 +47,13 @@ UnitTest using LeMike_DevMode
 </aside>
 
 
-**UnitTests are isolated** - they do not interferre.
+**UnitTests are isolated** - they do not interfere.
 
 **Design-by-Contract is optional** for faster development process.
 
 PHPUnit gives the opportunity for **semi-automated tests** to assure the already tested functionality.
 <aside class="notes">
-    Because only tested componenty and use cases can be validated.
+    Because only tested components and use cases can be validated.
     A test is never complete and just ensures that new code didn't harm the old one.
     Never the less automated testing brings a great effort to check this at any time very fast.
 </aside>

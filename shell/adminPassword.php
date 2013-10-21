@@ -38,7 +38,7 @@ class LeMike_DevMode_Shell_AdminPassword extends Mage_Shell_Abstract
      * @param string $prompt
      * @return null|string
      */
-    function prompt_silent($prompt = "Enter Password: ")
+    public function prompt_silent($prompt = "Enter Password: ")
     {
         if (preg_match('/^win/i', PHP_OS))
         {

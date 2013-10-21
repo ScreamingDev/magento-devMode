@@ -51,8 +51,10 @@ class LeMike_DevMode_Test_Controller_Adminhtml_Developer_CoreControllerTest exte
 
         $this->assertRequestRoute($route);
 
+        /** @var Mage_Adminhtml_Model_Session $adminhtmlSession */
+        $adminhtmlSession = Mage::getSingleton('adminhtml/session');
         /** @var Mage_Core_Model_Message_Collection $messages */
-        $messages = Mage::getSingleton('adminhtml/session')->getMessages();
+        $messages = $adminhtmlSession->getMessages();
         $this->assertSame(2, $messages->count());
         $this->assertSame(1, $messages->count('notice'));
         $this->assertSame(1, $messages->count('success'));
@@ -63,13 +65,16 @@ class LeMike_DevMode_Test_Controller_Adminhtml_Developer_CoreControllerTest exte
         );
 
         // version
+        /** @var LeMike_DevMode_Model_Core_Resource $model */
         $model   = Mage::getModel('lemike_devmode/core_resource');
+        /** @var LeMike_DevMode_Helper_Core $helper */
         $helper  = Mage::helper('lemike_devmode/core');
-        $resName = $helper->getResourceName($moduleName);
 
         $this->assertSame(
             LeMike_DevMode_Model_Core_Resource::RESET_VERSION,
-            $model->getDbVersion($resName)
+            $model->getDbVersion(
+                  $helper->getResourceName($moduleName)
+            )
         );
     }
 
@@ -81,8 +86,10 @@ class LeMike_DevMode_Test_Controller_Adminhtml_Developer_CoreControllerTest exte
      */
     public function testRunAction_DisallowMageAdmin()
     {
+        /** @var Mage_Index_Model_Indexer $indexIndexer */
+        $indexIndexer = Mage::getSingleton('index/indexer');
         /** @var Mage_Index_Model_Resource_Process_Collection $object */
-        $object = Mage::getSingleton('index/indexer')->getProcessesCollection();
+        $object = $indexIndexer->getProcessesCollection();
         $object->getSelect()->reset('from');
 
         $this->assertPreConditions();
@@ -97,6 +104,7 @@ class LeMike_DevMode_Test_Controller_Adminhtml_Developer_CoreControllerTest exte
 
         $this->assertRequestRoute($route);
 
+        /** @var Mage_Adminhtml_Model_Session $session */
         $session = Mage::getSingleton('adminhtml/session');
         $this->assertSame(
             'Reinstall Mage_Admin is not allowed.',
@@ -114,8 +122,10 @@ class LeMike_DevMode_Test_Controller_Adminhtml_Developer_CoreControllerTest exte
      */
     public function testRunAction_NoModule()
     {
+        /** @var Mage_Index_Model_Indexer $indexIndexer */
+        $indexIndexer = Mage::getSingleton('index/indexer');
         /** @var Mage_Index_Model_Resource_Process_Collection $object */
-        $object = Mage::getSingleton('index/indexer')->getProcessesCollection();
+        $object = $indexIndexer->getProcessesCollection();
         $object->getSelect()->reset('from');
 
         $this->assertPreConditions();
@@ -130,7 +140,10 @@ class LeMike_DevMode_Test_Controller_Adminhtml_Developer_CoreControllerTest exte
 
         $this->assertRequestRoute($route);
 
-        $messages = Mage::getSingleton('adminhtml/session')->getMessages();
+        /** @var Mage_Adminhtml_Model_Session $adminhtmlSession */
+        $adminhtmlSession = Mage::getSingleton('adminhtml/session');
+        /** @var Mage_Core_Model_Message_Collection $messages */
+        $messages = $adminhtmlSession->getMessages();
         $this->assertSame(
             'No module provided. Please add a module name.',
             $messages->getLastAddedMessage()->getCode()
@@ -159,6 +172,7 @@ class LeMike_DevMode_Test_Controller_Adminhtml_Developer_CoreControllerTest exte
 
         $this->assertRequestRoute($route);
 
+        /** @var Mage_Adminhtml_Model_Session $session */
         $session = Mage::getSingleton('adminhtml/session');
         $this->assertSame(
             'Could not find Som_eStrange in core_resource.',
@@ -174,8 +188,11 @@ class LeMike_DevMode_Test_Controller_Adminhtml_Developer_CoreControllerTest exte
      */
     protected function assertPreConditions()
     {
+        /** @var Mage_Adminhtml_Model_Session $adminhtmlSession */
+        $adminhtmlSession = Mage::getSingleton('adminhtml/session');
         /** @var Mage_Core_Model_Message_Collection $messages */
-        $messages = Mage::getSingleton('adminhtml/session')->getMessages();
+        $messages = $adminhtmlSession->getMessages();
+
         $messages->clear();
 
         // no messages in session

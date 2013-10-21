@@ -46,6 +46,7 @@ class LeMike_DevMode_Test_Model_Admin_System_Config_AdminTest extends
          */
 
         // get the model
+        /** @var LeMike_DevMode_Model_Admin_System_Config_Admin $model */
         $model = Mage::getModel('lemike_devmode/admin_system_config_admin');
 
         $this->assertInstanceOf(
@@ -84,8 +85,6 @@ class LeMike_DevMode_Test_Model_Admin_System_Config_AdminTest extends
                 $entry->getName(),
                 $entry->getEmail()
             );
-
-            $message = sprintf('Admin %s failed assertion for option array.', $entry->getId());
 
             switch ($entry->getIsActive())
             {

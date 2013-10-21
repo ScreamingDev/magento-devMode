@@ -1,7 +1,15 @@
-<?php /** @var LeMike_DevMode_Block_Notification $this */ ?>
+<?php /** @var LeMike_DevMode_Block_Notification $this */
+
+/** @var LeMike_DevMode_Helper_Data $helper */
+$helper = $this->helper('lemike_devmode');
+
+/** @var LeMike_DevMode_Helper_Config $helperConfig */
+$helperConfig = Mage::helper('lemike_devmode/config');
+
+?>
 <div class="notification-global">
-    <strong><?php echo $this->helper('lemike_devmode')->__('Developer Mode is still active.') ?></strong>
-    <?php echo $this->helper('lemike_devmode')
+    <strong><?php echo $helper->__('Developer Mode is still active.') ?></strong>
+    <?php echo $helper
                     ->__(
                         'Remember to <a href="%s">remove the extension LeMike_Develop</a>'
                         . 'before going live due to <a href="%s">security issues</a>!',
@@ -10,25 +18,25 @@
                     ); ?>
 </div>
 
-<?php $isHandlingMail = (!Mage::helper('lemike_devmode/config')->isMailAllowed()
-                         || Mage::helper('lemike_devmode/config')->getCoreEmailRecipient()); ?>
+<?php $isHandlingMail = (!$helperConfig->isMailAllowed()
+                         || $helperConfig->getCoreEmailRecipient()); ?>
 
-<?php if ($this->isWrongCoreModelEmail() && $isHandlingMail): ?>
+<?php if ($isHandlingMail && !$this->isCorrectCoreModelEmail()): ?>
     <div class="notification-global">
-        <?php echo $this->helper()->__('LeMike_DevMode') ?>:
-        <?php echo $this->helper()->__('Mage_Core_Model_Email has been rewritten.') ?>
+        <?php echo $helper->__('LeMike_DevMode') ?>:
+        <?php echo $helper->__('Mage_Core_Model_Email has been rewritten.') ?>
         <strong>
-            <?php echo $this->helper()->__('Can not stop mail from sending.') ?>
+            <?php echo $helper->__('Can not stop mail from sending.') ?>
         </strong>
     </div>
 <?php endif; ?>
 
-<?php if ($this->isWrongCoreModelEmailTemplate() && $isHandlingMail): ?>
+<?php if ($isHandlingMail && !$this->isCorrectCoreModelEmailTemplate()): ?>
     <div class="notification-global">
-        <?php echo $this->helper()->__('LeMike_DevMode') ?>:
-        <?php echo $this->helper()->__('Mage_Core_Model_Email_Template has been rewritten.') ?>
+        <?php echo $helper->__('LeMike_DevMode') ?>:
+        <?php echo $helper->__('Mage_Core_Model_Email_Template has been rewritten.') ?>
         <strong>
-            <?php echo $this->helper()->__('Can not stop mail from sending.') ?>
+            <?php echo $helper->__('Can not stop mail from sending.') ?>
         </strong>
     </div>
 <?php endif; ?>

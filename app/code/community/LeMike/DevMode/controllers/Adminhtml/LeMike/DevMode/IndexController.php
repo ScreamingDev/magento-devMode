@@ -30,6 +30,11 @@
 class LeMike_DevMode_Adminhtml_LeMike_DevMode_IndexController extends
     Mage_Adminhtml_Controller_Action
 {
+    /**
+     * Show information about the module.
+     *
+     * @return void
+     */
     public function aboutAction()
     {
         $helper = Mage::helper('lemike_devmode');

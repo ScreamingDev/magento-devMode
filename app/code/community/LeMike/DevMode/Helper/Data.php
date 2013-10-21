@@ -33,9 +33,17 @@ class LeMike_DevMode_Helper_Data extends LeMike_DevMode_Helper_Abstract
 
     const MODULE_NAME = 'LeMike_DevMode';
 
+    /** @var bool Halt the dispatch of Magento. */
     protected static $_disableMagentoDispatch = false;
 
 
+    /**
+     * Switch or tell if the dispatch shall be halted.
+     *
+     * @param null $value
+     *
+     * @return bool
+     */
     public static function disableMagentoDispatch($value = null)
     {
         if (null !== $value)
@@ -48,9 +56,11 @@ class LeMike_DevMode_Helper_Data extends LeMike_DevMode_Helper_Abstract
 
 
     /**
-     * .
+     * Send data as JSON to the client.
      *
-     * @param array $data
+     * This will replace the body with the JSON string.
+     *
+     * @param array $data Information to turn into JSON.
      *
      * @return void
      */

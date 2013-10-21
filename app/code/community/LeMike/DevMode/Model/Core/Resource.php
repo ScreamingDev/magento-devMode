@@ -41,9 +41,15 @@ class LeMike_DevMode_Model_Core_Resource extends Mage_Core_Model_Resource_Resour
 
     const RESET_VERSION = '0.0.0';
 
+    /** @var array Temporary cache for the whole modules. */
     private $_cacheModuleSet;
 
 
+    /**
+     * Free the cached data.
+     *
+     * @return void
+     */
     public function clearCache()
     {
         $this->_cacheModuleSet = null;
@@ -52,6 +58,13 @@ class LeMike_DevMode_Model_Core_Resource extends Mage_Core_Model_Resource_Resour
     }
 
 
+    /**
+     * Receive information about a single module.
+     *
+     * @param $moduleName
+     *
+     * @return null
+     */
     public function getModuleInfo($moduleName)
     {
         $moduleSet = $this->getModuleSet();
@@ -77,7 +90,9 @@ class LeMike_DevMode_Model_Core_Resource extends Mage_Core_Model_Resource_Resour
 
             $moduleConfig = (array) Mage::getConfig()->getNode('modules')->children();
 
+            /** @var LeMike_DevMode_Helper_Core $helper */
             $helper = Mage::helper('lemike_devmode/core');
+
             foreach ($moduleConfig as $moduleName => $data)
             {
                 $resName   = $helper->getResourceName($moduleName);
@@ -103,6 +118,13 @@ class LeMike_DevMode_Model_Core_Resource extends Mage_Core_Model_Resource_Resour
     }
 
 
+    /**
+     * Reset the version of a setup_resource to zero in the database.
+     *
+     * @param $resName
+     *
+     * @return bool
+     */
     public function resetVersion($resName)
     {
         $this->setDbVersion($resName, self::RESET_VERSION);
@@ -115,9 +137,18 @@ class LeMike_DevMode_Model_Core_Resource extends Mage_Core_Model_Resource_Resour
     }
 
 
+    /**
+     * Reset the version of a module to zero in the database.
+     *
+     * @param $moduleName
+     *
+     * @return bool
+     */
     public function resetVersionByModuleName($moduleName)
     {
+        /** @var LeMike_DevMode_Helper_Core $helper */
         $helper  = Mage::helper('lemike_devmode/core');
+
         $resName = $helper->getResourceName($moduleName);
 
         if ($resName == '')

@@ -26,12 +26,26 @@
  */
 class LeMike_DevMode_Block_Template extends Mage_Adminhtml_Block_Template
 {
+    /**
+     * Shortcut to get any helper.
+     *
+     * Will get any helper but by default the module one (LeMike_DevMode_Helper_Data).
+     *
+     * @param string $name
+     *
+     * @return Mage_Core_Block_Abstract
+     */
     public function helper($name = LeMike_DevMode_Helper_Data::MODULE_ALIAS)
     {
         return parent::helper($name);
     }
 
 
+    /**
+     * Will return the module helper.
+     *
+     * @return LeMike_DevMode_Helper_Data
+     */
     public function _helper()
     {
         return Mage::helper('lemike_devmode');

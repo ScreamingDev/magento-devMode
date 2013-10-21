@@ -13,7 +13,10 @@ class Shell_MakeReveal
 
     public function __construct($args = null)
     {
-        if ($args === null) $args = getopt("f:");
+        if ($args === null)
+        {
+            $args = getopt("f:");
+        }
 
         $this->_args = $args;
     }
@@ -103,7 +106,10 @@ class Shell_MakeReveal
     {
         if (isset($this->_args[$short]))
         {
-            if ($this->_args[$short] === false) return true;
+            if ($this->_args[$short] === false)
+            {
+                return true;
+            }
 
             return $this->_args[$short];
         }

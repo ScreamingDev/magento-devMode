@@ -480,6 +480,15 @@ abstract class AbstractCommand
     }
 
 
+    /**
+     * Parse how to use a method.
+     *
+     * Will take the doc-comments and turn them into raw text without stars etc.
+     *
+     * @param $method Method name within the current object.
+     *
+     * @return string The documentation.
+     */
     public function getUsage($method)
     {
         $method = ltrim(substr($method, strpos($method, '::')), ':');
@@ -500,7 +509,7 @@ abstract class AbstractCommand
 
 
     /**
-     * .
+     * Get doc-comment in the current object for a method.
      *
      * @param $method
      *
@@ -515,17 +524,42 @@ abstract class AbstractCommand
     }
 }
 
+/**
+ * Class DelegateCommand.
+ *
+ * @category  LeMike_Devmode
+ * @package   LeMike_Devmode\Shell
+ * @author    Mike Pretzlaw <pretzlaw@gmail.com>
+ * @copyright 2013 Mike Pretzlaw
+ * @license   http://github.com/sourcerer-mike/${PROJECT_NAME}/blob/master/License.md BSD 3-Clause ("BSD New")
+ * @link      http://github.com/sourcerer-mike/${PROJECT_NAME}
+ * @since     0.4.0
+ */
 abstract class DelegateCommand extends AbstractCommand
 {
+    /** @var bool Whether mage is loaded (true) or not (default: false). */
     public static $_mageLoaded = false;
 
 
+    /**
+     * Delegate this command.
+     *
+     * @return void
+     */
     public function __invoke()
     {
         $this->delegate();
     }
 
 
+    /**
+     * Match a string against a filter.
+     *
+     * @param        $string
+     * @param string $filter
+     *
+     * @return int
+     */
     public function _filterMatch($string, $filter = '.*')
     {
         $filter = str_replace('@', '\@', $filter);
@@ -534,6 +568,11 @@ abstract class DelegateCommand extends AbstractCommand
     }
 
 
+    /**
+     * Load Magento.
+     *
+     * @return void
+     */
     public function _loadMagento()
     {
         if (!self::$_mageLoaded)
@@ -574,7 +613,7 @@ abstract class DelegateCommand extends AbstractCommand
         }
         else
         {
-            require_once $fileName;
+            include_once $fileName;
 
             $className = get_class($this)
                          . '_' . $classSegment;
@@ -594,6 +633,13 @@ abstract class DelegateCommand extends AbstractCommand
     }
 
 
+    /**
+     * Run this command.
+     *
+     * Searches the action and calls it.
+     *
+     * @return mixed|void
+     */
     public function execute()
     {
         echo  PHP_EOL;
@@ -612,9 +658,6 @@ abstract class DelegateCommand extends AbstractCommand
 
         if (method_exists($this, $action))
         {
-//            $loader = new DevMode_Load_Magento();
-//            $loader->run();
-
             $this->getParameter()->unsetArgument($current);
             $this->getParameter()->unsetCommand($current);
 
@@ -638,6 +681,13 @@ abstract class DelegateCommand extends AbstractCommand
     }
 
 
+    /**
+     * Show help for a method.
+     *
+     * @param $actionName
+     *
+     * @return string
+     */
     public function getMethodHelp($actionName)
     {
         if (false !== ($colon = strpos($actionName, '::')))
@@ -662,7 +712,6 @@ abstract class DelegateCommand extends AbstractCommand
         $docComment = preg_replace('/\n[\s]*\*\s(\w)(.*)/s', "\n\n\$1\$2", $docComment, 1);
         $docComment = trim($docComment);
 
-
         if (substr($docComment, 0, 1) == '@')
         { // doc tag at beginning: this has no detailed help
             return "Sorry! No help available.";
@@ -673,9 +722,11 @@ abstract class DelegateCommand extends AbstractCommand
 
 
     /**
-     * .
+     * Get all sub-commands.
      *
-     * @return array
+     * Parses the directory for other classes and returns them.
+     *
+     * @return array [MODULE_NAME => SHORT_DOCUMENTATION]
      */
     public function getSubModules()
     {
@@ -694,7 +745,7 @@ abstract class DelegateCommand extends AbstractCommand
             $subModuleName      = basename($classFile, '.php');
             $subModuleClassName = $thisClassName . '_' . $subModuleName;
 
-            require_once $classFile;
+            include_once $classFile;
             $reflectClass            = new ReflectionClass($subModuleClassName);
             $docComment              =
                 $this->_filterDocCommentHeader($reflectClass->getDocComment());
@@ -716,8 +767,11 @@ abstract class DelegateCommand extends AbstractCommand
         $className = get_class($this);
         $methodSet = get_class_methods($className);
         echo
-            str_replace('devmode ', 'php devmode.php ', strtolower(str_replace('_', ' ', $className))) . " {module|action}" .
-            PHP_EOL;
+            str_replace(
+                'devmode ',
+                'php devmode.php ',
+                strtolower(str_replace('_', ' ', $className))
+            ) . " {module|action}" . PHP_EOL;
         echo PHP_EOL;
 
         $moduleSet = $this->getSubModules();
@@ -755,6 +809,13 @@ abstract class DelegateCommand extends AbstractCommand
     }
 
 
+    /**
+     * Get the short header of a doc-comment.
+     *
+     * @param string $docComment Complete doc-comment of a class.
+     *
+     * @return string Only the header / first sentence.
+     */
     protected function _filterDocCommentHeader($docComment)
     {
         $_header = ltrim($docComment, "/*\n\r ");

@@ -30,6 +30,11 @@
 class LeMike_DevMode_Adminhtml_LeMike_DevMode_Sales_OrderController
     extends LeMike_DevMode_Controller_Adminhtml_Controller_Action
 {
+    /**
+     * Delete all orders.
+     *
+     * @return void
+     */
     public function deleteAllAction()
     {
         /** @var LeMike_DevMode_Helper_Data $helper */

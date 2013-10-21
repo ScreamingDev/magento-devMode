@@ -29,19 +29,30 @@
  */
 class LeMike_DevMode_Block_Shell_Table
 {
-    public $_tableColumnHeading = 10;
-
+    /** @var array Width of each column. */
     public $_tableColumnWidth = array();
 
+    /** @var array Captions for each column. */
     public $captionSet = array();
 
+    /** @var string Footer of the table. */
     public $footer = "";
 
+    /** @var array Data shown in the table body. */
     protected $_tableRowSet = array();
 
+    /** @var array Legend for headings shown below the body. */
     public $legend = array();
 
 
+    /**
+     * Create a new table.
+     *
+     * The table will only show and accept the defined headings.
+     *
+     * @param array $captions Headings for each column.
+     * @param array $data     Rows for the table.
+     */
     public function __construct($captions = array(), $data = array(), $legend = array())
     {
         $this->captionSet = $captions;

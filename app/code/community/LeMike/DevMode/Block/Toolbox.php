@@ -37,6 +37,7 @@ class LeMike_DevMode_Block_Toolbox extends LeMike_DevMode_Block_Template
 
     const POSITION_STORE = 'store';
 
+    /** @var string Default template for this block. */
     protected $_template = 'lemike/devmode/toolbox.phtml';
 
     /**
@@ -48,7 +49,7 @@ class LeMike_DevMode_Block_Toolbox extends LeMike_DevMode_Block_Template
 
 
     /**
-     * .
+     * Get the controller class file path to the current action.
      *
      * @return string
      */
@@ -78,7 +79,10 @@ class LeMike_DevMode_Block_Toolbox extends LeMike_DevMode_Block_Template
      */
     public function getBackendUrl($route = 'adminhtml/index/index', $param = array())
     {
-        return (string) Mage::helper('lemike_devmode/auth')->getBackendUrl($route, $param);
+        /** @var LeMike_DevMode_Helper_Auth $helperAuth */
+        $helperAuth = Mage::helper('lemike_devmode/auth');
+
+        return (string) $helperAuth->getBackendUrl($route, $param);
     }
 
 
@@ -93,9 +97,13 @@ class LeMike_DevMode_Block_Toolbox extends LeMike_DevMode_Block_Template
     {
         $currentValue = Mage::app()->getStore()->getConfig($nodePath);
         $request      = clone $this->getRequest();
+
+        /** @var LeMike_DevMode_Helper_Config $helperConfig */
+        $helperConfig = Mage::helper('lemike_devmode/config');
+
         $request->setQuery(
-                Mage::helper('lemike_devmode/config')->nodeToUrl($nodePath),
-                !$currentValue
+            $helperConfig->nodeToUrl($nodePath),
+            !$currentValue
         );
 
         return http_build_query($request->getQuery());
@@ -127,17 +135,27 @@ class LeMike_DevMode_Block_Toolbox extends LeMike_DevMode_Block_Template
             case self::POSITION_CONTROLLER:
                 $classFile = $this->_getControllerClassFile();
 
-                if ($classFile && Mage::helper('lemike_devmode/config')->isIdeRemoteCallEnabled())
+                /** @var LeMike_DevMode_Helper_Config $helperConfig */
+                $helperConfig = Mage::helper('lemike_devmode/config');
+
+                if ($classFile && $helperConfig->isIdeRemoteCallEnabled())
                 {
                     // find the line where the action resides, at least line 1 if not found
-                    $line = max(Mage::helper('lemike_devmode/toolbox')->getLineNumber(
-                        $classFile,
-                        '@n\s' . preg_quote($value) . 'Action@'
-                    ), 1);
+
+                    /** @var LeMike_DevMode_Helper_Toolbox $helperToolbox */
+                    $helperToolbox = Mage::helper('lemike_devmode/toolbox');
+
+                    $line = max(
+                        $helperToolbox->getLineNumber(
+                            $classFile,
+                            '@n\s' . preg_quote($value) . 'Action@'
+                        ),
+                        1
+                    );
 
                     // ajax for remote call
                     $url = "#\" onclick=\"jQuery.ajax('" .
-                    $url = Mage::helper('lemike_devmode/toolbox')->getIdeUrl($classFile, $line);
+                    $url = $helperToolbox->getIdeUrl($classFile, $line);
                     $url .= "');";
                 }
                 break;
@@ -155,6 +173,32 @@ class LeMike_DevMode_Block_Toolbox extends LeMike_DevMode_Block_Template
     public function getLayoutModel()
     {
         return Mage::getSingleton($this->getModuleAlias('/core_layout'));
+    }
+
+
+    /**
+     * Receive all used layout handles.
+     *
+     * @param bool $withModule With those from the module (default: false)
+     *
+     * @return array
+     */
+    public function getLayoutHandles($withModule = false)
+    {
+        $layoutHandles = $this->getLayout()->getUpdate()->getHandles();
+
+        if (!$withModule)
+        { // do not allow custom layout handle from this module
+            foreach ($layoutHandles as $key => $handle)
+            {
+                if (strpos($handle, LeMike_DevMode_Helper_Data::MODULE_ALIAS) === 0)
+                {
+                    unset($layoutHandles[$key]);
+                }
+            }
+        }
+
+        return $layoutHandles;
     }
 
 
@@ -285,6 +329,16 @@ class LeMike_DevMode_Block_Toolbox extends LeMike_DevMode_Block_Template
     }
 
 
+    /**
+     * Get the default toolbox helper or some other.
+     *
+     * By default this will return the LeMike_DevMode_Helper_Toolbox.
+     * If any other is wanted then give it's alias.
+     *
+     * @param string $name Alias for the helper.
+     *
+     * @return \Mage_Core_Helper_Abstract
+     */
     public function helper($name = 'lemike_devmode/toolbox')
     {
         return parent::helper($name);

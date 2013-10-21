@@ -29,6 +29,11 @@
  */
 class LeMike_DevMode_Controller_Front_SecureAction extends LeMike_DevMode_Controller_Front_Action
 {
+    /**
+     * Predispatch: should set layout area
+     *
+     * @return LeMike_DevMode_Controller_Front_SecureAction
+     */
     public function preDispatch()
     {
         $this->checkAuth();

@@ -24,16 +24,28 @@
  */
 class LeMike_DevMode_Block_Notification extends LeMike_DevMode_Block_Template
 {
-    public function isWrongCoreModelEmail()
+    /**
+     * Check whether the email model is the correct one.
+     *
+     * @return bool
+     */
+    public function isCorrectCoreModelEmail()
     {
-        return !(Mage::getModel('core/email') instanceof LeMike_DevMode_Model_Core_Email);
+        return (Mage::getModel('core/email') instanceof LeMike_DevMode_Model_Core_Email);
     }
 
 
-    public function isWrongCoreModelEmailTemplate()
+    /**
+     * Check whether the email template model is the correct one.
+     *
+     * @return bool
+     */
+    public function isCorrectCoreModelEmailTemplate()
     {
-        return !(Mage::getModel('core/email_template')
-                 instanceof
-                 LeMike_DevMode_Model_Core_Email_Template);
+        return (
+            Mage::getModel('core/email_template')
+            instanceof
+            LeMike_DevMode_Model_Core_Email_Template
+        );
     }
 }

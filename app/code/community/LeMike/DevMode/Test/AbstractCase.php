@@ -33,28 +33,58 @@ abstract class LeMike_DevMode_Test_AbstractCase extends EcomDev_PHPUnit_Test_Cas
 {
     const FRONTEND_CLASS = '';
 
+    /** @var array Store the last used args. */
     protected $_lastArgs = array();
 
 
-    protected function setUp()
-    {
-        $this->_lastArgs = array();
-        parent::setUp();
-    }
-
-
-    public function setLastArgs()
-    {
-        $this->_lastArgs = func_get_args();
-    }
-
-
+    /**
+     * Show the last set args.
+     *
+     * @return array
+     */
     public function getLastArgs()
     {
         return $this->_lastArgs;
     }
 
 
+    /**
+     * Get the alias (with some suffix).
+     *
+     * @param null $node Suffix to add.
+     *
+     * @return string Like company_moduleName.
+     */
+    public function getModuleAlias($node = null)
+    {
+        return LeMike_DevMode_Helper_Data::MODULE_ALIAS . $node;
+    }
+
+
+    /**
+     * Get the name (with some suffix).
+     *
+     * @param string $node Suffix to add.
+     *
+     * @return string Like Company_ModuleName.
+     */
+    public function getModuleName($node = null)
+    {
+        return LeMike_DevMode_Helper_Data::MODULE_NAME . $node;
+    }
+
+
+    /**
+     * Invoke a method with the given args.
+     *
+     * Can call even protected or private methods.
+     *
+     * @param       $object
+     * @param       $method
+     * @param array $args
+     *
+     * @return mixed
+     */
     public function reflectMethod($object, $method, $args = array())
     {
         $reflect = new ReflectionObject($object);
@@ -65,6 +95,16 @@ abstract class LeMike_DevMode_Test_AbstractCase extends EcomDev_PHPUnit_Test_Cas
         return $reflectMethod->invokeArgs($object, $args);
     }
 
+
+    /**
+     * Get or set the value of a property.
+     *
+     * @param StdClass $object
+     * @param string   $name
+     * @param null     $newValue
+     *
+     * @return mixed
+     */
     public function reflectProperty($object, $name, $newValue = null)
     {
         $reflect = new ReflectionObject($object);
@@ -78,17 +118,30 @@ abstract class LeMike_DevMode_Test_AbstractCase extends EcomDev_PHPUnit_Test_Cas
         }
 
         $reflectProperty->setValue($object, $newValue);
+
+        return null;
     }
 
 
-    public function getModuleAlias($node = null)
+    /**
+     * Store the args on this method.
+     *
+     * @return void
+     */
+    public function setLastArgs()
     {
-        return LeMike_DevMode_Helper_Data::MODULE_ALIAS . $node;
+        $this->_lastArgs = func_get_args();
     }
 
 
-    public function getModuleName($node = null)
+    /**
+     * Clean up before start.
+     *
+     * @return void
+     */
+    protected function setUp()
     {
-        return LeMike_DevMode_Helper_Data::MODULE_NAME . $node;
+        $this->_lastArgs = array();
+        parent::setUp();
     }
 }
