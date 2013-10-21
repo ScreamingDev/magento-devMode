@@ -66,24 +66,50 @@ class LeMike_DevMode_Block_Shell_Table
     }
 
 
+    /**
+     * Generate table.
+     *
+     * @return string
+     */
     public function __toString()
     {
-        return $this->_table();
+        return $this->render();
     }
 
 
-    public function calcMaxWidth($key, $message)
+    /**
+     * Calculate the maximum width for this key and store it.
+     *
+     * @param string $key     The column.
+     * @param string $message The body.
+     *
+     * @return void
+     */
+    protected function _calcMaxWidth($key, $message)
     {
         $this->_tableColumnWidth[$key] = max($this->_tableColumnWidth[$key], strlen($message));
     }
 
 
+    /**
+     * Print the rendered table to the output.
+     *
+     * @return void
+     */
     public function dispatch()
     {
         echo $this->__toString();
     }
 
 
+    /**
+     * Generate the legend.
+     *
+     * @param string $separator Infix between column name and description (default: colon).
+     * @param int    $pad       Alignment of description.
+     *
+     * @return string
+     */
     public function makeLegend($separator = ": ", $pad = STR_PAD_LEFT)
     {
         $legendWidth = 0;
@@ -108,22 +134,47 @@ class LeMike_DevMode_Block_Shell_Table
     }
 
 
-    public function tableRowAdd($row)
+    /**
+     * Add a row to the table.
+     *
+     * @param array $data
+     *
+     * @return void
+     */
+    public function addRow($data)
     {
-        if ($row instanceof Varien_Object)
+        if ($data instanceof Varien_Object)
         {
-            $row = $row->getData();
+            $data = $data->getData();
         }
 
-        $this->_tableRowSet[] = $row;
-        foreach ($row as $key => $cell)
+        $this->_tableRowSet[] = $data;
+        foreach ($data as $key => $cell)
         {
-            $this->calcMaxWidth($key, $cell);
+            $this->_calcMaxWidth($key, $cell);
         }
     }
 
 
-    protected function _table()
+    /**
+     * Add a row to the table.
+     *
+     * @param $row
+     *
+     * @return void
+     */
+    public function tableRowAdd($row)
+    {
+        $this->addRow($row);
+    }
+
+
+    /**
+     * Generate table.
+     *
+     * @return string
+     */
+    public function render()
     {
         $out = $this->_tableCaptions()
                . PHP_EOL
@@ -144,6 +195,11 @@ class LeMike_DevMode_Block_Shell_Table
     }
 
 
+    /**
+     * Generate and fetch the table body.
+     *
+     * @return string
+     */
     protected function _tableBody()
     {
         $out = '';
@@ -162,12 +218,17 @@ class LeMike_DevMode_Block_Shell_Table
     }
 
 
+    /**
+     * Generate and fetch the table heading.
+     *
+     * @return string
+     */
     protected function _tableCaptions()
     {
         $out = '';
         foreach ($this->captionSet as $key => $name)
         {
-            $this->calcMaxWidth($key, $name);
+            $this->_calcMaxWidth($key, $name);
 
             $out .= str_pad($name, $this->_tableColumnWidth[$key], ' ', STR_PAD_BOTH);
             $out .= ' | ';
