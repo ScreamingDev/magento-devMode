@@ -508,6 +508,63 @@ abstract class AbstractCommand
     }
 
 
+    public function prompt($message = '', $default = '')
+    {
+        echo $message;
+        $input = substr(fgets(STDIN), 0, -strlen(PHP_EOL));
+
+        if (!$input)
+        {
+            return $default;
+        }
+
+        return $input;
+    }
+
+
+    /**
+     * Password prompt
+     */
+    public function promptSilent($prompt = "Enter Password: ", $default = '')
+    {
+        if (preg_match('/^win/i', PHP_OS))
+        {
+            $vbscript = sys_get_temp_dir() . 'prompt_password.vbs';
+            file_put_contents(
+                $vbscript,
+                'wscript.echo(InputBox("'
+                . addslashes($prompt)
+                . '", "", "password here"))'
+            );
+            $command  = "cscript //nologo " . escapeshellarg($vbscript);
+            $password = rtrim(shell_exec($command));
+            unlink($vbscript);
+        }
+        else
+        {
+            $command = "/usr/bin/env bash -c 'echo OK'";
+            if (rtrim(shell_exec($command)) !== 'OK')
+            {
+                trigger_error("Can't invoke bash");
+
+                return null;
+            }
+            $command  = "/usr/bin/env bash -c 'read -s -p \""
+                        . addslashes($prompt)
+                        . "\" mypassword && echo \$mypassword'";
+            $password = rtrim(shell_exec($command));
+            echo "\n";
+        }
+
+        if (!$password)
+        {
+            return $default;
+        }
+
+        return $password;
+    }
+
+
     /**
      * Get doc-comment in the current object for a method.
      *
