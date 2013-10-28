@@ -32,6 +32,14 @@ class LeMike_DevMode_Helper_Config extends LeMike_DevMode_Helper_Abstract
     const URL_DIVIDER = '__';
 
 
+    public function isBestCodingPracticesEnabled()
+    {
+        return (bool) Mage::app()->getStore()->getConfig(
+                          'lemike_devmode_general/bestCodingPractices/allow_restricted_ip_only'
+        );
+    }
+
+
     /**
      * Transform an url to a node.
      *
