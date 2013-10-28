@@ -30,6 +30,8 @@
 .CVS
 .hg
 .svn
+.travis
+.vagrant
 intermediate
 publish
 
