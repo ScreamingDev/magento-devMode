@@ -105,10 +105,9 @@
     <admin>
         <routers>
             <adminhtml>
-                <use>admin</use>
                 <args>
                     <modules>
-                        <lemike_devmode>LeMike_DevMode_Adminhtml</lemike_devmode>
+                        <lemike_devmode after="Mage_Adminhtml">LeMike_DevMode_Adminhtml</lemike_devmode>
                     </modules>
                 </args>
             </adminhtml>
