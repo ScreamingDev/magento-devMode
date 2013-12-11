@@ -4,7 +4,7 @@ An extension to help you develop Magento Stores.
 
 <small>
     Created by [Mike Pretzlaw](http://mike-pretzlaw.de) / [@fxrmp](http://twitter.com/fxrmp)
-    for [code-x.de](http://code-x.de) and tested with
+    for [code-x.de](http://code-x.de) and tested
     [![with Travis-CI](https://travis-ci.org/sourcerer-mike/magento-devMode.png?branch=release%2F0.4.1)](https://travis-ci.org/sourcerer-mike/magento-devMode)
 </small>
 
