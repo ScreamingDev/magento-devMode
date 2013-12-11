@@ -60,9 +60,18 @@ class LeMike_DevMode_Test_Controller_Front_ActionTest extends
         // get instance
         $request  = new Zend_Controller_Request_Http();
         $response = new Zend_Controller_Response_Http();
-        $object   = new LeMike_DevMode_Controller_Front_Action($request, $response);
 
-        $this->assertNotNull($object);
+        // disable routing: do not sent headers!
+        /** @var LeMike_DevMode_Controller_Front_Action $object */
+        $object = $this->getMock(
+                       'LeMike_DevMode_Controller_Front_Action',
+                       array('_redirectReferer'),
+                       array($request, $response)
+        );
+
+        $object->expects($this->once())
+               ->method('_redirectReferer')
+               ->will($this->returnValue(true));
 
         /*
          * }}} main {{{
@@ -95,6 +104,7 @@ class LeMike_DevMode_Test_Controller_Front_ActionTest extends
 
         return null;
     }
+
 
     /**
      * Tests GetModuleAlias.
