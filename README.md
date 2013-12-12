@@ -4,19 +4,23 @@ An extension to help you develop Magento Stores.
 
 <small>
     Created by [Mike Pretzlaw](http://mike-pretzlaw.de) / [@fxrmp](http://twitter.com/fxrmp)
-    for [code-x.de](http://code-x.de)
+    for [code-x.de](http://code-x.de).
 </small>
 
+[![Quality ensured via UnitTests and with Travis-CI.](https://travis-ci.org/sourcerer-mike/magento-devMode.png)](https://travis-ci.org/sourcerer-mike/magento-devMode)
 
-Modman
+
+## Installation
+
+### Modman
 
 ```
 modman init .
 modman clone https://github.com/sourcerer-mike/magento-devMode.git
 ```
 
+### Composer
 
-Composer
 ```
 {
     "require": {
