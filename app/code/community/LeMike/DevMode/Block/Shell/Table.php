@@ -53,7 +53,7 @@ class LeMike_DevMode_Block_Shell_Table
      * @param array $captions Headings for each column.
      * @param array $data     Rows for the table.
      */
-    public function __construct($captions = array(), $data = array())
+    public function __construct($captions = array(), $data = array(), $legend = array())
     {
         $this->captionSet = $captions;
 
@@ -61,6 +61,8 @@ class LeMike_DevMode_Block_Shell_Table
         {
             $this->tableRowAdd($row);
         }
+
+        $this->legend = $legend;
     }
 
 

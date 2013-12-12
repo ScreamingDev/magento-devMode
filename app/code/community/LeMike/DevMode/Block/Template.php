@@ -50,4 +50,23 @@ class LeMike_DevMode_Block_Template extends Mage_Adminhtml_Block_Template
     {
         return Mage::helper('lemike_devmode');
     }
+
+
+    /**
+     * Get the module name or a child of it.
+     *
+     * @param $node
+     *
+     * @return string
+     */
+    public function getModuleName($node = null)
+    {
+        return LeMike_DevMode_Helper_Data::MODULE_NAME . $node;
+    }
+
+
+    public function getModuleAlias($node = null)
+    {
+        return LeMike_DevMode_Helper_Data::MODULE_ALIAS . $node;
+    }
 }

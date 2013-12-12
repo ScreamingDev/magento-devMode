@@ -65,7 +65,15 @@ $namespace = 'lemike.devmode.toolbox';
 </div>
 
 <div id="ld_toolbox_layouts" class="ld_dialog">
-    <?php echo implode('<br />', $this->getLayoutHandles()); ?>
+    <div>
+        <?php foreach ($this->getRichUsedLayoutHandles() as $handle => $fileDefinition): ?>
+            <pre>&lt;<?php echo $handle ?>&gt;</pre>
+            <?php foreach ($fileDefinition as $filePath => $definition): ?>
+                <pre title="<?php echo $filePath ?>"><?php echo htmlentities($this->arrayToXml($definition, '    ')) ?></pre>
+            <?php endforeach; ?>
+            <pre>&lt;/<?php echo $handle ?>&gt;</pre>
+        <?php endforeach; ?>
+    </div>
 </div>
 
 <div id="ld_dialog" class="ld_dialog">

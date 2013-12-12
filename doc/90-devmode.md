@@ -3,6 +3,24 @@
 Shell and markdown 4tw!
 
 
+## VCS
+
+- Everything is on GitHub as GIT or SVN
+- Fork the repository or ask for access
+
+
+### Commits
+
+- Begin with the issue number
+- Followed by section(s) with colon
+- And an explanation what the new feature is / bug was
+
+Note:
+The section can be any "scope" of Magento like "core:" or deeper like "catalog: product:".
+This will help generating the ChangeLog later on, so the major description / header needs to
+be such a text that briefly describes the feature or bug to an end-user.
+
+
 ## Sample workflow
 
 - From shell to doc

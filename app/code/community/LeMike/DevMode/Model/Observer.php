@@ -276,21 +276,24 @@ class LeMike_DevMode_Model_Observer extends Mage_Core_Model_Abstract
         /** @var Mage_Core_Controller_Varien_Front $front */
         $front = $event->getData('front');
 
-        if ($front->getRequest()->has('__events'))
+        /** @var Mage_Core_Controller_Request_Http $request */
+        $request = $front->getRequest();
+
+        $data = null;
+
+        if ($request->has('__events'))
         {
-            $reflectApp        = new ReflectionObject(Mage::app());
-            $reflectEventCache = $reflectApp->getProperty('_events');
-            $reflectEventCache->setAccessible(true);
+            $data = $this->_fetchEvents();
+        }
 
-            $value = $reflectEventCache->getValue(Mage::app());
+        if ($request->has('__layouts'))
+        { // __layouts in query: fetch layout data
+            $data = Mage::getModel('lemike_devmode/core_layout')->toArray();
+        }
 
-            $returnSet = array();
-            foreach ($value as $eventSet)
-            {
-                $returnSet = array_merge($returnSet, array_keys($eventSet));
-            }
-
-            $front->getResponse()->setBody(Zend_Json_Encoder::encode($value));
+        if ($data)
+        {
+            $front->getResponse()->setBody(Zend_Json_Encoder::encode($data));
             $front->getResponse()->setHeader(Zend_Http_Client::CONTENT_TYPE, 'application/json');
         }
 
@@ -379,5 +382,28 @@ class LeMike_DevMode_Model_Observer extends Mage_Core_Model_Abstract
                 }
             }
         }
+    }
+
+
+    /**
+     * .
+     *
+     * @return mixed
+     */
+    protected function _fetchEvents()
+    {
+        $reflectApp        = new ReflectionObject(Mage::app());
+        $reflectEventCache = $reflectApp->getProperty('_events');
+        $reflectEventCache->setAccessible(true);
+
+        $value = $reflectEventCache->getValue(Mage::app());
+
+        $returnSet = array();
+        foreach ($value as $eventSet)
+        {
+            $returnSet = array_merge($returnSet, array_keys($eventSet));
+        }
+
+        return $value;
     }
 }

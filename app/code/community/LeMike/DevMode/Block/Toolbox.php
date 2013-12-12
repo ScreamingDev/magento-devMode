@@ -40,6 +40,13 @@ class LeMike_DevMode_Block_Toolbox extends LeMike_DevMode_Block_Template
     /** @var string Default template for this block. */
     protected $_template = 'lemike/devmode/toolbox.phtml';
 
+    /**
+     * Caching the used layout handles.
+     *
+     * @var array
+     */
+    protected $_usedLayoutHandles;
+
 
     /**
      * Get the controller class file path to the current action.
@@ -126,7 +133,6 @@ class LeMike_DevMode_Block_Toolbox extends LeMike_DevMode_Block_Template
                 break;
             case self::POSITION_ACTION:
             case self::POSITION_CONTROLLER:
-
                 $classFile = $this->_getControllerClassFile();
 
                 /** @var LeMike_DevMode_Helper_Config $helperConfig */
@@ -156,6 +162,17 @@ class LeMike_DevMode_Block_Toolbox extends LeMike_DevMode_Block_Template
         }
 
         return $url;
+    }
+
+
+    /**
+     * Singleton of the enhanced core layout model.
+     *
+     * @return LeMike_DevMode_Model_Core_Layout
+     */
+    public function getLayoutModel()
+    {
+        return Mage::getSingleton($this->getModuleAlias('/core_layout'));
     }
 
 
@@ -200,6 +217,115 @@ class LeMike_DevMode_Block_Toolbox extends LeMike_DevMode_Block_Template
         );
 
         return array_filter($position);
+    }
+
+
+    /**
+     * Detailed information about the used layout handles.
+     *
+     * @return void
+     */
+    public function getRichLayoutHandles()
+    {
+        /** @var LeMike_DevMode_Model_Core_Layout $layout */
+        $layout = $this->getLayoutModel();
+
+        return $layout->toAssocArray();
+    }
+
+
+    public function arrayToXml($arr = array(), $indent = '')
+    {
+        $xml = '';
+
+        if (is_string($arr))
+        {
+            return $indent . $arr . "\n";
+        }
+
+        foreach ($arr as $tag => $inner)
+        {
+            if ($tag == '@attributes')
+            {
+                continue;
+            }
+
+            $xml .= $indent . '<' . $tag;
+            if (isset($inner['@attributes']) && is_array($inner['@attributes']))
+            {
+                foreach ($inner['@attributes'] as $attribute => $value)
+                {
+                    $xml .= ' ' . $attribute . '="' . addslashes($value) . '"';
+                }
+
+                unset($inner['@attributes']);
+            }
+
+            if (count($inner) > 0)
+            {
+                $xml .= ">\n";
+                $xml .= $this->arrayToXml($inner, $indent . '    ');
+                $xml .= $indent . "</" . $tag . ">\n";
+            }
+            else
+            {
+                $xml .= "/>\n";
+            }
+        }
+
+        return $xml;
+    }
+
+
+    /**
+     * Receive all used layout handles.
+     *
+     * @deprecated 1.0.0
+     *
+     * @param bool $withModule With those from the module (default: false)
+     *
+     * @return array
+     */
+    public function getUsedLayoutHandles($withModule = false)
+    {
+        if (!$this->_usedLayoutHandles[$withModule])
+        {
+            $layoutHandles = $this->getLayout()->getUpdate()->getHandles();
+
+            if (!$withModule)
+            { // do not allow custom layout handle from this module
+                foreach ($layoutHandles as $key => $handle)
+                {
+                    if (strpos($handle, LeMike_DevMode_Helper_Data::MODULE_ALIAS) === 0)
+                    {
+                        unset($layoutHandles[$key]);
+                    }
+                }
+            }
+
+            $this->_usedLayoutHandles[$withModule] = $layoutHandles;
+        }
+
+        return $this->_usedLayoutHandles[$withModule];
+    }
+
+
+    public function getRichUsedLayoutHandles($withModule = false)
+    {
+        $richLayoutHandles = $this->getRichLayoutHandles();
+
+        $richUsedLayoutHandles = array();
+        foreach ($this->getUsedLayoutHandles() as $handle)
+        {
+            $richUsedLayoutHandles[$handle] = array();
+
+            if (isset($richLayoutHandles[$handle]))
+            {
+                $richUsedLayoutHandles[$handle] = $richLayoutHandles[$handle];
+            }
+        }
+
+        return $richUsedLayoutHandles;
     }
 
 
