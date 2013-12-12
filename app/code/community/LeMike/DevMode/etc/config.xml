@@ -2,7 +2,7 @@
 <config>
     <modules>
         <LeMike_DevMode>
-            <version>0.4.0</version>
+            <version>0.4.1</version>
         </LeMike_DevMode>
     </modules>
 
@@ -105,10 +105,9 @@
     <admin>
         <routers>
             <adminhtml>
-                <use>admin</use>
                 <args>
                     <modules>
-                        <lemike_devmode>LeMike_DevMode_Adminhtml</lemike_devmode>
+                        <lemike_devmode after="Mage_Adminhtml">LeMike_DevMode_Adminhtml</lemike_devmode>
                     </modules>
                 </args>
             </adminhtml>

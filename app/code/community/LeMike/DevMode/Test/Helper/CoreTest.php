@@ -66,7 +66,7 @@ class LeMike_DevMode_Test_Helper_CoreTest extends EcomDev_PHPUnit_Test_Case
 
         $version = $helperCore->getAvailableVersion('LeMike_DevMode');
         $this->assertNotEmpty($version);
-        $this->assertEquals('0.4.0', $version);
+        $this->assertEquals('0.4.1', $version);
 
         return null;
     }

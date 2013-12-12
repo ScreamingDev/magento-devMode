@@ -36,7 +36,7 @@ $namespace = 'lemike.devmode.toolbox';
                         </a>
                     <?php echo $this->getChildHtml($namespace . ".$key") ?>
                 </div>
-                <? foreach ($position as $key => $value): ?>
+                <?php foreach ($position as $key => $value): ?>
                     <?php $namespace .= '.' . $value;
                     $route .= '/' . $value;
                     $url = $this->getEditPositionUrl($key, $value);
@@ -58,7 +58,7 @@ $namespace = 'lemike.devmode.toolbox';
                         <?php endif; ?>
                         <?php echo $this->getChildHtml($namespace) ?>
                     </div>
-                <? endforeach ?>
+                <?php endforeach ?>
             </div>
         </div>
     </div>

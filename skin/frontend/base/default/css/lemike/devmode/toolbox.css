@@ -5,6 +5,7 @@
     position: absolute;
     left: 10px;
     top: 100px;
+    z-index: 9999;
 }
 
 .ld_toolbox .content {

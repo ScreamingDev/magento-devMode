@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <package>
     <name>LeMike_DevMode</name>
-    <version>0.4.0</version>
+    <version>0.4.1</version>
     <stability>beta</stability>
     <license uri="http://www.opensource.org/licenses/osl-3.0.php">OSL v3.0</license>
     <channel>community</channel>
