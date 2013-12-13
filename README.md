@@ -58,8 +58,11 @@ modman clone https://github.com/sourcerer-mike/magento-devMode.git
 
 About ...
 
-- [Usage and configuration](tree/master/doc/10-general.md)
-- [Retrieving magento internals](tree/master/doc/30-core.md)
-- [Handle customer](tree/master/doc/40-customer.md)
-- [Tricks via URL or Shell](tree/master/doc/60-additional.md)
-- [Workflow and contribution](tree/master/doc/90-devmode.md)
+- [Usage and configuration](doc/10-general.md)
+- [Retrieving magento internals](doc/30-core.md)
+- [Handle customer](doc/40-customer.md)
+- [Toolbox for designer](doc/50-toolbox.md)
+- [Tricks via URL or Shell](doc/60-additional.md)
+- [Workflow and contribution](doc/90-devmode.md)
+
+Or [read the latest changelog](doc/CHANGELOG.md) and [a list of all features](doc/FEATURES.md).

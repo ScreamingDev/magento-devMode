@@ -1,0 +1,42 @@
+<?php /** @var LeMike_DevMode_Block_Notification $this */
+
+/** @var LeMike_DevMode_Helper_Data $helper */
+$helper = $this->helper('lemike_devmode');
+
+/** @var LeMike_DevMode_Helper_Config $helperConfig */
+$helperConfig = Mage::helper('lemike_devmode/config');
+
+?>
+<div class="notification-global">
+    <strong><?php echo $helper->__('Developer Mode is still active.') ?></strong>
+    <?php echo $helper
+        ->__(
+        'Remember to <a href="%s">remove the extension LeMike_Develop</a>'
+        . 'before going live due to <a href="%s">security issues</a>!',
+        $this->getUrl('adminhtml/extension_local'),
+        $this->getUrl('adminhtml/developer/about')
+        ); ?>
+</div>
+
+<?php $isHandlingMail = (!$helperConfig->isMailAllowed()
+                         || $helperConfig->getCoreEmailRecipient()); ?>
+
+<?php if ($isHandlingMail && !$this->isCorrectCoreModelEmail()): ?>
+    <div class="notification-global">
+        <?php echo $helper->__('LeMike_DevMode') ?>:
+        <?php echo $helper->__('Mage_Core_Model_Email has been rewritten.') ?>
+        <strong>
+            <?php echo $helper->__('Can not stop mail from sending.') ?>
+        </strong>
+    </div>
+<?php endif; ?>
+
+<?php if ($isHandlingMail && !$this->isCorrectCoreModelEmailTemplate()): ?>
+    <div class="notification-global">
+        <?php echo $helper->__('LeMike_DevMode') ?>:
+        <?php echo $helper->__('Mage_Core_Model_Email_Template has been rewritten.') ?>
+        <strong>
+            <?php echo $helper->__('Can not stop mail from sending.') ?>
+        </strong>
+    </div>
+<?php endif; ?>

@@ -1,0 +1,9 @@
+<config>
+    <phpunit>
+        <suite>
+            <modules>
+                <LeMike_DevModeTest/>
+            </modules>
+        </suite>
+    </phpunit>
+</config>

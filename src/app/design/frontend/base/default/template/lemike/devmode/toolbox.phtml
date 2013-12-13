@@ -1,0 +1,88 @@
+<?php
+/**
+ * Toolbox template.
+ *
+ * PHP version 5
+ *
+ * Copyright (c) 2013, Mike Pretzlaw
+ * All rights reserved.
+ *
+ * @category  LeMike_DevMode
+ * @package   Templates
+ * @author    Mike Pretzlaw <pretzlaw@gmail.com>
+ * @copyright 2013 Mike Pretzlaw
+ * @license   http://github.com/sourcerer-mike/mage_devMail/blob/master/LICENSE.md BSD 3-Clause ("BSD New")
+ * @link      http://github.com/sourcerer-mike/mage_devMail
+ * @since     0.1.0
+ *
+ * @var LeMike_DevMode_Block_Toolbox $this
+ */
+
+$position = $this->getPosition();
+$namespace = 'lemike.devmode.toolbox';
+
+?>
+
+<div class="lemike">
+    <div class="lemike_devmode">
+        <div id="ld_toolbox" class="ld_toolbox" draggable="true">
+            <strong class="title">TOOLBOX</strong>
+
+            <div class="content">
+                <div class="section">
+                    <?php $key = key($position);
+                    $value = array_shift($position);
+                    $route = ''; ?>
+                    <a href="<?php echo $this->getEditPositionUrl($key, $value); ?>"
+                       class="<?php echo $key ?>">
+                        <?php echo ucfirst($key) ?>: <em><?php echo $value ?></em>
+                    </a>
+                    <?php echo $this->getChildHtml($namespace . ".$key") ?>
+                </div>
+                <?php foreach ($position as $key => $value): ?>
+                    <?php $namespace .= '.' . $value;
+                    $route .= '/' . $value;
+                    $url = $this->getEditPositionUrl($key, $value);
+                    /** @var LeMike_DevMode_Block_Toolbox $childBlock */
+                    $childBlock = $this->getChild($namespace); ?>
+                    <div class="section">
+                        <?php if (!$url): ?>
+                        <span class="<?php echo $key ?>">
+                        <?php else: ?>
+                            <a href="<?php echo $this->getEditPositionUrl($key, $value); ?>"
+                               class="<?php echo $key ?>"
+                               title="<?php echo get_class($this->getAction()) ?>">
+                                <?php endif; ?>
+                                <?php echo ucfirst($key) ?>: <em><?php echo $value ?></em>
+                                <?php if (!$url): ?>
+                            </span>
+                    <?php else: ?>
+                        </a>
+                    <?php
+                    endif;
+                    ?>
+                        <?php echo $this->getChildHtml($namespace) ?>
+                    </div>
+                <?php endforeach ?>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="ld_toolbox_layouts" class="ld_dialog">
+    <div>
+        <?php foreach ($this->getRichUsedLayoutHandles() as $handle => $fileDefinition): ?>
+            <pre>&lt;<?php echo $handle ?>&gt;</pre>
+            <?php foreach ($fileDefinition as $filePath => $definition): ?>
+                <pre title="<?php echo $filePath ?>"><?php echo htmlentities(
+                        $this->arrayToXml($definition, '    ')
+                    ) ?></pre>
+            <?php endforeach; ?>
+            <pre>&lt;/<?php echo $handle ?>&gt;</pre>
+        <?php endforeach; ?>
+    </div>
+</div>
+
+<div id="ld_dialog" class="ld_dialog">
+
+</div>

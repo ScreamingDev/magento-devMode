@@ -6,6 +6,7 @@
 #
 
 # vendor
+tests/mage*
 
 #
 # Numerous always-ignore

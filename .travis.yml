@@ -9,7 +9,7 @@ before_script:
   # Fixing Magento hackathon installer
   - mkdir -p $MAGE_DIR
    # Copying travis composer.json to test only module
-  - cp -f .travis/composer.json composer.json
+  - cp -f dev/travis-ci/composer.json composer.json
   # Installing required composer packages
   - composer update --dev
   # Installing magento version with prepared DB dump
@@ -22,7 +22,7 @@ before_script:
   # Configuring EcomDev_PHPUnit module
   - CURRENT_DIR=$(pwd)
   - cd tests/magento/shell
-  - php ecomdev-phpunit.php -a magento-config --db-name magento --same-db 1 --base_url http://test.magento.com/
+  - php ecomdev-phpunit.php -a magento-config --db-name magento --same-db 1 --base-url http://test.magento.com/
   - cd $CURRENT_DIR
 script:
-  - bin/mage-ci phpunit tests/magento --colors --coverage-text -d display_errors=1 app/code/community/LeMike/DevMode/Test
+  - bin/mage-ci phpunit tests/magento --colors --coverage-text -d display_errors=1 app/code/local/LeMike/DevModeTest/
