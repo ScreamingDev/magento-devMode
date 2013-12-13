@@ -1,0 +1,73 @@
+<?xml version="1.0" ?>
+<layout>
+    <default>
+        <reference name="notifications">
+            <block type="lemike_devmode/notification" name="lemike.devmode.notifications"
+                   template="lemike/devmode/notifications.phtml"
+                   before="-"/>
+        </reference>
+    </default>
+
+    <adminhtml_lemike_devmode_index_about>
+        <reference name="content">
+            <block type="adminhtml/template" name="content.about" as="about"
+                   template="lemike/devmode/about.phtml"/>
+        </reference>
+    </adminhtml_lemike_devmode_index_about>
+
+    <adminhtml_lemike_devmode_catalog_index>
+        <reference name="js">
+            <block type="adminhtml/template" template="lemike/devmode/catalog/js.phtml"
+                   name="lemike.devmode.catalog.product.js" as="catalog_product_js"/>
+        </reference>
+        <reference name="left">
+            <block type="lemike_devmode/catalog_tabs" name="lemike.devmode.catalog.tabs"/>
+        </reference>
+        <reference name="content">
+            <block type="adminhtml/template" name="lemike.devmode.content.catalog"
+                   template="lemike/devmode/catalog/overview.phtml"/>
+        </reference>
+    </adminhtml_lemike_devmode_catalog_index>
+
+    <adminhtml_lemike_devmode_core_index>
+        <reference name="js">
+            <block type="adminhtml/template" template="lemike/devmode/core/js.phtml"
+                   name="core.js"/>
+        </reference>
+        <reference name="left">
+            <block type="lemike_devmode/core_tabs" name="core.tabs"/>
+        </reference>
+        <reference name="content">
+            <block type="adminhtml/template" name="core.content"
+                   template="lemike/devmode/core/overview.phtml"/>
+        </reference>
+    </adminhtml_lemike_devmode_core_index>
+
+    <adminhtml_lemike_devmode_customer_index>
+        <reference name="js">
+            <block type="adminhtml/template" template="lemike/devmode/customer/js.phtml"
+                   name="lemike.devmode.customer.js"/>
+        </reference>
+        <reference name="left">
+            <block type="lemike_devmode/customer_tabs" name="lemike.devmode.customer.tabs"/>
+        </reference>
+        <reference name="content">
+            <block type="adminhtml/template" name="lemike.devmode.content.customer"
+                   template="lemike/devmode/customer/overview.phtml"/>
+        </reference>
+    </adminhtml_lemike_devmode_customer_index>
+
+    <adminhtml_lemike_devmode_sales_index>
+        <reference name="js">
+            <block type="adminhtml/template" template="lemike/devmode/sales/js.phtml"
+                   name="lemike.devmode.sales.js"/>
+        </reference>
+        <reference name="left">
+            <block type="lemike_devmode/sales_tabs" name="lemike.devmode.sales.tabs"/>
+        </reference>
+        <reference name="content">
+            <block type="adminhtml/template" name="lemike.devmode.content.sales"
+                   template="lemike/devmode/sales/overview.phtml"/>
+        </reference>
+    </adminhtml_lemike_devmode_sales_index>
+</layout>

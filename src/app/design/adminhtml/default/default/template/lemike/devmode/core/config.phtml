@@ -1,0 +1,125 @@
+<?php
+/** @var LeMike_DevMode_Block_Core_Config $this */
+
+$rewritePathToClassName = $this->getModel()->getRewritePathToClassName();
+ksort($rewritePathToClassName);
+
+?>
+
+<h2><?php echo $this->__('Rewrites'); ?></h2>
+
+<table>
+    <thead>
+    <tr>
+        <th><?php echo $this->__('Internal config path'); ?></th>
+        <th><?php echo $this->__('Rewriting class'); ?></th>
+    </tr>
+    </thead>
+
+    <tbody>
+    <?php foreach ($rewritePathToClassName as $path => $set): ?>
+        <?php foreach ($set as $className): ?>
+            <tr>
+                <td><?php echo $path ?></td>
+                <td><?php echo $className ?></td>
+            </tr>
+        <?php endforeach; ?>
+    <?php endforeach; ?>
+    </tbody>
+
+    <tfoot>
+    <tr>
+        <td colspan="2"><?php echo $this->__('Keep an eye out for duplicate rewrites.'); ?></td>
+    </tr>
+    </tfoot>
+</table>
+
+<?php
+$cronTabs = $this->getModel()->getCrontabJobs();
+
+$data = array();
+foreach ($cronTabs as $set)
+{
+    $data[$set['alias']] = $set;
+}
+
+ksort($data);
+
+?>
+
+<h2><?php echo $this->__('Cron Jobs'); ?></h2>
+
+<table>
+    <thead>
+    <tr>
+        <th><?php echo $this->__('Alias'); ?></th>
+        <th><?php echo $this->__('Expression'); ?></th>
+        <th><?php echo $this->__('Class'); ?></th>
+        <th><?php echo $this->__('Method'); ?></th>
+    </tr>
+    </thead>
+
+    <tbody>
+    <?php foreach ($data as $set): ?>
+        <tr>
+            <td><?php echo $set['alias'] ?></td>
+            <td>
+                <pre><?php echo $set['cron_expr'] ?></pre>
+            </td>
+            <td><?php echo $set['class'] ?></td>
+            <td><?php echo $set['method'] ?></td>
+        </tr>
+    <?php endforeach; ?>
+    </tbody>
+
+    <tfoot>
+    <tr>
+        <td colspan="4">
+            <?php echo $this->__(
+                            'Those cron jobs are configured by config.xml of each active module.'
+            ); ?>
+        </td>
+    </tr>
+    </tfoot>
+</table>
+
+
+<h2><?php echo $this->__('Observer'); ?></h2>
+
+<table id="core_config_observer">
+    <thead>
+    <tr>
+        <th><?php echo $this->__('Scope'); ?></th>
+        <th><?php echo $this->__('Event'); ?></th>
+        <th><?php echo $this->__('Class'); ?></th>
+        <th><?php echo $this->__('Method'); ?></th>
+    </tr>
+    </thead>
+
+    <tbody>
+    <?php foreach ($this->getModel()->getObserver() as $scope => $eventSet): ?>
+        <?php foreach ($eventSet as $event => $aliasSet): ?>
+            <?php foreach ($aliasSet as $alias => $observerSet): ?>
+                <?php foreach ($observerSet as $observer): ?>
+                    <tr>
+                        <td><?php echo $scope ?></td>
+                        <td><?php echo $event ?></td>
+                        <td><?php echo get_class(Mage::getModel((string) $observer->class)) ?></td>
+                        <td><?php echo $observer->method ?></td>
+                    </tr>
+                <?php endforeach; ?>
+            <?php endforeach; ?>
+        <?php endforeach; ?>
+    <?php endforeach; ?>
+    </tbody>
+
+    <tfoot>
+    <tr>
+        <td colspan="4">
+            <?php echo $this->__(
+                            'Those observer will handle the listed events.'
+            ); ?>
+        </td>
+    </tr>
+    </tfoot>
+</table>
