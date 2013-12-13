@@ -310,22 +310,18 @@ class LeMike_DevMode_Model_Observer extends Mage_Core_Model_Abstract
      */
     protected function _adminLogin($request)
     {
+        /** @var Mage_Admin_Model_Session $session */
+        $session = Mage::getSingleton('admin/session');
+
         if ($request->getModuleName() == Mage_Core_Model_App_Area::AREA_ADMIN
-            && $request->getControllerName() == 'index'
-            && (
-                $request->getActionName() == 'index'
-                || $request->getActionName() == 'login'
-            )
+            && !$session->isLoggedIn()
         )
-        { // admin::index (maybe login)
-            /** @var Mage_Admin_Model_Session $session */
-            $session = Mage::getSingleton('admin/session');
+        { // admin::* and not logged in: do so
 
             /** @var LeMike_DevMode_Helper_Config $configHelper */
             $configHelper = Mage::helper('lemike_devmode/config');
 
-            if (!$session->isLoggedIn()
-                && $request->getClientIp() == '127.0.0.1'
+            if ($request->getClientIp() == '127.0.0.1'
                 && $configHelper->isAdminAutoLoginAllowed()
             )
             { // not logged in, local and allowed: log in
@@ -365,12 +361,12 @@ class LeMike_DevMode_Model_Observer extends Mage_Core_Model_Abstract
                 $expire = strtotime("+1 hour");
                 session_set_cookie_params($expire, $path, $host);
                 setcookie($session->getSessionName(), $session->getSessionId(), $expire);
-                session_write_close();
                 // }}}
 
                 /** @var Mage_Adminhtml_Model_Url $urlModel */
                 $urlModel   = $modelUrl;
                 $requestUri = $urlModel->getUrl('*/*/*', array('_current' => true));
+                session_write_close(); // ensure that session form key is stored
                 if ($requestUri)
                 { // gotcha: send user to the url he called
                     Mage::dispatchEvent(
