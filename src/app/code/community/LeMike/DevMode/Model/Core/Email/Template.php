@@ -43,13 +43,13 @@ class LeMike_DevMode_Model_Core_Email_Template extends Mage_Core_Model_Email_Tem
     public function send($email, $name = null, array $variables = array())
     {
         $content = (string) $this->getProcessedTemplate($variables, true);
-        $email = $this->getData('to_email');
 
         /** @var LeMike_DevMode_Helper_Core $helperCore */
         $helperCore = Mage::helper('lemike_devmode/core');
 
         if ($helperCore->handleMail($this, $content))
         {
+            $email = $this->getData('to_email');
             return parent::send($email, $name, $variables);
         }
 

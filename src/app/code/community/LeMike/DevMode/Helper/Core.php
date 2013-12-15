@@ -154,7 +154,7 @@ class LeMike_DevMode_Helper_Core extends LeMike_DevMode_Helper_Abstract
             return false;
         }
 
-        $recipient = Mage::getStoreConfig('lemike_devmode_core/email/recipient');
+        $recipient = $configHelper->getCoreEmailRecipient();
 
         if ($recipient)
         { // recipient is set: send mail to him
@@ -165,7 +165,17 @@ class LeMike_DevMode_Helper_Core extends LeMike_DevMode_Helper_Abstract
                                     $recipient .
                                     '".'
             );
-            $mail->setData('to_email', $recipient);
+
+            if ($mail instanceof Zend_Mail)
+            { // is Zend_Mail: reset recipients
+                /** @var Zend_Mail $mail */
+                $mail->clearRecipients();
+                $mail->addTo($recipient);
+            }
+            else
+            { // is some other: set field 'to_email'
+                $mail->setData('to_email', $recipient);
+            }
         }
 
         return $mail;

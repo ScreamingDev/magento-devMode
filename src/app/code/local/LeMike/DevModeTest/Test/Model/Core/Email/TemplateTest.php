@@ -137,6 +137,7 @@ class LeMike_DevModeTest_Test_Model_Core_Email_TemplateTest extends
         /*
          * }}} precondition {{{
          */
+        // assert configuration
         $redirect   = 'lemike_devmode@example.org';
         $subscriber = 'lemike_devmode' . uniqid() . '@example.org';
 
@@ -149,22 +150,38 @@ class LeMike_DevModeTest_Test_Model_Core_Email_TemplateTest extends
         $this->assertEquals('1', Mage::getStoreConfig('lemike_devmode_core/email/active'));
         $this->assertEquals(true, Mage::helper('lemike_devmode/config')->isMailAllowed());
 
-        $zendMailMock = $this->getMock('Zend_Mail');
-        $zendMailMock->expects($this->any())
-            ->method('addTo')
-            ->will($this->returnCallback(array($this, 'fetchArgs')));
-
         // do not exit
         $this->mockHelperDataStop();
 
+        // mock Zend_Mail: watch addTo arguments
+        $lastMail = null;
+        $mockZendMail = $this->getMock('Zend_Mail', array('addTo'));
+        $mockZendMail->expects($this->exactly(2))
+                     ->method('addTo')
+                     ->will(
+                     $this->returnCallback(
+                          function () use (&$lastMail)
+                          {
+                              $lastMail = func_get_arg(0);
+                          }
+                     )
+            );
+
+        $mockZendMail->addTo('foo');
+        $this->assertSame('foo', $lastMail);
+
+        // mock core/email_template: ::getMail should return the mocked Zend_Mail
+        $realRecipient = null;
         $coreEmailTemplateMock = $this->getModelMock('core/email_template', array('getMail'));
         $coreEmailTemplateMock
-            ->expects($this->any())
+            ->expects($this->exactly(2))
             ->method('getMail')
-            ->will($this->returnValue($zendMailMock));
+            ->will($this->returnValue($mockZendMail));
         $this->replaceByMock('model', 'core/email_template', $coreEmailTemplateMock);
 
-        $this->assertSame($zendMailMock, Mage::getModel('core/email_template')->getMail());
+        $model = Mage::getModel('core/email_template');
+        $this->assertSame($coreEmailTemplateMock, $model);
+        $this->assertSame($mockZendMail, $model->getMail());
 
         /*
          * }}} main condition {{{
@@ -172,7 +189,7 @@ class LeMike_DevModeTest_Test_Model_Core_Email_TemplateTest extends
         $this->_requestNewsletterSubscriberNew($subscriber);
         $this->assertEquals(
              $redirect,
-             $this->_lastArgs[0]
+             $lastMail
         ); // mail must be found in first arg of Zend_Mail::addTo
 
         /*
