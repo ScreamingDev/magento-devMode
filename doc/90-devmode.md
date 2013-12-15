@@ -34,12 +34,41 @@ be such a text that briefly describes the feature or bug to an end-user.
 - Make some screen shots and **doc** for release notes.
 
 
-## UnitTest
+## Testing
+
+Static and logic -> PHPUnit
+Dynamic and usable -> Casper.js
+
+
+### UnitTests with EcomDev_PHPUnit
 
 - Will be made with EcomDev_PHPUnit for magento
 - Run on travis-ci for:
     - PHP 5.4 / 5.3
     - Magento 1.7.0.2 / 1.6.2.0 / 1.5.1.0
+
+
+### Back- and Frontend with Casper.js
+
+Note: Some things can not be testet with PHPUnit.
+So all the missing tests on the frontend and
+to ensure that everything is usable goes down to casperJS.
+
+- Easy to install `npm install -g casperjs`
+- Ensures dynamic content
+- All made upon the Webkit (so no FF)
+
+
+![A Suite in CasperJS](https://f.cloud.github.com/assets/2559177/1748101/c441b51c-649d-11e3-9baf-218d63a92ae7.png)
+
+
+In addition casperJS will collect screenshots of every important tool.
+
+```
+casper.captureSelector 'default_cms_index_index#ld_toolbox.png', '#ld_toolbox'
+```
+
+Note: This can be used for an up-to-date documentation with the latest images.
 
 
 ### Naming
@@ -59,12 +88,30 @@ from the class names.
 - Static code quality with PHP_CodeSniffer (see `dev/codeSniffer.xml`)
 
 
+### Release
+
+- Copy the release issue for the last milestone
+- Collect release notes as described below
+
 ## Power of the docs
 
 - Use it for release notes
 - Generate a manual
 - Have something to read in GitHub
 - Use it as presentation in no time
+
+
+### Release Notes
+
+Images for the documentation can be stored as a draft in
+[GitHub Release Notes](https://github.com/sourcerer-mike/magento-devMode/releases).
+Right before the release of a version you can run
+
+```
+git diff master..HEAD doc/??-*.md
+```
+
+to see changes in documentation and copy them to the release notes.
 
 
 ### Tools
