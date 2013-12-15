@@ -31,7 +31,7 @@ class LeMike_DevMode_Block_Template extends Mage_Adminhtml_Block_Template
      *
      * Will get any helper but by default the module one (LeMike_DevMode_Helper_Data).
      *
-     * @param string $name
+     * @param string $name Name of a helper to get (default: LeMike_DevMode_Helper_Data).
      *
      * @return Mage_Core_Block_Abstract
      */
@@ -55,7 +55,7 @@ class LeMike_DevMode_Block_Template extends Mage_Adminhtml_Block_Template
     /**
      * Get the module name or a child of it.
      *
-     * @param $node
+     * @param string $node Additional text after the module name.
      *
      * @return string
      */
@@ -65,6 +65,13 @@ class LeMike_DevMode_Block_Template extends Mage_Adminhtml_Block_Template
     }
 
 
+    /**
+     * Get the module alias or a child of it.
+     *
+     * @param string $node Additional text after the module alias.
+     *
+     * @return string
+     */
     public function getModuleAlias($node = null)
     {
         return LeMike_DevMode_Helper_Data::MODULE_ALIAS . $node;

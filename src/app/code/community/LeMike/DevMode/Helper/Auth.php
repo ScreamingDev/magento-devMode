@@ -32,8 +32,8 @@ class LeMike_DevMode_Helper_Auth extends LeMike_DevMode_Helper_Abstract
     /**
      * Get url to backend.
      *
-     * @param       $route
-     * @param array $params
+     * @param string $route  Magento URL-Route.
+     * @param array  $params Additional URL parameter.
      *
      * @return string
      */

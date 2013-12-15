@@ -50,8 +50,9 @@ class LeMike_DevMode_Block_Shell_Table
      *
      * The table will only show and accept the defined headings.
      *
-     * @param array $captions Headings for each column.
+     * @param array $captions Headings for each column [Field => Heading].
      * @param array $data     Rows for the table.
+     * @param array $legend   [Field => Legend text]
      */
     public function __construct($captions = array(), $data = array(), $legend = array())
     {
@@ -137,7 +138,7 @@ class LeMike_DevMode_Block_Shell_Table
     /**
      * Add a row to the table.
      *
-     * @param array $data
+     * @param array $data Assoc array that will be added to the table.
      *
      * @return void
      */
@@ -159,7 +160,7 @@ class LeMike_DevMode_Block_Shell_Table
     /**
      * Add a row to the table.
      *
-     * @param $row
+     * @param array $row Data to add to the array.
      *
      * @return void
      */

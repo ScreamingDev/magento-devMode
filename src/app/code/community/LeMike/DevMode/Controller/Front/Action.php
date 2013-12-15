@@ -59,7 +59,7 @@ class LeMike_DevMode_Controller_Front_Action extends Mage_Core_Controller_Front_
      *
      * At least the one of the module.
      *
-     * @param string $node
+     * @param string $node Additional node after the module helper node.
      *
      * @return LeMike_DevMode_Helper_Data
      */
@@ -90,7 +90,7 @@ class LeMike_DevMode_Controller_Front_Action extends Mage_Core_Controller_Front_
     /**
      * Get the alias (with a suffix).
      *
-     * @param null $suffix
+     * @param null $suffix Additional text after the module alias.
      *
      * @return string Like company_moduleName.
      */

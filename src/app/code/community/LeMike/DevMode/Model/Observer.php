@@ -32,7 +32,7 @@ class LeMike_DevMode_Model_Observer extends Mage_Core_Model_Abstract
     /**
      * Before loading layout.
      *
-     * @param Varien_Event_Observer $observer
+     * @param Varien_Event_Observer $observer [event => [layout => ..., action => ...]].
      *
      * @return bool
      */
@@ -83,7 +83,9 @@ class LeMike_DevMode_Model_Observer extends Mage_Core_Model_Abstract
     /**
      * Fetch everything after dispatch.
      *
-     * @param Varien_Event $event
+     * The event needs to be: [controller_action => [response => ..., ...]]
+     *
+     * @param Varien_Event $event Information about the event.
      *
      * @return bool
      */
@@ -114,7 +116,9 @@ class LeMike_DevMode_Model_Observer extends Mage_Core_Model_Abstract
     /**
      * Fetch controller_action_predispatch event.
      *
-     * @param Varien_Event_Observer $event
+     * The event needs to be: [controller_action => [request => ..., ...]]
+     *
+     * @param Varien_Event_Observer $event Information about the event.
      *
      * @return bool
      */
@@ -259,7 +263,20 @@ class LeMike_DevMode_Model_Observer extends Mage_Core_Model_Abstract
     /**
      * Before sending a response.
      *
-     * @param Varien_Event $event
+     * The event needs to be:
+     *
+     * ```
+     * [
+     *  Mage_Core_Controller_Varien_Front "front" =>
+     *  [
+     *      Mage_Core_Controller_Request_Http "request" => ...,
+     *      ...
+     *  ],
+     *  ...
+     * ]
+     * ```
+     *
+     * @param Varien_Event $event Information about the event.
      *
      * @return bool
      */
@@ -302,9 +319,9 @@ class LeMike_DevMode_Model_Observer extends Mage_Core_Model_Abstract
 
 
     /**
-     * Login as admin like configured into the backend.
+     * Login as admin like configured if the url points to the backend.
      *
-     * @param Mage_Core_Controller_Request_Http $request
+     * @param Mage_Core_Controller_Request_Http $request An request to do login for.
      *
      * @return void
      */

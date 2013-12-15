@@ -87,7 +87,9 @@ class LeMike_DevMode_Adminhtml_LeMike_DevMode_Catalog_ProductsController extends
             }
         }
 
-        Mage::helper($this->getModuleAlias())->responseJson($sanitizeAll);
+        /** @var LeMike_DevMode_Helper_Data $helper */
+        $helper = Mage::helper($this->getModuleAlias());
+        $helper->responseJson($sanitizeAll);
     }
 
 

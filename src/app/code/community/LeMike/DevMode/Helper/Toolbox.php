@@ -52,8 +52,8 @@ class LeMike_DevMode_Helper_Toolbox extends LeMike_DevMode_Helper_Abstract
      * Get the line number of the first line in a file matching a given regex
      * Not the nicest solution, but probably the fastest
      *
-     * @param $file
-     * @param $regex
+     * @param string $file  A file to retrieve line number from.
+     * @param string $regex Expression to
      *
      * @return bool|int
      */

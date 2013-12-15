@@ -28,6 +28,13 @@
  */
 class DevMode_Core_Config extends DelegateCommand
 {
+    /**
+     * Turn XML into a path.
+     *
+     * @param $node
+     *
+     * @return string
+     */
     public function _getPathByNode($node)
     {
         $name = '';
@@ -122,6 +129,7 @@ class DevMode_Core_Config extends DelegateCommand
 
         foreach ($collection as $data)
         {
+            /** @var Mage_Core_Model_Config_Data $data */
             $data = $data->toArray();
 
             if (!$this->_filterMatch($data['scope'], $scopeRegExp)
@@ -203,7 +211,7 @@ class DevMode_Core_Config extends DelegateCommand
     /**
      * Collection for the config model.
      *
-     * @return object
+     * @return Mage_Core_Model_Resource_Config_Data_Collection
      */
     protected function _getCollection()
     {

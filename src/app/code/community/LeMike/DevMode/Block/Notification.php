@@ -2,6 +2,8 @@
 /**
  * Class LeMike_DevMode_Block_Template.
  *
+ * PHP version 5.
+ *
  * @category  LeMike_DevMode
  * @package   LeMike\DevMode\Block
  * @author    Mike Pretzlaw <pretzlaw@gmail.com>

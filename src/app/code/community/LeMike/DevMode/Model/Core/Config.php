@@ -142,7 +142,7 @@ class LeMike_DevMode_Model_Core_Config extends Mage_Core_Model_Abstract
      * List all rewrites with their according classes.
      *
      * @param SimpleXMLElement $childNode (default: current config)
-     * @param string           $basePath
+     * @param string           $basePath  Start point to store rewrites in.
      *
      * @return array [path => [overriding class, ...]]
      */

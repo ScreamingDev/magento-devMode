@@ -37,9 +37,9 @@ class LeMike_DevMode_Helper_Config extends LeMike_DevMode_Helper_Abstract
      *
      * This will turn '__dev__foo__bar' into 'dev/foo/bar'.
      *
-     * @param $queryKey
+     * @param string $queryKey Query key like '__dev__foo__bar'.
      *
-     * @return mixed
+     * @return string XML-Path like 'dev/foo/bar'.
      */
     public function urlToNode($queryKey)
     {
@@ -52,9 +52,9 @@ class LeMike_DevMode_Helper_Config extends LeMike_DevMode_Helper_Abstract
      *
      * This will turn 'dev/foo/bar' into '__dev__foo__bar'.
      *
-     * @param $node
+     * @param string $node XML-Path like 'dev/foo/bar'.
      *
-     * @return string
+     * @return string Query-Key like '__dev__foo__bar'.
      */
     public function nodeToUrl($node)
     {

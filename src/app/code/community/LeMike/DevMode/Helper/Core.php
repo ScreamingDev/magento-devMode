@@ -32,7 +32,7 @@ class LeMike_DevMode_Helper_Core extends LeMike_DevMode_Helper_Abstract
     /**
      * Get the version of a module/extension as written in the used configXML.
      *
-     * @param $moduleName
+     * @param string $moduleName Alias of a module.
      *
      * @return string
      */
@@ -58,7 +58,7 @@ class LeMike_DevMode_Helper_Core extends LeMike_DevMode_Helper_Abstract
     /**
      * Get the config for a module.
      *
-     * @param $moduleName
+     * @param string $moduleName Alias of a module.
      *
      * @return Varien_Simplexml_Config
      */
@@ -81,7 +81,7 @@ class LeMike_DevMode_Helper_Core extends LeMike_DevMode_Helper_Abstract
      *
      * You find this in the `config.xml` of the extension in the XML-Path `global/resources`.
      *
-     * @param $moduleName
+     * @param string $moduleName Alias of a module.
      *
      * @return string Resource-Name of the module
      */
@@ -116,7 +116,10 @@ class LeMike_DevMode_Helper_Core extends LeMike_DevMode_Helper_Abstract
      */
     public function handleMail($mail, $content = null)
     {
-        if (!Mage::helper('lemike_devmode/config')->isMailAllowed())
+        /** @var LeMike_DevMode_Helper_Config $configHelper */
+        $configHelper = Mage::helper('lemike_devmode/config');
+
+        if (!$configHelper->isMailAllowed())
         { // no mail allowed set: show content
             if ($mail instanceof Zend_Mail)
             {

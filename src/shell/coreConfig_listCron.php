@@ -53,7 +53,7 @@ class LeMike_DevMode_Shell_CoreConfigCron extends Mage_Shell_Abstract
                   "class"     => 'Class',
                   "method"    => 'Method',
             ),
-            $data
+            (array) $data
         );
 
         $table->legend = array(

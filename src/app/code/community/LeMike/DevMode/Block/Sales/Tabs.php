@@ -2,6 +2,8 @@
 /**
  * Class LeMike_DevMode_Block_Sales_Tabs.
  *
+ * PHP version 5
+ *
  * @category  LeMike_DevMode
  * @package   LeMike\DevMode\Block\Sales
  * @author    Mike Pretzlaw <pretzlaw@gmail.com>
@@ -12,11 +14,14 @@
  */
 
 /**
- * LeMike_DevMode Catalog page left menu
+ * LeMike_DevMode Catalog page left menu.
  *
  * @category  LeMike_DevMode
  * @package   LeMike\DevMode\Block\Sales
  * @author    Mike Pretzlaw <pretzlaw@gmail.com>
+ * @copyright 2013 Mike Pretzlaw
+ * @license   http://github.com/sourcerer-mike/mage_devmode/blob/master/License.md BSD 3-Clause ("BSD New")
+ * @link      http://github.com/sourcerer-mike/mage_devmode LeMike_DevMode on GitHub
  */
 class LeMike_DevMode_Block_Sales_Tabs extends Mage_Adminhtml_Block_Widget_Tabs
 {

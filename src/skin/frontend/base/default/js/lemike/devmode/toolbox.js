@@ -21,25 +21,25 @@ function lemikeDevmode_urlSetParameter(url, param, value) {
     // and then followed by a & or the end of the string
     var val = new RegExp('(\\?|\\&)' + param + '=.*?(?=(&|$))'),
         parts = url.toString().split('#'),
-        url = parts[0],
+        theUrl = parts[0],
         hash = parts[1],
         queryString = /\?.+$/,
         newURL = url;
 
     // Check if the parameter exists
-    if (val.test(url)) {
+    if (val.test(theUrl)) {
         // if it does, replace it, using the captured group
         // to determine & or ? at the beginning
-        newURL = url.replace(val, '$1' + param + '=' + value);
+        newURL = theUrl.replace(val, '$1' + param + '=' + value);
     }
-    else if (queryString.test(url)) {
+    else if (queryString.test(theUrl)) {
         // otherwise, if there is a query string at all
         // add the param to the end of it
-        newURL = url + '&' + param + '=' + value;
+        newURL = theUrl + '&' + param + '=' + value;
     }
     else {
         // if there's no query string, add one
-        newURL = url + '?' + param + '=' + value;
+        newURL = theUrl + '?' + param + '=' + value;
     }
 
     if (hash) {
@@ -77,7 +77,7 @@ function showDialog(content, title) {
 }
 
 function lemikeDevmode_makeWindow(url) {
-    win = new Window({
+    var win = new Window({
             className: 'magento',
             title: 'Events and observer',
             url: url,

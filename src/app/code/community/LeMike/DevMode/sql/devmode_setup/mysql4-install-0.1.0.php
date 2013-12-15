@@ -2,8 +2,10 @@
 /**
  * Installation for LeMike_DevMode.
  *
+ * PHP version 5.
+ *
  * @category  LeMike_DevMode
- * @package   LeMike\DevMode\sql\devmode_setup
+ * @package   LeMike\DevMode\SQL\Setup
  * @author    Mike Pretzlaw <pretzlaw@gmail.com>
  * @copyright 2013 Mike Pretzlaw
  * @license   http://github.com/sourcerer-mike/mage_devmode/blob/master/License.md BSD 3-Clause ("BSD New")

@@ -223,7 +223,7 @@ class LeMike_DevMode_Block_Toolbox extends LeMike_DevMode_Block_Template
     /**
      * Detailed information about the used layout handles.
      *
-     * @return void
+     * @return array
      */
     public function getRichLayoutHandles()
     {
@@ -234,6 +234,14 @@ class LeMike_DevMode_Block_Toolbox extends LeMike_DevMode_Block_Template
     }
 
 
+    /**
+     * Transform an array into XML.
+     *
+     * @param array  $arr    An array to transform into XML.
+     * @param string $indent Indent of the whole source.
+     *
+     * @return string
+     */
     public function arrayToXml($arr = array(), $indent = '')
     {
         $xml = '';
@@ -280,9 +288,9 @@ class LeMike_DevMode_Block_Toolbox extends LeMike_DevMode_Block_Template
     /**
      * Receive all used layout handles.
      *
-     * @deprecated 1.0.0
-     *
      * @param bool $withModule With those from the module (default: false)
+     *
+     * @deprecated 1.0.0
      *
      * @return array
      */
@@ -310,12 +318,19 @@ class LeMike_DevMode_Block_Toolbox extends LeMike_DevMode_Block_Template
     }
 
 
+    /**
+     * Receive a full list for all layout handles.
+     *
+     * @param bool $withModule Put the module in the output.
+     *
+     * @return array
+     */
     public function getRichUsedLayoutHandles($withModule = false)
     {
         $richLayoutHandles = $this->getRichLayoutHandles();
 
         $richUsedLayoutHandles = array();
-        foreach ($this->getUsedLayoutHandles() as $handle)
+        foreach ($this->getUsedLayoutHandles($withModule) as $handle)
         {
             $richUsedLayoutHandles[$handle] = array();
 
