@@ -129,23 +129,7 @@ class LeMike_DevMode_Parameter
                     continue;
                 }
 
-                $value   = "";
-                $command = substr($arg, 2);
-
-                // is it the syntax '--option=argument'?
-                if (strpos($command, self::$optionInfix))
-                { // it is a pair: resolve it
-                    list($command, $value) = explode(self::$optionInfix, $command, 2);
-                } // or is the option not followed by another option but by arguments?
-                else
-                { // followed by arguments: parse em
-                    while (!empty($parameterArray) &&
-                           strpos($parameterArray[0], self::$flagPrefix) !== 0)
-                    {
-                        $value .= array_shift($parameterArray) . ' ';
-                    }
-                    $value = rtrim($value, ' ');
-                }
+                list($value, $command, $parameterArray) = self::_parseOption($parameterArray, $arg);
 
                 $parsedToArray[static::OPTIONS][$command] = !empty($value) ? $value : true;
                 continue;
@@ -178,6 +162,40 @@ class LeMike_DevMode_Parameter
         }
 
         return $parsedToArray;
+    }
+
+
+    /**
+     * .
+     *
+     * @param $parameterArray
+     * @param $arg
+     *
+     * @return array
+     */
+    protected static function _parseOption($parameterArray, $arg)
+    {
+        $value   = "";
+        $command = substr($arg, 2);
+
+        // is it the syntax '--option=argument'?
+        if (strpos($command, self::$optionInfix))
+        { // it is a pair: resolve it
+            list($command, $value) = explode(self::$optionInfix, $command, 2);
+
+            return array($value, $command, $parameterArray);
+        } // or is the option not followed by another option but by arguments?
+        else
+        { // followed by arguments: parse em
+            while (!empty($parameterArray) &&
+                   strpos($parameterArray[0], self::$flagPrefix) !== 0)
+            {
+                $value .= array_shift($parameterArray) . ' ';
+            }
+            $value = rtrim($value, ' ');
+
+            return array($value, $command, $parameterArray);
+        }
     }
 
 
@@ -746,9 +764,10 @@ abstract class DelegateCommand extends AbstractCommand
             $subModuleClassName = $thisClassName . '_' . $subModuleName;
 
             include_once $classFile;
-            $reflectClass            = new ReflectionClass($subModuleClassName);
-            $docComment              =
-                $this->_filterDocCommentHeader($reflectClass->getDocComment());
+
+            $reflectClass = new ReflectionClass($subModuleClassName);
+            $docComment   = $this->_filterDocCommentHeader($reflectClass->getDocComment());
+
             $modules[$subModuleName] = $docComment;
         }
 
@@ -797,7 +816,12 @@ abstract class DelegateCommand extends AbstractCommand
 
                 $docComment = $this->_getDocCommentByMethod($method);
                 $docComment = ltrim($docComment, "/*\n\r ");
-                $docComment = substr($docComment, 0, strpos($docComment, "\n"));
+                $docComment = substr(
+                    $docComment,
+                    0,
+                    strpos($docComment, "\n")
+                );
+
                 if ($docComment)
                 {
                     echo ' - ' . $docComment;

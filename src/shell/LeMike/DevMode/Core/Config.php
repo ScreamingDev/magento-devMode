@@ -222,4 +222,4 @@ class DevMode_Core_Config extends DelegateCommand
 
         return Mage::getModel('core/config_data');
     }
-} 
+}
