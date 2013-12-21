@@ -22,12 +22,16 @@
         [RFC 2119] (http://www.ietf.org/rfc/rfc2119.txt).
     </description>
 
+    <!--- ## Basic language terms -->
+
     <!---
-    ## Basic language terms
-
     This is about the PHP itself and how to design code.
-
     -->
+
+    <!--- ### Whitespaces -->
+
+    <!--- - There MUST NOT be trailing whitespace at the end of non-blank lines. -->
+    <rule ref="Squiz.WhiteSpace.SuperfluousWhitespace"/>
 
     <!--- ### Indenting and line length -->
 
@@ -51,14 +55,14 @@
         <severity>0</severity>
     </rule>
 
-    <!---
-    ### Control Structures
+    <!--- ### Control Structures -->
 
+    <!---
     Some SHALL NOT be used:
 
      - Ternary operators, due to their lack in readability and performance.
 
-    ### Split long statements onto several lines
+    #### Split long statements onto several lines
 
     Keeping the operators at the beginning of the line has two advantages:
 
@@ -101,9 +105,36 @@
 
     -->
 
+    <!--- #### Metrics -->
+
     <!---
-    ### Function Calls
+    The McCabe-Metric SHOULD stay below 8 and MUST be below 100 within a function, method etc.
+    This means that the cyclomatic complexity within this scope only allows eight
+    control structures (or eight edges in the control path) after another to provide readability
+    and help others to understand the code.
+    Try to refactor your code down to more atomic tasks when you get above that level.
     -->
+    <rule ref="Generic.Metrics.CyclomaticComplexity">
+        <properties>
+            <property name="complexity" value="8"/>
+            <property name="absoluteComplexity" value="100"/>
+        </properties>
+    </rule>
+
+    <!---
+    In addition the nesting of the control path SHOULD stay below 6 and MUST be below 50.
+    It is not good to have such big nested algorithm because others won't understand it that fast.
+    More important is that the further the nesting goes the less you can adapt code to new
+    requirements.
+    -->
+    <rule ref="Generic.Metrics.NestingLevel">
+        <properties>
+            <property name="nestingLevel" value="5"/>
+            <property name="absoluteNestingLevel" value="50"/>
+        </properties>
+    </rule>
+
+    <!--- ### Function Calls -->
 
     <!---
     Functions should be called with no spaces between the function name,
@@ -157,9 +188,6 @@
 
     <!-- The closing ?> tag MUST be omitted from files containing only PHP. -->
     <rule ref="Zend.Files.ClosingTag"/>
-
-    <!-- There MUST NOT be trailing whitespace at the end of non-blank lines. -->
-    <rule ref="Squiz.WhiteSpace.SuperfluousWhitespace"/>
 
     <!-- In the argument list, there MUST NOT be a space before each comma, and there MUST be one space after each comma. -->
     <rule ref="Squiz.Functions.FunctionDeclarationArgumentSpacing">
@@ -227,20 +255,6 @@
     <rule ref="PEAR.Formatting.MultiLineAssignment"/>
     <rule ref="PEAR.Formatting.MultiLineAssignment.EqualSignLine">
         <severity>0</severity>
-    </rule>
-
-    <!-- Tweaks to metrics -->
-    <rule ref="Generic.Metrics.CyclomaticComplexity">
-        <properties>
-            <property name="complexity" value="10"/>
-            <property name="absoluteComplexity" value="100"/>
-        </properties>
-    </rule>
-    <rule ref="Generic.Metrics.NestingLevel">
-        <properties>
-            <property name="nestingLevel" value="5"/>
-            <property name="absoluteNestingLevel" value="50"/>
-        </properties>
     </rule>
 
     <!-- We don't want gsjlint throwing errors for things we already check -->
