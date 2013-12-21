@@ -19,11 +19,11 @@
 /**
  * Parser for Parameters.
  *
- * @category  LeMike_DevMode
- * @package   LeMike\DevMode\Shell\DevMode
- * @author    Mike Pretzlaw <pretzlaw@gmail.com>
- * @license   http://github.com/sourcerer-mike/mage_devmode/blob/master/License.md BSD 3-Clause ("BSD New")
- * @link      http://github.com/sourcerer-mike/mage_devmode LeMike_DevMode on GitHub
+ * @category LeMike_DevMode
+ * @package  LeMike\DevMode\Shell\DevMode
+ * @author   Mike Pretzlaw <pretzlaw@gmail.com>
+ * @license  http://github.com/sourcerer-mike/mage_devmode/blob/master/License.md BSD 3-Clause ("BSD New")
+ * @link     http://github.com/sourcerer-mike/mage_devmode LeMike_DevMode on GitHub
  */
 class LeMike_DevMode_Parameter
 {
