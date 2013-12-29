@@ -195,4 +195,36 @@ class LeMike_DevMode_Model_Core_Config extends Mage_Core_Model_Abstract
     {
         return Mage::app()->getConfig();
     }
+
+
+    public function toIni()
+    {
+        $xml = $this->_getConfig();
+
+        $items = array();
+        $configs = Mage::app()->getConfig()->getNode();
+        $this->_xmlToArray($configs, $items);
+
+        $content = '';
+        foreach ($items as $key => $value) {
+            $content .= "$key=$value\n";
+        }
+
+        return $content;
+    }
+
+
+    protected function _xmlToArray($xml, &$arr, $parentKey=''){
+        if( !$xml )
+            return;
+
+        if( count($xml->children())==0 ){
+            $arr[$parentKey] = (string) $xml;
+        } else {
+            foreach( $xml->children() as $key => $item ){
+                $key = $parentKey ? $parentKey . DS . $key : $key;
+                $this->_xmlToArray($item, $arr, $key);
+            }
+        }
+    }
 }

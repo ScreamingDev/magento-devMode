@@ -40,22 +40,80 @@ class LeMike_DevModeTest_Test_Helper_ConfigTest extends LeMike_DevModeTest_Test_
     }
 
 
-    public function testSelf()
+    public function getMethodToPath()
     {
-        $this->assertInstanceOf('LeMike_DevMode_Helper_Config', $this->getFrontend());
+        return array(
+            array(
+                'generalSecurityAllowRestrictedIpOnly',
+                'dev/lemike_devmode/allow_restricted_ip_only'
+            ),
+            array(
+                'getAdminLoginUser',
+                'dev/lemike_devmode/admin_login_user'
+            ),
+            array(
+                'getCoreEmailRecipient',
+                'dev/lemike_devmode/core_email_recipient'
+            ),
+            array(
+                'getCustomerCustomerPassword',
+                'dev/lemike_devmode/customer_password'
+            ),
+            array(
+                'getRemoteCallUrlTemplate',
+                'dev/lemike_devmode/remoteCallUrlTemplate'
+            ),
+            array(
+                'isEnabled',
+                'dev/lemike_devmode/active'
+            ),
+            array(
+                'isIdeRemoteCallEnabled',
+                'dev/lemike_devmode/ideRemoteCallEnabled'
+            ),
+            array(
+                'isMailAllowed',
+                'dev/lemike_devmode/core_email_active'
+            ),
+            array(
+                'isToolboxEnabled',
+                'dev/lemike_devmode/show_toolbox'
+            ),
+        );
     }
 
 
     /**
      * .
      *
+     * @param $method
+     * @param $path
+     *
+     * @dataProvider getMethodToPath
+     *
      * @return void
      */
-    public function testIsMailAllowed()
+    public function testConfigPaths($method, $path)
     {
         $helper = $this->getFrontend();
-        $this->assertTrue(method_exists($helper, 'isMailAllowed'));
-        $helper->isMailAllowed();
+
+        $this->assertTrue(method_exists($helper, $method));
+
+        // check current value
+        $value = $helper->$method();
+        $originalValue = Mage::app()->getStore()->getConfig($path);
+
+        $this->assertTrue($originalValue == $value);
+
+        // check if path is correct
+        $newValue = !$originalValue;
+        Mage::app()->getStore()->setConfig($path, $newValue);
+
+        $this->assertEquals($newValue, $helper->$method());
+
+        // reset
+        Mage::app()->getStore()->setConfig($path, $originalValue);
+        $this->assertTrue($originalValue == $helper->$method());
     }
 
 
@@ -82,5 +140,24 @@ class LeMike_DevModeTest_Test_Helper_ConfigTest extends LeMike_DevModeTest_Test_
         $helper = $this->getFrontend();
         $this->assertTrue(method_exists($helper, 'getCustomerCustomerPassword'));
         $helper->getCustomerCustomerPassword();
+    }
+
+
+    /**
+     * .
+     *
+     * @return void
+     */
+    public function testIsMailAllowed()
+    {
+        $helper = $this->getFrontend();
+        $this->assertTrue(method_exists($helper, 'isMailAllowed'));
+        $helper->isMailAllowed();
+    }
+
+
+    public function testSelf()
+    {
+        $this->assertInstanceOf('LeMike_DevMode_Helper_Config', $this->getFrontend());
     }
 }

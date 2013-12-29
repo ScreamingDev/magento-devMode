@@ -39,55 +39,63 @@ class LeMike_DevModeTest_Test_Block_Toolbox_Catalog_CategoryTest extends
      */
     public function testDirectLinkToBackendForCategory()
     {
-        $this->markTestIncomplete('Test fails due to problems with fixture.');
-
-        return;
 
         /*
          * }}} preconditions {{{
          */
 
         // no category set
-//        $this->assertNull(Mage::registry('current_category'));
+        $this->assertNull(Mage::registry('current_category'));
 
         // get block
         /** @var LeMike_DevMode_Block_Toolbox_Catalog_Category $block */
-//        $block = $this->getBlock($this->getModuleAlias('/toolbox_catalog_category'));
+        $block = $this->getBlock($this->getModuleAlias('/toolbox_catalog_category'));
 
-//        $this->assertInstanceOf($this->getModuleName('_Block_Toolbox_Catalog_Category'), $block);
+        $this->assertInstanceOf($this->getModuleName('_Block_Toolbox_Catalog_Category'), $block);
 
         // mock base url for generating url
-//        $this->mockBaseUrl();
+        $this->mockBaseUrl();
 
         // mock admin session
-//        $this->mockAdminUserSession();
+        $this->mockAdminUserSession();
 
-        // override registry
-//        $data = new Varien_Object();
-//        $data->setData('id', 21);
-//        Mage::register('current_category', $data);
+        // check category
+        /** @var Mage_Catalog_Model_Category $category */
+        $category = Mage::getModel('catalog/category');
+        $category->load(21);
 
-//        $this->assertSame($data->getData('id'), Mage::registry('current_category')->getId());
+        $this->assertEquals(21, $category->getId());
+        $this->assertTrue($category->isInRootCategoryList());
 
-//        $url = $block->getEditUrl();
-//        $this->assertInternalType('string', $url);
+        // override registry with category from fixture
+        $data = new Varien_Object();
+        $data->setData('id', 21);
+        Mage::register('current_category', $data);
+
+        $this->assertEquals($data->getData('id'), Mage::registry('current_category')->getId());
+
+        $url = $block->getEditUrl();
+        $this->assertInternalType('string', $url);
 
         // reset current_category after fetching the url
-//        Mage::unregister('current_category');
+        Mage::unregister('current_category');
 
-//        $this->assertNull(Mage::registry('current_category'));
+        $this->assertNull(Mage::registry('current_category'));
 
         /*
          * }}} main {{{
          */
-//        $this->dispatchUrl($url);
+        $this->dispatchUrl($url);
 
-//        $this->assertEquals('admin', $this->getRequest()->getModuleName());
-//        $this->assertEquals('catalog_category', $this->getRequest()->getControllerName());
-//        $this->assertEquals('edit', $this->getRequest()->getActionName());
+        $this->assertEquals('admin', $this->getRequest()->getModuleName());
+        $this->assertEquals('catalog_category', $this->getRequest()->getControllerName());
+        $this->assertEquals('edit', $this->getRequest()->getActionName());
+
         /*
          * }}} postcondition {{{
          */
+
+        return;
     }
 
 

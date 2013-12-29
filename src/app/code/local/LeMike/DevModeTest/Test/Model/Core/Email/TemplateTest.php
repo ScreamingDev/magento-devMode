@@ -141,13 +141,19 @@ class LeMike_DevModeTest_Test_Model_Core_Email_TemplateTest extends
         $redirect   = 'lemike_devmode@example.org';
         $subscriber = 'lemike_devmode' . uniqid() . '@example.org';
 
-        $this->assertEquals($redirect, Mage::getStoreConfig('lemike_devmode_core/email/recipient'));
+        $this->assertEquals(
+             $redirect,
+             Mage::getStoreConfig(LeMike_DevMode_Helper_Config::XML_CORE_EMAIL_RECIPIENT)
+        );
         $this->assertEquals(
              $redirect,
              Mage::helper('lemike_devmode/config')->getCoreEmailRecipient()
         );
 
-        $this->assertEquals('1', Mage::getStoreConfig('lemike_devmode_core/email/active'));
+        $this->assertEquals(
+             '1',
+             Mage::getStoreConfig(LeMike_DevMode_Helper_Config::XML_CORE_EMAIL_ACTIVE)
+        );
         $this->assertEquals(true, Mage::helper('lemike_devmode/config')->isMailAllowed());
 
         // do not exit
@@ -167,8 +173,8 @@ class LeMike_DevModeTest_Test_Model_Core_Email_TemplateTest extends
                      )
             );
 
-        $mockZendMail->addTo('foo');
-        $this->assertSame('foo', $lastMail);
+        $mockZendMail->addTo($redirect);
+        $this->assertSame($redirect , $lastMail);
 
         // mock core/email_template: ::getMail should return the mocked Zend_Mail
         $realRecipient = null;

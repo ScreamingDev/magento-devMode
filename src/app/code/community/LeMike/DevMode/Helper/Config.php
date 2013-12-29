@@ -31,35 +31,9 @@ class LeMike_DevMode_Helper_Config extends LeMike_DevMode_Helper_Abstract
 {
     const URL_DIVIDER = '__';
 
+    const XML_CORE_EMAIL_RECIPIENT = 'dev/lemike_devmode/core_email_recipient';
 
-    /**
-     * Transform an url to a node.
-     *
-     * This will turn '__dev__foo__bar' into 'dev/foo/bar'.
-     *
-     * @param string $queryKey Query key like '__dev__foo__bar'.
-     *
-     * @return string XML-Path like 'dev/foo/bar'.
-     */
-    public function urlToNode($queryKey)
-    {
-        return str_replace(static::URL_DIVIDER, '/', ltrim($queryKey, '_'));
-    }
-
-
-    /**
-     * Transform node into url query key.
-     *
-     * This will turn 'dev/foo/bar' into '__dev__foo__bar'.
-     *
-     * @param string $node XML-Path like 'dev/foo/bar'.
-     *
-     * @return string Query-Key like '__dev__foo__bar'.
-     */
-    public function nodeToUrl($node)
-    {
-        return static::URL_DIVIDER . str_replace('/', static::URL_DIVIDER, $node);
-    }
+    const XML_CORE_EMAIL_ACTIVE = 'dev/lemike_devmode/core_email_active';
 
 
     /**
@@ -70,7 +44,7 @@ class LeMike_DevMode_Helper_Config extends LeMike_DevMode_Helper_Abstract
     public function generalSecurityAllowRestrictedIpOnly()
     {
         return (bool) Mage::app()->getStore()->getConfig(
-                          'lemike_devmode_general/security/allow_restricted_ip_only'
+                          'dev/lemike_devmode/allow_restricted_ip_only'
         );
     }
 
@@ -83,7 +57,7 @@ class LeMike_DevMode_Helper_Config extends LeMike_DevMode_Helper_Abstract
     public function getAdminLoginUser()
     {
         return (int) Mage::app()->getStore()->getConfig(
-                         'lemike_devmode_general/security/admin_login_user'
+                         'dev/lemike_devmode/admin_login_user'
         );
     }
 
@@ -95,7 +69,7 @@ class LeMike_DevMode_Helper_Config extends LeMike_DevMode_Helper_Abstract
      */
     public function getCoreEmailRecipient()
     {
-        return (string) Mage::getStoreConfig('lemike_devmode_core/email/recipient');
+        return (string) Mage::getStoreConfig(self::XML_CORE_EMAIL_RECIPIENT);
     }
 
 
@@ -106,7 +80,7 @@ class LeMike_DevMode_Helper_Config extends LeMike_DevMode_Helper_Abstract
      */
     public function getCustomerCustomerPassword()
     {
-        return (string) Mage::getStoreConfig('lemike_devmode_customer/customer/password');
+        return (string) Mage::getStoreConfig('dev/lemike_devmode/customer_password');
     }
 
 
@@ -117,9 +91,7 @@ class LeMike_DevMode_Helper_Config extends LeMike_DevMode_Helper_Abstract
      */
     public function getRemoteCallUrlTemplate()
     {
-        return (string) Mage::getStoreConfig(
-                            'lemike_devmode_general/environment/remoteCallUrlTemplate'
-        );
+        return (string) Mage::getStoreConfig('dev/lemike_devmode/remoteCallUrlTemplate');
     }
 
 
@@ -134,6 +106,12 @@ class LeMike_DevMode_Helper_Config extends LeMike_DevMode_Helper_Abstract
     }
 
 
+    public function isEnabled()
+    {
+        return (bool) Mage::getStoreConfig('dev/lemike_devmode/active');
+    }
+
+
     /**
      * Remote call in phpStorm.
      *
@@ -141,9 +119,7 @@ class LeMike_DevMode_Helper_Config extends LeMike_DevMode_Helper_Abstract
      */
     public function isIdeRemoteCallEnabled()
     {
-        return (bool) Mage::getStoreConfig(
-                          'lemike_devmode_general/environment/ideRemoteCallEnabled'
-        );
+        return (bool) Mage::getStoreConfig('dev/lemike_devmode/ideRemoteCallEnabled');
     }
 
 
@@ -154,7 +130,7 @@ class LeMike_DevMode_Helper_Config extends LeMike_DevMode_Helper_Abstract
      */
     public function isMailAllowed()
     {
-        return (bool) Mage::getStoreConfig('lemike_devmode_core/email/active');
+        return (bool) Mage::getStoreConfig(self::XML_CORE_EMAIL_ACTIVE);
     }
 
 
@@ -165,6 +141,36 @@ class LeMike_DevMode_Helper_Config extends LeMike_DevMode_Helper_Abstract
      */
     public function isToolboxEnabled()
     {
-        return true;
+        return (bool) Mage::getStoreConfig('dev/lemike_devmode/show_toolbox');
+    }
+
+
+    /**
+     * Transform node into url query key.
+     *
+     * This will turn 'dev/foo/bar' into '__dev__foo__bar'.
+     *
+     * @param $node
+     *
+     * @return string
+     */
+    public function nodeToUrl($node)
+    {
+        return static::URL_DIVIDER . str_replace('/', static::URL_DIVIDER, $node);
+    }
+
+
+    /**
+     * Transform an url to a node.
+     *
+     * This will turn '__dev__foo__bar' into 'dev/foo/bar'.
+     *
+     * @param $queryKey
+     *
+     * @return mixed
+     */
+    public function urlToNode($queryKey)
+    {
+        return str_replace(static::URL_DIVIDER, '/', ltrim($queryKey, '_'));
     }
 }

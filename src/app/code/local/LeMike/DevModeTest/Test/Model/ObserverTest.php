@@ -54,6 +54,24 @@ class LeMike_DevModeTest_Test_Model_ObserverTest extends LeMike_DevModeTest_Test
         /*
          * }}} preconditions {{{
          */
+
+        // mock admin/session: prevent from resending headers
+        $modelAlias       = 'admin/session';
+        $adminSessionMock = $this->getModelMock(
+                                 $modelAlias,
+                                 array('renewSession')
+        );
+
+        $adminSessionMock->expects($this->any())
+                         ->method('renewSession')
+                         ->will($this->returnSelf());
+
+        $this->replaceByMock('model', 'admin/session', $adminSessionMock);
+
+        $this->assertSame($adminSessionMock, $adminSessionMock->renewSession());
+        $this->assertEquals($adminSessionMock, Mage::getSingleton($modelAlias));
+
+        // assert that user is not logged in
         /** @var Mage_Admin_Model_Session $modelAdminSession */
         $modelAdminSession = Mage::getSingleton('admin/session');
         $this->assertFalse($modelAdminSession->isLoggedIn());
@@ -632,6 +650,20 @@ class LeMike_DevModeTest_Test_Model_ObserverTest extends LeMike_DevModeTest_Test
         /** @var EcomDev_PHPUnit_Controller_Request_Http $request */
         $request = $this->getRequest();
         $request->setParam('__events', 1);
+
+        $this->assertTrue($request->has('__events'));
+
+        // mock event data
+        $method     = '_fetchEvents';
+        $classAlias = $this->getModuleAlias('/observer');
+        $mock       = $this->mockModel($classAlias, array($method));
+        $mock->expects($this->once())
+             ->method($method)
+             ->will($this->returnValue(array('global' => uniqid())));
+
+        $this->replaceByMock('model', $classAlias, $mock);
+
+        $this->assertInstanceOf($mock->getMockClass(), Mage::getModel($classAlias));
 
         $this->dispatch('customer/account/login');
         $this->assertResponseBodyJson();

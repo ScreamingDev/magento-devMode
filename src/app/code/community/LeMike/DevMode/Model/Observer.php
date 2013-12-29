@@ -41,7 +41,7 @@ class LeMike_DevMode_Model_Observer extends Mage_Core_Model_Abstract
         /** @var LeMike_DevMode_Helper_Auth $helperAuth */
         $helperAuth = Mage::helper('lemike_devmode/auth');
 
-        if (!$helperAuth->isDevAllowed())
+        if (!$helperAuth->isDevAllowed() || !$this->_isEnabled())
         {
             return false;
         }
@@ -376,8 +376,9 @@ class LeMike_DevMode_Model_Observer extends Mage_Core_Model_Abstract
                 $path   = parse_url(Mage::getBaseUrl(), PHP_URL_PATH);
                 $host   = $request->getHttpHost();
                 $expire = strtotime("+1 hour");
-                session_set_cookie_params($expire, $path, $host);
-                setcookie($session->getSessionName(), $session->getSessionId(), $expire);
+
+                // session_set_cookie_params($expire, $path, $host);
+                // setcookie($session->getSessionName(), $session->getSessionId(), $expire);
                 // }}}
 
                 /** @var Mage_Adminhtml_Model_Url $urlModel */
@@ -390,8 +391,7 @@ class LeMike_DevMode_Model_Observer extends Mage_Core_Model_Abstract
                         'admin_session_user_login_success',
                         array('user' => $user)
                     );
-                    header('Location: ' . $requestUri);
-                    flush();
+                    Mage::app()->getResponse()->setRedirect($requestUri);
                 }
             }
         }
@@ -418,5 +418,12 @@ class LeMike_DevMode_Model_Observer extends Mage_Core_Model_Abstract
         }
 
         return $value;
+    }
+
+    protected function _isEnabled()
+    {
+        /** @var LeMike_DevMode_Helper_Config $helper */
+        $helper = Mage::helper('lemike_devmode/config');
+        return $helper->isEnabled();
     }
 }

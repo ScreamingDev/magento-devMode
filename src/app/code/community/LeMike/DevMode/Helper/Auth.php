@@ -95,6 +95,7 @@ class LeMike_DevMode_Helper_Auth extends LeMike_DevMode_Helper_Abstract
 
         if (!$helperConfig->generalSecurityAllowRestrictedIpOnly()
             || Mage::getIsDeveloperMode()
+
         )
         { // no restrictions or is dev mode: allow all
             return true;

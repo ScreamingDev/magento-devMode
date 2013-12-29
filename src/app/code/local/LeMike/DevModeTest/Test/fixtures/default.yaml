@@ -1,7 +1,9 @@
 config:
-  stores/default/lemike_devmode_core/email/active: 1
-  stores/default/lemike_devmode_core/email/recipient: 0
-  stores/default/lemike_devmode_general/environment/ideRemoteCallEnabled: 1
-  stores/default/lemike_devmode_general/environment/remoteCallUrlTemplate: http://localhost:8091/?message=%s:%s
-  stores/default/lemike_devmode_customer/customer/password: lemike_d3vm0d3
+  stores/default/dev/lemike_devmode/active: 1
+  stores/default/dev/lemike_devmode/show_toolbox: 1
+  stores/default/dev/lemike_devmode/core_email_active: 1
+  stores/default/dev/lemike_devmode/core_email_recipient: 0
+  stores/default/dev/lemike_devmode/ideRemoteCallEnabled: 1
+  stores/default/dev/lemike_devmode/remoteCallUrlTemplate: http://localhost:8091/?message=%s:%s
+  stores/default/dev/lemike_devmode/customer_password: lemike_d3vm0d3
   stores/default/dev/template/allow_symlink: 1
