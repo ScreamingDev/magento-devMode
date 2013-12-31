@@ -34,10 +34,32 @@ be such a text that briefly describes the feature or bug to an end-user.
 - Make some screen shots and **doc** for release notes.
 
 
-## Testing
+### Naming
 
-Static and logic -> PHPUnit
-Dynamic and usable -> Casper.js
+- Test-classes are named like the tested class
+- Methods will form a sentence like a feature description
+- phpunit --testdox-text FEATURES.md  --stop-on-failure
+
+Note:
+With this setup PHPUnit will almost generate a feature list.
+You only need to revise the list and eliminate duplicates or cut of the "LeMike_DevMode_Test_xyz_"
+from the class names.
+
+
+## Code Quality
+
+- Code quality with PHPMD and PHP_CodeSniffer
+- Testing static/logic and dynamic/usable
+
+
+### PHP Mess Detector
+
+- **Code size**: Cyclomatic complexity, NPath Complexity,
+  excessive naming or amount of methods/properties
+- **Controversial rules**: like accessing super-globals directly.
+- **Design hints**: no exit/eval/goto, low depth of inheritance and low coupling between objects.
+- **Naming rules**: too short/long variables, naming and no getter with boolean return value.
+- **Unused code**: unused private fields/methods, local variables or formal parameter.
 
 
 ### UnitTests with EcomDev_PHPUnit
@@ -69,24 +91,6 @@ casper.captureSelector 'default_cms_index_index#ld_toolbox.png', '#ld_toolbox'
 ```
 
 Note: This can be used for an up-to-date documentation with the latest images.
-
-
-### Naming
-
-- Test-classes are named like the tested class
-- Methods will form a sentence like a feature description
-- phpunit --testdox-text FEATURES.md  --stop-on-failure
-
-Note:
-With this setup PHPUnit will almost generate a feature list.
-You only need to revise the list and eliminate duplicates or cut of the "LeMike_DevMode_Test_xyz_"
-from the class names.
-
-
-## Code Quality
-
-- Static code quality with PHP_CodeSniffer (see `dev/codeSniffer.xml`)
-
 
 ### Release
 
