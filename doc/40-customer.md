@@ -11,8 +11,7 @@ Handle and work with
 ### Login via Master-Password
 
 - Do not loose time in changing the users password
-- Go to `System > Configuration > Developer Mode / Customer`
-- Open the tab `Customer`
+- Open the tab `DevMode` in `System > Config > Developer`
 - Enter a `Maintenance Password`
 
 ![Master Password](https://f.cloud.github.com/assets/2559177/1022902/c986f76a-0dba-11e3-865b-881097ce4cad.png)

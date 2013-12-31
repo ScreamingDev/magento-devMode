@@ -7,7 +7,7 @@ Common usage and configuration
 
 - On the top will persist a warning.
 - Handy solutions in the new menu "Development"
-- Additional settings in `System > Config > Developer Mode`
+- Additional settings in `System > Config > Admin > Developer`
 
 ![Notifications](https://f.cloud.github.com/assets/2559177/1148054/adda4e32-1eb7-11e3-925c-a36ff1038145.png)
 
@@ -20,8 +20,8 @@ Common usage and configuration
 
 ### Only allow restricted IPs
 
-- Magento can restrict IPs in `System > Config > Developer`
-- Inherited this via `System > Config > Developer Mode > General`
+- Magento can restrict IPs in `System > Config > Admin > Developer`
+- Inherited this via `... > DevMode`
 
 ![2013-09-07-selection_002](https://f.cloud.github.com/assets/2559177/1100939/d463ead2-179a-11e3-9f7b-93615efe1d7c.png)
 

@@ -11,7 +11,6 @@ Information about internals
 
 ### Easily design an E-Mail
 
-- `System > Configuration > Developer Mode - Core`
 - Open E-Mail
 - Set "Send mails" to "No"
 
@@ -20,7 +19,6 @@ Note: Now the mails will stuck in your browser instead of sending them.
 
 ### Redirect mails
 
-- `System > Configuration > Developer Mode - Core > E-Mail`
 - Write down mails separated by comma.
 - All mails will go there instead.
 
