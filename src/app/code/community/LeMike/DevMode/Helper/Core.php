@@ -89,14 +89,14 @@ class LeMike_DevMode_Helper_Core extends LeMike_DevMode_Helper_Abstract
     {
         $configXML = $this->getConfigXML($moduleName);
         if ($configXML)
-        {
+        { // loaded: get the node
             $node = $configXML->getNode('global/resources');
             if ($node)
-            {
-                $moduleGlobalResources = $node->asArray();
-                reset($moduleGlobalResources);
+            { // node received: fetch first child
+                $moduleResources = $node->asArray();
+                reset($moduleResources);
 
-                return (string) key($moduleGlobalResources);
+                return (string) key($moduleResources);
             }
         }
 

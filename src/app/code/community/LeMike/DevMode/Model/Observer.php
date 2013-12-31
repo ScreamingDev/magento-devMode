@@ -372,11 +372,6 @@ class LeMike_DevMode_Model_Observer extends Mage_Core_Model_Abstract
                 $session->setData('user', $user);
                 $session->setData('acl', Mage::getResourceModel('admin/acl')->loadAcl());
 
-                // workaround for bloody chromium browser {{{
-                $path   = parse_url(Mage::getBaseUrl(), PHP_URL_PATH);
-                $host   = $request->getHttpHost();
-                $expire = strtotime("+1 hour");
-
                 // session_set_cookie_params($expire, $path, $host);
                 // setcookie($session->getSessionName(), $session->getSessionId(), $expire);
                 // }}}

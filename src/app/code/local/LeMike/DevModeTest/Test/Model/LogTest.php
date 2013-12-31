@@ -56,7 +56,6 @@ class LeMike_DevModeTest_Test_Model_LogTest extends LeMike_DevModeTest_Test_Abst
                   serialize($message),
                   Zend_Log::DEBUG,
                   null,
-                  false
              ),
              $this->getLastArgs()
         );
@@ -139,7 +138,6 @@ class LeMike_DevModeTest_Test_Model_LogTest extends LeMike_DevModeTest_Test_Abst
                   $mockLog::PREFIX_ERROR . $message,
                   Zend_Log::ERR,
                   null,
-                  false
              ),
              $this->getLastArgs()
         );
@@ -170,7 +168,6 @@ class LeMike_DevModeTest_Test_Model_LogTest extends LeMike_DevModeTest_Test_Abst
                   $message,
                   Zend_Log::INFO,
                   null,
-                  false
              ),
              $this->getLastArgs()
         );
@@ -201,7 +198,6 @@ class LeMike_DevModeTest_Test_Model_LogTest extends LeMike_DevModeTest_Test_Abst
                   $mockLog::PREFIX_WARNING . $message,
                   Zend_Log::WARN,
                   null,
-                  false
              ),
              $this->getLastArgs()
         );

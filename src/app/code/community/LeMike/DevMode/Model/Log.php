@@ -102,7 +102,7 @@ class LeMike_DevMode_Model_Log
      *
      * @return void
      */
-    public static function setPrint($bool = true)
+    public static function setPrint($bool)
     {
         static::$_print = $bool;
     }
@@ -128,11 +128,10 @@ class LeMike_DevMode_Model_Log
      * @param string $message  The message to log.
      * @param null   $level    Level of influence (Zend_Log constants).
      * @param null   $file     The file to write to.
-     * @param bool   $forceLog Force to log it (needed sometimes).
      *
      * @return void
      */
-    protected static function _logAdapter($message, $level = null, $file = null, $forceLog = false)
+    protected static function _logAdapter($message, $level = null, $file = null)
     {
         if (!$file)
         {
@@ -144,6 +143,6 @@ class LeMike_DevMode_Model_Log
         {
             echo $message;
         }
-        Mage::log($message, $level, $file, $forceLog);
+        Mage::log($message, $level, $file);
     }
 }

@@ -184,6 +184,7 @@ class LeMike_DevMode_Model_Core_Layout
      */
     public function getUpdateFiles($area, $storeId = null)
     {
+        /** @var Mage_Core_Model_Config_Element $updatesRoot */
         $updatesRoot = Mage::app()->getConfig()->getNode($area . '/layout/updates');
         Mage::dispatchEvent(
             'core_layout_update_updates_get_after',

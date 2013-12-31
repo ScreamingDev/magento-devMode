@@ -34,7 +34,7 @@ class LeMike_DevMode_Helper_Data extends LeMike_DevMode_Helper_Abstract
     const MODULE_NAME = 'LeMike_DevMode';
 
     /** @var bool Halt the dispatch of Magento. */
-    protected static $_disableMagentoDispatch = false;
+    protected static $_disableMageDispatch = false;
 
 
     /**
@@ -48,10 +48,10 @@ class LeMike_DevMode_Helper_Data extends LeMike_DevMode_Helper_Abstract
     {
         if (null !== $value)
         {
-            self::$_disableMagentoDispatch = (bool) $value;
+            self::$_disableMageDispatch = (bool) $value;
         }
 
-        return self::$_disableMagentoDispatch;
+        return self::$_disableMageDispatch;
     }
 
 

@@ -120,7 +120,8 @@ class LeMike_DevMode_Block_Shell_Table
         }
 
         $out = '';
-        foreach ($this->captionSet as $key => $null)
+        $captionRows = array_keys($this->captionSet);
+        foreach ($captionRows as $key)
         {
             if (!$this->legend[$key])
             {
@@ -207,7 +208,8 @@ class LeMike_DevMode_Block_Shell_Table
 
         foreach ($this->_tableRowSet as $content)
         {
-            foreach ($this->captionSet as $key => $null)
+            $captionRows = array_keys($this->captionSet);
+            foreach ($captionRows as $key)
             {
                 $out .= str_pad($content[$key], $this->_tableColumnWidth[$key], ' ');
                 $out .= ' | ';

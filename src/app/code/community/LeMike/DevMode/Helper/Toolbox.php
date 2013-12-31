@@ -59,14 +59,14 @@ class LeMike_DevMode_Helper_Toolbox extends LeMike_DevMode_Helper_Abstract
      */
     public function getLineNumber($file, $regex)
     {
-        $i         = 0;
-        $lineFound = false;
-        $handle    = @fopen($file, 'r');
+        $currentLine = 0;
+        $lineFound   = false;
+        $handle      = @fopen($file, 'r');
         if ($handle)
-        {
+        { // file opened: search for line
             while (($buffer = fgets($handle, 4096)) !== false)
             {
-                $i++;
+                $currentLine++;
                 if (preg_match($regex, $buffer))
                 {
                     $lineFound = true;
@@ -76,6 +76,6 @@ class LeMike_DevMode_Helper_Toolbox extends LeMike_DevMode_Helper_Abstract
             fclose($handle);
         }
 
-        return $lineFound ? $i : false;
+        return $lineFound ? $currentLine : false;
     }
 }
