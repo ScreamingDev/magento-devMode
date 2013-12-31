@@ -70,55 +70,57 @@ class LeMike_DevMode_Adminhtml_LeMike_DevMode_CoreController extends
             $session->addError(
                     $this->_getHelper()->__('No module provided. Please add a module name.')
             );
+
+            return;
         }
         elseif (strpos($moduleName, 'Mage_Admin') === 0)
         {
             $session->addError(
                     $this->_getHelper()->__('Reinstall %s is not allowed.', $moduleName)
             );
+
+            return;
         }
-        else
-        {
-            /** @var LeMike_DevMode_Model_Core_Resource $model */
-            $model   = Mage::getModel('lemike_devmode/core_resource');
-            $success = $model->resetVersionByModuleName($moduleName);
 
-            if (!$success)
-            {
-                $session->addError(
-                        $this->_getHelper()->__("Could not find %s in core_resource.", $moduleName)
-                );
-            }
-            else
-            {
-                $session->addNotice(
-                        $this->_getHelper()->__(
-                             '%s has been set to 0.0.0 and the rest did magento.',
-                             $moduleName
-                        )
-                );
-
-                $cacheSet = array('config', 'layout');
-                foreach ($cacheSet as $typeCode)
-                {
-                    Mage::app()->getCacheInstance()->cleanType($typeCode);
-                    Mage::dispatchEvent('adminhtml_cache_refresh_type', array('type' => $typeCode));
-                }
-
-                $last    = array_pop($cacheSet);
-                $message = implode(', ', $cacheSet);
-
-                $session->addSuccess(
-                        $this->_getHelper()->__(
-                             "%s and %s cache refreshed.",
-                             $message,
-                             $last
-                        )
-                );
-            }
-        }
+        /** @var LeMike_DevMode_Model_Core_Resource $model */
+        $model   = Mage::getModel('lemike_devmode/core_resource');
+        $success = $model->resetVersionByModuleName($moduleName);
 
         $this->_redirect('adminhtml/developer_core/index');
+
+        if (!$success)
+        {
+            $session->addError(
+                    $this->_getHelper()->__("Could not find %s in core_resource.", $moduleName)
+            );
+
+            return;
+        }
+
+        $session->addNotice(
+                $this->_getHelper()->__(
+                     '%s has been set to 0.0.0 and the rest did magento.',
+                     $moduleName
+                )
+        );
+
+        $cacheSet = array('config', 'layout');
+        foreach ($cacheSet as $typeCode)
+        {
+            Mage::app()->getCacheInstance()->cleanType($typeCode);
+            Mage::dispatchEvent('adminhtml_cache_refresh_type', array('type' => $typeCode));
+        }
+
+        $last    = array_pop($cacheSet);
+        $message = implode(', ', $cacheSet);
+
+        $session->addSuccess(
+                $this->_getHelper()->__(
+                     "%s and %s cache refreshed.",
+                     $message,
+                     $last
+                )
+        );
     }
 
 

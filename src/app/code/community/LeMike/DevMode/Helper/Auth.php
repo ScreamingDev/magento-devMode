@@ -32,8 +32,8 @@ class LeMike_DevMode_Helper_Auth extends LeMike_DevMode_Helper_Abstract
     /**
      * Get url to backend.
      *
-     * @param       $route
-     * @param array $params
+     * @param string $route  Magento URL-Route.
+     * @param array  $params Additional URL parameter.
      *
      * @return string
      */
@@ -64,14 +64,14 @@ class LeMike_DevMode_Helper_Auth extends LeMike_DevMode_Helper_Abstract
         $salt    = $coreSession->getFormKey();
         $request = Mage::app()->getRequest();
 
-        $p = explode('/', trim($request->getOriginalPathInfo(), '/'));
+        $pathSet = explode('/', trim($request->getOriginalPathInfo(), '/'));
         if (!$controller)
         {
-            $controller = !empty($p[1]) ? $p[1] : $request->getControllerName();
+            $controller = !empty($pathSet[1]) ? $pathSet[1] : $request->getControllerName();
         }
         if (!$action)
         {
-            $action = !empty($p[2]) ? $p[2] : $request->getActionName();
+            $action = !empty($pathSet[2]) ? $pathSet[2] : $request->getActionName();
         }
 
         $secret = $controller . $action . $salt;
@@ -95,6 +95,7 @@ class LeMike_DevMode_Helper_Auth extends LeMike_DevMode_Helper_Abstract
 
         if (!$helperConfig->generalSecurityAllowRestrictedIpOnly()
             || Mage::getIsDeveloperMode()
+
         )
         { // no restrictions or is dev mode: allow all
             return true;

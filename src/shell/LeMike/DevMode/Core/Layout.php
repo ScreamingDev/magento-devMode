@@ -94,6 +94,7 @@ class DevMode_Core_Layout extends DelegateCommand
         $package = $this->getParameter()->getOption('package', $design->getPackageName());
         $theme   = $this->getParameter()->getOption('theme', $design->getTheme($area));
 
+        /** @var LeMike_DevMode_Model_Core_Layout $layout */
         $layout = Mage::getModel(
                       'lemike_devmode/core_layout',
                       $area,

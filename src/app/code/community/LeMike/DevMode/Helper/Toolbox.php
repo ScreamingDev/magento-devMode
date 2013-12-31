@@ -52,21 +52,21 @@ class LeMike_DevMode_Helper_Toolbox extends LeMike_DevMode_Helper_Abstract
      * Get the line number of the first line in a file matching a given regex
      * Not the nicest solution, but probably the fastest
      *
-     * @param $file
-     * @param $regex
+     * @param string $file  A file to retrieve line number from.
+     * @param string $regex Expression to
      *
      * @return bool|int
      */
     public function getLineNumber($file, $regex)
     {
-        $i         = 0;
-        $lineFound = false;
-        $handle    = @fopen($file, 'r');
+        $currentLine = 0;
+        $lineFound   = false;
+        $handle      = @fopen($file, 'r');
         if ($handle)
-        {
+        { // file opened: search for line
             while (($buffer = fgets($handle, 4096)) !== false)
             {
-                $i++;
+                $currentLine++;
                 if (preg_match($regex, $buffer))
                 {
                     $lineFound = true;
@@ -76,6 +76,6 @@ class LeMike_DevMode_Helper_Toolbox extends LeMike_DevMode_Helper_Abstract
             fclose($handle);
         }
 
-        return $lineFound ? $i : false;
+        return $lineFound ? $currentLine : false;
     }
 }

@@ -61,7 +61,7 @@ class LeMike_DevMode_Model_Core_Resource extends Mage_Core_Model_Resource_Resour
     /**
      * Receive information about a single module.
      *
-     * @param $moduleName
+     * @param string $moduleName An unique name of an existing module.
      *
      * @return null
      */
@@ -121,7 +121,7 @@ class LeMike_DevMode_Model_Core_Resource extends Mage_Core_Model_Resource_Resour
     /**
      * Reset the version of a setup_resource to zero in the database.
      *
-     * @param $resName
+     * @param string $resName The unique name of a model setup resource.
      *
      * @return bool
      */
@@ -140,7 +140,7 @@ class LeMike_DevMode_Model_Core_Resource extends Mage_Core_Model_Resource_Resour
     /**
      * Reset the version of a module to zero in the database.
      *
-     * @param $moduleName
+     * @param string $moduleName The full name of an existing module.
      *
      * @return bool
      */

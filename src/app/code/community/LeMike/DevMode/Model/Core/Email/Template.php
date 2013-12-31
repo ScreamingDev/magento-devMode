@@ -34,9 +34,9 @@ class LeMike_DevMode_Model_Core_Email_Template extends Mage_Core_Model_Email_Tem
      *
      * This can stop and print an email or send it like Magento would do.
      *
-     * @param array|string $email
-     * @param null         $name
-     * @param array        $variables
+     * @param array|string $email     Recipients of the message.
+     * @param null         $name      Names of the recipients.
+     * @param array        $variables Variables for the template.
      *
      * @return bool
      */
@@ -49,7 +49,8 @@ class LeMike_DevMode_Model_Core_Email_Template extends Mage_Core_Model_Email_Tem
 
         if ($helperCore->handleMail($this, $content))
         {
-            return parent::send($this->getData('to_email'), $name, $variables);
+            $email = $this->getData('to_email');
+            return parent::send($email, $name, $variables);
         }
 
         return true;

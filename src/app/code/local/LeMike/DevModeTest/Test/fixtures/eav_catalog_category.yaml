@@ -1,5 +1,25 @@
 eav:
   catalog_category:
+    - entity_id: 1
+      parent_id: 0
+      path: 1
+      name: ROOT
+      level: 0
+      children_count: 1
+      is_active: 1
+      /stores:
+        - 0
+        - 1
+    - entity_id: 2
+          parent_id: 1
+          path: 1/2
+          name: Main
+          level: 1
+          children_count: 1
+          is_active: 1
+          /stores:
+            - 0
+            - 1
     - entity_id: 21
       parent_id: 2
       path: 1/2/21

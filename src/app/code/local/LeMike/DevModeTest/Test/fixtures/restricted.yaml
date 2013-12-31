@@ -1,5 +1,5 @@
 config:
-  stores/default/lemike_devmode_general/security/allow_restricted_ip_only: 1
-  stores/admin/lemike_devmode_general/security/allow_restricted_ip_only: 1
+  stores/default/dev/lemike_devmode/allow_restricted_ip_only: 1
+  stores/admin/dev/lemike_devmode/allow_restricted_ip_only: 1
   stores/default/dev/restrict/allow_ips: 255.255.255.254
   stores/admin/dev/restrict/allow_ips: 255.255.255.254

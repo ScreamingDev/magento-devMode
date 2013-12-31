@@ -32,7 +32,7 @@ class LeMike_DevMode_Model_Observer extends Mage_Core_Model_Abstract
     /**
      * Before loading layout.
      *
-     * @param Varien_Event_Observer $observer
+     * @param Varien_Event_Observer $observer [event => [layout => ..., action => ...]].
      *
      * @return bool
      */
@@ -41,7 +41,7 @@ class LeMike_DevMode_Model_Observer extends Mage_Core_Model_Abstract
         /** @var LeMike_DevMode_Helper_Auth $helperAuth */
         $helperAuth = Mage::helper('lemike_devmode/auth');
 
-        if (!$helperAuth->isDevAllowed())
+        if (!$helperAuth->isDevAllowed() || !$this->_isEnabled())
         {
             return false;
         }
@@ -83,7 +83,9 @@ class LeMike_DevMode_Model_Observer extends Mage_Core_Model_Abstract
     /**
      * Fetch everything after dispatch.
      *
-     * @param Varien_Event $event
+     * The event needs to be: [controller_action => [response => ..., ...]]
+     *
+     * @param Varien_Event $event Information about the event.
      *
      * @return bool
      */
@@ -114,7 +116,9 @@ class LeMike_DevMode_Model_Observer extends Mage_Core_Model_Abstract
     /**
      * Fetch controller_action_predispatch event.
      *
-     * @param Varien_Event_Observer $event
+     * The event needs to be: [controller_action => [request => ..., ...]]
+     *
+     * @param Varien_Event_Observer $event Information about the event.
      *
      * @return bool
      */
@@ -259,7 +263,20 @@ class LeMike_DevMode_Model_Observer extends Mage_Core_Model_Abstract
     /**
      * Before sending a response.
      *
-     * @param Varien_Event $event
+     * The event needs to be:
+     *
+     * ```
+     * [
+     *  Mage_Core_Controller_Varien_Front "front" =>
+     *  [
+     *      Mage_Core_Controller_Request_Http "request" => ...,
+     *      ...
+     *  ],
+     *  ...
+     * ]
+     * ```
+     *
+     * @param Varien_Event $event Information about the event.
      *
      * @return bool
      */
@@ -302,30 +319,26 @@ class LeMike_DevMode_Model_Observer extends Mage_Core_Model_Abstract
 
 
     /**
-     * Login as admin like configured into the backend.
+     * Login as admin like configured if the url points to the backend.
      *
-     * @param Mage_Core_Controller_Request_Http $request
+     * @param Mage_Core_Controller_Request_Http $request An request to do login for.
      *
      * @return void
      */
     protected function _adminLogin($request)
     {
+        /** @var Mage_Admin_Model_Session $session */
+        $session = Mage::getSingleton('admin/session');
+
         if ($request->getModuleName() == Mage_Core_Model_App_Area::AREA_ADMIN
-            && $request->getControllerName() == 'index'
-            && (
-                $request->getActionName() == 'index'
-                || $request->getActionName() == 'login'
-            )
+            && !$session->isLoggedIn()
         )
-        { // admin::index (maybe login)
-            /** @var Mage_Admin_Model_Session $session */
-            $session = Mage::getSingleton('admin/session');
+        { // admin::* and not logged in: do so
 
             /** @var LeMike_DevMode_Helper_Config $configHelper */
             $configHelper = Mage::helper('lemike_devmode/config');
 
-            if (!$session->isLoggedIn()
-                && $request->getClientIp() == '127.0.0.1'
+            if ($request->getClientIp() == '127.0.0.1'
                 && $configHelper->isAdminAutoLoginAllowed()
             )
             { // not logged in, local and allowed: log in
@@ -359,26 +372,21 @@ class LeMike_DevMode_Model_Observer extends Mage_Core_Model_Abstract
                 $session->setData('user', $user);
                 $session->setData('acl', Mage::getResourceModel('admin/acl')->loadAcl());
 
-                // workaround for bloody chromium browser {{{
-                $path   = parse_url(Mage::getBaseUrl(), PHP_URL_PATH);
-                $host   = $request->getHttpHost();
-                $expire = strtotime("+1 hour");
-                session_set_cookie_params($expire, $path, $host);
-                setcookie($session->getSessionName(), $session->getSessionId(), $expire);
-                session_write_close();
+                // session_set_cookie_params($expire, $path, $host);
+                // setcookie($session->getSessionName(), $session->getSessionId(), $expire);
                 // }}}
 
                 /** @var Mage_Adminhtml_Model_Url $urlModel */
                 $urlModel   = $modelUrl;
                 $requestUri = $urlModel->getUrl('*/*/*', array('_current' => true));
+                session_write_close(); // ensure that session form key is stored
                 if ($requestUri)
                 { // gotcha: send user to the url he called
                     Mage::dispatchEvent(
                         'admin_session_user_login_success',
                         array('user' => $user)
                     );
-                    header('Location: ' . $requestUri);
-                    flush();
+                    Mage::app()->getResponse()->setRedirect($requestUri);
                 }
             }
         }
@@ -405,5 +413,12 @@ class LeMike_DevMode_Model_Observer extends Mage_Core_Model_Abstract
         }
 
         return $value;
+    }
+
+    protected function _isEnabled()
+    {
+        /** @var LeMike_DevMode_Helper_Config $helper */
+        $helper = Mage::helper('lemike_devmode/config');
+        return $helper->isEnabled();
     }
 }

@@ -131,6 +131,3 @@ For more information see https://github.com/EcomDev/EcomDev_PHPUnit.
 
 
 ### Controller Test
-
-
-###

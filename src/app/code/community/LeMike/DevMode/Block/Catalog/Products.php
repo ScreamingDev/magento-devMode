@@ -2,6 +2,8 @@
 /**
  * Class LeMike_DevMode_Block_Catalog_Products.
  *
+ * PHP version 5.
+ *
  * @category  LeMike_DevMode
  * @package   LeMike\DevMode\Block\Catalog
  * @author    Mike Pretzlaw <pretzlaw@gmail.com>

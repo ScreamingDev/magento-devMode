@@ -34,13 +34,13 @@ class LeMike_DevMode_Helper_Data extends LeMike_DevMode_Helper_Abstract
     const MODULE_NAME = 'LeMike_DevMode';
 
     /** @var bool Halt the dispatch of Magento. */
-    protected static $_disableMagentoDispatch = false;
+    protected static $_disableMageDispatch = false;
 
 
     /**
      * Switch or tell if the dispatch shall be halted.
      *
-     * @param null $value
+     * @param bool $value Switch to tell the extension to enable or disable magento dispatch.
      *
      * @return bool
      */
@@ -48,10 +48,10 @@ class LeMike_DevMode_Helper_Data extends LeMike_DevMode_Helper_Abstract
     {
         if (null !== $value)
         {
-            self::$_disableMagentoDispatch = (bool) $value;
+            self::$_disableMageDispatch = (bool) $value;
         }
 
-        return self::$_disableMagentoDispatch;
+        return self::$_disableMageDispatch;
     }
 
 
@@ -75,7 +75,7 @@ class LeMike_DevMode_Helper_Data extends LeMike_DevMode_Helper_Abstract
     /**
      * Stop everything or exit.
      *
-     * @param $code
+     * @param int $code Error Code to exit with.
      *
      * @return void
      */
@@ -88,7 +88,7 @@ class LeMike_DevMode_Helper_Data extends LeMike_DevMode_Helper_Abstract
     /**
      * Delete everything within a model.
      *
-     * @param Mage_Eav_Model_Entity_Collection_Abstract $model
+     * @param Mage_Eav_Model_Entity_Collection_Abstract $model A collection to delete from.
      *
      * @return int
      */
@@ -113,7 +113,7 @@ class LeMike_DevMode_Helper_Data extends LeMike_DevMode_Helper_Abstract
     /**
      * Truncate a model by it's name.
      *
-     * @param $name
+     * @param string $name Name / Alias of a model.
      *
      * @return array
      */

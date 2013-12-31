@@ -31,19 +31,117 @@ class LeMike_DevMode_Helper_Config extends LeMike_DevMode_Helper_Abstract
 {
     const URL_DIVIDER = '__';
 
+    const XML_CORE_EMAIL_RECIPIENT = 'dev/lemike_devmode/core_email_recipient';
+
+    const XML_CORE_EMAIL_ACTIVE = 'dev/lemike_devmode/core_email_active';
+
 
     /**
-     * Transform an url to a node.
+     * Check if only restricted IPs are allowed.
      *
-     * This will turn '__dev__foo__bar' into 'dev/foo/bar'.
-     *
-     * @param $queryKey
-     *
-     * @return mixed
+     * @return bool
      */
-    public function urlToNode($queryKey)
+    public function generalSecurityAllowRestrictedIpOnly()
     {
-        return str_replace(static::URL_DIVIDER, '/', ltrim($queryKey, '_'));
+        return (bool) Mage::app()->getStore()->getConfig(
+                          'dev/lemike_devmode/allow_restricted_ip_only'
+        );
+    }
+
+
+    /**
+     * Get the ID for the user that shall be logged in automatically.
+     *
+     * @return int
+     */
+    public function getAdminLoginUser()
+    {
+        return (int) Mage::app()->getStore()->getConfig(
+                         'dev/lemike_devmode/admin_login_user'
+        );
+    }
+
+
+    /**
+     * E-Mail address where mails shall be redirected to.
+     *
+     * @return string
+     */
+    public function getCoreEmailRecipient()
+    {
+        return (string) Mage::getStoreConfig(self::XML_CORE_EMAIL_RECIPIENT);
+    }
+
+
+    /**
+     * Get the configured master password.
+     *
+     * @return string
+     */
+    public function getCustomerCustomerPassword()
+    {
+        return (string) Mage::getStoreConfig('dev/lemike_devmode/customer_password');
+    }
+
+
+    /**
+     * Get the URL-Template for remote calling in IDE.
+     *
+     * @return string
+     */
+    public function getRemoteCallUrlTemplate()
+    {
+        return (string) Mage::getStoreConfig('dev/lemike_devmode/remoteCallUrlTemplate');
+    }
+
+
+    /**
+     * admin_auto_login.
+     *
+     * @return bool
+     */
+    public function isAdminAutoLoginAllowed()
+    {
+        return (bool) (0 != $this->getAdminLoginUser());
+    }
+
+
+    public function isEnabled()
+    {
+        return (bool) Mage::getStoreConfig('dev/lemike_devmode/active');
+    }
+
+
+    /**
+     * Remote call in phpStorm.
+     *
+     * @return bool
+     */
+    public function isIdeRemoteCallEnabled()
+    {
+        return (bool) Mage::getStoreConfig('dev/lemike_devmode/ideRemoteCallEnabled');
+    }
+
+
+    /**
+     * Check if sending mails is allowed.
+     *
+     * @return bool
+     */
+    public function isMailAllowed()
+    {
+        return (bool) Mage::getStoreConfig(self::XML_CORE_EMAIL_ACTIVE);
+    }
+
+
+    /**
+     * Check whether the toolbox shall be shown or not.
+     *
+     * @return bool
+     */
+    public function isToolboxEnabled()
+    {
+        return (bool) Mage::getStoreConfig('dev/lemike_devmode/show_toolbox');
     }
 
 
@@ -63,108 +161,16 @@ class LeMike_DevMode_Helper_Config extends LeMike_DevMode_Helper_Abstract
 
 
     /**
-     * Check if only restricted IPs are allowed.
+     * Transform an url to a node.
      *
-     * @return bool
-     */
-    public function generalSecurityAllowRestrictedIpOnly()
-    {
-        return (bool) Mage::app()->getStore()->getConfig(
-                          'lemike_devmode_general/security/allow_restricted_ip_only'
-        );
-    }
-
-
-    /**
-     * Get the ID for the user that shall be logged in automatically.
+     * This will turn '__dev__foo__bar' into 'dev/foo/bar'.
      *
-     * @return int
-     */
-    public function getAdminLoginUser()
-    {
-        return (int) Mage::app()->getStore()->getConfig(
-                         'lemike_devmode_general/security/admin_login_user'
-        );
-    }
-
-
-    /**
-     * E-Mail address where mails shall be redirected to.
+     * @param $queryKey
      *
-     * @return string
+     * @return mixed
      */
-    public function getCoreEmailRecipient()
+    public function urlToNode($queryKey)
     {
-        return (string) Mage::getStoreConfig('lemike_devmode_core/email/recipient');
-    }
-
-
-    /**
-     * Get the configured master password.
-     *
-     * @return string
-     */
-    public function getCustomerCustomerPassword()
-    {
-        return (string) Mage::getStoreConfig('lemike_devmode_customer/customer/password');
-    }
-
-
-    /**
-     * Get the URL-Template for remote calling in IDE.
-     *
-     * @return string
-     */
-    public function getRemoteCallUrlTemplate()
-    {
-        return (string) Mage::getStoreConfig(
-                            'lemike_devmode_general/environment/remoteCallUrlTemplate'
-        );
-    }
-
-
-    /**
-     * admin_auto_login.
-     *
-     * @return bool
-     */
-    public function isAdminAutoLoginAllowed()
-    {
-        return (bool) (0 != $this->getAdminLoginUser());
-    }
-
-
-    /**
-     * Remote call in phpStorm.
-     *
-     * @return bool
-     */
-    public function isIdeRemoteCallEnabled()
-    {
-        return (bool) Mage::getStoreConfig(
-                          'lemike_devmode_general/environment/ideRemoteCallEnabled'
-        );
-    }
-
-
-    /**
-     * Check if sending mails is allowed.
-     *
-     * @return bool
-     */
-    public function isMailAllowed()
-    {
-        return (bool) Mage::getStoreConfig('lemike_devmode_core/email/active');
-    }
-
-
-    /**
-     * Check whether the toolbox shall be shown or not.
-     *
-     * @return bool
-     */
-    public function isToolboxEnabled()
-    {
-        return true;
+        return str_replace(static::URL_DIVIDER, '/', ltrim($queryKey, '_'));
     }
 }

@@ -485,7 +485,7 @@ abstract class AbstractCommand
      *
      * Will take the doc-comments and turn them into raw text without stars etc.
      *
-     * @param $method Method name within the current object.
+     * @param string $method Method name within the current object.
      *
      * @return string The documentation.
      */

@@ -29,11 +29,11 @@
  */
 class LeMike_DevMode_Model_Core_Config extends Mage_Core_Model_Abstract
 {
-    const SCOPE_GLOBAL = 'global';
-
     const SCOPE_ADMINHTML = 'adminhtml';
 
     const SCOPE_FRONTEND = 'frontend';
+
+    const SCOPE_GLOBAL = 'global';
 
 
     /**
@@ -65,7 +65,7 @@ class LeMike_DevMode_Model_Core_Config extends Mage_Core_Model_Abstract
     {
         $jobSet = (array) Mage::app()->getConfig()->getNode('crontab/jobs');
 
-        $varien_Data_Collection = new Varien_Data_Collection();
+        $dataCollection = new Varien_Data_Collection();
         foreach ($jobSet as $node => $moduleConfig)
         {
             if ($alias !== null && $alias != $node)
@@ -87,10 +87,10 @@ class LeMike_DevMode_Model_Core_Config extends Mage_Core_Model_Abstract
                  )
             );
 
-            $varien_Data_Collection->addItem($item);
+            $dataCollection->addItem($item);
         }
 
-        return $varien_Data_Collection;
+        return $dataCollection;
     }
 
 
@@ -142,7 +142,7 @@ class LeMike_DevMode_Model_Core_Config extends Mage_Core_Model_Abstract
      * List all rewrites with their according classes.
      *
      * @param SimpleXMLElement $childNode (default: current config)
-     * @param string           $basePath
+     * @param string           $basePath  Start point to store rewrites in.
      *
      * @return array [path => [overriding class, ...]]
      */
@@ -186,6 +186,22 @@ class LeMike_DevMode_Model_Core_Config extends Mage_Core_Model_Abstract
     }
 
 
+    public function toIni()
+    {
+        $items   = array();
+        $configs = Mage::app()->getConfig()->getNode();
+        $this->_xmlToArray($configs, $items);
+
+        $content = '';
+        foreach ($items as $key => $value)
+        {
+            $content .= "$key=$value\n";
+        }
+
+        return $content;
+    }
+
+
     /**
      * Get the magento configuration object.
      *
@@ -194,5 +210,29 @@ class LeMike_DevMode_Model_Core_Config extends Mage_Core_Model_Abstract
     protected function _getConfig()
     {
         return Mage::app()->getConfig();
+    }
+
+
+    /**
+     * .
+     *
+     * @param Varien_Simplexml_Element $xml
+     * @param                          $arr
+     * @param string                   $parentKey
+     *
+     * @return void
+     */
+    protected function _xmlToArray($xml, &$arr, $parentKey=''){
+        if( !$xml )
+            return;
+
+        if( count((array) $xml->children())==0 ){
+            $arr[$parentKey] = (string) $xml;
+        } else {
+            foreach( $xml->children() as $key => $item ){
+                $key = $parentKey ? $parentKey . DS . $key : $key;
+                $this->_xmlToArray($item, $arr, $key);
+            }
+        }
     }
 }

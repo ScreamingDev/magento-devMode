@@ -214,8 +214,9 @@ class Shell_MakeReveal
         $sectionHtml = '';
 
         // readme will be introduction
+        $introductionSource = __DIR__ . '/../README.md';
         $introductionFile = __DIR__ . '/00-introduction.md';
-        symlink(__DIR__ . '/../README.md', $introductionFile);
+        $this->_symlink($introductionSource, $introductionFile);
 
         // maybe put contributing at the end too
         symlink(__DIR__ . '/../CONTRIBUTING.md', __DIR__ . '/999-contributing.md');
@@ -293,6 +294,20 @@ class Shell_MakeReveal
     protected function _logAdapter($str)
     {
         echo $str;
+    }
+
+
+    /**
+     * .
+     *
+     * @param $introductionSource
+     * @param $introductionFile
+     *
+     * @return void
+     */
+    protected function _symlink($source, $target)
+    {
+        symlink($source, $target);
     }
 
 

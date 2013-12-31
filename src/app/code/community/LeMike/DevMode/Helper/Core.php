@@ -32,7 +32,7 @@ class LeMike_DevMode_Helper_Core extends LeMike_DevMode_Helper_Abstract
     /**
      * Get the version of a module/extension as written in the used configXML.
      *
-     * @param $moduleName
+     * @param string $moduleName Alias of a module.
      *
      * @return string
      */
@@ -58,7 +58,7 @@ class LeMike_DevMode_Helper_Core extends LeMike_DevMode_Helper_Abstract
     /**
      * Get the config for a module.
      *
-     * @param $moduleName
+     * @param string $moduleName Alias of a module.
      *
      * @return Varien_Simplexml_Config
      */
@@ -81,7 +81,7 @@ class LeMike_DevMode_Helper_Core extends LeMike_DevMode_Helper_Abstract
      *
      * You find this in the `config.xml` of the extension in the XML-Path `global/resources`.
      *
-     * @param $moduleName
+     * @param string $moduleName Alias of a module.
      *
      * @return string Resource-Name of the module
      */
@@ -89,14 +89,14 @@ class LeMike_DevMode_Helper_Core extends LeMike_DevMode_Helper_Abstract
     {
         $configXML = $this->getConfigXML($moduleName);
         if ($configXML)
-        {
+        { // loaded: get the node
             $node = $configXML->getNode('global/resources');
             if ($node)
-            {
-                $moduleGlobalResources = $node->asArray();
-                reset($moduleGlobalResources);
+            { // node received: fetch first child
+                $moduleResources = $node->asArray();
+                reset($moduleResources);
 
-                return (string) key($moduleGlobalResources);
+                return (string) key($moduleResources);
             }
         }
 
@@ -116,7 +116,10 @@ class LeMike_DevMode_Helper_Core extends LeMike_DevMode_Helper_Abstract
      */
     public function handleMail($mail, $content = null)
     {
-        if (!Mage::helper('lemike_devmode/config')->isMailAllowed())
+        /** @var LeMike_DevMode_Helper_Config $configHelper */
+        $configHelper = Mage::helper('lemike_devmode/config');
+
+        if (!$configHelper->isMailAllowed())
         { // no mail allowed set: show content
             if ($mail instanceof Zend_Mail)
             {
@@ -151,7 +154,7 @@ class LeMike_DevMode_Helper_Core extends LeMike_DevMode_Helper_Abstract
             return false;
         }
 
-        $recipient = Mage::getStoreConfig('lemike_devmode_core/email/recipient');
+        $recipient = $configHelper->getCoreEmailRecipient();
 
         if ($recipient)
         { // recipient is set: send mail to him
@@ -162,7 +165,17 @@ class LeMike_DevMode_Helper_Core extends LeMike_DevMode_Helper_Abstract
                                     $recipient .
                                     '".'
             );
-            $mail->setData('to_email', $recipient);
+
+            if ($mail instanceof Zend_Mail)
+            { // is Zend_Mail: reset recipients
+                /** @var Zend_Mail $mail */
+                $mail->clearRecipients();
+                $mail->addTo($recipient);
+            }
+            else
+            { // is some other: set field 'to_email'
+                $mail->setData('to_email', $recipient);
+            }
         }
 
         return $mail;

@@ -53,7 +53,9 @@ class LeMike_DevMode_Model_Log
     /**
      * Send a debug message to the log
      *
-     * @param mixed $message
+     * @param mixed $message The message to send to / debug in the logfile
+     *
+     * @return void
      */
     public static function debug($message)
     {
@@ -69,7 +71,9 @@ class LeMike_DevMode_Model_Log
     /**
      * Send an error message to the log
      *
-     * @param $message
+     * @param string $message The error to append in the log.
+     *
+     * @return void
      */
     public static function error($message)
     {
@@ -81,7 +85,9 @@ class LeMike_DevMode_Model_Log
     /**
      * Send a message to log
      *
-     * @param $message
+     * @param string $message An information to put in the log.
+     *
+     * @return void
      */
     public static function info($message)
     {
@@ -92,11 +98,11 @@ class LeMike_DevMode_Model_Log
     /**
      * Switch if log shall be output directly or not.
      *
-     * @param bool $bool
+     * @param bool $bool Decide whether the logging shall be pushed to the output or not (to file).
      *
      * @return void
      */
-    public static function setPrint($bool = true)
+    public static function setPrint($bool)
     {
         static::$_print = $bool;
     }
@@ -105,7 +111,9 @@ class LeMike_DevMode_Model_Log
     /**
      * Send an error message to the log
      *
-     * @param $message
+     * @param string $message A warning message to put into log.
+     *
+     * @return void
      */
     public static function warning($message)
     {
@@ -120,11 +128,10 @@ class LeMike_DevMode_Model_Log
      * @param string $message  The message to log.
      * @param null   $level    Level of influence (Zend_Log constants).
      * @param null   $file     The file to write to.
-     * @param bool   $forceLog Force to log it (needed sometimes).
      *
      * @return void
      */
-    protected static function _logAdapter($message, $level = null, $file = null, $forceLog = false)
+    protected static function _logAdapter($message, $level = null, $file = null)
     {
         if (!$file)
         {
@@ -136,6 +143,6 @@ class LeMike_DevMode_Model_Log
         {
             echo $message;
         }
-        Mage::log($message, $level, $file, $forceLog);
+        Mage::log($message, $level, $file);
     }
 }
