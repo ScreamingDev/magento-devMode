@@ -97,7 +97,7 @@ class LeMike_DevMode_Helper_Data extends LeMike_DevMode_Helper_Abstract
         $processed = 0;
         foreach ($model as $entry)
         {
-            /** @var Mage_Eav_Model_Entity_Collection_Abstract $entry */
+            /** @var Mage_Eav_Model_Entity_Collection $entry */
             $id = $entry->getId();
             $entry->delete();
             $model->removeItemByKey($id);

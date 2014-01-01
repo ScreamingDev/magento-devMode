@@ -194,7 +194,8 @@ class LeMike_DevMode_Model_Core_Layout
         $updateFiles = array();
         foreach ($updatesRoot->children() as $updateNode)
         {
-            if ($updateNode->file)
+            /** @var Varien_Simplexml_Element $updateNode */
+            if ($updateNode->xpath('file'))
             {
                 $module = $updateNode->getAttribute('module');
                 if ($module &&
@@ -203,7 +204,7 @@ class LeMike_DevMode_Model_Core_Layout
                 {
                     continue;
                 }
-                $updateFiles[] = (string) $updateNode->file;
+                $updateFiles[] = (string) current($updateNode->xpath('file'));
             }
         }
 

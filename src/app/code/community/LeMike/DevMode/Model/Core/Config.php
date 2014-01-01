@@ -74,13 +74,13 @@ class LeMike_DevMode_Model_Core_Config extends Mage_Core_Model_Abstract
             }
 
             /** @var Mage_Core_Model_Config_Element $moduleConfig */
-            $model = $moduleConfig->run->model;
+            $model = (string) current($moduleConfig->xpath('run/model'));
 
             $item = new Varien_Object();
             $item->setData(
                  array(
                       'alias'     => $node,
-                      'cron_expr' => (string) $moduleConfig->schedule->cron_expr,
+                      'cron_expr' => (string) current($moduleConfig->xpath('schedule/cron_expr')),
                       'run'       => (string) $model,
                       'class'     => (string) get_class(Mage::getModel(strtok($model, ':'))),
                       'method'    => (string) ltrim(strtok(':'), ':'),
@@ -122,7 +122,7 @@ class LeMike_DevMode_Model_Core_Config extends Mage_Core_Model_Abstract
             {
                 /** @var Mage_Core_Model_Config_Element $singleEvent */
 
-                foreach ((array) $singleEvent->observers as $alias => $observer)
+                foreach ((array) current($singleEvent->xpath('observers')) as $alias => $observer)
                 {
                     $data[$node][$event][$alias][] = $observer;
                 }
@@ -222,14 +222,19 @@ class LeMike_DevMode_Model_Core_Config extends Mage_Core_Model_Abstract
      *
      * @return void
      */
-    protected function _xmlToArray($xml, &$arr, $parentKey=''){
+    protected function _xmlToArray($xml, &$arr, $parentKey = '')
+    {
         if( !$xml )
+        {
             return;
+        }
 
-        if( count((array) $xml->children())==0 ){
+        if( count((array) $xml->children())==0 )
+        {
             $arr[$parentKey] = (string) $xml;
         } else {
-            foreach( $xml->children() as $key => $item ){
+            foreach ($xml->children() as $key => $item)
+            {
                 $key = $parentKey ? $parentKey . DS . $key : $key;
                 $this->_xmlToArray($item, $arr, $key);
             }
