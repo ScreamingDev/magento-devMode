@@ -56,6 +56,32 @@ class LeMike_DevMode_Helper_Data extends LeMike_DevMode_Helper_Abstract
 
 
     /**
+     * Get or build a module alias name as used in Magento.
+     *
+     * @param string $node Suffix to the module alias.
+     *
+     * @return string The module alias with leading node.
+     */
+    public static function getModuleAlias($node = '')
+    {
+        return static::MODULE_ALIAS . $node;
+    }
+
+
+    /**
+     * Get or build a module name as used in Magento.
+     *
+     * @param string $node Suffix to the module name.
+     *
+     * @return string
+     */
+    public static function getModuleName($node = '')
+    {
+        return static::MODULE_NAME . $node;
+    }
+
+
+    /**
      * Send data as JSON to the client.
      *
      * This will replace the body with the JSON string.
