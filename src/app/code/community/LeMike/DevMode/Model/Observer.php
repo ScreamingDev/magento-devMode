@@ -319,6 +319,45 @@ class LeMike_DevMode_Model_Observer extends Mage_Core_Model_Abstract
 
 
     /**
+     * Before init of anything the core can be changed.
+     *
+     * Can change config nodes by query like __dev__translate_inline__active=1
+     *
+     * @param Varien_Event $event Information about the event.
+     *
+     * @return bool
+     */
+    public function modelLoadAfter($event)
+    {
+        /** @var Mage_Core_Model_Abstract $model */
+        $model = $event->getData('object');
+
+        /** @var LeMike_DevMode_Model_Registry $registry */
+        $registry = Mage::getSingleton(LeMike_DevMode_Helper_Data::getModuleAlias('/registry'));
+        $modelSet = $registry->getUsedModels();
+
+        $key = get_class($model);
+
+        if (!isset($modelSet[$key]))
+        {
+            /** @var LeMike_DevMode_Model_Registry_Model $registryModel */
+            $registryModel = Mage::getModel(
+                LeMike_DevMode_Helper_Data::getModuleAlias('/registry_model')
+            );
+
+            $registryModel->setClass($key);
+            $registryModel->setOccurrences(0);
+            $registryModel->setResourceName($model->getResourceName());
+
+            $modelSet[$key] = $registryModel;
+        }
+
+        // count up
+        $modelSet[$key]['occurrences']++;
+    }
+
+
+    /**
      * Login as admin like configured if the url points to the backend.
      *
      * @param Mage_Core_Controller_Request_Http $request An request to do login for.
@@ -343,7 +382,7 @@ class LeMike_DevMode_Model_Observer extends Mage_Core_Model_Abstract
             )
             { // not logged in, local and allowed: log in
                 $user = Mage::getModel('admin/user')->load(
-                            $configHelper->getAdminLoginUser()
+                    $configHelper->getAdminLoginUser()
                 );
 
                 if (!$user->getId())
@@ -415,10 +454,12 @@ class LeMike_DevMode_Model_Observer extends Mage_Core_Model_Abstract
         return $value;
     }
 
+
     protected function _isEnabled()
     {
         /** @var LeMike_DevMode_Helper_Config $helper */
         $helper = Mage::helper('lemike_devmode/config');
+
         return $helper->isEnabled();
     }
 }

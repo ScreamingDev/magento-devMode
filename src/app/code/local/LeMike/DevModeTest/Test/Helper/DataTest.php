@@ -36,7 +36,65 @@ class LeMike_DevModeTest_Test_Helper_DataTest extends LeMike_DevModeTest_Test_Ab
      */
     public function getFrontend()
     {
-        return Mage::helper($this->getModuleAlias());
+        $helper = Mage::helper($this->getModuleAlias());
+
+        $this->assertInstanceOf('LeMike_DevMode_Helper_Data', $helper);
+
+        return $helper;
+    }
+
+
+    /**
+     * Tests CanGenerateModelAliases.
+     *
+     * @return null
+     */
+    public function testCanGenerateModelAliases()
+    {
+        /*
+         * }}} preconditions {{{
+         */
+        $helper = $this->getFrontend();
+
+        /*
+         * }}} main {{{
+         */
+        $this->assertSame($this->getModuleAlias('_foo'), $helper::getModuleAlias('_foo'));
+        $this->assertSame($this->getModuleAlias('.bar'), $helper::getModuleAlias('.bar'));
+        $this->assertSame($this->getModuleAlias('/baz'), $helper::getModuleAlias('/baz'));
+
+        /*
+         * }}} postcondition {{{
+         */
+
+        return null;
+    }
+
+
+    /**
+     * Tests CanGenerateModelAliases.
+     *
+     * @return null
+     */
+    public function testCanGenerateModelNames()
+    {
+        /*
+         * }}} preconditions {{{
+         */
+        $helper = $this->getFrontend();
+
+        /*
+         * }}} main {{{
+         */
+        $this->assertSame($this->getModuleName('_foo'), $helper::getModuleName('_foo'));
+        $this->assertSame($this->getModuleName('.bar'), $helper::getModuleName('.bar'));
+        $this->assertSame($this->getModuleName('/baz'), $helper::getModuleName('/baz'));
+
+        /*
+         * }}} postcondition {{{
+         */
+
+        return null;
     }
 
 
@@ -56,7 +114,10 @@ class LeMike_DevModeTest_Test_Helper_DataTest extends LeMike_DevModeTest_Test_Ab
 
         // dispatch array
         $data = array('foo' => 'bar');
-        Mage::helper('lemike_devmode')->responseJson($data);
+
+        /** @var LeMike_DevMode_Helper_Data $helperData */
+        $helperData = Mage::helper('lemike_devmode');
+        $helperData->responseJson($data);
 
         /*
          * }}} main {{{
@@ -103,7 +164,9 @@ class LeMike_DevModeTest_Test_Helper_DataTest extends LeMike_DevModeTest_Test_Ab
         $this->assertGreaterThan(0, $initialCount);
 
         // main
-        $processed = Mage::helper('lemike_devmode')->truncateCollection($coll);
+        /** @var LeMike_DevMode_Helper_Data $helperData */
+        $helperData = Mage::helper('lemike_devmode');
+        $processed  = $helperData->truncateCollection($coll);
         $this->assertEquals($initialCount, $processed);
         $this->assertEquals(0, $coll->count());
 
@@ -142,7 +205,9 @@ class LeMike_DevModeTest_Test_Helper_DataTest extends LeMike_DevModeTest_Test_Ab
         $this->assertFalse(Mage::getModel($modelName));
 
         // main
-        $data = Mage::helper('lemike_devmode')->truncateModelByName($modelName);
+        /** @var LeMike_DevMode_Helper_Data $helperData */
+        $helperData = Mage::helper('lemike_devmode');
+        $data       = $helperData->truncateModelByName($modelName);
         $this->assertEquals(0, $data['processed']);
         $this->assertEquals(0, $data['amount']);
         $this->assertGreaterThan(0, count($data['errors']));
@@ -159,7 +224,9 @@ class LeMike_DevModeTest_Test_Helper_DataTest extends LeMike_DevModeTest_Test_Ab
         $this->assertGreaterThan(0, $initialCount);
 
         // main
-        $data = Mage::helper('lemike_devmode')->truncateModelByName($modelName);
+        /** @var LeMike_DevMode_Helper_Data $helperData */
+        $helperData = Mage::helper('lemike_devmode');
+        $data       = $helperData->truncateModelByName($modelName);
         $this->assertEquals($initialCount, $data['processed']);
         $this->assertEquals($initialCount, $data['amount']);
         $this->assertEquals(array(), $data['errors']);
