@@ -99,9 +99,9 @@ abstract class LeMike_DevModeTest_Test_AbstractCase extends EcomDev_PHPUnit_Test
     /**
      * Get or set the value of a property.
      *
-     * @param StdClass $object
-     * @param string   $name
-     * @param null     $newValue
+     * @param mixed  $object
+     * @param string $name
+     * @param null   $newValue
      *
      * @return mixed
      */

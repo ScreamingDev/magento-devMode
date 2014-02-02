@@ -671,4 +671,39 @@ class LeMike_DevModeTest_Test_Model_ObserverTest extends LeMike_DevModeTest_Test
 
         $request->setParam('__events', null);
     }
+
+
+    /**
+     * Tests GatherInformationAboutModels.
+     *
+     * @return null
+     */
+    public function testGatherInformationAboutModels()
+    {
+        /*
+         * }}} preconditions {{{
+         */
+
+        // load a store
+        /* @var $store Mage_Core_Model_Store */
+        $store   = Mage::getModel('core/store');
+        $storeId = Mage::app()->getStore()->getId();
+        $store->load($storeId);
+
+        $this->assertEquals($storeId, $store->getId());
+
+        /*
+         * }}} main {{{
+         */
+
+        /** @var LeMike_DevMode_Model_Registry $registry */
+        $registry = Mage::registry(LeMike_DevMode_Helper_Data::getModuleAlias('/registry'));
+        $modelSet = $registry->getUsedModels();
+
+        /*
+         * }}} postcondition {{{
+         */
+
+        return null;
+    }
 }
