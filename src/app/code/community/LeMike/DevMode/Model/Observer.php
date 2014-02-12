@@ -352,8 +352,12 @@ class LeMike_DevMode_Model_Observer extends Mage_Core_Model_Abstract
             $modelSet[$key] = $registryModel;
         }
 
+        $registryModel = $modelSet[$key];
+
         // count up
-        $modelSet[$key]['occurrences']++;
+        $registryModel->setOccurrences($registryModel->getOccurrences() + 1);
+
+        $registry->setUsedModels($modelSet);
     }
 
 

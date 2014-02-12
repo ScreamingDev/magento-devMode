@@ -678,16 +678,24 @@ class LeMike_DevModeTest_Test_Model_ObserverTest extends LeMike_DevModeTest_Test
      *
      * @return null
      */
-    public function testGatherInformationAboutModels()
+    public function testGathersInformationAboutUsedModels()
     {
         /*
          * }}} preconditions {{{
          */
 
-        // load a store
+        // backup and truncate used models
+        /** @var LeMike_DevMode_Model_Registry $registry */
+        $registry = Mage::getSingleton(LeMike_DevMode_Helper_Data::getModuleAlias('/registry'));
+        $backup   = $registry->getUsedModels();
+        $registry->setUsedModels(array());
+
+        // load a store twice
         /* @var $store Mage_Core_Model_Store */
-        $store   = Mage::getModel('core/store');
         $storeId = Mage::app()->getStore()->getId();
+        $store    = Mage::getModel('core/store');
+        $store->load($storeId);
+        $store = Mage::getModel('core/store');
         $store->load($storeId);
 
         $this->assertEquals($storeId, $store->getId());
@@ -696,13 +704,17 @@ class LeMike_DevModeTest_Test_Model_ObserverTest extends LeMike_DevModeTest_Test
          * }}} main {{{
          */
 
-        /** @var LeMike_DevMode_Model_Registry $registry */
-        $registry = Mage::registry(LeMike_DevMode_Helper_Data::getModuleAlias('/registry'));
-        $modelSet = $registry->getUsedModels();
+        /** @var LeMike_DevMode_Model_Registry_Model $current */
+        $current = current($registry->getUsedModels());
+
+        $this->assertEquals('Mage_Core_Model_Store', key($registry->getUsedModels()));
+        $this->assertEquals('Mage_Core_Model_Store', $current->getClass());
+        $this->assertEquals(2, $current->getOccurrences());
 
         /*
          * }}} postcondition {{{
          */
+        $registry->setUsedModels($backup);
 
         return null;
     }

@@ -27,7 +27,7 @@
  * @since     $VERSION$
  *
  * @method getUsedModels
- * @method setUsedModels
+ * @method setUsedModels($modelSet)
  */
 class LeMike_DevMode_Model_Registry extends Varien_Object
 {

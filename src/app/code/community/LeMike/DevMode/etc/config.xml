@@ -54,6 +54,14 @@
                     </lemike_devmode>
                 </observers>
             </controller_front_send_response_before>
+            <model_load_after>
+                <observers>
+                    <lemike_devmode>
+                        <class>lemike_devmode/observer</class>
+                        <method>modelLoadAfter</method>
+                    </lemike_devmode>
+                </observers>
+            </model_load_after>
         </events>
     </global>
 
