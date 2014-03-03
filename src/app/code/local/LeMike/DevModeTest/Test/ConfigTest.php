@@ -99,7 +99,7 @@ class LeMike_DevModeTest_ConfigTest extends LeMike_DevModeTest_Test_AbstractConf
         /*
          * }}} global {{{
          */
-        $method = 'controllerFrontInitBefore';
+        $method = 'onControllerFrontInitBefore';
         $this->assertEventObserverDefined(
              'global',
              'controller_front_init_before',
@@ -108,7 +108,7 @@ class LeMike_DevModeTest_ConfigTest extends LeMike_DevModeTest_Test_AbstractConf
         );
         $this->assertTrue(method_exists($observer, $method));
 
-        $method = 'controllerActionPostdispatch';
+        $method = 'onControllerActionPostdispatch';
         $this->assertEventObserverDefined(
              'frontend',
              'controller_action_postdispatch',
@@ -117,7 +117,7 @@ class LeMike_DevModeTest_ConfigTest extends LeMike_DevModeTest_Test_AbstractConf
         );
         $this->assertTrue(method_exists($observer, $method));
 
-        $method = 'controllerActionPredispatchCustomerAccountLoginPost';
+        $method = 'onControllerActionPredispatchCustomerAccountLoginPost';
         $this->assertEventObserverDefined(
              'frontend',
              'controller_action_predispatch_customer_account_loginPost',
@@ -126,7 +126,7 @@ class LeMike_DevModeTest_ConfigTest extends LeMike_DevModeTest_Test_AbstractConf
         );
         $this->assertTrue(method_exists($observer, $method));
 
-        $method = 'controllerFrontSendResponseBefore';
+        $method = 'onControllerFrontSendResponseBefore';
         $this->assertEventObserverDefined(
              'global',
              'controller_front_send_response_before',

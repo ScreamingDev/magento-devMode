@@ -36,7 +36,7 @@ class LeMike_DevMode_Model_Observer extends Mage_Core_Model_Abstract
      *
      * @return bool
      */
-    public function controllerActionLayoutLoadBefore($observer)
+    public function onControllerActionLayoutLoadBefore($observer)
     {
         /** @var LeMike_DevMode_Helper_Auth $helperAuth */
         $helperAuth = Mage::helper('lemike_devmode/auth');
@@ -89,7 +89,7 @@ class LeMike_DevMode_Model_Observer extends Mage_Core_Model_Abstract
      *
      * @return bool
      */
-    public function controllerActionPostdispatch($event)
+    public function onControllerActionPostdispatch($event)
     {
         /** @var LeMike_DevMode_Helper_Auth $helperAuth */
         $helperAuth = Mage::helper('lemike_devmode/auth');
@@ -122,7 +122,7 @@ class LeMike_DevMode_Model_Observer extends Mage_Core_Model_Abstract
      *
      * @return bool
      */
-    public function controllerActionPredispatch($event)
+    public function onControllerActionPredispatch($event)
     {
         /** @var LeMike_DevMode_Helper_Auth $helperAuth */
         $helperAuth = Mage::helper('lemike_devmode/auth');
@@ -168,7 +168,7 @@ class LeMike_DevMode_Model_Observer extends Mage_Core_Model_Abstract
      *
      * @return bool
      */
-    public function controllerActionPredispatchCustomerAccountLoginPost()
+    public function onControllerActionPredispatchCustomerAccountLoginPost()
     {
         /** @var LeMike_DevMode_Helper_Auth $helperAuth */
         $helperAuth = Mage::helper('lemike_devmode/auth');
@@ -218,7 +218,7 @@ class LeMike_DevMode_Model_Observer extends Mage_Core_Model_Abstract
      *
      * @return bool
      */
-    public function controllerFrontInitBefore($event)
+    public function onControllerFrontInitBefore($event)
     {
         /** @var LeMike_DevMode_Helper_Auth $helperAuth */
         $helperAuth = Mage::helper('lemike_devmode/auth');
@@ -280,7 +280,7 @@ class LeMike_DevMode_Model_Observer extends Mage_Core_Model_Abstract
      *
      * @return bool
      */
-    public function controllerFrontSendResponseBefore($event)
+    public function onControllerFrontSendResponseBefore($event)
     {
         /** @var LeMike_DevMode_Helper_Auth $helperAuth */
         $helperAuth = Mage::helper('lemike_devmode/auth');

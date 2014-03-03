@@ -34,7 +34,7 @@
                 <observers>
                     <lemike_devmode>
                         <class>lemike_devmode/observer</class>
-                        <method>controllerFrontInitBefore</method>
+                        <method>onControllerFrontInitBefore</method>
                     </lemike_devmode>
                 </observers>
             </controller_front_init_before>
@@ -42,7 +42,7 @@
                 <observers>
                     <lemike_devmode>
                         <class>lemike_devmode/observer</class>
-                        <method>controllerActionPredispatch</method>
+                        <method>onControllerActionPredispatch</method>
                     </lemike_devmode>
                 </observers>
             </controller_action_predispatch>
@@ -50,7 +50,7 @@
                 <observers>
                     <lemike_devmode>
                         <class>lemike_devmode/observer</class>
-                        <method>controllerFrontSendResponseBefore</method>
+                        <method>onControllerFrontSendResponseBefore</method>
                     </lemike_devmode>
                 </observers>
             </controller_front_send_response_before>
@@ -63,7 +63,7 @@
                 <observers>
                     <lemike_devmode>
                         <class>lemike_devmode/observer</class>
-                        <method>controllerActionLayoutLoadBefore</method>
+                        <method>onControllerActionLayoutLoadBefore</method>
                     </lemike_devmode>
                 </observers>
             </controller_action_layout_load_before>
@@ -71,7 +71,7 @@
                 <observers>
                     <lemike_devmode>
                         <class>lemike_devmode/observer</class>
-                        <method>controllerActionPostdispatch</method>
+                        <method>onControllerActionPostdispatch</method>
                     </lemike_devmode>
                 </observers>
             </controller_action_postdispatch>
@@ -79,7 +79,7 @@
                 <observers>
                     <lemike_devmode>
                         <class>lemike_devmode/observer</class>
-                        <method>controllerActionPredispatchCustomerAccountLoginPost</method>
+                        <method>onControllerActionPredispatchCustomerAccountLoginPost</method>
                     </lemike_devmode>
                 </observers>
             </controller_action_predispatch_customer_account_loginPost>
