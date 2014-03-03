@@ -551,7 +551,6 @@ abstract class DelegateCommand extends AbstractCommand
         $this->delegate();
     }
 
-
     /**
      * Match a string against a filter.
      *
